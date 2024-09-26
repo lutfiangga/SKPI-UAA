@@ -25,7 +25,7 @@ input {
 	display: none;
 }
 
-#dt-length-0,
-#dt-length-1 {
-	background-color: #fafafa;
+[id^="dt-length-"] {
+    background-color: #fafafa;
 }
+

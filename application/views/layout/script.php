@@ -1,7 +1,7 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-<!-- custom js -->
+<!-- custom datatable -->
 <script src="<?= base_url(); ?>assets/vendor/js/datatable/datatable.js"></script>
 
 <!-- datatable -->
