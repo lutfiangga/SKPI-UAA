@@ -1,15 +1,19 @@
-import { showPassword } from "./custom/showPassword.js";
-import { openNav } from "./custom/openNavbar.js";
-import { toggleDropdown } from "./custom/dropdown.js";
-import { toggleProfileMenu } from "./custom/toggleProfile.js";
+import { showPassword } from "./showPassword.js";
+import { openNav } from "./openNavbar.js";
+import { toggleDropdown } from "./dropdown.js";
+import { toggleProfileMenu } from "./toggleProfile.js";
+import { regexEmail } from "./regex/email.js";
+import { regexPassword } from "./regex/password.js";
 
-// Menyediakan fungsi ke jendela global
+// global initiate
 window.openNav = openNav;
 window.toggleDropdown = toggleDropdown;
 window.toggleProfileMenu = toggleProfileMenu;
 window.showPassword = showPassword;
+window.regexEmail = regexEmail;
+window.regexPassword = regexPassword;
 
 document.addEventListener("DOMContentLoaded", function () {
-	// showPassword();
+	// inisiasi feather icons
 	feather.replace();
 });

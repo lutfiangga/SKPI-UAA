@@ -881,7 +881,7 @@
 		dom: {
 			container: {
 				tag: "div",
-				className: "container mx-auto px-4",
+				className: "container px-4",
 			},
 			collection: {
 				tag: "div",
