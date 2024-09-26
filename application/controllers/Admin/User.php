@@ -28,6 +28,23 @@ class User extends CI_Controller
 		);
 		$this->template->load('admin/layout/layout', $this->view . 'read', $data);
 	}
+	public function do_upload()
+	{
+		$config['upload_path']   = './assets/static/img/';  // Direktori untuk menyimpan file
+		$config['allowed_types'] = 'gif|jpg|png';           // Jenis file yang diizinkan
+		$config['max_size']      = 2048;                    // Maksimal ukuran file (dalam KB)
+		$config['file_name']     = time();                  // Menyimpan file dengan nama unik
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('filepond')) {        // 'filepond' sesuai dengan name input di FilePond
+			$error = array('error' => $this->upload->display_errors());
+			echo json_encode(['status' => 'error', 'message' => $error]);
+		} else {
+			$data = $this->upload->data();
+			echo json_encode(['status' => 'success', 'data' => $data]);
+		}
+	}
 	public function create()
 	{
 		$data = array(

@@ -138,7 +138,7 @@
 	</section>
 
 	<!-- modal add user -->
-	<dialog id="addUser" class="modal">
+	<dialog id="addUser" class="modal overflow-hidden">
 		<div class="modal-box bg-[#fafafa]">
 			<!-- Tombol close di sudut kanan atas -->
 			<form method="dialog">
@@ -151,26 +151,27 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="Admin/User/create" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Admin/User/create'); ?>" enctype="multipart/form-data" role="form">
 				<div>
 					<div class="mb-4">
 						<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama:</label>
-						<input type="text" id="name" name="name" required
+						<input type="text" id="name" name="name" required oninput="requiredValidation(this)"
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 							placeholder="Masukkan nama" />
+						<p id="nameError" class="text-red-500 mt-2 text-sm hidden"></p>
 					</div>
+
 					<div class="mb-4">
 						<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email:</label>
 						<input type="email" id="email" name="email" required oninput="regexEmail()"
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 							placeholder="Masukkan email" />
-						<!-- validasi email -->
 						<p id="emailError" class="text-red-500 text-sm mt-2 hidden">Email tidak valid.</p>
 					</div>
 
 					<div class="mb-4">
 						<label for="role" class="block text-sm font-medium text-gray-700">Role</label>
-						<select name="role" required
+						<select id="role" name="role" required
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2 bg-[#fafafa] text-gray-600 block">
 							<option value="" selected disabled>Pilih role</option>
 							<option value="admin">Admin</option>
@@ -189,19 +190,17 @@
 								<i id="iconHide" data-feather="eye-off" class="h-4 w-4 hidden"></i>
 							</button>
 						</div>
-						<!-- validasi password -->
 						<p id="passwordError" class="text-red-500 text-sm mt-2 hidden">Password harus memiliki minimal 6 karakter, mengandung huruf besar, huruf kecil, dan angka.</p>
+					</div>
+					<div class="mb-4">
+						<label for="filepond" class="block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
+						<input type="file" name="filepond" accept="image/jpeg, image/png, image/gif, image/webp" />
 					</div>
 				</div>
 				<div class="divider border-gray-400"></div>
-				<div class="modal-action">
-					<!-- Tombol submit untuk mengirim form -->
+				<div class="modal-action relative" style="z-index: 1000;">
 					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
-
-					<!-- Tombol close langsung menutup dialog -->
-					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">
-						Close
-					</button>
+					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
 				</div>
 			</form>
 		</div>

@@ -1,4 +1,15 @@
+<!-- selectize -->
 <script src="<?= base_url(); ?>assets/vendor/js/selectize.js"></script>
+
+<!-- filepond -->
+<!-- include FilePond library -->
+<script src="<?= base_url(); ?>assets/vendor/plugin/filepond/js/filepond.min.js"></script>
+
+<!-- include FilePond plugins -->
+<script src="<?= base_url(); ?>assets/vendor/plugin/filepond/js/image-preview.min.js"></script>
+
+<!-- include FilePond jQuery adapter -->
+<script src="<?= base_url(); ?>assets/vendor/plugin/filepond/js/filepond.jquery.js"></script>
 
 <!-- custom datatable -->
 <script src="<?= base_url(); ?>assets/vendor/js/datatable.js"></script>
