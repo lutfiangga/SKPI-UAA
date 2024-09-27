@@ -1,5 +1,5 @@
 $(document).ready(function () {
-	$("select").selectize({
+	$("select.selectize").selectize({
 		create: false,
 		searchField: "text",
 		labelField: "text",

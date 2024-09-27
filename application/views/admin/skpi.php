@@ -61,16 +61,45 @@
 	</div>
 	<div class="divider border-gray-300"></div>
 
-	<div class="w-full bg-[#fafafa] rounded-2xl p-4">
-		<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-			<select name="" id="" class="p-2 select w-full select-bordered rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300">
-				<option value="" selected disabled>Tanggal</option>
-			</select>
-			<select name="" id="" class="p-2 select w-full select-bordered rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300">
-				<option value="" selected disabled>Kategori</option>
-			</select>
-			<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:border-inset w-full md:w-auto">Filter</button>
+	<div>
+
+		<div class="w-full bg-[#fafafa] rounded-2xl p-4">
+			<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+				<select name="date" class="p-2 select w-full select-bordered rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300 date-select" onchange="changeOption(this)">
+					<option value="" selected disabled>Tanggal</option>
+					<option value="1-week-ago">1 Minggu yang lalu</option>
+					<option value="2-weeks-ago">2 Minggu yang lalu</option>
+					<option value="1-month-ago">1 Bulan yang lalu</option>
+					<option value="2-months-ago">2 Bulan yang lalu</option>
+					<option value="3-months-ago">3 Bulan yang lalu</option>
+					<option value="6-months-ago">6 Bulan yang lalu</option>
+					<option value="1-year-ago">1 Tahun yang lalu</option>
+					<option value="custom">Custom</option>
+					<option class="date-range" value="custom-range" hidden></option> <!-- Opsi untuk rentang tanggal yang dipilih -->
+				</select>
+				<select name="category" class="p-2 select w-full select-bordered rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300 js-category-select">
+					<option value="" selected disabled>Kategori</option>
+				</select>
+				<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-blue-600 w-full md:w-auto">Filter</button>
+			</div>
 		</div>
+
+		<!-- Modal untuk Custom Date Range -->
+		<dialog class="modal custom-datepicker">
+			<div class="modal-box">
+				<form method="dialog">
+					<button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+				</form>
+				<h3 class="text-lg font-bold mb-4">Pilih Rentang Tanggal</h3>
+				<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+					<input type="text" name="start_date" class="flatpickr p-2 w-full rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300" placeholder="Start Date">
+					<input type="text" name="end_date" class="flatpickr p-2 w-full rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300" placeholder="End Date">
+				</div>
+				<div class="modal-action mt-4">
+					<button class="btn btn-blue action-btn">Simpan</button>
+				</div>
+			</div>
+		</dialog>
 	</div>
 
 	<!-- table data -->

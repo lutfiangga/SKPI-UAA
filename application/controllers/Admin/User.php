@@ -30,19 +30,42 @@ class User extends CI_Controller
 	}
 	public function do_upload()
 	{
-		$config['upload_path']   = './assets/static/img/';  // Direktori untuk menyimpan file
-		$config['allowed_types'] = 'gif|jpg|png';           // Jenis file yang diizinkan
-		$config['max_size']      = 2048;                    // Maksimal ukuran file (dalam KB)
-		$config['file_name']     = time();                  // Menyimpan file dengan nama unik
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			// Proses upload file setelah submit form
+			$config['upload_path']   = './assets/static/img/';  // Direktori untuk menyimpan file
+			$config['allowed_types'] = 'gif|jpg|png';           // Jenis file yang diizinkan
+			$config['max_size']      = 2048;                    // Maksimal ukuran file (dalam KB)
+			$config['file_name']     = time();                  // Menyimpan file dengan nama unik
 
-		$this->load->library('upload', $config);
+			$this->load->library('upload', $config);
 
-		if (!$this->upload->do_upload('filepond')) {        // 'filepond' sesuai dengan name input di FilePond
-			$error = array('error' => $this->upload->display_errors());
-			echo json_encode(['status' => 'error', 'message' => $error]);
+			if (!$this->upload->do_upload('filepond')) {        // 'filepond' sesuai dengan name input di FilePond
+				$error = array('error' => $this->upload->display_errors());
+				echo json_encode(['status' => 'error', 'message' => $error]);
+			} else {
+				$data = $this->upload->data();
+				echo json_encode(['status' => 'success', 'data' => $data]);
+			}
 		} else {
-			$data = $this->upload->data();
-			echo json_encode(['status' => 'success', 'data' => $data]);
+			// Jika bukan metode POST, mungkin tampilkan halaman form atau pesan error
+			show_404();
+		}
+	}
+
+	public function deleteImage()
+	{
+		$fileName = $this->input->post('file');  // Ambil nama file dari request
+
+		$filePath = './assets/static/img/' . $fileName;
+
+		if (file_exists($filePath)) {
+			if (unlink($filePath)) {
+				echo json_encode(['status' => 'success', 'message' => 'File berhasil dihapus']);
+			} else {
+				echo json_encode(['status' => 'error', 'message' => 'Gagal menghapus file']);
+			}
+		} else {
+			echo json_encode(['status' => 'error', 'message' => 'File tidak ditemukan']);
 		}
 	}
 	public function create()

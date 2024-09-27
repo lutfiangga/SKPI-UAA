@@ -151,28 +151,28 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Admin/User/create'); ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Admin/User/do_upload'); ?>" enctype="multipart/form-data" role="form">
 				<div>
 					<div class="mb-4">
 						<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama:</label>
-						<input type="text" id="name" name="name" required oninput="requiredValidation(this)"
+						<input type="text" id="name" name="name" required oninput="formValidation(this)"
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 							placeholder="Masukkan nama" />
-						<p id="nameError" class="text-red-500 mt-2 text-sm hidden"></p>
+						<p id="nameError" class="text-red-500 mt-2 text-sm hidden">Nama harus minimal 3 karakter dan hanya mengandung huruf.</p>
 					</div>
 
 					<div class="mb-4">
 						<label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email:</label>
-						<input type="email" id="email" name="email" required oninput="regexEmail()"
+						<input type="email" id="email" name="email" required oninput="formValidation(this)"
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 							placeholder="Masukkan email" />
-						<p id="emailError" class="text-red-500 text-sm mt-2 hidden">Email tidak valid.</p>
+						<p id="emailError" class="text-red-500 text-sm mt-2 hidden">Format email tidak valid.</p>
 					</div>
 
 					<div class="mb-4">
 						<label for="role" class="block text-sm font-medium text-gray-700">Role</label>
 						<select id="role" name="role" required
-							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2 bg-[#fafafa] text-gray-600 block">
+							class="mt-1 selectize block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2 bg-[#fafafa] text-gray-600 block">
 							<option value="" selected disabled>Pilih role</option>
 							<option value="admin">Admin</option>
 							<option value="user">User</option>
@@ -182,7 +182,7 @@
 					<div class="mb-4">
 						<label for="password" class="block text-sm font-medium text-gray-700 mb-2">Password:</label>
 						<div class="flex flex-row w-full mt-1">
-							<input type="password" id="password" name="password" required oninput="regexPassword()"
+							<input type="password" id="password" name="password" required oninput="formValidation(this)"
 								class="block w-full border border-gray-300 rounded-l-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2 pr-10"
 								placeholder="Masukkan password" />
 							<button type="button" id="togglePassword" class="flex items-center p-2 bg-blue-600 rounded-r-md text-white hover:bg-blue-500 focus:outline-none" onclick="showPassword()">
@@ -193,9 +193,44 @@
 						<p id="passwordError" class="text-red-500 text-sm mt-2 hidden">Password harus memiliki minimal 6 karakter, mengandung huruf besar, huruf kecil, dan angka.</p>
 					</div>
 					<div class="mb-4">
-						<label for="filepond" class="block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
-						<input type="file" name="filepond" accept="image/jpeg, image/png, image/gif, image/webp" />
+						<label for="file" class="block text-sm font-medium text-gray-700 mb-2">Upload File:</label>
+						<div class="relative file-upload-container">
+							<div class="bg-white relative text-center p-8 border-2 border-blue-400 rounded-lg max-w-md w-full shadow-lg">
+
+								<div class="drop-zone border-2 border-dashed border-gray-400 rounded-lg p-4 mb-4 cursor-pointer transition hover:border-indigo-500">
+									<p class="text-gray-600">
+										<i class="fas fa-cloud-upload-alt"></i> Drag & Drop atau Klik untuk Upload File
+									</p>
+								</div>
+
+								<input id="file" type="file" class="file-input hidden" />
+
+								<div class="relative mt-4">
+									<div class="progress-bar bg-green-500 h-5 rounded transition-all duration-300" style="width: 0%"></div>
+									<div class="progress-text absolute left-1/2 transform -translate-x-1/2 text-gray-800" style="display: none">0%</div>
+								</div>
+
+								<div class="flex justify-between items-center mt-4">
+									<div class="file-name text-blue-600 truncate max-w-xs"></div>
+									<button class="clear-btn btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md hidden text-sm">
+										<span class="flex flex-row gap-2 items-center">
+											<i data-feather="trash-2" class="w-4 h-auto"></i> Clear
+										</span>
+									</button>
+								</div>
+
+								<div class="mt-4 preview-container"></div>
+							</div>
+
+							<div class="modal hidden">
+								<span class="close-modal text-white text-3xl cursor-pointer absolute top-4 right-4">&times;</span>
+								<img class="modal-content max-w-80% max-h-80%" />
+							</div>
+						</div>
+
 					</div>
+
+
 				</div>
 				<div class="divider border-gray-400"></div>
 				<div class="modal-action relative" style="z-index: 1000;">

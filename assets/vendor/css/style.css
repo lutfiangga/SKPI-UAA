@@ -21,11 +21,38 @@ input {
 	color: #333 !important;
 }
 
+/* datatable */
 .dt-search label {
 	display: none;
 }
 
 [id^="dt-length-"] {
-    background-color: #fafafa;
+	background-color: #fafafa;
 }
 
+/* file input */
+.drag-over {
+	background-color: #e0e0e0;
+	border-color: #4a90e2;
+}
+
+/* flatpickr */
+.flatpickr-calendar {
+	z-index: 2000 !important;
+}
+
+.flatpickr-day:hover {
+	background-color: #3b82f6;
+	color: white;
+}
+
+.flatpickr-day.selected {
+	background-color: #2563eb;
+	color: white;
+}
+
+.flatpickr-day.today {
+	background-color: #3b82f6;
+	border: 2px solid #2563eb;
+	color: #fafafa;
+}

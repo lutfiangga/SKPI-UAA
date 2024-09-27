@@ -1,18 +1,9 @@
 <!-- selectize -->
-<script src="<?= base_url(); ?>assets/vendor/js/selectize.js"></script>
-
-<!-- filepond -->
-<!-- include FilePond library -->
-<script src="<?= base_url(); ?>assets/vendor/plugin/filepond/js/filepond.min.js"></script>
-
-<!-- include FilePond plugins -->
-<script src="<?= base_url(); ?>assets/vendor/plugin/filepond/js/image-preview.min.js"></script>
-
-<!-- include FilePond jQuery adapter -->
-<script src="<?= base_url(); ?>assets/vendor/plugin/filepond/js/filepond.jquery.js"></script>
+<script src="<?= base_url(); ?>assets/vendor/js/plugin/selectize.js"></script>
+<script src="<?= base_url(); ?>assets/vendor/js/plugin/flatpickr.js"></script>
 
 <!-- custom datatable -->
-<script src="<?= base_url(); ?>assets/vendor/js/datatable.js"></script>
+<script src="<?= base_url(); ?>assets/vendor/js/plugin/datatable.js"></script>
 
 <!-- datatable -->
 <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>

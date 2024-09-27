@@ -1,27 +1,25 @@
-import { showPassword } from "./showPassword.js";
-import { openNav } from "./openNavbar.js";
-import { toggleDropdown } from "./dropdown.js";
-import { toggleProfileMenu } from "./toggleProfile.js";
-import { regexEmail } from "./regex/email.js";
-import { regexPassword } from "./regex/password.js";
-import { filepond } from "./filepond.js";
-import { requiredValidation } from "./regex/requiredValidation.js";
-import { requiredLabel } from "./requiredLabel.js";
+import { showPassword } from "./form/showPassword.js";
+import { openNav } from "./dashboard/openNavbar.js";
+import { toggleDropdown } from "./dashboard/dropdown.js";
+import { toggleProfileMenu } from "./dashboard/toggleProfile.js";
+import { formValidation } from "./form/input-form-validation.js";
+import { requiredLabel } from "./form/requiredLabel.js";
+import { fileUpload } from "./form/file-upload.js";
 
 // global initiate
 window.openNav = openNav;
 window.toggleDropdown = toggleDropdown;
 window.toggleProfileMenu = toggleProfileMenu;
 window.showPassword = showPassword;
-window.regexEmail = regexEmail;
-window.regexPassword = regexPassword;
-window.filepond = filepond;
 window.requiredLabel = requiredLabel;
-window.requiredValidation = requiredValidation;
+window.formValidation = formValidation;
+window.fileUpload = fileUpload;
 
 document.addEventListener("DOMContentLoaded", function () {
-	// inisiasi library filepond.js
-	filepond();
+	// inisasi file upload
+	document.querySelectorAll(".file-upload-container").forEach((container) => {
+		fileUpload(container);
+	});
 
 	// inisiasi required label
 	requiredLabel();
