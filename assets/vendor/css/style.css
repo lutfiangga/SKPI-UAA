@@ -31,19 +31,24 @@ input {
 }
 
 /* file input */
-.drag-over {
+.drag-over,
+.drop-zone {
 	background-color: #e0e0e0;
 	border-color: #4a90e2;
 }
 
 /* flatpickr */
 .flatpickr-calendar {
+	position: absolute !important;
 	z-index: 2000 !important;
 }
 
+.flatpickr-day {
+	color: #3b82f6;
+}
 .flatpickr-day:hover {
-	background-color: #3b82f6;
-	color: white;
+	/* background-color: #3b82f6; */
+	color: #3b82f6;
 }
 
 .flatpickr-day.selected {

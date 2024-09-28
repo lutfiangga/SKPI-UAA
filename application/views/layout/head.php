@@ -2,7 +2,7 @@
 <html lang="id">
 
 <head>
-	<?php $this->load->view('layout/meta.php'); ?>
+	<?php $this->load->view('layout/meta'); ?>
 	<title><?= $judul; ?></title>
-	<?php $this->load->view('layout/link.php'); ?>
+	<?php $this->load->view('layout/link'); ?>
 </head>

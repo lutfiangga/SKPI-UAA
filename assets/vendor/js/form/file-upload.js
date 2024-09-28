@@ -104,6 +104,8 @@ export const fileUpload = (container) => {
 								file.size /
 								(1024 * 1024)
 							).toFixed(2)} MB)`;
+							// Menambahkan styling dengan Tailwind CSS
+							fName.classList.add("p-2", "mt-2", "rounded-xl", "bg-[#EEF0F6]");
 
 							if (file.type.startsWith("image/")) {
 								pContainer.innerHTML = `<img src="${reader.result}" alt="Preview" class="max-w-full max-h-40 cursor-pointer preview-image">`;

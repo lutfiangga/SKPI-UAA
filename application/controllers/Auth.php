@@ -23,40 +23,57 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
-		$user = $this->input->post('email');
-		$pwd = $this->input->post('password');  // plain text password input by the user
-		$data = $this->M_auth->CekLogin('user', 'email', $user);
+		$email = $this->input->post('email');
+		$pwd = $this->input->post('password');
 
-		// Check if the user exists and the password is correct
-		if ($data && password_verify($pwd, $data['password']) && $data['email'] == $user) {
-			if ($data['role'] == 'Admin') { // Admin role
+		// Ceklogin
+		$data = $this->M_auth->CekLogin('email', $email);
+
+		if ($data) {
+			// Periksa apakah password verify berhasil
+			if (password_verify($pwd, $data['password'])) {
+				// Set session data berdasarkan peran pengguna
 				$array = array(
 					'id_user' => $data['id_user'],
 					'nama' => $data['nama'],
 					'email' => $data['email'],
-					'img_user' => $data['img_user'],
 					'role' => $data['role'],
-					'IsAdmin' => 1
+					'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
+					'Dosen' => strtolower($data['role']) == 'dosen' ? 1 : 0,
+					'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
+					'Akademik' => strtolower($data['role']) == 'akademik' ? 1 : 0,
+					'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
 				);
+
+				// Set session dan cek apakah berhasil
 				$this->session->set_userdata($array);
+
+				// Flashdata untuk notifikasi
 				$this->session->set_flashdata('success', 'Anda berhasil login!');
-				redirect('Admin/Home', 'refresh');
-			} else if ($data['role'] == 'Staff') { // Staff role
-				$array = array(
-					'id_user' => $data['id_user'],
-					'nama' => $data['nama'],
-					'email' => $data['email'],
-					'img_user' => $data['img_user'],
-					'role' => $data['role'],
-					'IsStaff' => 1
-				);
-				$this->session->set_userdata($array);
-				$this->session->set_flashdata('success', 'Anda berhasil login!');
-				redirect('Staff/Home', 'refresh');
+
+				// Redirect berdasarkan role
+				if ($data['role'] == 'admin') {
+					redirect('Admin/Dashboard', 'refresh');
+				} else if ($data['role'] == 'akademik') {
+					redirect('Akademik/Dashboard', 'refresh');
+				} else if ($data['role'] == 'mahasiswa') {
+					redirect('Mahasiswa/Dashboard', 'refresh');
+				} else if ($data['role'] == 'dosen') {
+					redirect('Dosen/Dashboard', 'refresh');
+				} else if ($data['role'] == 'kemahasiswaaan') {
+					redirect('Kemahasiswaan/Dashboard', 'refresh');
+				}
+			} else {
+				// Jika password tidak cocok
+				echo "Password salah!<br>";
+				$this->session->set_flashdata('error', 'Username atau password salah!');
+				redirect('auth/login', 'refresh');
 			}
-		} else { // If login fails
-			$this->session->set_flashdata('error', 'Username atau password salah!');
-			redirect($this->redirect, 'refresh');
+		} else {
+			// Jika data user tidak ditemukan
+			echo "Pengguna tidak ditemukan!<br>";
+			$this->session->set_flashdata('error', 'Username atau password tidak ditemukan!');
+			redirect('auth/login', 'refresh');
 		}
 	}
 
