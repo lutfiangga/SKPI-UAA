@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Login</title>
+	<title><?= $judul;?></title>
 	<meta name="description" content="SKPI Universitas Alma Ata">
 	<meta name="keywords" content="SKPI, Universitas Alma Ata">
 	<link rel="shortcut icon" href="<?= base_url("assets/static/img/logo-uaa.png"); ?>" type="image/x-icon">
@@ -30,6 +30,8 @@
 				<img src="<?= base_url("assets/static/img/logo-uaa.png"); ?>" alt="UAA" class="w-32 h-auto mx-auto">
 				<h1 class="text-4xl  md:text-5xl lg:text-6xl xl:text-7xl text-gray-900 font-bold p-4 text-center montserrat">Selamat Datang</h1>
 				<p class="text-center font-base text-gray-400 kanit">Masukkan email dan password!</p>
+
+				
 				<form action="<?= site_url(); ?>Auth/login" method="post">
 					<div class="flex flex-col p-4 gap-4">
 						<!-- Email -->

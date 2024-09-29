@@ -39,8 +39,12 @@ class Migration extends CI_Controller
 		echo "Auth table created successfully.<br>";
 
 		// Insert default users
-		// $this->Migrate->insert_default_users();
+		// $this->Migrate->insert_user_table();
 		// echo "Default users inserted successfully.<br>";
+
+		// Insert default auth
+		// $this->Migrate->insert_auth_table();
+		// echo "Default auth inserted successfully.<br>";
 	}
 
 	// Function to rollback (drop tables)

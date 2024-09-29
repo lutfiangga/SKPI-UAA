@@ -15,17 +15,17 @@
 		<!-- Profile Dropdown -->
 		<div class="relative">
 			<button aria-label="Profile" onclick="toggleProfileMenu()" class="flex items-center space-x-2">
-				<img src="https://via.placeholder.com/40" alt="Profile Picture" class="rounded-full w-10 h-10">
-				<span class="text-gray-800">User</span>
-				<span class="text-gray-800 transition-transform duration-300 dropwdown">
-					<i data-feather="chevron-down"></i>
-				</span>
+				<span class="text-gray-800 truncate hidden md:block"><?= $nama; ?></span>
+				<div class="avatar">
+					<div class="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
+						<img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+					</div>
+				</div>
 			</button>
 			<!-- Profile Menu -->
 			<div id="profileMenu" class="hidden absolute right-0 mt-2 w-48 bg-[#fafafa] rounded-lg shadow-lg py-2  text-gray-900">
-				<a href="#" class="block px-4 py-2 hover:bg-gray-200">Profile</a>
-				<a href="#" class="block px-4 py-2 hover:bg-gray-200">Settings</a>
-				<a href="#" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
+				<a href="<?= site_url(ucwords($role) . '/Myprofile'); ?>" class="block px-4 py-2 hover:bg-gray-200">Profile</a>
+				<a href="#logout" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
 			</div>
 		</div>
 	</div>

@@ -45,6 +45,58 @@ class Migrate extends CI_Model
 		}
 		return true;
 	}
+	public function insert_user_table()
+	{
+		$query = "INSERT INTO skpi.user (nama, alamat) VALUES ( 'Mahasiswa Universitas Alma Ata', 'Sekitaran kampus pokoknya' ), ( 'Dosen UAA', 'Ya masih di sekitaran Jogja' ), ( 'Admin Kemahasiswaan', 'masih sama disekitaran jogja' ), ( 'Admin Akademik', 'masih sama juga disekitaran jogja' ), ( 'Admin Operator', 'Dimana saja bisa')";
+
+		if (!$this->db->query($query)) {
+			log_message('error', 'Error insert user table: ' . $this->db->last_query());
+			return false;
+		}
+		return true;
+	}
+	public function insert_auth_table()
+	{
+		$data = [
+			[
+				'id_user' => 1,
+				'email' => 'mahasiswa@almaata.ac.id',
+				'password' => '$argon2id$v=19$m=16,t=2,p=1$T1BhODhZZTV2WTBtSVJEMQ$PyVa1vL+WCz8zQA5/RTRwQ',
+				'role' => 'mahasiswa'
+			],
+			[
+				'id_user' => 2,
+				'email' => 'dosen@almaata.ac.id',
+				'password' => '$argon2id$v=19$m=16,t=2,p=1$T1BhODhZZTV2WTBtSVJEMQ$PyVa1vL+WCz8zQA5/RTRwQ',
+				'role' => 'dosen'
+			],
+			[
+				'id_user' => 3,
+				'email' => 'kemahasiswaan@almaata.ac.id',
+				'password' => '$argon2id$v=19$m=16,t=2,p=1$T1BhODhZZTV2WTBtSVJEMQ$PyVa1vL+WCz8zQA5/RTRwQ',
+				'role' => 'kemahasiswaan'
+			],
+			[
+				'id_user' => 4,
+				'email' => 'akademik@almaata.ac.id',
+				'password' => '$argon2id$v=19$m=16,t=2,p=1$T1BhODhZZTV2WTBtSVJEMQ$PyVa1vL+WCz8zQA5/RTRwQ',
+				'role' => 'akademik'
+			],
+			[
+				'id_user' => 5,
+				'email' => 'administrator@almaata.ac.id',
+				'password' => '$argon2id$v=19$m=16,t=2,p=1$T1BhODhZZTV2WTBtSVJEMQ$PyVa1vL+WCz8zQA5/RTRwQ',
+				'role' => 'admin'
+			]
+		];
+
+		// Insert ke dalam database
+		foreach ($data as $row) {
+			$this->db->insert('auth', $row);
+		}
+
+		return true;
+	}
 
 	// Function to drop user table
 	public function drop_user_table()

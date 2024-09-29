@@ -10,7 +10,7 @@ class User extends CI_Controller
 		// IsAdmin();
 		$this->load->model('M_user');
 		$this->load->helper('text');
-		checkUserRole('Admin');
+		checkRole('Admin');
 	}
 	function index()
 	{
@@ -21,12 +21,11 @@ class User extends CI_Controller
 			'id_user' => $this->session->userdata('id_user'),
 			'nama' => $this->session->userdata('nama'),
 			'email' => $this->session->userdata('email'),
-			'username' => $this->session->userdata('username'),
-			'password' => $this->session->userdata('password'),
+			'role' => $this->session->userdata('role'),
 			'foto' => $this->session->userdata('img_user'),
 			'read' => $this->M_user->GetAll(),
 		);
-		$this->template->load('admin/layout/layout', $this->view . 'read', $data);
+		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
 	public function do_upload()
 	{

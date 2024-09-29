@@ -1,17 +1,16 @@
-<!-- Sidebar -->
 <aside class="sidebar bg-blue-600 mt-2 rounded-tr-[4rem] flex-shrink-0 fixed top-16 bottom-0 -left-64 lg:left-0 p-4 w-[250px] lg:w-[300px] overflow-y-auto text-center transition-all duration-300 z-40">
 	<nav class="text-gray-800 text-xl relative">
 		<ul class="mt-8 text-[#fafafa] mr-6">
 			<!-- dashboard -->
 			<li class="my-2">
-				<a href="#" class="p-2.5 flex items-center focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+				<a href="<?= site_url(ucwords($role) . '/Dashboard'); ?>" class="p-2.5 flex items-center rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'home') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 whitespace-nowrap duration-300 ring-2 ring-[#dadada]' : ''; ?>">
 					<i data-feather="airplay"></i>
 					<span class="text-[15px] ml-4">Dashboard</span>
 				</a>
 			</li>
 			<!-- profile -->
 			<li class="my-2">
-				<a href="#" class="p-2.5 flex items-center focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+				<a href="<?= site_url(ucwords($role) . '/Myprofile'); ?>" class="p-2.5 flex items-center rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'myprofile') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 whitespace-nowrap duration-300 ring-2 ring-[#dadada]' : ''; ?>">
 					<i data-feather="user"></i>
 					<span class="text-[15px] ml-4">Profile</span>
 				</a>
@@ -83,6 +82,25 @@
 					<span class="text-[15px] ml-4">SPM Mahasiswa</span>
 				</a>
 			</li>
+			<!-- Logout -->
+			<li class="my-2">
+				<a href="#logout" class="p-2.5 flex items-center focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="log-out"></i>
+					<span class="text-[15px] ml-4">Logout</span>
+				</a>
+			</li>
 		</ul>
 	</nav>
 </aside>
+
+<!-- modal logout -->
+<div class="modal" role="dialog" id="logout">
+	<div class="modal-box bg-[#fafafa] text-blue-600">
+		<h3 class="text-lg font-bold">Yakin ingin keluar?</h3>
+		<p class="py-4">Semua data session kamu akan dihapus, jika kamu keluar!</p>
+		<div class="modal-action">
+			<a href="<?= site_url('Auth/logout'); ?>" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md">Ya</a>
+			<a href="#" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md">Tidak</a>
+		</div>
+	</div>
+</div>

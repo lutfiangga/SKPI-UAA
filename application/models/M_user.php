@@ -8,7 +8,7 @@ class M_user extends CI_Model
 	private $pk = 'id_user';
 	public function GetAll()
 	{
-		$this->db->order_by($this->pk, 'desc');
+		$this->db->order_by('user.id_user', 'desc');
 		$this->db->join('auth', 'user.id_user = auth.id_user');
 		return $this->db->get($this->table);
 	}
@@ -35,7 +35,7 @@ class M_user extends CI_Model
 	{
 		$this->db->where('id_user', $id_user);
 		$query = $this->db->get($this->table);
-		return $query->row(); // Returns a single row result
+		return $query->row();
 	}
 
 	public function getUsername($username)

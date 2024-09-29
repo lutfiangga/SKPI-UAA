@@ -1,39 +1,33 @@
 export const inputValidation = (element) => {
-	let inputId = element.id;
-	let inputValue = element.value;
-	let isValid = true;
+    const regexPatterns = {
+        email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/, // email regex
+        password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/, // password regex
+        "new-password": /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+        "confirm-password": /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+        name: /^[a-zA-Z\s]{3,}$/, // name regex
+        phone: /^[0-9]{10,15}$/ // phone regex
+    };
 
-	
-	switch (inputId) {
-		case "email":
-			let emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/; // Regex untuk validasi email
-			isValid = emailRegex.test(inputValue);
-			break;
-		case "password":
-			let passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/; // Regex untuk validasi password
-			isValid = passwordRegex.test(inputValue);
-			break;
-		case "name":
-			let nameRegex = /^[a-zA-Z\s]{3,}$/; // Regex untuk validasi nama
-			isValid = nameRegex.test(inputValue);
-			break;
-		case "phone":
-			let phoneRegex = /^[0-9]{10,15}$/; // Regex untuk validasi nomor telepon
-			isValid = phoneRegex.test(inputValue);
-			break;
-		default:
-			isValid = true; // Default
-	}
+    const inputId = element.id;
+    const isValid = regexPatterns[inputId] ? regexPatterns[inputId].test(element.value) : true;
 
-	// Tampilkan atau sembunyikan pesan error
-	let errorElement = document.getElementById(inputId + "Error");
-	if (!isValid) {
-		errorElement.classList.remove("hidden"); // Tampilkan error jika tidak valid
-	} else {
-		errorElement.classList.add("hidden"); // Sembunyikan error jika valid
-	}
+    const errorElement = document.getElementById(inputId + "Error");
+    errorElement.classList.toggle("hidden", isValid);
+
+    // Check confirm password
+    if (inputId === "confirm-password" || inputId === "new-password") {
+        const newPassword = document.querySelector("input[name='new_password']").value;
+        const confirmPassword = document.querySelector("input[name='confirm_password']").value;
+
+        const confirmPasswordErrorElement = document.getElementById("confirm-passwordError");
+
+        if (newPassword && confirmPassword && newPassword !== confirmPassword) {
+            confirmPasswordErrorElement.classList.remove("hidden"); // munculkan error jika confirm password dan new password tidak sama 
+        } else {
+            confirmPasswordErrorElement.classList.add("hidden"); // sembunyikan error jika confirm password dan new password sama 
+        }
+    }
 };
-// Function to enable/disable submit buttons based on form input values
 
 export const formValidation = () => {
 	const checkInputs = (form) => {
@@ -65,32 +59,35 @@ export const formValidation = () => {
 };
 
 export const submitValidation = (event) => {
-	event.preventDefault(); // Cegah form di-submit
+	// Cegah form di-submit secara default
+    event.preventDefault();
 
-	// Ambil semua input yang diperlukan
-	const inputs = document.querySelectorAll("input[required]");
-	let allValid = true;
+    // Ambil semua input yang diperlukan
+    const inputs = form.querySelectorAll("input[required]");
+    let allValid = true;
 
-	inputs.forEach((input) => {
-		const errorElement = document.getElementById(input.id + "Error");
+    // Loop untuk mengecek setiap input
+    inputs.forEach((input) => {
+        const errorElement = document.getElementById(input.id + "Error");
 
-		// Jika input kosong, tampilkan pesan error dan tambahkan border merah
-		if (!input.value.trim()) {
-			allValid = false;
-			input.classList.add("border-red-500"); // Set border menjadi merah
-			errorElement.classList.remove("hidden"); // Tampilkan pesan error
-			errorElement.textContent = "This field is required"; // Set pesan error
-		} else {
-			// Jika valid, hapus border merah dan sembunyikan pesan error
-			input.classList.remove("border-red-500");
-			errorElement.classList.add("hidden");
-		}
-	});
+        // Jika input kosong, tampilkan pesan error dan tambahkan border merah
+        if (!input.value.trim()) {
+            allValid = false;
+            input.classList.add("border border-red-500"); // Set border merah
+            errorElement.classList.remove("hidden"); // Tampilkan pesan error
+            errorElement.textContent = "This field is required"; // Pesan error
+        } else {
+            // Jika valid, hapus border merah dan sembunyikan pesan error
+            input.classList.remove("border border-red-500");
+            errorElement.classList.add("hidden");
+        }
+    });
 
-	if (allValid) {
-		// Jika semua input valid, form dapat di-submit
-		console.log("Form is valid and can be submitted");
-		event.target.submit(); // Submit form
-	}
+    // Jika semua input valid, submit form
+    if (allValid) {
+        form.submit(); // Submit form hanya jika semua input valid
+    } else {
+        console.log("Form contains errors. Fix them before submitting.");
+    }
 };
 

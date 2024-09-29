@@ -1,13 +1,13 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Dashboard extends CI_Controller
 {
-	private $view = "admin/pages/dashboard/";
-	private $redirect = "Admin/Dashboard";
+	private $view = "akademik/pages/dashboard/";
+	private $redirect = "Akademik/Dashboard";
 	public function __construct()
 	{
 		parent::__construct();
 		//protected routes
-		checkUserRole('Akademik');
+		checkRole('Akademik');
 	}
 	public function index()
 	{
@@ -16,13 +16,12 @@ class Dashboard extends CI_Controller
 			'sub' => "Beranda",
 			'active_menu' => 'home',
 			'id_user' => $this->session->userdata('id_user'),
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
-			'username' => $this->session->userdata('username'),
 			'email' => $this->session->userdata('email'),
-			'password' => $this->session->userdata('password'),
 			'foto' => $this->session->userdata('img_user'),
 		);
-		$this->template->load('admin/layout/layout', $this->view . 'read', $data);
+		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 
 		// echo $this->session->userdata('alamat');
 	}

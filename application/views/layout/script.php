@@ -1,3 +1,6 @@
+<!-- custom js -->
+<script type="module" src="<?= base_url(); ?>assets/vendor/js/main.js"></script>
+
 <!-- selectize -->
 <script src="<?= base_url(); ?>assets/vendor/js/plugin/selectize.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/js/plugin/flatpickr.js"></script>

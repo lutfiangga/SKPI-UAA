@@ -23,59 +23,82 @@ class Auth extends CI_Controller
 
 	public function login()
 	{
-		$email = $this->input->post('email');
-		$pwd = $this->input->post('password');
+		// Aturan validasi
+		$this->form_validation->set_rules(
+			'email',
+			'Email',
+			'required|valid_email',
+			array('required' => 'Email wajib diisi.', 'valid_email' => 'Format email tidak valid.')
+		);
+		$this->form_validation->set_rules(
+			'password',
+			'Password',
+			'required',
+			array('required' => 'Password wajib diisi.')
+		);
 
-		// Ceklogin
-		$data = $this->M_auth->CekLogin('email', $email);
+		// Jalankan validasi
+		if ($this->form_validation->run() == FALSE) {
+			// Jika validasi gagal (input kosong atau format salah)
+			$this->session->set_flashdata('validation_error', validation_errors());
+			redirect('auth', 'refresh');
+		} else {
+			$email = $this->input->post('email');
+			$pwd = $this->input->post('password');
 
-		if ($data) {
-			// Periksa apakah password verify berhasil
-			if (password_verify($pwd, $data['password'])) {
-				// Set session data berdasarkan peran pengguna
-				$array = array(
-					'id_user' => $data['id_user'],
-					'nama' => $data['nama'],
-					'email' => $data['email'],
-					'role' => $data['role'],
-					'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
-					'Dosen' => strtolower($data['role']) == 'dosen' ? 1 : 0,
-					'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
-					'Akademik' => strtolower($data['role']) == 'akademik' ? 1 : 0,
-					'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
-				);
+			// Cek login
+			$data = $this->M_auth->CekLogin('email', $email);
 
-				// Set session dan cek apakah berhasil
-				$this->session->set_userdata($array);
+			if ($data) {
+				if (password_verify($pwd, $data['password'])) {
+					// Set session data berdasarkan peran pengguna
+					$array = array(
+						'id_user' => $data['id_user'],
+						'nama' => $data['nama'],
+						'email' => $data['email'],
+						'alamat' => $data['alamat'],
+						'role' => $data['role'],
+						'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
+						'Dosen' => strtolower($data['role']) == 'dosen' ? 1 : 0,
+						'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
+						'Akademik' => strtolower($data['role']) == 'akademik' ? 1 : 0,
+						'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
+					);
 
-				// Flashdata untuk notifikasi
-				$this->session->set_flashdata('success', 'Anda berhasil login!');
+					$this->session->set_userdata($array);
+					$this->session->set_flashdata('success', 'Anda berhasil login!');
 
-				// Redirect berdasarkan role
-				if ($data['role'] == 'admin') {
-					redirect('Admin/Dashboard', 'refresh');
-				} else if ($data['role'] == 'akademik') {
-					redirect('Akademik/Dashboard', 'refresh');
-				} else if ($data['role'] == 'mahasiswa') {
-					redirect('Mahasiswa/Dashboard', 'refresh');
-				} else if ($data['role'] == 'dosen') {
-					redirect('Dosen/Dashboard', 'refresh');
-				} else if ($data['role'] == 'kemahasiswaaan') {
-					redirect('Kemahasiswaan/Dashboard', 'refresh');
+					// Redirect berdasarkan role
+					switch ($data['role']) {
+						case 'admin':
+							redirect('Admin/Dashboard', 'refresh');
+							break;
+						case 'akademik':
+							redirect('Akademik/Dashboard', 'refresh');
+							break;
+						case 'mahasiswa':
+							redirect('Mahasiswa/Dashboard', 'refresh');
+							break;
+						case 'dosen':
+							redirect('Dosen/Dashboard', 'refresh');
+							break;
+						case 'kemahasiswaan':
+							redirect('Kemahasiswaan/Dashboard', 'refresh');
+							break;
+					}
+				} else {
+					// Jika password salah
+					$this->session->set_flashdata('auth_error', 'Password salah!');
+					redirect('auth', 'refresh');
 				}
 			} else {
-				// Jika password tidak cocok
-				echo "Password salah!<br>";
-				$this->session->set_flashdata('error', 'Username atau password salah!');
-				redirect('auth/login', 'refresh');
+				// Jika email tidak ditemukan
+				$this->session->set_flashdata('auth_error', 'Email tidak ditemukan!');
+				redirect('auth', 'refresh');
 			}
-		} else {
-			// Jika data user tidak ditemukan
-			echo "Pengguna tidak ditemukan!<br>";
-			$this->session->set_flashdata('error', 'Username atau password tidak ditemukan!');
-			redirect('auth/login', 'refresh');
 		}
 	}
+
 
 	public function logout()
 	{

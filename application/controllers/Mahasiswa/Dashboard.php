@@ -1,29 +1,31 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Dashboard extends CI_Controller
 {
-	private $view = "admin/pages/dashboard/";
-	private $redirect = "Admin/Dashboard";
+	private $view = "mahasiswa/pages/dashboard/";
+	private $redirect = "Mahasiswa/Dashboard";
 	public function __construct()
 	{
 		parent::__construct();
 		//protected routes
-		checkUserRole('Mahasiswa');
+		checkRole('Mahasiswa');
 	}
 	public function index()
 	{
 		$data = array(
-			'judul' => "BERANDA",
-			'sub' => "Beranda",
+			'judul' => "DASHBOARD",
+			'sub' => "Dashboard",
 			'active_menu' => 'home',
-			'id_user' => $this->session->userdata('id_user'),
+			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
-			'username' => $this->session->userdata('username'),
 			'email' => $this->session->userdata('email'),
-			'password' => $this->session->userdata('password'),
+			'role' => $this->session->userdata('role'),
+			// from tabel user
+			'id_user' => $this->session->userdata('id_user'),
+			'alamat' => $this->session->userdata('alamat'),
 			'foto' => $this->session->userdata('img_user'),
 		);
-		$this->template->load('admin/layout/layout', $this->view . 'read', $data);
+		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 
-		// echo $this->session->userdata('alamat');
+		// echo $this->session->userdata('nama');
 	}
 }
