@@ -20,6 +20,9 @@ class Myprofile extends CI_Controller
 	public function index()
 	{
 		$id = $this->session->userdata('id_user');
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			//'read' variabel yang akan dipanggil pada view read.php
 			'judul' => "MY PROFILE",
@@ -28,91 +31,53 @@ class Myprofile extends CI_Controller
 			'id_user' => $id,
 			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
-			'email' => $this->session->userdata('email'),
-			'role' => $this->session->userdata('role'),
+			'role' => $role,
 			// from tabel user
-			'alamat' => $this->session->userdata('alamat'),
-			'foto' => 'assets/img/photos/' . $this->session->userdata('img_user'),
+			'foto' => $foto,
 			'user' => $this->M_profile->getById($id),
 		);
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
 
-	public function edit()
+	public function change_profile_picture($id)
 	{
-		$id = $this->session->userdata('id_user');
-		$data = array(
-			//'read' variabel yang akan dipanggil pada view read.php
-			'judul' => "MY PROFILE",
-			'sub' => "My Profile",
-			'active_menu' => 'myprofile',
-			'id_user' => $id,
-			'username' => $this->session->userdata('username'),
-			'password' => $this->session->userdata('password'),
-			'nama' => $this->session->userdata('nama'),
-			'foto' => 'assets/img/photos/' . $this->session->userdata('img_user'),
-			'user' => $this->M_profile->getById($id),
-			'edit' => $this->M_profile->edit($id),
-		);
+		cek_csrf();
+		$role = $this->session->userdata('role');
+		$id_user = $this->session->userdata('id_user');
 
-		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
-	}
-
-	public function update($id)
-	{
-		$config['upload_path'] = './assets/img/photos/';
-		$config['allowed_types'] = 'jpg|jpeg|png';
-		$config['max_size'] = 20000; // KB
-		$config['file_name'] = 'user_' . time(); // Unique filename
-
+		// Konfigurasi upload file
+		$config['upload_path'] = './assets/static/img/photos/mahasiswa/';
+		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
+		$config['max_size'] = 6000; // KB
+		$config['file_name'] = $role . '_' . $id_user . '_' . time();
+		// Memuat library upload dengan konfigurasi
 		$this->load->library('upload', $config);
 
 		$img_user = '';
 		if ($this->upload->do_upload('img_user')) {
+			// File berhasil diupload
 			$img_user_data = $this->upload->data();
 			$img_user = $img_user_data['file_name'];
 		} else {
-			// Ambil dari input hidden atau dari data saat ini jika file tidak diunggah
+			// Jika file tidak diupload, gunakan gambar saat ini
 			$img_user = $this->input->post('img_user_current');
 		}
 
-		$this->form_validation->set_rules('username', 'Username', 'required');
-
-		// Ambil username dari database untuk memeriksa apakah ada perubahan
+		// Ambil data user dari database berdasarkan ID
 		$user = $this->M_user->getId($id);
-		$username_db = $user->username;
 
-		// Jika username tidak berubah, atur aturan validasi untuk mengabaikan is_unique
-		if ($this->input->post('username') == $username_db) {
-			$this->form_validation->set_rules('username', 'Username', 'required');
-		} else {
-			$this->form_validation->set_rules('username', 'Username', 'required|is_unique[user.username]');
-		}
+		// Update data user dengan gambar yang baru
+		$data = array(
+			'img_user' => $img_user,
+		);
+		$this->M_user->update($id, $data);
 
-		if ($this->form_validation->run() == FALSE) {
-			// Validasi gagal, simpan pesan error ke flashdata
-			$this->session->set_flashdata('username_error', validation_errors());
-			redirect($this->redirect . '/edit/' . $id); // Redirect kembali ke halaman edit
-		} else {
-			// Validasi berhasil, simpan data pengguna baru
-			$data = array(
-				'username' => $this->input->post('username'),
-				'password' => $this->input->post('password'),
-				'nama' => $this->input->post('nama'),
-				'img_user' => $img_user,
-			);
+		// Update session dengan gambar yang baru
+		$this->session->set_userdata('img_user', $img_user);
 
-			$this->M_user->update($id, $data);
-
-			// Set session data for user update
-			$this->session->set_userdata('username', $this->input->post('username'));
-			$this->session->set_userdata('password', $this->input->post('password'));
-			$this->session->set_userdata('nama', $this->input->post('nama'));
-			$this->session->set_userdata('img_user', $img_user);
-
-			redirect($this->redirect, 'refresh');
-		}
+		// Redirect ke halaman tertentu setelah proses selesai
+		redirect($this->redirect, 'refresh');
 	}
 
 	public function update_password()
@@ -133,11 +98,11 @@ class Myprofile extends CI_Controller
 			$this->session->set_flashdata('validation_error', validation_errors());
 			redirect($this->redirect);
 		} else {
+			cek_csrf();
 			// Check if the current password is correct
 			if (password_verify($current_password, $user->password)) {
 				// Hash new password
 				$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
-
 				// Update password in database
 				$this->M_auth->update($id_user, ['password' => $hashed_password]);
 

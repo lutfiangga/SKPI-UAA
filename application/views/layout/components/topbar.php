@@ -14,11 +14,11 @@
 		</button>
 		<!-- Profile Dropdown -->
 		<div class="relative">
-			<button aria-label="Profile" onclick="toggleProfileMenu()" class="flex items-center space-x-2">
+			<button aria-label="Profile" onclick="toggleProfileMenu()" class="flex flex-row gap-2 items-center space-x-2">
 				<span class="text-gray-800 truncate hidden md:block"><?= $nama; ?></span>
 				<div class="avatar">
-					<div class="ring-primary ring-offset-base-100 w-10 rounded-full ring ring-offset-2">
-						<img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+					<div class="ring-primary w-10 rounded-full ring ring-offset-2">
+						<img src="<?= base_url($foto) ?>" alt="Profile Picture" />
 					</div>
 				</div>
 			</button>

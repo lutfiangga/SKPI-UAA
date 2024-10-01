@@ -20,6 +20,9 @@ class Myprofile extends CI_Controller
 	public function index()
 	{
 		$id = $this->session->userdata('id_user');
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			//'read' variabel yang akan dipanggil pada view read.php
 			'judul' => "MY PROFILE",
@@ -27,12 +30,10 @@ class Myprofile extends CI_Controller
 			'active_menu' => 'myprofile',
 			'id_user' => $id,
 			// from tabel auth
-			'nama' => $this->session->userdata('nama'),
-			'email' => $this->session->userdata('email'),
-			'role' => $this->session->userdata('role'),
+			'role' => $role,
 			// from tabel user
-			'alamat' => $this->session->userdata('alamat'),
-			'foto' => 'assets/img/photos/' . $this->session->userdata('img_user'),
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
 			'user' => $this->M_profile->getById($id),
 		);
 

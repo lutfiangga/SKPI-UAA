@@ -11,7 +11,7 @@ function checkRole($role)
 			$ci->session->set_flashdata('error_403', 'Hanya ' . ucfirst($role) . ' yang dapat mengakses!');
 			// Redirect to a designated error page instead of redirecting back
 			// redirect($_SERVER['HTTP_REFERER']);
-			redirect('Error/AccessDenied', 'refresh');
+			redirect('Errors/access_denied', 'refresh');
 		}
 	}
 }

@@ -48,9 +48,9 @@
 	<!-- greeting -->
 	<section class="relative mb-4 lg:mb-8 md:mb-6" id="greetings">
 		<!-- Greetings -->
-		<div class="bg-blue-600 w-full h-36 flex flex-col justify-center rounded-2xl p-4 text-[#fafafa]">
-			<p class="flex gap-2">Haii, <span class="capitalize font-bold"><?= $nama; ?>!</span></p>
-			<em class="text-sm whitespace-normal lg:max-w-[50%] w-full">Semangat Ya! Ayok selesaikan studimu dan pamerkan semua hasil usahamu.</em>
+		<div class="bg-blue-600 w-full h-36 gap-4 md:gap-2 lg:gap-0 flex flex-col justify-center rounded-2xl p-4 text-[#fafafa]">
+			<p class="flex gap-2 text-sm md:text-base">Haii, <span class="capitalize font-bold"><?= $nama; ?>!</span></p>
+			<em class="text-xs md:text-sm whitespace-normal lg:max-w-[50%] w-full">Semangat Ya! Ayok selesaikan studimu dan pamerkan semua hasil usahamu.</em>
 			<!-- close greeting -->
 			<div class="absolute right-0 lg:-top-4 top-0 z-20 p-2">
 				<button class="bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center"

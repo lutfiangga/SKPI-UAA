@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'islogin_helper', 'tanggal');
+$autoload['helper'] = array('url', 'islogin_helper', 'tanggal', 'csrf');
 
 /*
 | -------------------------------------------------------------------

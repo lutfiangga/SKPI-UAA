@@ -13,7 +13,11 @@ class Auth extends CI_Controller
 
 	public function index()
 	{
-		$this->session->sess_destroy();
+		// Cek apakah user sudah login dan jika iya, hancurkan session
+		if ($this->session->userdata('id_user')) {
+			$this->session->sess_destroy();
+			redirect('auth/logout');
+		}
 		$data = array(
 			'judul' => "Login",
 			'login' => ''
@@ -43,6 +47,7 @@ class Auth extends CI_Controller
 			$this->session->set_flashdata('validation_error', validation_errors());
 			redirect('auth', 'refresh');
 		} else {
+			cek_csrf();
 			$email = $this->input->post('email');
 			$pwd = $this->input->post('password');
 
@@ -55,16 +60,14 @@ class Auth extends CI_Controller
 					$array = array(
 						'id_user' => $data['id_user'],
 						'nama' => $data['nama'],
-						'email' => $data['email'],
-						'alamat' => $data['alamat'],
 						'role' => $data['role'],
+						'img_user' => $data['img_user'],
 						'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
 						'Dosen' => strtolower($data['role']) == 'dosen' ? 1 : 0,
 						'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
 						'Akademik' => strtolower($data['role']) == 'akademik' ? 1 : 0,
 						'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
 					);
-
 					$this->session->set_userdata($array);
 					$this->session->set_flashdata('success', 'Anda berhasil login!');
 

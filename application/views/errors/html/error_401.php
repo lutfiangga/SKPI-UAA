@@ -7,7 +7,7 @@
 						OOPS!
 					</h1>
 					<p class="my-2 text-gray-800">
-						Halaman tidak ditemukan. <br>
+						Anda tidak mempunyai akses untuk halaman ini. <br>
 					</p>
 					<a href="javascript:history.back()" class="btn btn-secondary">Kembali</a>
 				</div>

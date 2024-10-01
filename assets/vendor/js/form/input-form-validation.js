@@ -4,6 +4,7 @@ export const inputValidation = (element) => {
         password: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/, // password regex
         "new-password": /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
         "confirm-password": /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{6,}$/,
+        username: /^[a-zA-Z\s]{3,}$/, // username regex
         name: /^[a-zA-Z\s]{3,}$/, // name regex
         phone: /^[0-9]{10,15}$/ // phone regex
     };

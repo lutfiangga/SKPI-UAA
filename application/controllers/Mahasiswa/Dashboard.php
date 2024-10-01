@@ -11,18 +11,19 @@ class Dashboard extends CI_Controller
 	}
 	public function index()
 	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DASHBOARD",
 			'sub' => "Dashboard",
 			'active_menu' => 'home',
 			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
-			'email' => $this->session->userdata('email'),
-			'role' => $this->session->userdata('role'),
+			'role' => $role,
 			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
-			'alamat' => $this->session->userdata('alamat'),
-			'foto' => $this->session->userdata('img_user'),
+			'foto' => $foto,
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 
