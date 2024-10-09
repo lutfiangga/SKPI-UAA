@@ -1,4 +1,4 @@
-<body style="background-color: #EEF0F6">
+<body class="bg-lavender-gray">
 	<!-- Top Navbar -->
 	<?php $this->load->view('layout/components/topbar'); ?>
 

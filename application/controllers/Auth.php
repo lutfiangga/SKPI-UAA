@@ -29,10 +29,10 @@ class Auth extends CI_Controller
 	{
 		// Aturan validasi
 		$this->form_validation->set_rules(
-			'email',
-			'Email',
-			'required|valid_email',
-			array('required' => 'Email wajib diisi.', 'valid_email' => 'Format email tidak valid.')
+			'username',
+			'Username',
+			'required',
+			array('required' => 'Username wajib diisi.')
 		);
 		$this->form_validation->set_rules(
 			'password',
@@ -40,7 +40,6 @@ class Auth extends CI_Controller
 			'required',
 			array('required' => 'Password wajib diisi.')
 		);
-
 		// Jalankan validasi
 		if ($this->form_validation->run() == FALSE) {
 			// Jika validasi gagal (input kosong atau format salah)
@@ -48,50 +47,38 @@ class Auth extends CI_Controller
 			redirect('auth', 'refresh');
 		} else {
 			cek_csrf();
-			$email = $this->input->post('email');
+			$username = $this->input->post('username');
 			$pwd = $this->input->post('password');
 
 			// Cek login
-			$data = $this->M_auth->CekLogin('email', $email);
-
-			if ($data) {
-				if (password_verify($pwd, $data['password'])) {
+			$data = $this->M_auth->CekLogin('username', $username);
+			// Jika password di database kosong, gunakan id_user sebagai password
+			if (empty($data['password'])) {
+				if ($pwd === $data['id_user']) {
 					// Set session data berdasarkan peran pengguna
-					$array = array(
-						'id_user' => $data['id_user'],
-						'nama' => $data['nama'],
-						'role' => $data['role'],
-						'img_user' => $data['img_user'],
-						'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
-						'Dosen' => strtolower($data['role']) == 'dosen' ? 1 : 0,
-						'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
-						'Akademik' => strtolower($data['role']) == 'akademik' ? 1 : 0,
-						'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
-					);
-					$this->session->set_userdata($array);
+					$this->set_session($data);
 					$this->session->set_flashdata('success', 'Anda berhasil login!');
 
-					// Redirect berdasarkan role
-					switch ($data['role']) {
-						case 'admin':
-							redirect('Admin/Dashboard', 'refresh');
-							break;
-						case 'akademik':
-							redirect('Akademik/Dashboard', 'refresh');
-							break;
-						case 'mahasiswa':
-							redirect('Mahasiswa/Dashboard', 'refresh');
-							break;
-						case 'dosen':
-							redirect('Dosen/Dashboard', 'refresh');
-							break;
-						case 'kemahasiswaan':
-							redirect('Kemahasiswaan/Dashboard', 'refresh');
-							break;
-					}
+					// echo $this->db->last_query();
+					// echo 'Role: ' . $data['role'];
+					$this->role_redirect($data['role']); // Redirect berdasarkan role
+				} else {
+					$this->session->set_flashdata('auth_error', 'Password salah!');
+					// echo $this->db->last_query();
+					// echo 'password'.$pwd;
+					redirect('auth', 'refresh');
+				}
+			} else if ($data) {
+				if (password_verify($pwd, $data['password'])) {
+					// Set session data berdasarkan peran pengguna
+					$this->set_session($data);
+					$this->session->set_flashdata('success', 'Anda berhasil login!');
+					$this->role_redirect($data['role']); // Redirect berdasarkan role
 				} else {
 					// Jika password salah
 					$this->session->set_flashdata('auth_error', 'Password salah!');
+					// echo $this->db->last_query();
+					// echo $pwd;
 					redirect('auth', 'refresh');
 				}
 			} else {
@@ -102,6 +89,46 @@ class Auth extends CI_Controller
 		}
 	}
 
+	// Helper untuk set session data
+	private function set_session($data)
+	{
+		$array = array(
+			'id_user' => $data['id_user'],
+			'nama' => $data['nama'],
+			'role' => $data['role'],
+			'img_user' => $data['img_user'],
+			'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
+			'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
+			'Admisi' => strtolower($data['role']) == 'admisi' ? 1 : 0,
+			'admin_eticket' => strtolower($data['role']) == 'admin_eticket' ? 1 : 0,
+			'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
+		);
+		$this->session->set_userdata($array);
+	}
+
+	// Helper untuk redirect berdasarkan role
+	private function role_redirect($role)
+	{
+		switch ($role) {
+			case 'admin':
+				redirect('Admin/Dashboard', 'refresh');
+				break;
+			case 'admisi':
+				redirect('Admisi/Dashboard', 'refresh');
+				break;
+			case 'mahasiswa':
+				redirect('Mahasiswa/Dashboard', 'refresh');
+				break;
+			case 'admin_etiket':
+				redirect('Eticket/Dashboard', 'refresh');
+				break;
+			case 'kemahasiswaan':
+				redirect('Kemahasiswaan/Dashboard', 'refresh');
+				break;
+			default:
+				redirect('auth', 'refresh');
+		}
+	}
 
 	public function logout()
 	{

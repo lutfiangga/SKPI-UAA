@@ -17,7 +17,7 @@
 			</li>
 			<hr class="my-4 border-[#fafafa]">
 			<!-- data pengguna -->
-			<li class="my-2">
+			<li class="my-2 <?= ($role != 'admin') ? 'hidden' : 'block'; ?>">
 				<button class="p-2.5 font-semibold mt-3 flex items-center rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] focus:ring-2 focus:ring-[#dadada] focus:bg-[#fafafa] focus:text-blue-600 text-[#fafafa] w-full dropdown-toggle" onclick="toggleDropdown(this)" aria-expanded="false">
 					<i data-feather="users"></i>
 					<div class="flex justify-between w-full items-center">
@@ -31,7 +31,7 @@
 				<ul class="dropdown-content text-left text-sm rounded-full font-thin mt-2 w-4/5 mx-auto hidden" aria-label="Menu 1 Options">
 					<!-- mahasiswa -->
 					<li>
-						<a href="#" class="block flex flex-row gap-2 items-center cursor-pointer p-2 hover:bg-[#fafafa]/30 hover:text-[#fafafa] focus:ring-2 focus:ring-[#dadada] focus:bg-[#fafafa] focus:text-blue-600 text-[#fafafa] rounded-full mt-1 font-semibold">
+						<a href="<?= site_url('Admin/User/data_mahasiswa'); ?>" class="p-2.5 flex items-center rounded-full whitespace-nowrap duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'mahasiswa') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 whitespace-nowrap duration-300 ring-2 ring-[#dadada]' : ''; ?>">
 							<i data-feather="disc" class="mr-2"></i>
 							Mahasiswa
 						</a>
@@ -75,13 +75,29 @@
 					<span class="text-[15px] ml-4">Verifikasi SKPI</span>
 				</a>
 			</li>
-			<!-- SPM Mahasiswa -->
-			<li class="my-2">
-				<a href="#" class="p-2.5 flex items-center focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
-					<i data-feather="award"></i>
-					<span class="text-[15px] ml-4">SPM Mahasiswa</span>
+			<!-- Kategori SPM Mahasiswa -->
+			<li class="my-2 <?= ($role != 'admisi' && $role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Kategori_Spm_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'kategori_spm') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="paperclip"></i>
+					<span class="text-[15px] ml-4 flex gap-1">Kategori SPM Mahasiswa</span>
 				</a>
 			</li>
+
+			<!-- SPM Mahasiswa -->
+			<li class="my-2 <?= ($role != 'admin' && $role != 'admin_eticket') ? 'block' : 'hidden'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Spm_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'spm_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="award"></i>
+					<span class="text-[15px] ml-4 flex gap-1">SPM Mahasiswa</span>
+				</a>
+			</li>
+			<!-- Eticket Mahasiswa -->
+			<li class="my-2 <?= ($role != 'admin_eticket') ? 'hidden' : 'block'; ?>">
+				<a href="#" class="p-2.5 flex items-center text-left  focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="activity"></i>
+					<span class="text-[15px] ml-4">Eticket Mahasiswa</span>
+				</a>
+			</li>
+
 			<!-- Logout -->
 			<li class="my-2">
 				<a href="#logout" class="p-2.5 flex items-center focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">

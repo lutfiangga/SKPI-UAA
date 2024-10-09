@@ -3,14 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Myprofile extends CI_Controller
 {
-	private $view = "Admin/pages/profile/";
-	private $redirect = "Admin/Myprofile/";
-
+	private $view = "admisi/pages/profile/";
+	private $redirect = "Admisi/Myprofile";
 	public function __construct()
 	{
 		parent::__construct();
 		//protected routes
-		checkRole('Admin');
+		checkRole('Admisi');
 		//load model
 		$this->load->model(array('M_profile', 'M_auth'));
 	}
@@ -43,7 +42,7 @@ class Myprofile extends CI_Controller
 		$id_user = $this->session->userdata('id_user');
 
 		// Konfigurasi upload file
-		$config['upload_path'] = './assets/static/img/photos/admin/';
+		$config['upload_path'] = './assets/static/img/photos/admisi/';
 		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $role . '_' . $id_user . '_' . time();

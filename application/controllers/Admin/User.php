@@ -8,65 +8,44 @@ class User extends CI_Controller
 	{
 		parent::__construct();
 		// IsAdmin();
-		$this->load->model('M_user');
+		$this->load->model(array('M_mahasiswa'));
 		$this->load->helper('text');
 		checkRole('Admin');
 	}
 	function index()
 	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA USER",
 			'sub' => "Data User",
 			'active_menu' => 'user',
 			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
 			'nama' => $this->session->userdata('nama'),
-			'email' => $this->session->userdata('email'),
-			'role' => $this->session->userdata('role'),
-			'foto' => $this->session->userdata('img_user'),
-			'read' => $this->M_user->GetAll(),
+			'foto' => $foto,
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
-	public function do_upload()
+	function data_mahasiswa()
 	{
-		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-			// Proses upload file setelah submit form
-			$config['upload_path']   = './assets/static/img/';  // Direktori untuk menyimpan file
-			$config['allowed_types'] = 'gif|jpg|png';           // Jenis file yang diizinkan
-			$config['max_size']      = 2048;                    // Maksimal ukuran file (dalam KB)
-			$config['file_name']     = time();                  // Menyimpan file dengan nama unik
-
-			$this->load->library('upload', $config);
-
-			if (!$this->upload->do_upload('filepond')) {        // 'filepond' sesuai dengan name input di FilePond
-				$error = array('error' => $this->upload->display_errors());
-				echo json_encode(['status' => 'error', 'message' => $error]);
-			} else {
-				$data = $this->upload->data();
-				echo json_encode(['status' => 'success', 'data' => $data]);
-			}
-		} else {
-			// Jika bukan metode POST, mungkin tampilkan halaman form atau pesan error
-			show_404();
-		}
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "DATA MAHASISWA",
+			'sub' => "Data Mahasiswa",
+			'active_menu' => 'mahasiswa',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'mahasiswa' => $this->M_mahasiswa->getAll(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'data_mahasiswa', $data);
 	}
 
-	public function deleteImage()
-	{
-		$fileName = $this->input->post('file');  // Ambil nama file dari request
-
-		$filePath = './assets/static/img/' . $fileName;
-
-		if (file_exists($filePath)) {
-			if (unlink($filePath)) {
-				echo json_encode(['status' => 'success', 'message' => 'File berhasil dihapus']);
-			} else {
-				echo json_encode(['status' => 'error', 'message' => 'Gagal menghapus file']);
-			}
-		} else {
-			echo json_encode(['status' => 'error', 'message' => 'File tidak ditemukan']);
-		}
-	}
 	public function create()
 	{
 		$data = array(

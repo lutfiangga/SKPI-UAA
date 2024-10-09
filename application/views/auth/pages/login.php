@@ -1,7 +1,7 @@
 <section class="flex justify-between gap-4 lg:gap-8 xl:gap-12 items-center justify-center">
 	<!-- image -->
 	<section class="hidden md:block rounded-xl md:w-2/5 h-screen px-4 py-8 relative">
-		<img src="https://demos.creative-tim.com/material-tailwind-dashboard-react/img/pattern.png" alt="universitas alma ata" class="object-cover rounded-xl w-full h-full">
+		<img src="https://akademik.almaata.ac.id/assets/almaataview.jpg" alt="universitas alma ata" class="object-cover flex justify-center mx-auto rounded-xl w-full h-full">
 	</section>
 	<!-- form -->
 	<section class="md:w-3/5 w-full rounded-xl">
@@ -61,12 +61,12 @@
 					<span> <?= $this->session->flashdata('success'); ?></span>
 				</div>
 			<?php endif; ?>
-			<form action="<?= site_url(); ?>Auth/login" method="post" onsubmit="submitValidation(this)">
+			<form action="<?= site_url('Auth/login'); ?>" method="post">
 				<div class="flex flex-col p-4 gap-4">
 					<?= csrf(); ?>
-					<!-- Email -->
+					<!-- Username -->
 					<div class="w-full">
-						<label for="email" class="text-gray-900 font-semibold mb-2">Email:</label>
+						<label for="Username" class="text-gray-900 font-semibold mb-2">Username:</label>
 						<label class="input input-bordered border border-gray-400 flex items-center gap-2 w-full">
 							<svg
 								xmlns="http://www.w3.org/2000/svg"
@@ -78,9 +78,9 @@
 								<path
 									d="M15 6.954 8.978 9.86a2.25 2.25 0 0 1-1.956 0L1 6.954V11.5A1.5 1.5 0 0 0 2.5 13h11a1.5 1.5 0 0 0 1.5-1.5V6.954Z" />
 							</svg>
-							<input id="email" required type="text" name="email" class="grow" placeholder="Email" oninput="inputValidation(this)" />
+							<input id="username" required type="text" name="username" class="grow" placeholder="username" oninput="inputValidation(this)" />
 						</label>
-						<p id="emailError" class="text-red-500 text-sm mt-2 hidden">Masukkan email yang valid!</p>
+						<!-- <p id="usernameError" class="text-red-500 text-sm mt-2 hidden">Masukkan email yang valid!</p> -->
 					</div>
 					<!-- Password -->
 					<div>
@@ -97,7 +97,7 @@
 						</label>
 					</div>
 
-					<button type="submit" class="btn btn-block mt-4 text-base text-[#fafafa] hover:bg-blue-600 hover:text-[#fafafa] hover:border-none font-bold uppercase disabled:text-gray-600 disabled:cursor-not-allowed" aria-label="Submit">Masuk </button>
+					<button onsubmit="submitValidation(this)" type="submit" class="btn btn-block mt-4 text-base disabled:text-gray-400 disabled:cursor-not-allowed bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md font-bold uppercase disabled:text-gray-600 disabled:cursor-not-allowed" aria-label="Submit">Masuk </button>
 				</div>
 			</form>
 		</div>

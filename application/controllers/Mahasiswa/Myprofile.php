@@ -12,9 +12,7 @@ class Myprofile extends CI_Controller
 		//protected routes
 		checkRole('Mahasiswa');
 		//load model
-		$this->load->model('M_profile');
-		$this->load->model('M_user');
-		$this->load->model('M_auth');
+		$this->load->model(array('M_profile', 'M_auth'));
 	}
 
 	public function index()
@@ -22,19 +20,17 @@ class Myprofile extends CI_Controller
 		$id = $this->session->userdata('id_user');
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user ? 'assets/static/img/photos/' . strtolower($role) . '/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
-			//'read' variabel yang akan dipanggil pada view read.php
 			'judul' => "MY PROFILE",
 			'sub' => "Profile",
 			'active_menu' => 'myprofile',
 			'id_user' => $id,
-			// from tabel auth
-			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
 			// from tabel user
+			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
-			'user' => $this->M_profile->getById($id),
+			'role' => $role,
+			'profile' => $this->M_profile->getById($id),
 		);
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
@@ -65,13 +61,13 @@ class Myprofile extends CI_Controller
 		}
 
 		// Ambil data user dari database berdasarkan ID
-		$user = $this->M_user->getId($id);
+		$user = $this->M_profile->getById($id);
 
 		// Update data user dengan gambar yang baru
 		$data = array(
 			'img_user' => $img_user,
 		);
-		$this->M_user->update($id, $data);
+		$this->M_profile->update($id, $data);
 
 		// Update session dengan gambar yang baru
 		$this->session->set_userdata('img_user', $img_user);
@@ -100,7 +96,20 @@ class Myprofile extends CI_Controller
 		} else {
 			cek_csrf();
 			// Check if the current password is correct
-			if (password_verify($current_password, $user->password)) {
+			if (empty($user->password)) {
+				if ($current_password === $user->id_user) {
+					// Hash new password
+					$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
+					// Update password in database
+					$this->M_auth->update($id_user, ['password' => $hashed_password]);
+					$this->session->set_flashdata('success', 'Password updated successfully.');
+					redirect($this->redirect);
+				} else {
+					// Password lama tidak cocok
+					$this->session->set_flashdata('error', 'Current password is incorrect.');
+					redirect($this->redirect);
+				}
+			} else if (password_verify($current_password, $user->password)) {
 				// Hash new password
 				$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
 				// Update password in database

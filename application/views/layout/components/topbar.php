@@ -1,5 +1,5 @@
 <!-- Top Navbar -->
-<header class="navbar bg-[#fafafa] fixed top-0 w-full flex justify-between items-center p-4 text-gray-800 z-30">
+<header class="navbar bg-off-white fixed top-0 w-full flex justify-between items-center p-4 text-gray-800 z-30">
 	<div class="flex items-center text-blue-600">
 		<button class="text-3xl lg:hidden" aria-label="Open Sidebar" onclick="openNav()">
 			<i data-feather="menu" class="text-blue-600"></i>
@@ -23,7 +23,7 @@
 				</div>
 			</button>
 			<!-- Profile Menu -->
-			<div id="profileMenu" class="hidden absolute right-0 mt-2 w-48 bg-[#fafafa] rounded-lg shadow-lg py-2  text-gray-900">
+			<div id="profileMenu" class="hidden absolute right-0 mt-2 w-48 bg-off-white rounded-lg shadow-lg py-2  text-gray-900">
 				<a href="<?= site_url(ucwords($role) . '/Myprofile'); ?>" class="block px-4 py-2 hover:bg-gray-200">Profile</a>
 				<a href="#logout" class="block px-4 py-2 hover:bg-gray-200">Logout</a>
 			</div>
