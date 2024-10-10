@@ -1,23 +1,22 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class M_mahasiswa extends CI_Model
+class M_eticket extends CI_Model
 {
 	//$table sebagai tabel yang digunakan, dengan pemanggilannya $this->table
-	private $table = 'mahasiswa';
+	private $table = 'etiket_mhs';
 	//$pk atau Primary Key yang digunakan, dengan pemanggilannya $this->pk
-	private $pk = 'nim';
+	private $pk = 'id_etiket';
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'desc');
-		$this->db->join('akun_users', 'mahasiswa.nim = akun_users.id_user');
+
+		$this->db->join('akun_users', 'etiket_mhs.nim = akun_users.id_user', 'left');
+		$this->db->join('mahasiswa AS mhs1', 'etiket_mhs.nim = mhs1.nim');
+		$this->db->join('mahasiswa AS mhs2', 'akun_users.id_user = mhs2.nim');
+
 		return $this->db->get($this->table);
 	}
 
-	public function getMhs()
-	{
-		$this->db->select('nim', 'nama');
-		return $this->db->get($this->table);
-	}
 	public function save($data)
 	{
 		return $this->db->insert($this->table, $data);
@@ -27,6 +26,13 @@ class M_mahasiswa extends CI_Model
 		$this->db->where($this->pk, $id);
 		return $this->db->get($this->table)->row_array();
 	}
+	public function getEticketById($id)
+	{
+		$this->db->where($this->pk, $id);
+		$query = $this->db->get($this->table); // Sesuaikan dengan nama tabel Anda
+		return $query->row(); // Mengembalikan satu baris
+	}
+
 	public function update($id, $data)
 	{
 		$this->db->where($this->pk, $id);
@@ -37,19 +43,6 @@ class M_mahasiswa extends CI_Model
 		$this->db->where($data);
 		return $this->db->delete($this->table);
 	}
-	public function getId($id_user)
-	{
-		$this->db->where('id_user', $id_user);
-		$query = $this->db->get($this->table);
-		return $query->row();
-	}
-
-	public function getUsername($username)
-	{
-		$this->db->where($this->pk, $username);
-		$query = $this->db->get($this->table);
-		return $query->row(); // Returns a single row result
-	}
 	public function getLastId()
 	{
 		$this->db->select_max($this->pk);
@@ -58,7 +51,7 @@ class M_mahasiswa extends CI_Model
 
 		return $result[$this->pk];
 	}
-	public function countUser()
+	public function countSyaratWajib()
 	{
 		return $this->db->count_all($this->table);
 	}

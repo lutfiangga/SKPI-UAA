@@ -1,23 +1,24 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class M_mahasiswa extends CI_Model
+class M_spm extends CI_Model
 {
 	//$table sebagai tabel yang digunakan, dengan pemanggilannya $this->table
-	private $table = 'mahasiswa';
+	private $table = 'spm';
 	//$pk atau Primary Key yang digunakan, dengan pemanggilannya $this->pk
-	private $pk = 'nim';
+	private $pk = 'id_spm';
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'desc');
-		$this->db->join('akun_users', 'mahasiswa.nim = akun_users.id_user');
+
+		$this->db->join('akun_users', 'spm.nim = akun_users.id_user', 'left');
+		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
+		$this->db->join('kategori_spm', 'spm.id_kategori = kategori_spm.id_kategori');
+		$this->db->join('mahasiswa AS mhs2', 'akun_users.id_user = mhs2.nim');
+
 		return $this->db->get($this->table);
 	}
 
-	public function getMhs()
-	{
-		$this->db->select('nim', 'nama');
-		return $this->db->get($this->table);
-	}
+
 	public function save($data)
 	{
 		return $this->db->insert($this->table, $data);
@@ -37,19 +38,6 @@ class M_mahasiswa extends CI_Model
 		$this->db->where($data);
 		return $this->db->delete($this->table);
 	}
-	public function getId($id_user)
-	{
-		$this->db->where('id_user', $id_user);
-		$query = $this->db->get($this->table);
-		return $query->row();
-	}
-
-	public function getUsername($username)
-	{
-		$this->db->where($this->pk, $username);
-		$query = $this->db->get($this->table);
-		return $query->row(); // Returns a single row result
-	}
 	public function getLastId()
 	{
 		$this->db->select_max($this->pk);
@@ -58,7 +46,7 @@ class M_mahasiswa extends CI_Model
 
 		return $result[$this->pk];
 	}
-	public function countUser()
+	public function countSyaratWajib()
 	{
 		return $this->db->count_all($this->table);
 	}

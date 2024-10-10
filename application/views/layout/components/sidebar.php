@@ -10,9 +10,16 @@
 			</li>
 			<!-- profile -->
 			<li class="my-2">
-				<a href="<?= site_url(ucwords($role) . '/Myprofile'); ?>" class="p-2.5 flex items-center rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'myprofile') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 whitespace-nowrap duration-300 ring-2 ring-[#dadada]' : ''; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Myprofile'); ?>" class="p-2.5 flex items-center rounded-full px-2 lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'myprofile') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?>">
 					<i data-feather="user"></i>
 					<span class="text-[15px] ml-4">Profile</span>
+				</a>
+			</li>
+			<!-- Dir Kemahasiswaan -->
+			<li class="my-2 <?= $role != 'kemahasiswaan' ? 'hidden' : 'block' ?>">
+				<a href="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan'); ?>" class="p-2.5 flex items-center rounded-full px-2 lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'dir_kemahasiswaan') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?>">
+					<i data-feather="smile"></i>
+					<span class="text-[15px] text-left ml-4">Direktur Kemahasiswaan</span>
 				</a>
 			</li>
 			<hr class="my-4 border-[#fafafa]">
@@ -91,8 +98,8 @@
 				</a>
 			</li>
 			<!-- Eticket Mahasiswa -->
-			<li class="my-2 <?= ($role != 'admin_eticket') ? 'hidden' : 'block'; ?>">
-				<a href="#" class="p-2.5 flex items-center text-left  focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+			<li class="my-2 <?= ($role != 'eticket') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url('Eticket/Eticket_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'eticket_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="activity"></i>
 					<span class="text-[15px] ml-4">Eticket Mahasiswa</span>
 				</a>

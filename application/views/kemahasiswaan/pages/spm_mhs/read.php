@@ -47,9 +47,14 @@
 				<thead class="bg-gray-100">
 					<tr>
 						<th class="px-4 py-2">No</th>
-						<th class="px-4 py-2">Nama</th>
+						<th class="px-4 py-2">Mahasiswa</th>
+						<th class="px-4 py-2">Nama Kegiatan</th>
 						<th class="px-4 py-2">Tanggal</th>
-						<th class="px-4 py-2">File</th>
+						<th class="px-4 py-2">Sertifikat</th>
+						<th class="px-4 py-2">Link Kegiatan</th>
+						<th class="px-4 py-2">Foto Kegiatan</th>
+						<th class="px-4 py-2">Surat Tugas</th>
+						<th class="px-4 py-2">Penyelenggara</th>
 						<th class="px-4 py-2">Status</th>
 						<th class="px-4 py-2">Aksi</th>
 					</tr>
@@ -73,28 +78,49 @@
 										</div>
 									</div>
 								</td>
+								<td class="px-4 py-2 whitespace-nowrap"><?= $row['nama_kegiatan'] ?></td>
 								<td class="px-4 py-2 whitespace-nowrap"><?= tanggal($row['tanggal']) ?></td>
 								<td class="px-4 py-2">
-									<?php if (trim($row['type']) == 'file'): ?>
-										<a href="<?= base_url('assets/static/spm/pdf/syarat_wajib/' . $row['url']); ?>" download class="flex flex-row mx-2 p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
-											<div>
-												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
-													<i data-feather="file-text" class="w-6 h-auto"></i>
-												</div>
+									<a href="<?= base_url('assets/static/spm/pdf/sertifikat/' . $row['sertifikat']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+										<div>
+											<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
+												<i data-feather="file-text" class="w-6 h-auto"></i>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['url']; ?></p>
-										</a>
-									<?php else: ?>
-										<a href="<?= $row['url']; ?>" class="flex flex-row mx-2 p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
-											<div>
-												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
-													<i data-feather="link-2" class="w-6 h-auto"></i>
-												</div>
-											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['url']; ?></p>
-										</a>
-									<?php endif; ?>
+										</div>
+										<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['sertifikat']; ?></p>
+									</a>
 								</td>
+								<td class="px-4 py-2">
+									<a href="<?= $row['link_kegiatan']; ?>" target="_blank" class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+										<div>
+											<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
+												<i data-feather="link-2" class="w-6 h-auto"></i>
+											</div>
+										</div>
+										<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['link_kegiatan']; ?></p>
+									</a>
+								</td>
+								<td class="px-4 py-2">
+									<a href="<?= base_url('assets/static/spm/img/foto_kegiatan/' . $row['foto_kegiatan']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+										<div>
+											<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
+												<i data-feather="image" class="w-6 h-auto"></i>
+											</div>
+										</div>
+										<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['foto_kegiatan']; ?></p>
+									</a>
+								</td>
+								<td class="px-4 py-2">
+									<a href="<?= base_url('assets/static/spm/pdf/surat_tugas/' . $row['surat_tugas']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+										<div>
+											<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
+												<i data-feather="file-text" class="w-6 h-auto"></i>
+											</div>
+										</div>
+										<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['surat_tugas']; ?></p>
+									</a>
+								</td>
+								<td class="px-4 py-2 whitespace-nowrap"><?= $row['penyelenggara'] ?></td>
 								<td>
 									<?php if ($row['status'] == 'pending') : ?>
 										<span class="flex items-center text-sm gap-2 text-orange-600 hover:bg-[#EEF0F6] px-4 py-2 rounded-full">
@@ -115,20 +141,19 @@
 								</td>
 								<td class="px-4 py-2 flex flex-row items-center mt-2 gap-2">
 									<?php if ($row['status'] == 'pending'): ?>
-										<a href="<?= site_url('Admisi/Spm_Mahasiswa/accept/' . $row['id_syarat_wajib']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<a href="<?= site_url('Kemahasiswaan/Spm_Mahasiswa/accept/' . $row['id_spm']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="check-circle" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Diterima</p>
 										</a>
-										<button onclick="openDeclineModal(<?= $row['id_syarat_wajib']; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<button onclick="openDeclineModal(<?= $row['id_spm']; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="x-circle" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Ditolak</p>
-											</a>
-										<?php else: ?>
-											<p class="text-xs text-gray-400 mt-3">
-
-												<?= (!empty(trim($row['keterangan']))) ? 'Keterangan: ' . $row['keterangan'] : 'No action needed'; ?>
-											</p>
-										<?php endif; ?>
+										</button>
+									<?php else: ?>
+										<p class="text-xs text-gray-400">
+											<?= (!empty(trim($row['keterangan']))) ? 'Keterangan: ' . $row['keterangan'] : 'No action needed'; ?>
+										</p>
+									<?php endif; ?>
 								</td>
 							</tr>
 						<?php $no++;
@@ -142,9 +167,14 @@
 				<tfoot class="bg-gray-100">
 					<tr>
 						<th class="px-4 py-2">No</th>
-						<th class="px-4 py-2">Nama</th>
+						<th class="px-4 py-2">Mahasiswa</th>
+						<th class="px-4 py-2">Nama Kegiatan</th>
 						<th class="px-4 py-2">Tanggal</th>
-						<th class="px-4 py-2">File</th>
+						<th class="px-4 py-2">Sertifikat</th>
+						<th class="px-4 py-2">Link Kegiatan</th>
+						<th class="px-4 py-2">Foto Kegiatan</th>
+						<th class="px-4 py-2">Surat Tugas</th>
+						<th class="px-4 py-2">Penyelenggara</th>
 						<th class="px-4 py-2">Status</th>
 						<th class="px-4 py-2">Aksi</th>
 					</tr>
@@ -166,9 +196,9 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Admisi/Spm_Mahasiswa/decline/' . $row['id_syarat_wajib']); ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Kemahasiswaan/Spm_Mahasiswa/decline/' . $row['id_spm']); ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
-				<input type="hidden" id="edit_id_syarat_wajib" name="id_syarat_wajib" value="" />
+				<input type="hidden" id="edit_id_spm" name="id_spm" value="" />
 
 				<div class="mb-4">
 					<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
@@ -190,7 +220,7 @@
 <script>
 	// open decline edit
 	const openDeclineModal = (id) => {
-		document.getElementById('edit_id_syarat_wajib').value = id;
+		document.getElementById('edit_id_spm').value = id;
 		document.getElementById('declineSPM').showModal();
 	}
 </script>

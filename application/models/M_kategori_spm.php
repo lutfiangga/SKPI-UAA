@@ -1,21 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class M_mahasiswa extends CI_Model
+class M_kategori_spm extends CI_Model
 {
 	//$table sebagai tabel yang digunakan, dengan pemanggilannya $this->table
-	private $table = 'mahasiswa';
+	private $table = 'kategori_spm';
 	//$pk atau Primary Key yang digunakan, dengan pemanggilannya $this->pk
-	private $pk = 'nim';
+	private $pk = 'id_kategori';
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'desc');
-		$this->db->join('akun_users', 'mahasiswa.nim = akun_users.id_user');
-		return $this->db->get($this->table);
-	}
-
-	public function getMhs()
-	{
-		$this->db->select('nim', 'nama');
 		return $this->db->get($this->table);
 	}
 	public function save($data)
@@ -37,19 +30,6 @@ class M_mahasiswa extends CI_Model
 		$this->db->where($data);
 		return $this->db->delete($this->table);
 	}
-	public function getId($id_user)
-	{
-		$this->db->where('id_user', $id_user);
-		$query = $this->db->get($this->table);
-		return $query->row();
-	}
-
-	public function getUsername($username)
-	{
-		$this->db->where($this->pk, $username);
-		$query = $this->db->get($this->table);
-		return $query->row(); // Returns a single row result
-	}
 	public function getLastId()
 	{
 		$this->db->select_max($this->pk);
@@ -58,7 +38,7 @@ class M_mahasiswa extends CI_Model
 
 		return $result[$this->pk];
 	}
-	public function countUser()
+	public function countKategori()
 	{
 		return $this->db->count_all($this->table);
 	}

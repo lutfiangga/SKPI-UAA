@@ -2,14 +2,14 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class SPM_Mahasiswa extends CI_Controller
 {
-	private $view = "admisi/pages/spm_mhs/";
-	private $redirect = "Admisi/Spm_Mahasiswa";
+	private $view = "kemahasiswaan/pages/spm_mhs/";
+	private $redirect = "Kemahasiswaan/Spm_Mahasiswa";
 	public function __construct()
 	{
 		parent::__construct();
 		//protected routes
-		checkRole('Admisi');
-		$this->load->model('M_syarat_wajib');
+		checkRole('Kemahasiswaan');
+		$this->load->model('M_spm');
 	}
 	function index()
 	{
@@ -26,7 +26,7 @@ class SPM_Mahasiswa extends CI_Controller
 			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'read' => $this->M_syarat_wajib->getAll(),
+			'read' => $this->M_spm->getAll(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
@@ -38,7 +38,7 @@ class SPM_Mahasiswa extends CI_Controller
 			'status' => 'diterima',
 		);
 
-		$this->M_syarat_wajib->update($kd, $data);
+		$this->M_spm->update($kd, $data);
 		redirect($this->redirect);
 	}
 	public function decline($kd)
@@ -49,7 +49,7 @@ class SPM_Mahasiswa extends CI_Controller
 			'status' => 'ditolak',
 		);
 
-		$this->M_syarat_wajib->update($kd, $data);
+		$this->M_spm->update($kd, $data);
 		redirect($this->redirect);
 	}
 }

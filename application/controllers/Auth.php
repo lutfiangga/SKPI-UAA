@@ -65,6 +65,7 @@ class Auth extends CI_Controller
 				} else {
 					$this->session->set_flashdata('auth_error', 'Password salah!');
 					// echo $this->db->last_query();
+					// echo 'Role: ' . $data['role'];
 					// echo 'password'.$pwd;
 					redirect('auth', 'refresh');
 				}
@@ -73,17 +74,21 @@ class Auth extends CI_Controller
 					// Set session data berdasarkan peran pengguna
 					$this->set_session($data);
 					$this->session->set_flashdata('success', 'Anda berhasil login!');
+					// echo $this->db->last_query();
+					// echo 'Role: ' . $data['role'];
 					$this->role_redirect($data['role']); // Redirect berdasarkan role
 				} else {
 					// Jika password salah
 					$this->session->set_flashdata('auth_error', 'Password salah!');
 					// echo $this->db->last_query();
-					// echo $pwd;
+					// echo 'Role: ' . $data['role'];
 					redirect('auth', 'refresh');
 				}
 			} else {
 				// Jika email tidak ditemukan
 				$this->session->set_flashdata('auth_error', 'Email tidak ditemukan!');
+				// echo $this->db->last_query();
+				// echo 'Role: ' . $data['role'];
 				redirect('auth', 'refresh');
 			}
 		}
@@ -95,20 +100,25 @@ class Auth extends CI_Controller
 		$array = array(
 			'id_user' => $data['id_user'],
 			'nama' => $data['nama'],
-			'role' => $data['role'],
+			'role' => strtolower($data['role']) == 'admin_eticket' ? 'eticket' : $data['role'],
 			'img_user' => $data['img_user'],
 			'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
 			'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
 			'Admisi' => strtolower($data['role']) == 'admisi' ? 1 : 0,
-			'admin_eticket' => strtolower($data['role']) == 'admin_eticket' ? 1 : 0,
+			'Eticket' => strtolower($data['role']) == 'admin_eticket' ? 1 : 0,
 			'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
 		);
+
 		$this->session->set_userdata($array);
 	}
 
 	// Helper untuk redirect berdasarkan role
 	private function role_redirect($role)
 	{
+		if ($role == 'admin_eticket') {
+			$role = 'eticket';
+		}
+
 		switch ($role) {
 			case 'admin':
 				redirect('Admin/Dashboard', 'refresh');
@@ -119,7 +129,7 @@ class Auth extends CI_Controller
 			case 'mahasiswa':
 				redirect('Mahasiswa/Dashboard', 'refresh');
 				break;
-			case 'admin_etiket':
+			case 'eticket':
 				redirect('Eticket/Dashboard', 'refresh');
 				break;
 			case 'kemahasiswaan':

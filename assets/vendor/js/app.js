@@ -5,6 +5,7 @@ import {
 	submitValidation,
 } from "./form/input-form-validation.js";
 
+
 // global initiate
 window.showPassword = showPassword;
 window.formValidation = formValidation;

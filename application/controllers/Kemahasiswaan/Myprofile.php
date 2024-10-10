@@ -3,13 +3,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Myprofile extends CI_Controller
 {
-	private $view = "admisi/pages/profile/";
-	private $redirect = "Admisi/Myprofile";
+	private $view = "kemahasiswaan/pages/profile/";
+	private $redirect = "Kemahasiswaan/Myprofile";
 	public function __construct()
 	{
 		parent::__construct();
 		//protected routes
-		checkRole('Admisi');
+		checkRole('Kemahasiswaan');
 		//load model
 		$this->load->model(array('M_profile', 'M_auth'));
 	}
@@ -42,7 +42,7 @@ class Myprofile extends CI_Controller
 		$id_user = $this->session->userdata('id_user');
 
 		// Konfigurasi upload file
-		$config['upload_path'] = './assets/static/img/photos/admisi/';
+		$config['upload_path'] = './assets/static/img/photos/kemahasiswaan/';
 		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $role . '_' . $id_user . '_' . time();
@@ -64,7 +64,7 @@ class Myprofile extends CI_Controller
 
 			// Hapus gambar lama dari server jika ada
 			if ($old_img) {
-				$old_file_path = './assets/static/img/photos/admisi/' . $old_img;
+				$old_file_path = './assets/static/img/photos/kemahasiswaan/' . $old_img;
 				if (file_exists($old_file_path)) {
 					unlink($old_file_path); // Hapus file lama
 				}
