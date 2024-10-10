@@ -1,7 +1,7 @@
 <section class="flex justify-between gap-4 lg:gap-8 xl:gap-12 items-center justify-center">
 	<!-- image -->
 	<section class="hidden md:block rounded-xl md:w-2/5 h-screen px-4 py-8 relative">
-		<img src="https://akademik.almaata.ac.id/assets/almaataview.jpg" alt="universitas alma ata" class="object-cover flex justify-center mx-auto rounded-xl w-full h-full">
+		<img src="<?= base_url('assets/static/img/almaataview.jpg') ?>" alt="universitas alma ata" class="object-cover flex justify-center mx-auto rounded-xl w-full h-full">
 	</section>
 	<!-- form -->
 	<section class="md:w-3/5 w-full rounded-xl">

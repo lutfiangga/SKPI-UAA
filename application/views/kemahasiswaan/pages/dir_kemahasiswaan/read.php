@@ -47,10 +47,13 @@
 
 	<!-- Content Profile-->
 	<div class="w-full mx-auto p-6 bg-white rounded-2xl shadow-sm md:shadow-md lg:shadow-lg">
-		<!-- Tabs -->
-		<div class="flex justify-end border-b mb-4">
+		<!-- Biodata Tab Content -->
+		<div class="flex justify-end border-b mb-4 gap-2">
 			<button class="px-4 py-2 text-xs sm:text-sm md:text-base md:text-base gap-2 tab-biodata text-blue-600 border-b-2 flex flex-row items-center border-blue-600 focus:outline-none">
 				<i data-feather="info" class="w-4 h-auto"></i> Biodata
+			</button>
+			<button class="px-4 py-2 text-xs sm:text-sm md:text-base md:text-base gap-2 tab-password text-gray-600 border-b-2 flex flex-row items-center focus:outline-none">
+				<i data-feather="lock" class="w-4 h-auto"></i> Update Data
 			</button>
 		</div>
 
@@ -76,7 +79,6 @@
 
 			<!-- Content Profile-->
 			<div class="md:col-span-2">
-				<!-- Biodata Tab Content -->
 				<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 content-biodata">
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Nama:</label>
@@ -136,6 +138,115 @@
 						</div>
 					</div>
 
+				</div>
+				<!-- Update Password Tab Content -->
+				<div class="hidden space-y-4 content-password">
+					<!-- Alert no input form -->
+					<?php if ($this->session->flashdata('validation_error')): ?>
+						<div role="alert" class="alert alert-warning">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6 shrink-0 stroke-current"
+								fill="none"
+								viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+							</svg>
+							<span> <?= $this->session->flashdata('validation_error'); ?></span>
+						</div>
+					<?php endif; ?>
+					<!-- Alert wrong input -->
+					<?php if ($this->session->flashdata('error')): ?>
+						<div role="alert" class="alert alert-error">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6 shrink-0 stroke-current"
+								fill="none"
+								viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<span> <?= $this->session->flashdata('error'); ?></span>
+						</div>
+					<?php endif; ?>
+					<!-- Alert success -->
+					<?php if ($this->session->flashdata('success')): ?>
+						<div role="alert" class="alert alert-success">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="h-6 w-6 shrink-0 stroke-current"
+								fill="none"
+								viewBox="0 0 24 24">
+								<path
+									stroke-linecap="round"
+									stroke-linejoin="round"
+									stroke-width="2"
+									d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+							</svg>
+							<span> <?= $this->session->flashdata('success'); ?></span>
+						</div>
+					<?php endif; ?>
+					<form class="flex flex-col gap-2 text-xs sm:text-sm md:text-base" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/update/' . $direktur->id_direktur); ?>" method="POST" enctype="multipart/form-data">
+						<?= csrf(); ?>
+						<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
+							<div>
+								<label for="nama" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Nama:</label>
+								<div class="flex flex-row w-full mt-1">
+									<input type="text" id="nama" name="nama" required value="<?= $direktur->nama; ?>"
+										class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+										placeholder="Masukkan Nama" autocomplete="nama" />
+								</div>
+							</div>
+							<div>
+								<label for="jenis_kelamin" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Jenis Kelamin:</label>
+								<div class="flex flex-row w-full mt-1">
+									<div class="flex gap-4">
+										<div class="flex items-center">
+											<input id="laki-laki" name="jenis_kelamin" type="radio" value="laki-laki" <?= $direktur->jenis_kelamin == 'laki-laki' ? 'checked' : '' ?> class="radio radio-primary" />
+											<label for="laki-laki" class="ml-2 block text-sm font-medium text-gray-700">Laki-laki</label>
+										</div>
+										<div class="flex items-center">
+											<input id="perempuan" name="jenis_kelamin" type="radio" value="perempuan" <?= $direktur->jenis_kelamin == 'perempuan' ? 'checked' : '' ?> class="radio radio-primary" />
+											<label for="perempuan" class="ml-2 block text-sm font-medium text-gray-700">Perempuan</label>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div>
+								<label for="email" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Email:</label>
+								<div class="flex flex-row w-full mt-1">
+									<input type="email" id="email" name="email" required value="<?= $direktur->email; ?>" oninput="inputValidation(this)"
+										class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+										placeholder="Masukkan Email" autocomplete="email" />
+								</div>
+								<p id="emailError" class="text-red-500 text-sm mt-2 hidden">Format email tidak valid.</p>
+							</div>
+							<div>
+								<label for="phone" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Telepon:</label>
+								<div class="flex flex-row w-full mt-1">
+									<input type="text" inputmode="numeric" id="phone" name="no_hp" required value="<?= $direktur->no_hp; ?>" oninput="inputValidation(this)"
+										class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+										placeholder="Masukkan Telepon" autocomplete="no_hp" />
+								</div>
+								<p id="phoneError" class="text-red-500 text-sm mt-2 hidden">Nomor telepon tidak valid.</p>
+							</div>
+							<div class="md:col-span-2">
+								<label for="alamat" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Alamat:</label>
+								<div class="flex flex-row w-full mt-1">
+									<textarea type="text" inputmode="numeric" id="alamat" name="alamat" required
+										class="block w-full border bg-off-white text-black border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+										placeholder="Masukkan Telepon" autocomplete="alamat"><?= $direktur->alamat; ?></textarea>
+								</div>
+							</div>
+						</div>
+						<button type="submit" class="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg disabled:bg-gray-300">Update</button>
+					</form>
 				</div>
 			</div>
 		</div>

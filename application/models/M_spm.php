@@ -18,7 +18,6 @@ class M_spm extends CI_Model
 		return $this->db->get($this->table);
 	}
 
-
 	public function save($data)
 	{
 		return $this->db->insert($this->table, $data);

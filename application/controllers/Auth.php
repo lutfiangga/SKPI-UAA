@@ -14,7 +14,7 @@ class Auth extends CI_Controller
 	public function index()
 	{
 		// Cek apakah user sudah login dan jika iya, hancurkan session
-		if ($this->session->userdata('id_user')) {
+		if ($this->session->userdata('id_akun')) {
 			$this->session->sess_destroy();
 			redirect('auth/logout');
 		}

@@ -1,4 +1,3 @@
-
 import { openNav } from "./dashboard/openNavbar.js";
 import { toggleDropdown } from "./dashboard/dropdown.js";
 import { toggleProfileMenu } from "./dashboard/toggleProfile.js";
@@ -7,6 +6,7 @@ import { fileUpload } from "./form/file-upload.js";
 import { selectCustomDateRange } from "./form/select-custom-date-form.js";
 import { profileTab } from "./dashboard/profile-tab.js";
 import { slimSelect } from "./plugin/slim-select.js";
+import { pickdate } from "../plugin/jquery/datepicker/js/jquery-datepicker.js";
 
 // global initiate
 window.openNav = openNav;
@@ -17,6 +17,7 @@ window.fileUpload = fileUpload;
 window.selectCustomDateRange = selectCustomDateRange;
 window.profileTab = profileTab;
 window.slimSelect = slimSelect;
+window.pickdate = pickdate;
 
 document.addEventListener("DOMContentLoaded", function () {
 	// inisasi file upload
@@ -26,6 +27,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 	//inisiasi slim select
 	slimSelect();
+
+	pickdate();
 
 	// inisasi select custom date range
 	selectCustomDateRange();

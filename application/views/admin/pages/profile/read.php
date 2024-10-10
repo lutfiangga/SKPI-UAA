@@ -6,7 +6,7 @@
 						<?= $sub; ?>
 					</p>
 					<p class="hidden md:block">
-						<?= $role; ?>
+						Saya
 					</p>
 				</span>
 			</h1>

@@ -3,3 +3,6 @@
 
 /* daisyui */
 @import "./daisy.css";
+
+/* jquery datepicker */
+@import "../plugin/jquery/datepicker/css/jquery-datepicker-ui.css";

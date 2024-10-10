@@ -121,9 +121,8 @@ class Myprofile extends CI_Controller
 					redirect($this->redirect);
 				}
 			} else if (password_verify($current_password, $user->password)) {
-				// Hash new password
+				// Hashing new password
 				$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
-				// Update password in database
 				$this->M_auth->update($id_user, ['password' => $hashed_password]);
 
 				$this->session->set_flashdata('success', 'Password updated successfully.');

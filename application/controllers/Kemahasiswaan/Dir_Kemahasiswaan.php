@@ -34,6 +34,51 @@ class Dir_Kemahasiswaan extends CI_Controller
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
+	public function update()
+	{
+		$this->form_validation->set_rules(
+			'email',
+			'Email',
+			'required|valid_email',
+			array(
+				'required' => 'Email tidak boleh kosong.',
+				'valid_email' => 'Format email tidak valid.'
+			)
+		);
+		$this->form_validation->set_rules(
+			'no_hp',
+			'Phone',
+			'required|min_length[10]',
+			array(
+				'required' => 'Nomor telepon tidak boleh kosong.',
+				'min_length' => 'Nomor telepon harus terdiri dari minimal 10 karakter.'
+			)
+		);
+
+		// Jika validasi form gagal
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('validation_error', validation_errors());
+			redirect($this->redirect);
+		} else {
+			cek_csrf();
+
+			$id = $this->M_dirKemahasiswaan->GetDirektur()->row()->id_direktur;
+
+			$data = array(
+				'nama' => $this->input->post('nama'),
+				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
+				'email' => $this->input->post('email'),
+				'no_hp' => $this->input->post('no_hp'),
+				'alamat' => $this->input->post('alamat'),
+			);
+
+			// Update data direktur
+			$this->M_dirKemahasiswaan->update($id, $data);
+			$this->session->set_flashdata('success', 'Data updated successfully.');
+			redirect($this->redirect, 'refresh');
+		}
+	}
+
 
 	public function change_image($id)
 	{
