@@ -393,7 +393,7 @@
 
 		// Menampilkan preview file jika ada
 		if (bukti) {
-			const imageUrl = `<?= base_url('assets/static/eticket/') ?>${bukti}`;
+			const imageUrl = `<?= base_url('./assets/static/eticket/') ?>${bukti}`;
 			previewContainer.innerHTML = `<img src="${imageUrl}" class="w-full h-auto max-h-60 object-cover" alt="Preview Gambar" />`;
 		} else {
 			previewContainer.innerHTML = ''; // Kosongkan jika tidak ada bukti

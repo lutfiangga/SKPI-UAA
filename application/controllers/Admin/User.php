@@ -126,18 +126,17 @@ class User extends CI_Controller
 
 	public function edit()
 	{
-		$id = $this->uri->segment(4);
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
-			//'edit' variabel yang akan dipanggil pada view edit.php
 			'judul' => "DATA USER",
 			'sub' => "Data User",
 			'active_menu' => 'user',
 			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
 			'nama' => $this->session->userdata('nama'),
-			'email' => $this->session->userdata('email'),
-			'username' => $this->session->userdata('username'),
-			'password' => $this->session->userdata('password'),
-			'foto' => $this->session->userdata('img_user'),
+			'foto' => $foto,
 			'edit' => $this->M_user->edit($id),
 		);
 		$this->template->load('pages/admin/template', $this->view . 'edit', $data);
@@ -216,7 +215,6 @@ class User extends CI_Controller
 	{
 		$id = $this->uri->segment(4);
 		$data = array(
-			//data akan dihapus sesuai uri->segment(3) yang dipilih
 			'id_user' => $id
 		);
 		$this->M_user->delete($data);

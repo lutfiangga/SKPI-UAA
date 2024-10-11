@@ -21,10 +21,8 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'judul' => "KATEGORI SPM WAJIB",
 			'sub' => "Kategori SPM Wajib",
 			'active_menu' => 'kategori_spm',
-			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_kategori_spm_wajib->getAll(),
@@ -38,7 +36,7 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 
 		$last_id = $this->M_kategori_spm_wajib->getLastId();
 
-		// jika tidak ditemukan, id_syarat_wajib_kategori diisi 1
+		// jika tidak ditemukan, id diisi 1
 		if ($last_id == null) {
 			$id = 1;
 		} else {

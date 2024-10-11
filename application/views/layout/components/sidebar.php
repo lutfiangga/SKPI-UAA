@@ -97,9 +97,18 @@
 					<span class="text-[15px] ml-4 flex gap-1">SPM Mahasiswa</span>
 				</a>
 			</li>
+
+			<!-- SPM Wajib -->
+			<li class="my-2 <?= ($role != 'mahasiswa') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url('Mahasiswa/Spm_wajib'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'spm_wajib') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="check-circle"></i>
+					<span class="text-[15px] ml-4">SPM Wajib</span>
+				</a>
+			</li>
+
 			<!-- Eticket Mahasiswa -->
-			<li class="my-2 <?= ($role != 'eticket') ? 'hidden' : 'block'; ?>">
-				<a href="<?= site_url('Eticket/Eticket_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'eticket_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+			<li class="my-2 <?= ($role != 'eticket' && $role != 'mahasiswa') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Eticket_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'eticket_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="activity"></i>
 					<span class="text-[15px] ml-4">Eticket Mahasiswa</span>
 				</a>

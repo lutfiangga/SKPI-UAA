@@ -101,11 +101,9 @@ class Spm_Mahasiswa extends CI_Controller
 			$surat_tugas = $this->input->post('surat_tugas_current');
 		}
 
-		// Mendapatkan ID terakhir dari database
-		$last_id = $this->M_spm->getLastId();
+		$last_id = $this->M_spm->getLastId(); //get last id
+		// jika id tidak ditemukan, id diisi 1
 		$id = ($last_id == null) ? 1 : $last_id + 1;
-
-		// Simpan data ke dalam database
 		$data = array(
 			'id_spm' => $id,
 			'nim' => $id_user,
@@ -149,7 +147,7 @@ class Spm_Mahasiswa extends CI_Controller
 	{
 		cek_csrf();
 
-		// Mendapatkan data pengguna
+		// get user session
 		$id_user = $this->session->userdata('id_user');
 		$role = $this->session->userdata('role');
 		$spm = $this->M_spm->edit($id);
@@ -211,16 +209,15 @@ class Spm_Mahasiswa extends CI_Controller
 			}
 		}
 
-		// Simpan data ke dalam database
 		$data = array(
 			'nama_kegiatan' => $this->input->post('nama_kegiatan'),
 			'tanggal_mulai' => $this->input->post('tanggal_mulai'),
 			'tanggal_selesai' => $this->input->post('tanggal_selesai'),
 			'penyelenggara' => $this->input->post('penyelenggara'),
-			'sertifikat' => $sertifikat, // Simpan sertifikat yang baru atau lama
+			'sertifikat' => $sertifikat,
 			'link_kegiatan' => $this->input->post('link_kegiatan'),
-			'foto_kegiatan' => $foto_kegiatan, // Simpan foto_kegiatan yang baru atau lama
-			'surat_tugas' => $surat_tugas, // Simpan surat_tugas yang baru atau lama
+			'foto_kegiatan' => $foto_kegiatan,
+			'surat_tugas' => $surat_tugas,
 			'status' => 'pending'
 		);
 
@@ -234,8 +231,7 @@ class Spm_Mahasiswa extends CI_Controller
 		cek_csrf();
 		$id = $this->input->post('id_spm');
 
-		// Ambil nama file bukti dari database
-		$spm = $this->M_spm->edit($id);
+		$spm = $this->M_spm->edit($id); // get data by id
 		if ($spm) {
 			$foto_kegiatan = $spm['foto_kegiatan'];
 			$sertifikat = $spm['sertifikat'];
@@ -249,19 +245,19 @@ class Spm_Mahasiswa extends CI_Controller
 			if ($foto_kegiatan) {
 				$filePath = './assets/static/spm/img/foto_kegiatan/' . $foto_kegiatan;
 				if (file_exists($filePath)) {
-					unlink($filePath); // Hapus file
+					unlink($filePath);
 				}
 			}
 			if ($sertifikat) {
 				$filePath = './assets/static/spm/pdf/sertifikat/' . $sertifikat;
 				if (file_exists($filePath)) {
-					unlink($filePath); // Hapus file
+					unlink($filePath);
 				}
 			}
 			if ($surat_tugas) {
 				$filePath = './assets/static/spm/pdf/surat_tugas/' . $surat_tugas;
 				if (file_exists($filePath)) {
-					unlink($filePath); // Hapus file
+					unlink($filePath);
 				}
 			}
 		}

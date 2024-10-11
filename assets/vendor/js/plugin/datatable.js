@@ -3,6 +3,7 @@ $(document).ready(function () {
 	if (!$.fn.DataTable.isDataTable("table.table-data")) {
 		$("table.table-data").DataTable({
 			responsive: true,
+			autoWidth: true,
 			select: true,
 			searching: true,
 			paging: true,
@@ -59,6 +60,7 @@ $(document).ready(function () {
 		$(document).ready(function () {
 			$("table.table-info").DataTable({
 				responsive: true,
+				autoWidth: true,
 				select: true,
 				searching: true,
 				paging: true,

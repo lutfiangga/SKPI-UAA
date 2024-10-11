@@ -18,15 +18,12 @@ class Dashboard extends CI_Controller
 			'judul' => "DASHBOARD",
 			'sub' => "Dashboard",
 			'active_menu' => 'home',
-			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 
-		// echo $this->session->userdata('nama');
 	}
 }

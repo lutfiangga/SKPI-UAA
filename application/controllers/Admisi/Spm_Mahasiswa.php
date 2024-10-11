@@ -20,10 +20,8 @@ class SPM_Mahasiswa extends CI_Controller
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
 			'active_menu' => 'spm_mhs',
-			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_syarat_wajib->getAll(),

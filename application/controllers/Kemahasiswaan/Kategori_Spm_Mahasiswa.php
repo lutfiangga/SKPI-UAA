@@ -21,10 +21,8 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'judul' => "KATEGORI SPM",
 			'sub' => "Kategori SPM",
 			'active_menu' => 'kategori_spm',
-			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_kategori_spm->getAll(),
@@ -36,15 +34,9 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	{
 		cek_csrf();
 
-		$last_id = $this->M_kategori_spm->getLastId();
-
-		// jika tidak ditemukan, id_kategori diisi 1
-		if ($last_id == null) {
-			$id = 1;
-		} else {
-			// jika ditemukan, tambahkan 1 pada id terakhir
-			$id = $last_id + 1;
-		}
+		$last_id = $this->M_kategori_spm->getLastId(); // get last id
+		// jika id tidak ditemukan, id diisi 1
+		$id = ($last_id == null) ? 1 : $last_id + 1;
 		$data = array(
 			'id_kategori' => $id,
 			'nama_kategori' => $this->input->post('nama_kategori'),
@@ -72,7 +64,6 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 		cek_csrf();
 		$id = $this->input->post('id_kategori');
 		$data = array(
-			//data akan dihapus sesuai uri->segment(3) yang dipilih
 			'id_kategori' => $id
 		);
 		$this->M_kategori_spm->delete($data);

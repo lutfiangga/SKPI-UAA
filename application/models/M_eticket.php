@@ -26,11 +26,11 @@ class M_eticket extends CI_Model
 		$this->db->where($this->pk, $id);
 		return $this->db->get($this->table)->row_array();
 	}
-	public function getEticketById($id)
+	public function GetByNim($nim)
 	{
-		$this->db->where($this->pk, $id);
-		$query = $this->db->get($this->table); // Sesuaikan dengan nama tabel Anda
-		return $query->row(); // Mengembalikan satu baris
+		$this->db->where('nim', $nim);
+		$query = $this->db->get($this->table);
+		return $query->result();
 	}
 
 	public function update($id, $data)

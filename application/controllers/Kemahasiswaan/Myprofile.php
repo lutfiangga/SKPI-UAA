@@ -41,49 +41,32 @@ class Myprofile extends CI_Controller
 		$role = $this->session->userdata('role');
 		$id_user = $this->session->userdata('id_user');
 
-		// Konfigurasi upload file
+		// Konfigurasi image
 		$config['upload_path'] = './assets/static/img/photos/kemahasiswaan/';
 		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $role . '_' . $id_user . '_' . time();
 
-		// Memuat library upload dengan konfigurasi
-		$this->load->library('upload', $config);
+		$this->load->library('upload', $config); // Load library dan config
 
-		// Ambil data user dari database berdasarkan ID
-		$user = $this->M_profile->getById($id);
+		$user = $this->M_profile->getById($id); //get user by id
+		$img_user = $user->img_user; // default image
 
-		// Menyimpan nama gambar lama
-		$old_img = $user->img_user; // Pastikan img_user ada di tabel
-
-		$img_user = '';
 		if ($this->upload->do_upload('img_user')) {
-			// File berhasil diupload
 			$img_user_data = $this->upload->data();
 			$img_user = $img_user_data['file_name'];
 
-			// Hapus gambar lama dari server jika ada
-			if ($old_img) {
-				$old_file_path = './assets/static/img/photos/kemahasiswaan/' . $old_img;
-				if (file_exists($old_file_path)) {
-					unlink($old_file_path); // Hapus file lama
-				}
+			// delete old image
+			if (!empty($user->img_user) && file_exists('./assets/static/img/photos/kemahasiswaan/' . $user->img_user)) {
+				unlink('./assets/static/img/photos/kemahasiswaan/' . $user->img_user);
 			}
-		} else {
-			// Jika file tidak diupload, gunakan gambar saat ini
-			$img_user = $this->input->post('img_user_current');
 		}
 
-		// Update data user dengan gambar yang baru
 		$data = array(
 			'img_user' => $img_user,
 		);
 		$this->M_profile->update($id, $data);
-
-		// Update session dengan gambar yang baru
 		$this->session->set_userdata('img_user', $img_user);
-
-		// Redirect ke halaman tertentu setelah proses selesai
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -97,7 +80,6 @@ class Myprofile extends CI_Controller
 		$current_password = $this->input->post('current_password');
 		$new_password = $this->input->post('new_password');
 
-		// Get current password from DB (hashed)
 		$user = $this->M_auth->getId($id_user);
 
 		if ($this->form_validation->run() == FALSE) {
@@ -106,12 +88,10 @@ class Myprofile extends CI_Controller
 			redirect($this->redirect);
 		} else {
 			cek_csrf();
-			// Check if the current password is correct
 			if (empty($user->password)) {
 				if ($current_password === $user->id_user) {
-					// Hash new password
 					$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
-					// Update password in database
+					// Update password
 					$this->M_auth->update($id_user, ['password' => $hashed_password]);
 					$this->session->set_flashdata('success', 'Password updated successfully.');
 					redirect($this->redirect);
@@ -121,7 +101,6 @@ class Myprofile extends CI_Controller
 					redirect($this->redirect);
 				}
 			} else if (password_verify($current_password, $user->password)) {
-				// Hashing new password
 				$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
 				$this->M_auth->update($id_user, ['password' => $hashed_password]);
 
