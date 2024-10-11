@@ -51,15 +51,15 @@ class Myprofile extends CI_Controller
 		$this->load->library('upload', $config); // Load library dan config
 
 		$user = $this->M_profile->getById($id); //get user by id
-		$img_user = $user->img_user; // default image
+		$img_user = $user['img_user']; // default image
 
 		if ($this->upload->do_upload('img_user')) {
 			$img_user_data = $this->upload->data();
 			$img_user = $img_user_data['file_name'];
 
 			// delete old image
-			if (!empty($user->img_user) && file_exists('./assets/static/img/photos/admin/' . $user->img_user)) {
-				unlink('./assets/static/img/photos/admin/' . $user->img_user);
+			if (!empty($user['img_user']) && file_exists('./assets/static/img/photos/admin/' . $user['img_user'])) {
+				unlink('./assets/static/img/photos/admin/' . $user['img_user']);
 			}
 		}
 

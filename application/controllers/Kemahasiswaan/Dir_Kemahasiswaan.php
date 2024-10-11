@@ -29,7 +29,7 @@ class Dir_Kemahasiswaan extends CI_Controller
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'role' => $role,
-			'direktur' => $this->M_dirKemahasiswaan->GetDirektur()->row(),
+			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 		);
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);

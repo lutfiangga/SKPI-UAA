@@ -46,12 +46,13 @@
 			<table class="min-w-full table-auto table-data">
 				<thead class="bg-gray-100">
 					<tr>
-						<th class="px-4 py-2">No</th>
-						<th class="px-4 py-2">Nama</th>
-						<th class="px-4 py-2">Tanggal</th>
-						<th class="px-4 py-2">File</th>
-						<th class="px-4 py-2">Status</th>
-						<th class="px-4 py-2">Aksi</th>
+						<th class="p-2">No</th>
+						<th class="p-2">Nama</th>
+						<th class="p-2">Tanggal</th>
+						<th class="p-2">File</th>
+						<th class="p-2">Link</th>
+						<th class="p-2">Status</th>
+						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -61,71 +62,73 @@
 							$img_user = $row['img_user'] ? 'assets/static/img/photos/' . strtolower($row['role']) . '/' . $row['img_user'] : 'assets/static/img/user.png';
 					?>
 							<tr class="border-t">
-								<td class="px-4 py-2">
+								<td class="p-2">
 									<?= $no; ?>
 								</td>
-								<td class="px-4 py-2">
+								<td class="p-2">
 									<div class="flex flex-row gap-2 items-center">
 										<img src="<?= base_url($img_user); ?>" alt="role" class="rounded-full w-8 h-8">
 										<div class="flex flex-col items-center justify-center">
-											<p class="truncate w-full ml-2 font-semibold"><?= $row['nama'] ?></p>
+											<p class="truncate w-full text-xs md:text-sm ml-2 font-semibold whitespace-normal"><?= $row['nama'] ?></p>
 											<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['program_studi']; ?> - <?= $row['nim']; ?></p>
 										</div>
 									</div>
 								</td>
-								<td class="px-4 py-2 whitespace-nowrap"><?= tanggal($row['tanggal']) ?></td>
-								<td class="px-4 py-2">
-									<?php if (trim($row['type']) == 'file'): ?>
-										<a href="<?= base_url('assets/static/spm/pdf/syarat_wajib/' . $row['url']); ?>" download class="flex flex-row mx-2 p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+								<td class="p-2 whitespace-nowrap"><?= tanggal($row['tanggal']) ?></td>
+								<td class="p-2">
+									<?php if (!empty($row['file'])) : ?>
+										<a href="<?= base_url('assets/static/spm/img/syarat_wajib/' . $row['file']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
 											<div>
 												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
 													<i data-feather="file-text" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['url']; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['file']; ?></p>
 										</a>
-									<?php else: ?>
-										<a href="<?= $row['url']; ?>" class="flex flex-row mx-2 p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+									<?php endif; ?>
+								</td>
+								<td class="p-2">
+									<?php if (!empty($row['url'])) : ?>
+										<a href="<?= $row['url']; ?>" target="_blank" class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
 											<div>
 												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
 													<i data-feather="link-2" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['url']; ?></p>
+											<p class="text-sm max-w-full font-thin whitespace-normal"><?= $row['url']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
 								<td>
 									<?php if ($row['status'] == 'pending') : ?>
-										<span class="flex items-center text-sm gap-2 text-orange-600 hover:bg-[#EEF0F6] px-4 py-2 rounded-full">
+										<span class="flex items-center text-sm gap-2 text-orange-600 hover:bg-[#EEF0F6] p-2 rounded-full">
 											<i data-feather="alert-circle" class="w-4 h-auto"></i>
 											On Review
 										</span>
 									<?php elseif ($row['status'] == 'diterima') : ?>
-										<span class="flex items-center text-sm gap-2 text-green-600 hover:bg-[#EEF0F6] px-4 py-2 rounded-full">
+										<span class="flex items-center text-sm gap-2 text-green-600 hover:bg-[#EEF0F6] p-2 rounded-full">
 											<i data-feather="check-circle" class="w-4 h-auto"></i>
 											Verified
 										</span>
 									<?php elseif ($row['status'] == 'ditolak') : ?>
-										<span class="flex items-center text-sm gap-2 text-red-600 hover:bg-[#EEF0F6] px-4 py-2 rounded-full">
+										<span class="flex items-center text-sm gap-2 text-red-600 hover:bg-[#EEF0F6] p-2 rounded-full">
 											<i data-feather="x-circle" class="w-4 h-auto"></i>
 											Unverified
 										</span>
 									<?php endif; ?>
 								</td>
-								<td class="px-4 py-2 flex flex-row items-center mt-2 gap-2">
+								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<?php if ($row['status'] == 'pending'): ?>
-										<a href="<?= site_url('Admisi/Spm_Mahasiswa/accept/' . $row['id_syarat_wajib']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<a href="<?= site_url('Admisi/Spm_Mahasiswa/accept/' . $row['id_syarat_wajib']); ?>" class="bg-green-600 mt-3 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="check-circle" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Diterima</p>
 										</a>
-										<button onclick="openDeclineModal(<?= $row['id_syarat_wajib']; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<button onclick="openDeclineModal(<?= $row['id_syarat_wajib']; ?>)" class="bg-red-600 mt-3 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="x-circle" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Ditolak</p>
 											</a>
 										<?php else: ?>
-											<p class="text-xs text-gray-400 mt-3">
-
+											<p class="text-xs text-gray-400 mt-3 whitespace-normal">
 												<?= (!empty(trim($row['keterangan']))) ? 'Keterangan: ' . $row['keterangan'] : 'No action needed'; ?>
 											</p>
 										<?php endif; ?>
@@ -141,12 +144,13 @@
 				</tbody>
 				<tfoot class="bg-gray-100">
 					<tr>
-						<th class="px-4 py-2">No</th>
-						<th class="px-4 py-2">Nama</th>
-						<th class="px-4 py-2">Tanggal</th>
-						<th class="px-4 py-2">File</th>
-						<th class="px-4 py-2">Status</th>
-						<th class="px-4 py-2">Aksi</th>
+						<th class="p-2">No</th>
+						<th class="p-2">Nama</th>
+						<th class="p-2">Tanggal</th>
+						<th class="p-2">File</th>
+						<th class="p-2">Link</th>
+						<th class="p-2">Status</th>
+						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>
 			</table>

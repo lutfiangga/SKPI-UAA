@@ -45,8 +45,31 @@ class M_spm extends CI_Model
 
 		return $result[$this->pk];
 	}
-	public function countSyaratWajib()
+	public function getPoinByUser($id_user)
+	{
+		$this->db->join('kategori_spm', 'spm.id_kategori = kategori_spm.id_kategori');
+		// Mengonversi poin ke tipe numeric
+		$this->db->select('SUM(CAST(kategori_spm.poin AS NUMERIC)) as total_poin');
+		$this->db->where('spm.nim', $id_user);
+		$query = $this->db->get($this->table);
+		return $query->row_array();
+	}
+
+	public function countSPM()
 	{
 		return $this->db->count_all($this->table);
+	}
+	public function GetByNim($nim)
+	{
+		$this->db->order_by($this->pk, 'desc');
+
+		$this->db->join('akun_users', 'spm.nim = akun_users.id_user', 'left');
+		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
+		$this->db->join('kategori_spm', 'spm.id_kategori = kategori_spm.id_kategori');
+		$this->db->join('mahasiswa AS mhs2', 'akun_users.id_user = mhs2.nim');
+		$this->db->where('mhs1.nim', $nim);
+
+		$query = $this->db->get($this->table);
+		return $query->result_array();
 	}
 }

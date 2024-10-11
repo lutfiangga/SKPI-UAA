@@ -83,27 +83,27 @@
 				<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 content-biodata">
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Nama:</label>
-						<p class="capitalize"><?= $profile->nama; ?></p>
+						<p class="capitalize"><?= $profile['nama']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Telepon:</label>
-						<p><?= $profile->no_hp; ?></p>
+						<p><?= $profile['no_hp']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Email:</label>
-						<p><?= $profile->email; ?></p>
+						<p><?= $profile['email']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
-						<p><?= $profile->jenis_kelamin; ?></p>
+						<p><?= $profile['jenis_kelamin']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Program Studi:</label>
-						<p><?= $profile->program_studi; ?></p>
+						<p><?= $profile['program_studi']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Alamat:</label>
-						<p><?= $profile->alamat; ?></p>
+						<p><?= $profile['alamat']; ?></p>
 					</div>
 				</div>
 
@@ -266,8 +266,8 @@
 
 				<div class="divider border-gray-400"></div>
 				<div class="modal-action relative" style="z-index: 1000;">
-					<button type="submit" class="btn disabled:text-gray-400 disabled:cursor-not-allowed bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
 					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+					<button type="submit" class="btn disabled:text-gray-400 disabled:cursor-not-allowed bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
 				</div>
 			</form>
 		</div>

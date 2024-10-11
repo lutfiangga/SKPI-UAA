@@ -52,9 +52,8 @@
 				<thead class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Mahasiswa</th>
-						<th class="p-2">Kategori</th>
 						<th class="p-2">Nama Kegiatan</th>
+						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Tanggal</th>
 						<th class="p-2">Sertifikat</th>
@@ -67,33 +66,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (!empty($read)) {
-						$no = 1;
-						foreach ($read->result_array() as $row) {
-							$img_user = $row['img_user'] ? 'assets/static/img/photos/' . strtolower($row['role']) . '/' . $row['img_user'] : 'assets/static/img/user.png';
+					<?php
+					$no = 1;
+					foreach ($read as $row) {
+						if ($row['nim'] == $this->session->userdata('id_user')) {
 					?>
 							<tr class="border-t">
 								<td class="p-2">
 									<?= $no; ?>
-								</td>
-								<td class="p-2">
-									<div class="flex flex-row gap-2 items-center">
-										<img src="<?= base_url($img_user); ?>" alt="role" class="rounded-full w-8 h-8">
-										<div class="flex flex-col items-center justify-center">
-											<p class="truncate w-full ml-2 font-semibold"><?= $row['nama'] ?></p>
-											<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['program_studi']; ?> - <?= $row['nim']; ?></p>
-										</div>
-									</div>
-								</td>
-								<td class="p-2 whitespace-nowrap"><?= $row['nama_kategori'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['nama_kegiatan'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
 								<td class="p-2 whitespace-nowrap">
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
 										<?= $row['poin'] ?> Poin
 									</span>
 								</td>
-								<td class="p-2 whitespace-nowrap"><?= $row['nama_kegiatan'] ?></td>
-								<td class="p-2 whitespace-nowrap">
+								<td class="p-2 whitespace-normal">
 									<?= tanggal($row['tanggal_mulai']) ?>
 									<?= isset($row['tanggal_selesai']) ? 's/d ' . tanggal($row['tanggal_selesai']) : '' ?>
 								</td>
@@ -106,7 +95,7 @@
 													<i data-feather="file-text" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['sertifikat']; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['sertifikat']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
@@ -118,7 +107,7 @@
 													<i data-feather="link-2" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['link_kegiatan']; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['link_kegiatan']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
@@ -130,7 +119,7 @@
 													<i data-feather="image" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['foto_kegiatan']; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['foto_kegiatan']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
@@ -142,11 +131,11 @@
 													<i data-feather="file-text" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row['surat_tugas']; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['surat_tugas']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
-								<td class="p-2 whitespace-nowrap"><?= $row['penyelenggara'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['penyelenggara'] ?></td>
 								<td>
 									<?php if ($row['status'] == 'pending') : ?>
 										<span class="flex items-center text-sm gap-2 text-orange-600 hover:bg-[#EEF0F6] p-2 rounded-full">
@@ -167,35 +156,32 @@
 								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<?php if ($row['status'] == 'pending'): ?>
-										<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/edit/' . $row['id_spm']); ?>" class="bg-orange-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/edit/' . $rowid_spm); ?>" class="bg-orange-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="edit" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 										</a>
-										<button type="button" onclick="openDeleteModal(<?= $row['id_spm']; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<button type="button" onclick="openDeleteModal(<?= $rowid_spm; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="trash-2" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 										</button>
 									<?php else: ?>
-										<p class="text-xs text-gray-400 mt-3">
+										<p class="text-xs text-gray-400 whitespace-normal mt-3">
 											<?= (!empty(trim($row['keterangan']))) ? 'Keterangan: ' . $row['keterangan'] : 'No action needed'; ?>
 										</p>
 									<?php endif; ?>
 								</td>
 							</tr>
-						<?php $no++;
+					<?php
+							$no++;
 						}
-					} else { ?>
-						<tr>
-							<td colspan="6" class="text-center">Tidak ada data</td>
-						</tr>
-					<?php } ?>
+					}
+					?>
 				</tbody>
 				<tfoot class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Mahasiswa</th>
-						<th class="p-2">Kategori</th>
 						<th class="p-2">Nama Kegiatan</th>
+						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Tanggal</th>
 						<th class="p-2">Sertifikat</th>

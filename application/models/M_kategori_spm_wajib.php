@@ -11,11 +11,21 @@ class M_kategori_spm_wajib extends CI_Model
 		$this->db->order_by($this->pk, 'desc');
 		return $this->db->get($this->table);
 	}
+	public function GetKategori()
+	{
+		$this->db->order_by($this->pk, 'asc');
+		return $this->db->get($this->table);
+	}
 	public function save($data)
 	{
 		return $this->db->insert($this->table, $data);
 	}
 	public function edit($id)
+	{
+		$this->db->where($this->pk, $id);
+		return $this->db->get($this->table)->row_array();
+	}
+	public function getId($id)
 	{
 		$this->db->where($this->pk, $id);
 		return $this->db->get($this->table)->row_array();

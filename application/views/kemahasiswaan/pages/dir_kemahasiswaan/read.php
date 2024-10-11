@@ -5,9 +5,6 @@
 					<p class="block truncate whitespace-wrap">
 						<?= $sub; ?>
 					</p>
-					<p class="hidden md:block">
-						<?= $role; ?>
-					</p>
 				</span>
 			</h1>
 			<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg">
@@ -63,7 +60,7 @@
 			<div class="relative">
 				<div class="avatar flex justify-center items-center">
 					<div class="mask mask-squircle w-3/4">
-						<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/' . $direktur->foto) ?>" alt="Profile Picture" />
+						<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/' . $direktur['foto']) ?>" alt="Profile Picture" />
 					</div>
 				</div>
 				<!-- update image-button -->
@@ -79,30 +76,30 @@
 
 			<!-- Content Profile-->
 			<div class="md:col-span-2">
-				<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 content-biodata">
+				<div class="space-y-2 grid grid-cols-2 gap-2 md:gap-4 content-biodata">
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Nama:</label>
-						<p class="capitalize"><?= $direktur->nama; ?></p>
+						<p class="capitalize whitespace-normal"><?= $direktur['nama']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Telepon:</label>
-						<p><?= $direktur->no_hp; ?></p>
+						<p><?= $direktur['no_hp']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Email:</label>
-						<p><?= $direktur->email; ?></p>
+						<p><?= $direktur['email']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
-						<p><?= $direktur->jenis_kelamin; ?></p>
+						<p><?= $direktur['jenis_kelamin']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
-						<label class="font-semibold text-gray-700">Jabatan:</label>
+						<label class="font-semibold text-gray-700 whitespace-normal">Jabatan:</label>
 						<p>Direktur Kemahasiswaan</p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Alamat:</label>
-						<p><?= $direktur->alamat; ?></p>
+						<p class="whitespace-normal"><?= $direktur['alamat']; ?></p>
 					</div>
 					<div class="mb-4">
 						<label class="block text-gray-700 flex flex-row gap-2 items-center font-medium">Tanda Tangan:
@@ -115,7 +112,7 @@
 						<div class="relative max-w-24 md:max-w-36">
 							<div class="avatar flex justify-center items-center">
 								<div class="w-3/4">
-									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur->signature) ?>" alt="signature" />
+									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>" alt="signature" />
 								</div>
 							</div>
 						</div>
@@ -132,7 +129,7 @@
 						<div class="relative max-w-24 md:max-w-36">
 							<div class="avatar flex justify-center items-center">
 								<div class="w-3/4">
-									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/stamp/' . $direktur->stamp) ?>" alt="stamp" />
+									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/stamp/' . $direktur['stamp']) ?>" alt="stamp" />
 								</div>
 							</div>
 						</div>
@@ -192,13 +189,13 @@
 							<span> <?= $this->session->flashdata('success'); ?></span>
 						</div>
 					<?php endif; ?>
-					<form class="flex flex-col gap-2 text-xs sm:text-sm md:text-base" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/update/' . $direktur->id_direktur); ?>" method="POST" enctype="multipart/form-data">
+					<form class="flex flex-col gap-2 text-xs sm:text-sm md:text-base" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/update/' . $direktur['id_direktur']); ?>" method="POST" enctype="multipart/form-data">
 						<?= csrf(); ?>
 						<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4">
 							<div>
 								<label for="nama" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Nama:</label>
 								<div class="flex flex-row w-full mt-1">
-									<input type="text" id="nama" name="nama" required value="<?= $direktur->nama; ?>"
+									<input type="text" id="nama" name="nama" required value="<?= $direktur['nama']; ?>"
 										class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 										placeholder="Masukkan Nama" autocomplete="nama" />
 								</div>
@@ -208,11 +205,11 @@
 								<div class="flex flex-row w-full mt-1">
 									<div class="flex gap-4">
 										<div class="flex items-center">
-											<input id="laki-laki" name="jenis_kelamin" type="radio" value="laki-laki" <?= $direktur->jenis_kelamin == 'laki-laki' ? 'checked' : '' ?> class="radio radio-primary" />
+											<input id="laki-laki" name="jenis_kelamin" type="radio" value="laki-laki" <?= $direktur['jenis_kelamin'] == 'laki-laki' ? 'checked' : '' ?> class="radio radio-primary" />
 											<label for="laki-laki" class="ml-2 block text-sm font-medium text-gray-700">Laki-laki</label>
 										</div>
 										<div class="flex items-center">
-											<input id="perempuan" name="jenis_kelamin" type="radio" value="perempuan" <?= $direktur->jenis_kelamin == 'perempuan' ? 'checked' : '' ?> class="radio radio-primary" />
+											<input id="perempuan" name="jenis_kelamin" type="radio" value="perempuan" <?= $direktur['jenis_kelamin'] == 'perempuan' ? 'checked' : '' ?> class="radio radio-primary" />
 											<label for="perempuan" class="ml-2 block text-sm font-medium text-gray-700">Perempuan</label>
 										</div>
 									</div>
@@ -221,7 +218,7 @@
 							<div>
 								<label for="email" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Email:</label>
 								<div class="flex flex-row w-full mt-1">
-									<input type="email" id="email" name="email" required value="<?= $direktur->email; ?>" oninput="inputValidation(this)"
+									<input type="email" id="email" name="email" required value="<?= $direktur['email']; ?>" oninput="inputValidation(this)"
 										class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 										placeholder="Masukkan Email" autocomplete="email" />
 								</div>
@@ -230,7 +227,7 @@
 							<div>
 								<label for="phone" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Telepon:</label>
 								<div class="flex flex-row w-full mt-1">
-									<input type="text" inputmode="numeric" id="phone" name="no_hp" required value="<?= $direktur->no_hp; ?>" oninput="inputValidation(this)"
+									<input type="text" inputmode="numeric" id="phone" name="no_hp" required value="<?= $direktur['no_hp']; ?>" oninput="inputValidation(this)"
 										class="block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 										placeholder="Masukkan Telepon" autocomplete="no_hp" />
 								</div>
@@ -241,7 +238,7 @@
 								<div class="flex flex-row w-full mt-1">
 									<textarea type="text" inputmode="numeric" id="alamat" name="alamat" required
 										class="block w-full border bg-off-white text-black border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-										placeholder="Masukkan Telepon" autocomplete="alamat"><?= $direktur->alamat; ?></textarea>
+										placeholder="Masukkan Telepon" autocomplete="alamat"><?= $direktur['alamat']; ?></textarea>
 								</div>
 							</div>
 						</div>
@@ -265,12 +262,12 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/change_image/') . $direktur->id_direktur; ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/change_image/') . $direktur['id_direktur']; ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
 				<div class="mb-4">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Foto:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg max-w-md w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
@@ -331,12 +328,12 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/change_signature/') . $direktur->id_direktur; ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/change_signature/') . $direktur['id_direktur']; ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
 				<div class="mb-4">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Tanda Tangan:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg max-w-md w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
@@ -397,12 +394,12 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/change_stamp/') . $direktur->id_direktur; ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan/change_stamp/') . $direktur['id_direktur']; ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
 				<div class="mb-4">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Stamp:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg max-w-md w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />

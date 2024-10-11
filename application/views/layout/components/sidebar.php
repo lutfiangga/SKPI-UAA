@@ -91,7 +91,7 @@
 			</li>
 
 			<!-- SPM Mahasiswa -->
-			<li class="my-2 <?= ($role != 'admin' && $role != 'admin_eticket') ? 'block' : 'hidden'; ?>">
+			<li class="my-2 <?= ($role != 'admin' && $role != 'eticket') ? 'block' : 'hidden'; ?>">
 				<a href="<?= site_url(ucwords($role) . '/Spm_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'spm_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="award"></i>
 					<span class="text-[15px] ml-4 flex gap-1">SPM Mahasiswa</span>
@@ -131,8 +131,8 @@
 		<h3 class="text-lg font-bold">Yakin ingin keluar?</h3>
 		<p class="py-4">Semua data session kamu akan dihapus, jika kamu keluar!</p>
 		<div class="modal-action">
-			<a href="<?= site_url('Auth/logout'); ?>" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md">Ya</a>
 			<a href="#" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md">Tidak</a>
+			<a href="<?= site_url('Auth/logout'); ?>" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md">Ya</a>
 		</div>
 	</div>
 </div>

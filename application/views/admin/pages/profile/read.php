@@ -80,30 +80,30 @@
 			<!-- Content Profile-->
 			<div class="md:col-span-2">
 				<!-- Biodata Tab Content -->
-				<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 content-biodata">
-					<div class="text-xs sm:text-sm md:text-base">
+				<div class="space-y-2 grid grid-cols-2 gap-2 md:gap-4 content-biodata">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Nama:</label>
-						<p class="capitalize"><?= $profile->nama; ?></p>
+						<p class="capitalize"><?= $profile['nama']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Telepon:</label>
-						<p><?= $profile->no_hp; ?></p>
+						<p><?= $profile['no_hp']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Email:</label>
-						<p><?= $profile->email; ?></p>
+						<p><?= $profile['email']; ?></p>
 					</div>
-					<div class="text-xs sm:text-sm md:text-base">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
-						<p><?= $profile->jenis_kelamin; ?></p>
+						<p><?= $profile['jenis_kelamin']; ?></p>
 					</div>
-					<div class="text-xs sm:text-sm md:text-base">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Jabatan:</label>
-						<p><?= $profile->jabatan; ?></p>
+						<p><?= $profile['jabatan']; ?></p>
 					</div>
-					<div class="text-xs sm:text-sm md:text-base">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Alamat:</label>
-						<p><?= $profile->alamat; ?></p>
+						<p><?= $profile['alamat']; ?></p>
 					</div>
 				</div>
 

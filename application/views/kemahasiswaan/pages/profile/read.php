@@ -80,34 +80,34 @@
 			<!-- Content Profile-->
 			<div class="md:col-span-2">
 				<!-- Biodata Tab Content -->
-				<div class="space-y-2 grid grid-cols-1 md:grid-cols-2 gap-2 md:gap-4 content-biodata">
-					<div class="text-xs sm:text-sm md:text-base">
+				<div class="space-y-2 grid grid-cols-2 gap-2 md:gap-4 content-biodata">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Nama:</label>
-						<p class="capitalize"><?= $profile->nama; ?></p>
+						<p class="capitalize"><?= $profile['nama']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Telepon:</label>
-						<p><?= $profile->no_hp; ?></p>
+						<p><?= $profile['no_hp']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Email:</label>
-						<p><?= $profile->email; ?></p>
+						<p><?= $profile['email']; ?></p>
 					</div>
-					<div class="text-xs sm:text-sm md:text-base">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
-						<p><?= $profile->jenis_kelamin; ?></p>
+						<p><?= $profile['jenis_kelamin']; ?></p>
 					</div>
-					<div class="text-xs sm:text-sm md:text-base">
-						<label class="font-semibold text-gray-700">Program Studi:</label>
-						<p><?= $profile->program_studi; ?></p>
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
+						<label class="font-semibold text-gray-700">Jabatan:</label>
+						<p><?= $profile['jabatan']; ?></p>
 					</div>
-					<div class="text-xs sm:text-sm md:text-base">
+					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 						<label class="font-semibold text-gray-700">Alamat:</label>
-						<p><?= $profile->alamat; ?></p>
+						<p><?= $profile['alamat']; ?></p>
 					</div>
 				</div>
 
-				<!-- Update Password Tab Content -->
+				<!-- update data Tab Content -->
 				<div class="hidden space-y-4 content-password">
 					<!-- Alert no input form -->
 					<?php if ($this->session->flashdata('validation_error')): ?>
@@ -225,7 +225,7 @@
 				<div class="mb-4">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Foto:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg max-w-md w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />

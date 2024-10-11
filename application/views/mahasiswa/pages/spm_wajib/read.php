@@ -59,7 +59,7 @@
 						<th class="p-2">File</th>
 						<th class="p-2">Url</th>
 						<th class="p-2">Poin</th>
-						<th class="p-2">Status</th>
+						<th class="p-2">['Status']</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
@@ -67,76 +67,76 @@
 					<?php
 					$no = 1;
 					foreach ($read as $row) {
-						if ($row->nim == $this->session->userdata('id_user')) {
+						if ($row['nim'] == $this->session->userdata('id_user')) {
 					?>
 							<tr class="border-t">
 								<td class="p-2">
 									<?= $no; ?>
 								</td>
-								<td class="p-2 whitespace-nowrap"><?= tanggal($row->tanggal) ?></td>
-								<td class="p-2 whitespace-nowrap"><?= $row->nama_kategori ?></td>
+								<td class="p-2 whitespace-nowrap"><?= tanggal($row['tanggal']) ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
 
 								<td class="p-2">
-									<?php if (!empty($row->file)) : ?>
-										<a href="<?= base_url('assets/static/spm/img/syarat_wajib/' . $row->file); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+									<?php if (!empty($row['file'])) : ?>
+										<a href="<?= base_url('assets/static/spm/img/syarat_wajib/' . $row['file']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
 											<div>
 												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
 													<i data-feather="file-text" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-wrap"><?= $row->file; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['file']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
 								<td class="p-2">
-									<?php if (!empty($row->url)) : ?>
-										<a href="<?= $row->url; ?>" target="_blank" class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+									<?php if (!empty($row['url'])) : ?>
+										<a href="<?= $row['url']; ?>" target="_blank" class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
 											<div>
 												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
 													<i data-feather="link-2" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin whitespace-normal"><?= $row->url; ?></p>
+											<p class="text-sm max-w-full font-thin whitespace-normal"><?= $row['url']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
 								<td class="p-2 whitespace-nowrap">
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
-										<?= !empty($row->poin) ? $row->poin . ' Poin' : 'N/A'; ?>
+										<?= !empty($row['poin']) ? $row['poin'] . ' Poin' : 'N/A'; ?>
 									</span>
 								</td>
 								<td>
-									<?php if ($row->status == 'pending') : ?>
+									<?php if ($row['status'] == 'pending') : ?>
 										<span class="flex items-center text-sm gap-2 text-orange-600 hover:bg-[#EEF0F6] p-2 rounded-full">
 											<i data-feather="alert-circle" class="w-4 h-auto"></i>
 											On Review
 										</span>
-									<?php elseif ($row->status == 'diterima') : ?>
+									<?php elseif ($row['status'] == 'diterima') : ?>
 										<span class="flex items-center text-sm gap-2 text-green-600 hover:bg-[#EEF0F6] p-2 rounded-full">
 											<i data-feather="check-circle" class="w-4 h-auto"></i>
 											Verified
 										</span>
-									<?php elseif ($row->status == 'ditolak') : ?>
+									<?php elseif ($row['status'] == 'ditolak') : ?>
 										<span class="flex items-center text-sm gap-2 text-red-600 hover:bg-[#EEF0F6] p-2 rounded-full">
 											<i data-feather="x-circle" class="w-4 h-auto"></i>
 											Unverified
 										</span>
 									<?php endif; ?>
 								</td>
-								<td class="p-2 flex flex-row items-center mt-2 gap-2">
-									<?php if ($row->status == 'pending'): ?>
-										<button type="button" onclick="openEditModal('<?= $row->id_syarat_wajib ?>', '<?= $row->id_syarat_wajib_kategori; ?>', '<?= $row->url; ?>', '<?= $row->file; ?>')" class="bg-orange-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+								<td class="p-2 flex flex-row items-center gap-2">
+									<?php if ($row['status'] == 'pending'): ?>
+										<button type="button" onclick="openEditModal('<?= $row['id_syarat_wajib'] ?>', '<?= $row['id_syarat_wajib_kategori']; ?>', '<?= $row['url']; ?>', '<?= $row['file']; ?>')" class="bg-orange-600 mt-3 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="edit" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 										</button>
-										<button type="button" onclick="openDeleteModal(<?= $row->id_syarat_wajib; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<button type="button" onclick="openDeleteModal(<?= $row['id_syarat_wajib']; ?>)" class="bg-red-600 mt-3 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="trash-2" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 										</button>
 									<?php else: ?>
-										<p class="text-xs text-gray-400 mt-3">
-											<?= (!empty(trim($row->keterangan))) ? 'Keterangan: ' . $row->keterangan : 'No action needed'; ?>
+										<p class="text-xs text-gray-400 whitespace-normal mt-3">
+											<?= (!empty(trim($row['keterangan']))) ? 'Keterangan: ' . $row['keterangan'] : 'No action needed'; ?>
 										</p>
 									<?php endif; ?>
 								</td>
@@ -155,7 +155,7 @@
 						<th class="p-2">File</th>
 						<th class="p-2">Url</th>
 						<th class="p-2">Poin</th>
-						<th class="p-2">Status</th>
+						<th class="p-2">['Status']</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>
@@ -163,7 +163,7 @@
 		</div>
 	</section>
 
-	<!-- modal add Eticket -->
+	<!-- modal add spm -->
 	<dialog id="addSpm" class="modal overflow-hidden">
 		<div class="modal-box bg-[#fafafa]">
 			<!-- Tombol close di sudut kanan atas -->
@@ -179,37 +179,40 @@
 			<div class="divider border-gray-400"></div>
 			<form method="post" action="<?= site_url('Mahasiswa/Spm_Wajib/save'); ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
+
+				<!-- select kategori -->
 				<div class="mb-4">
 					<label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">Kategori:</label>
-					<select id="kategori" name="id_syarat_wajib_kategori" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+					<select id="kategori" required name="id_syarat_wajib_kategori" data-search="true" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md">
 						<option value="" selected disabled>--Pilih Kategori--</option>
 						<?php foreach ($kategori->result_array() as $r) { ?>
-							<option value="<?= $r['id_syarat_wajib_kategori'] ?>"><?= $r['id_syarat_wajib_kategori'] . ' | ' . $r['nama_kategori']; ?></option>
+							<option value="<?= $r['id_syarat_wajib_kategori'] ?>" data-type="<?= $r['type'] ?>"><?= $r['id_syarat_wajib_kategori'] . ' | ' . $r['nama_kategori']; ?></option>
 						<?php } ?>
 					</select>
 				</div>
+
+				<!-- url -->
 				<div class="mb-4">
-					<label for="pelanggaran" class="block text-sm font-medium text-gray-700 mb-2">Url:</label>
-					<input type="url" id="url" oninput="inputValidation(this)" name="url" class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com">
+					<label for="url" class="block text-sm font-medium text-gray-700 mb-2">Url:</label>
+					<input type="url" required id="url" oninput="inputValidation(this)" name="url" class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com">
 					<p id="urlError" class="text-red-500 text-xs sm:text-sm md:text-base mt-2 hidden">Url harus valid! contoh: https://example.com</p>
 				</div>
 
-				<div class="mb-4">
+				<!-- upload file -->
+				<div id="uploadFileSection" class="mb-4 hidden">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Bukti:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-dashed rounded-lg w-full shadow-lg transition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
 								</svg>
 								<p class="text-gray-600 text-xs sm:text-sm font-semibold">
-									<i class="fas fa-cloud-upload-alt"></i><span class="text-blue-600 font-bold">Upload File</span> atau Drag & Drop
+									<i class="fas fa-cloud-upload-alt"></i><span class="text-blue-600 font-bold"> Upload File</span> atau Drag & Drop
 								</p>
 								<p class="text-xs text-gray-500 mb-2">JPG, PNG up to 5 MB</p>
 							</div>
-
-							<input id="file" required name="file" accept="image/jpg, image/png, image/jpeg, image/wepb" type="file" class="file-input hidden" />
-
+							<input id="file" name="file" accept="image/jpg, image/png, image/jpeg, image/wepb" type="file" class="file-input hidden" />
 							<div class="relative mt-4">
 								<div class="progress-bar text-xs sm:text-sm bg-green-500 h-5 rounded transition-all duration-300" style="width: 0%"></div>
 								<div class="progress-text text-xs sm:text-sm absolute left-1/2 transform -translate-x-1/2 text-gray-800" style="display: none">0%</div>
@@ -228,21 +231,16 @@
 							</div>
 							<div class="preview-container w-full flex justify-center mx-auto"></div>
 						</div>
-
-						<div class="modal hidden">
-							<span class="close-modal text-white text-3xl cursor-pointer absolute top-4 right-4">&times;</span>
-							<img class="modal-content max-w-80% max-h-80%" />
-						</div>
 					</div>
 				</div>
 
 				<div class="divider border-gray-400"></div>
-				<div class="modal-action relative flex justify-end gap-4">
-					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 mb-4"
-						onclick="this.closest('dialog').close();">Close</button>
+				<div class="modal-action relative flex justify-end gap-2">
+					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 mb-4" onclick="this.closest('dialog').close();">Close</button>
 					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 mb-4">Submit</button>
 				</div>
 			</form>
+
 		</div>
 	</dialog>
 
@@ -265,23 +263,25 @@
 
 				<div class="mb-4">
 					<label for="edit_kategori" class="block text-sm font-medium text-gray-700 mb-2">Kategori:</label>
-					<select id="edit_kategori" name="id_syarat_wajib_kategori" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
-						<option value="" selected disabled>--Pilih kategori--</option>
+					<select id="edit_kategori" required name="id_syarat_wajib_kategori" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+						<option value="" disabled>--Pilih kategori--</option>
 						<?php foreach ($kategori->result_array() as $r) { ?>
-							<option value="<?= $r['id_syarat_wajib_kategori'] ?>" <?= ($r['id_syarat_wajib_kategori'] == $r['id_syarat_wajib_kategori']) ? 'selected' : '' ?>><?= $r['id_syarat_wajib_kategori'] . ' | ' . $r['nama_kategori']; ?></option>
+							<option value="<?= $r['id_syarat_wajib_kategori'] ?>" <?= ($r['id_syarat_wajib_kategori'] == $row['id_syarat_wajib_kategori']) ? 'selected' : '' ?> data-type="<?= $r['type'] ?>"><?= $r['id_syarat_wajib_kategori'] . ' | ' . $r['nama_kategori']; ?></option>
 						<?php } ?>
 					</select>
-				</div>
-				<div class="mb-4">
-					<label for="edit_url" class="block text-sm font-medium text-gray-700 mb-2">Url:</label>
-					<input type="url" id="edit_url" oninput="inputValidation(this)" name="url" class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com">
-					<p id="urlError" class="text-red-500 text-xs sm:text-sm md:text-base mt-2 hidden">Url harus valid! contoh: https://example.com</p>
+
 				</div>
 
 				<div class="mb-4">
+					<label for="edit_url" class="block text-sm font-medium text-gray-700 mb-2">Url:</label>
+					<input type="url" required id="edit_url" oninput="inputValidation(this)" name="url" class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="https://example.com">
+					<p id="urlError" class="text-red-500 text-xs sm:text-sm md:text-base mt-2 hidden">Url harus valid! contoh: https://example.com</p>
+				</div>
+
+				<div id="edit_file_upload" class="mb-4 hidden">
 					<label for="edit_file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Bukti:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg w-full shadow-lg transtition">
+						<div id="edit-drop-zone" class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
@@ -292,7 +292,7 @@
 								<p class="text-xs text-gray-500 mb-2">JPG, PNG up to 5 MB</p>
 							</div>
 
-							<input id="edit_file" required name="file" accept="image/jpg, image/png, image/jpeg, image/wepb" type="file" class="file-input hidden" />
+							<input id="edit_file" name="file" accept="image/jpg, image/png, image/jpeg, image/wepb" type="file" class="file-input hidden" />
 
 							<div class="relative mt-4">
 								<div class="progress-bar text-xs sm:text-sm bg-green-500 h-5 rounded transition-all duration-300" style="width: 0%"></div>
@@ -359,30 +359,100 @@
 <script>
 	const openEditModal = (id, kategori, url, file) => {
 		document.getElementById('edit_id_syarat_wajib').value = id;
-		document.getElementById('edit_kategori').value = kategori;
 		document.getElementById('edit_url').value = url;
+
+		// get kategori
+		const kategorioption = document.getElementById('edit_kategori');
+
+		// reset value
+		kategorioption.selectedIndex = -1;
+
+		// Looping kategori sampai ketemu yang smaa
+		for (let i = 0; i < kategorioption.options.length; i++) {
+			if (kategorioption.options[i].value == kategori) {
+				kategorioption.selectedIndex = i;
+				break;
+			}
+		}
+
+		const event = new Event('change');
+		kategorioption.dispatchEvent(event);
 
 		const filePreview = document.querySelector('#edit-file-name');
 		const previewContainer = document.querySelector('#edit-preview-container');
 
+		filePreview.textContent = file;
 
-		filePreview.textContent = file; // Menampilkan nama file yang sudah ada
-
-		// Menampilkan preview file jika ada
 		if (file) {
 			const imageUrl = `<?= base_url('./assets/static/spm/img/syarat_wajib/') ?>${file}`;
-			previewContainer.innerHTML = `<img src="${imageUrl}" class="max-w-md h-auto max-h-60 object-cover" alt="Preview file" />`;
+			previewContainer.innerHTML = `<img src="${imageUrl}" class="w-full h-auto max-h-60 object-cover" alt="Preview file" />`;
 		} else {
-			previewContainer.innerHTML = ''; // Kosongkan jika tidak ada file
+			previewContainer.innerHTML = '';
 		}
 
 		document.getElementById('editSpm').showModal();
 	}
-
 
 	// delete spm
 	const openDeleteModal = (id) => {
 		document.getElementById('hapus_id_syarat_wajib').value = id;
 		document.getElementById('hapusSpm').showModal();
 	}
+</script>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const dropZone = document.getElementById('edit-drop-zone');
+		const fileInput = document.getElementById('edit_file');
+
+		dropZone.addEventListener('click', function() {
+			fileInput.click();
+		});
+
+		// Menangani file yang di-upload
+		fileInput.addEventListener('change', function() {
+			const file = this.files[0];
+			if (file) {
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					document.querySelector('#edit-preview-container').innerHTML = `<img src="${e.target.result}" class="h-auto max-h-60 object-cover" alt="Preview file" />`;
+				};
+				reader.readAsDataURL(file);
+				document.getElementById('edit-file-name').textContent = file.name;
+			}
+		});
+		requiredLabel();
+		slimSelect();
+
+		const kategori = document.getElementById('kategori');
+		const uploadFileSection = document.getElementById('uploadFileSection');
+
+		kategori.addEventListener('change', function() {
+			const selectedOption = this.options[this.selectedIndex];
+			const type = selectedOption.getAttribute('data-type');
+
+			if (type === 'file') {
+				uploadFileSection.classList.remove('hidden');
+			} else {
+				uploadFileSection.classList.add('hidden');
+			}
+		});
+
+		const editKategori = document.getElementById('edit_kategori');
+		const edit_file_upload = document.getElementById('edit_file_upload');
+
+		const toggleFileUpload = () => {
+			const selectedOption = editKategori.options[editKategori.selectedIndex];
+			const type = selectedOption.getAttribute('data-type');
+
+			if (type === 'file') {
+				edit_file_upload.classList.remove('hidden');
+			} else {
+				edit_file_upload.classList.add('hidden');
+			}
+		}
+
+		editKategori.addEventListener('change', toggleFileUpload);
+		toggleFileUpload();
+	});
 </script>

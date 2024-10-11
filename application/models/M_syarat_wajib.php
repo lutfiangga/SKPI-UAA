@@ -60,8 +60,7 @@ class M_syarat_wajib extends CI_Model
 		$this->db->join('mahasiswa AS mhs2', 'akun_users.id_user = mhs2.nim');
 		$this->db->where('mhs1.nim', $nim);
 
-		$query = $this->db->get($this->table);
-		return $query->result();
+		return $this->db->get($this->table)->result_array();
 	}
 
 }

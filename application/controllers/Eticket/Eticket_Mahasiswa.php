@@ -42,27 +42,19 @@ class Eticket_Mahasiswa extends CI_Controller
 		$config['allowed_types'] = 'jpg|jpeg|png|wepb|pdf|JPG|PNG|JPEG|WEPB|PDF';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $nim . '_' . time();
-		// Memuat library upload dengan konfigurasi
+
 		$this->load->library('upload', $config);
 
-		$bukti = '';
+		$bukti = null; // default value bukti
+
 		if ($this->upload->do_upload('bukti')) {
-			// File berhasil diupload
 			$bukti_data = $this->upload->data();
 			$bukti = $bukti_data['file_name'];
-		} else {
-			// Jika file tidak diupload, gunakan gambar saat ini
-			$bukti = $this->input->post('bukti_current');
 		}
 
-		$last_id = $this->M_eticket->getLastId();
-		// jika tidak ditemukan, id diisi 1
-		if ($last_id == null) {
-			$id = 1;
-		} else {
-			// jika ditemukan, tambahkan 1 pada id terakhir
-			$id = $last_id + 1;
-		}
+		$last_id = $this->M_eticket->getLastId(); // get last id
+		// jika id tidak ditemukan, id diisi 1
+		$id = ($last_id == null) ? 1 : $last_id + 1;
 		$data = array(
 			'id_etiket' => $id,
 			'nim' => $nim,
@@ -88,14 +80,17 @@ class Eticket_Mahasiswa extends CI_Controller
 		// Memuat library upload dengan konfigurasi
 		$this->load->library('upload', $config);
 
-		$bukti = '';
+		$etiket = $this->M_eticket->getById($id); //get by id
+		$bukti = $etiket['bukti']; // default bukti
+
 		if ($this->upload->do_upload('bukti')) {
-			// File berhasil diupload
 			$bukti_data = $this->upload->data();
 			$bukti = $bukti_data['file_name'];
-		} else {
-			// Jika file tidak diupload, gunakan gambar saat ini
-			$bukti = $this->input->post('bukti_current');
+
+			// delete old bukti
+			if (!empty($etiket['bukti']) && file_exists('./assets/static/eticket/' . $etiket['bukti'])) {
+				unlink('./assets/static/eticket/' . $etiket['bukti']);
+			}
 		}
 
 		$data = array(
@@ -113,10 +108,9 @@ class Eticket_Mahasiswa extends CI_Controller
 		cek_csrf();
 		$id = $this->input->post('id_etiket');
 
-		// Ambil nama file bukti dari database
-		$etiket = $this->M_eticket->getEticketById($id); // Pastikan Anda memiliki metode ini di model
+		$etiket = $this->M_eticket->edit($id);
 		if ($etiket) {
-			$bukti = $etiket->bukti; // Asumsikan bukti disimpan di field 'bukti'
+			$bukti = $etiket['bukti'];
 
 			// Hapus data dari database
 			$data = array('id_etiket' => $id);

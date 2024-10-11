@@ -7,7 +7,7 @@ class M_dirKemahasiswaan extends CI_Model
 	public function GetDirektur()
 	{
 		$this->db->order_by($this->pk, 'desc');
-		return $this->db->get($this->table);
+		return $this->db->get($this->table)->row_array();
 	}
 	public function save($data)
 	{

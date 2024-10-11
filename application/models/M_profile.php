@@ -28,9 +28,7 @@ class M_profile extends CI_Model
 
 		// get data by id for profile
 		$this->db->where($this->pk, $id);
-		return $this->db->get($this->table)->row();
-
-		// return $this->db->get_where($this->table, array('akun_users.id_akun' => $id))->row();
+		return $this->db->get($this->table)->row_array();
 	}
 
 

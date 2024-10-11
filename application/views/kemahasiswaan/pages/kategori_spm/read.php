@@ -51,11 +51,10 @@
 			<table id="" class="min-w-full table-auto table-data">
 				<thead class="bg-gray-100">
 					<tr>
-						<th class="px-4 py-2">No</th>
-						<th class="px-4 py-2">Kategori</th>
-						<th class="px-4 py-2">Poin</th>
-						<th class="px-4 py-2">Tipe</th>
-						<th class="px-4 py-2">Aksi</th>
+						<th class="p-2">No</th>
+						<th class="p-2">Kategori</th>
+						<th class="p-2">Poin</th>
+						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -63,36 +62,15 @@
 						$no = 1;
 						foreach ($read->result_array() as $row) { ?>
 							<tr class="border-t">
-								<td class="px-4 py-2"><?= $no; ?></td>
-								<td class="px-4 py-2 whitespace-nowrap"><?= $row['nama_kategori'] ?></td>
+								<td class="p-2"><?= $no; ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
 								<td>
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
 										<?= $row['poin'] ?> Poin
 									</span>
 								</td>
-								<td class="py-2 whitespace-nowrap">
-									<?php if (trim($row['type']) == 'file'): ?>
-										<div class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6]">
-											<div>
-												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
-													<i data-feather="file-text" class="w-6 h-auto"></i>
-												</div>
-											</div>
-											<p class="text-sm max-w-full truncate whitespace-wrap capitalize"><?= $row['type']; ?></p>
-										</div>
-									<?php else: ?>
-										<div class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6]">
-											<div>
-												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
-													<i data-feather="link-2" class="w-6 h-auto"></i>
-												</div>
-											</div>
-											<p class="text-sm max-w-full truncate whitespace-wrap capitalize"><?= $row['type']; ?></p>
-										</div>
-									<?php endif; ?>
-								</td>
-								<td class="px-4 py-2 flex flex-row items-center mt-2 gap-2">
+								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<button class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
 										onclick="openEditModal(<?= $row['id_kategori']; ?>, '<?= $row['nama_kategori']; ?>', <?= $row['poin']; ?>, '<?= $row['type']; ?>')">
 										<i data-feather="edit" class="w-4 h-auto"></i>
@@ -116,11 +94,10 @@
 				</tbody>
 				<tfoot class="bg-gray-100">
 					<tr>
-						<th class="px-4 py-2">No</th>
-						<th class="px-4 py-2">Kategori</th>
-						<th class="px-4 py-2">Poin</th>
-						<th class="px-4 py-2">Tipe</th>
-						<th class="px-4 py-2">Aksi</th>
+						<th class="p-2">No</th>
+						<th class="p-2">Kategori</th>
+						<th class="p-2">Poin</th>
+						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>
 			</table>

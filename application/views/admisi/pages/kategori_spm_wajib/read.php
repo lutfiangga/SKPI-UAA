@@ -64,7 +64,7 @@
 						foreach ($read->result_array() as $row) { ?>
 							<tr class="border-t">
 								<td class="px-4 py-2"><?= $no; ?></td>
-								<td class="px-4 py-2 whitespace-nowrap"><?= $row['nama_kategori'] ?></td>
+								<td class="px-4 py-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
 								<td>
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>

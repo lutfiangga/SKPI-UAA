@@ -23,14 +23,12 @@ class Spm_wajib extends CI_Controller
 			'judul' => "SPM WAJIB",
 			'sub' => "SPM Wajib",
 			'active_menu' => 'spm_wajib',
-			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			// from tabel user
 			'id_user' => $id,
 			'foto' => $foto,
 			'read' => $read,
-			'kategori' => $this->M_kategori_spm_wajib->GetAll(),
+			'kategori' => $this->M_kategori_spm_wajib->GetKategori(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
@@ -40,22 +38,20 @@ class Spm_wajib extends CI_Controller
 		cek_csrf();
 
 		$nim = $this->session->userdata('id_user');
+
 		// Konfigurasi upload file
 		$config['upload_path'] = './assets/static/spm/img/syarat_wajib/';
-		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
+		$config['allowed_types'] = 'jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $nim . '_' . time();
-		// Memuat library upload dengan konfigurasi
+
 		$this->load->library('upload', $config);
 
-		$file = '';
+		$file = null; // default value file
+
 		if ($this->upload->do_upload('file')) {
-			// File berhasil diupload
 			$file_data = $this->upload->data();
 			$file = $file_data['file_name'];
-		} else {
-			// Jika file tidak diupload, gunakan gambar saat ini
-			$file = $this->input->post('file_current');
 		}
 
 		$last_id = $this->M_syarat_wajib->getLastId(); // get last id
@@ -69,8 +65,12 @@ class Spm_wajib extends CI_Controller
 			'url' => $this->input->post('url'),
 			'status' => 'pending',
 			'tanggal' => date('Y-m-d'),
-			'file' => $file,
 		);
+
+		if ($file !== null) {
+			$data['file'] = $file;
+		}
+
 		$this->M_syarat_wajib->save($data);
 		redirect($this->redirect, 'refresh');
 	}
@@ -78,36 +78,62 @@ class Spm_wajib extends CI_Controller
 	public function update()
 	{
 		cek_csrf();
-		// get usser session
+
+		// Get user session
 		$id = $this->input->post('id_syarat_wajib');
 		$nim = $this->session->userdata('id_user');
 		$spm = $this->M_syarat_wajib->edit($id);
+
 		// Konfigurasi upload file
 		$config['upload_path'] = './assets/static/spm/img/syarat_wajib/';
-		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
+		$config['allowed_types'] = 'jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $nim . '_' . time();
 
 		$this->load->library('upload', $config); // Load library dan config
 
+		// Ambil id_syarat_wajib_kategori
+		$id_kategori = $this->input->post('id_syarat_wajib_kategori');
+		$kategori = $this->M_kategori_spm_wajib->getId($id_kategori);
+
+		$file = null; // default value
+
 		if ($this->upload->do_upload('file')) {
 			$file_data = $this->upload->data();
 			$file = $file_data['file_name'];
-
-			// Hapus file lama
-			if (!empty($spm['file']) && file_exists('./assets/static/spm/img/syarat_wajib/' . $spm['file'])) {
-				unlink('./assets/static/spm/img/syarat_wajib/' . $spm['file']);
+			// hapus file lama
+			if (!empty($kategori) && $kategori['type'] == 'file') {
+				if (!empty($spm['file']) && file_exists('./assets/static/spm/img/syarat_wajib/' . $spm['file'])) {
+					unlink('./assets/static/spm/img/syarat_wajib/' . $spm['file']);
+				}
+			}
+		} else {
+			if (!empty($kategori) && $kategori['type'] == 'file') {
+				$file = $spm['file'];
 			}
 		}
 
 		$data = array(
-			'id_syarat_wajib_kategori' => $this->input->post('id_syarat_wajib_kategori'),
+			'id_syarat_wajib_kategori' => $id_kategori,
 			'url' => $this->input->post('url'),
-			'file' => $file,
 		);
+
+		if ($file !== null) {
+			$data['file'] = $file;
+		} else {
+			// Jika tipe kategori bukan file, periksa apakah ada file
+			if (!empty($kategori) && $kategori['type'] !== 'file') {
+				if (!empty($spm['file']) && file_exists('./assets/static/spm/img/syarat_wajib/' . $spm['file'])) {
+					unlink('./assets/static/spm/img/syarat_wajib/' . $spm['file']);
+				}
+				$data['file'] = null; // Set file menjadi null
+			}
+		}
+
 		$this->M_syarat_wajib->update($id, $data);
 		redirect($this->redirect, 'refresh');
 	}
+
 	public function delete()
 	{
 		cek_csrf();
