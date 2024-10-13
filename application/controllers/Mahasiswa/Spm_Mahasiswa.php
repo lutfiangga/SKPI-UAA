@@ -9,7 +9,7 @@ class Spm_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_spm', 'M_kategori_spm'));
+		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_eticket', 'M_kategori_spm'));
 	}
 	function index()
 	{
@@ -29,6 +29,54 @@ class Spm_Mahasiswa extends CI_Controller
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
+
+	public function print()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$id = $this->session->userdata('id_user');
+		$data = array(
+			'judul' => "SPM MAHASISWA",
+			'sub' => "SPM Mahasiswa",
+			'active_menu' => 'spm_mhs',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $role,
+			'id_user' => $id,
+			'foto' => $foto,
+			'SpmPoin' => $this->M_spm->getPoinByUser($id),
+			'etiketPoin' => $this->M_eticket->getPoinByUser($id),
+			'mhs' => $this->M_profile->getById($id),
+			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
+			'spm' => $this->M_spm->GetByNim($id),
+			'etiket' => $this->M_eticket->GetByNim($id),
+		);
+		$this->template->load('layout/components/layout_export', $this->view . 'print', $data);
+	}
+	public function export_pdf()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$id = $this->session->userdata('id_user');
+		$data = array(
+			'judul' => "SPM MAHASISWA",
+			'sub' => "SPM Mahasiswa",
+			'active_menu' => 'spm_mhs',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $role,
+			'id_user' => $id,
+			'foto' => $foto,
+			'SpmPoin' => $this->M_spm->getPoinByUser($id),
+			'etiketPoin' => $this->M_eticket->getPoinByUser($id),
+			'mhs' => $this->M_profile->getById($id),
+			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
+			'spm' => $this->M_spm->GetByNim($id),
+			'etiket' => $this->M_eticket->GetByNim($id),
+		);
+		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
+	}
+
 	function create()
 	{
 		$role = $this->session->userdata('role');
@@ -111,7 +159,6 @@ class Spm_Mahasiswa extends CI_Controller
 			'id_kategori' => $this->input->post('id_kategori'),
 			'nama_kegiatan' => $this->input->post('nama_kegiatan'),
 			'tanggal_mulai' => $this->input->post('tanggal_mulai'),
-			'tanggal_selesai' => $this->input->post('tanggal_selesai'),
 			'penyelenggara' => $this->input->post('penyelenggara'),
 			'sertifikat' => $sertifikat,
 			'link_kegiatan' => $this->input->post('link_kegiatan'),
@@ -119,6 +166,9 @@ class Spm_Mahasiswa extends CI_Controller
 			'surat_tugas' => $surat_tugas,
 			'status' => 'pending'
 		);
+		if ($this->input->post('tanggal_selesai')) {
+			$data['tanggal_selesai'] = $this->input->post('tanggal_selesai');
+		}
 
 		$this->M_spm->save($data);
 		redirect($this->redirect, 'refresh');
@@ -225,7 +275,6 @@ class Spm_Mahasiswa extends CI_Controller
 		$this->M_spm->update($id, $data);
 		redirect($this->redirect, 'refresh');
 	}
-
 
 	public function delete()
 	{

@@ -75,11 +75,11 @@
 				</ul>
 			</li>
 
-			<!-- Verifikasi SKPI -->
-			<li class="my-2">
-				<a href="#" class="p-2.5 flex items-center focus:bg-[#fafafa] focus:text-blue-600 focus:ring-2 focus:ring-[#dadada] text-[#fafafa] rounded-full px-2 whitespace-nowrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+			<!-- SKPI Mahasiswa -->
+			<li class="my-2 <?= $role != 'mahasiswa' ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url('Mahasiswa/Skpi_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'skpi') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="check-circle"></i>
-					<span class="text-[15px] ml-4">Verifikasi SKPI</span>
+					<span class="text-[15px] ml-4">SKPI Mahasiswa</span>
 				</a>
 			</li>
 			<!-- Kategori SPM Mahasiswa -->

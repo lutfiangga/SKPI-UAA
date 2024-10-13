@@ -72,7 +72,7 @@
 								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<button class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
-										onclick="openEditModal(<?= $row['id_kategori']; ?>, '<?= $row['nama_kategori']; ?>', <?= $row['poin']; ?>, '<?= $row['type']; ?>')">
+										onclick="openEditModal(<?= $row['id_kategori']; ?>, '<?= $row['nama_kategori']; ?>', '<?= $row['poin']; ?>')">
 										<i data-feather="edit" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</button>
@@ -136,20 +136,6 @@
 							placeholder="Masukkan poin" />
 					</div>
 
-					<div class="mb-4">
-						<label for="type" class="block text-sm font-medium text-gray-700 mb-2">Type:</label>
-						<div class="flex gap-4" required>
-							<div class="flex items-center">
-								<input id="file" required name="type" type="radio" value="file" class="radio radio-primary" required />
-								<label for="file" class="ml-2 block text-sm font-medium text-gray-700">File</label>
-							</div>
-							<div class="flex items-center">
-								<input id="link" required name="type" type="radio" value="link" class="radio radio-primary" required />
-								<label for="link" class="ml-2 block text-sm font-medium text-gray-700">Link</label>
-							</div>
-						</div>
-					</div>
-
 					<div class="divider border-gray-400"></div>
 					<div class="modal-action relative" style="z-index: 1000;">
 						<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
@@ -188,21 +174,6 @@
 					<input type="number" id="edit_poin" name="poin" required
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan poin" />
-				</div>
-
-				<!-- Input radio button untuk Type -->
-				<div class="mb-4">
-					<label class="block text-sm font-medium text-gray-700 mb-2">Type:</label>
-					<div class="flex gap-4">
-						<div class="flex items-center">
-							<input id="edit_file" required name="type" type="radio" value="file" class="radio radio-primary" />
-							<label for="edit_file" class="ml-2 block text-sm font-medium text-gray-700">File</label>
-						</div>
-						<div class="flex items-center">
-							<input id="edit_link" required name="type" type="radio" value="link" class="radio radio-primary" />
-							<label for="edit_link" class="ml-2 block text-sm font-medium text-gray-700">Link</label>
-						</div>
-					</div>
 				</div>
 
 				<div class="modal-action relative" style="z-index: 1000;">

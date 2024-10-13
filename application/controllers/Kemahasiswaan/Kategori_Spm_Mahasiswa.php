@@ -41,7 +41,6 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'id_kategori' => $id,
 			'nama_kategori' => $this->input->post('nama_kategori'),
 			'poin' => $this->input->post('poin'),
-			'type' => $this->input->post('type'),
 		);
 		$this->M_kategori_spm->save($data);
 		redirect($this->redirect, 'refresh');
@@ -54,7 +53,6 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 		$data = array(
 			'nama_kategori' => $this->input->post('nama_kategori'),
 			'poin' => $this->input->post('poin'),
-			'type' => $this->input->post('type'),
 		);
 		$this->M_kategori_spm->update($id, $data);
 		redirect($this->redirect, 'refresh');

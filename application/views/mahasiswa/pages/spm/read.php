@@ -39,13 +39,31 @@
 
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
-		<!-- add user -->
-		<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/create'); ?>" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4 flex flex-row items-center w-fit">
-			<div class="bg-[#faafa] md:p-3 p-2 rounded-lg">
+		<div class="flex justify-between">
+			<!-- add user -->
+			<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/create'); ?>" class="btn justify-start bg-blue-600 border-none text-[#fafafa] mb-4 flex flex-row items-center w-fit">
 				<i data-feather="upload-cloud" class="w-4 h-4"></i>
+				Upload SPM
+			</a>
+			<div class="dropdown justify-end dropdown-bottom dropdown-end">
+				<div tabindex="0" role="button" class="btn m-1 bg-[#fafafa] text-blue-600 border-none shadow-md hover:bg-blue-600 hover:text-[#fafafa]">Export SPM</div>
+				<ul tabindex="0" class="dropdown-content menu bg-[#fafafa] rounded-box z-[1] w-52 p-2 shadow">
+					<li>
+						<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/print'); ?>" class="bg-[#fafafa] text-blue-600 rounded-lg px-2 duration-300 hover:bg-blue-600 hover:text-[#fafafa] flex flex-row items-center">
+							<i data-feather="printer" class="w-4 h-4"></i>
+							Print
+						</a>
+					</li>
+					<li>
+						<a href="<?= base_url('Mahasiswa/Spm_Mahasiswa/export_pdf'); ?>" class="bg-[#fafafa] text-blue-600 rounded-lg px-2 duration-300 hover:bg-blue-600 hover:text-[#fafafa] flex flex-row items-center">
+							<i data-feather="file-text" class="w-4 h-4"></i>
+							Export to PDF
+						</a>
+					</li>
+				</ul>
 			</div>
-			Upload SPM
-		</a>
+
+		</div>
 
 		<div class="overflow-x-auto">
 			<table class="min-w-full table-auto table-info">
@@ -156,11 +174,11 @@
 								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<?php if ($row['status'] == 'pending'): ?>
-										<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/edit/' . $rowid_spm); ?>" class="bg-orange-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/edit/' . $row['id_spm']); ?>" class="bg-orange-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="edit" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 										</a>
-										<button type="button" onclick="openDeleteModal(<?= $rowid_spm; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<button type="button" onclick="openDeleteModal(<?= $row['id_spm']; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="trash-2" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 										</button>

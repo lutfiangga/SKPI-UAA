@@ -89,16 +89,16 @@ class Dir_Kemahasiswaan extends CI_Controller
 
 		$this->load->library('upload', $config); // Load library dan config
 
-		$user = $this->M_dirKemahasiswaan->GetDirektur()->row();
-		$foto = $user->foto; // default image
+		$user = $this->M_dirKemahasiswaan->GetDirektur();
+		$foto = $user['foto']; // default image
 
 		if ($this->upload->do_upload('foto')) {
 			$foto_data = $this->upload->data();
 			$foto = $foto_data['file_name'];
 
 			// delete old image
-			if (!empty($user->foto) && file_exists('./assets/static/img/photos/kemahasiswaan/' . $user->foto)) {
-				unlink('./assets/static/img/photos/kemahasiswaan/' . $user->foto);
+			if (!empty($user['foto']) && file_exists('./assets/static/img/photos/kemahasiswaan/' . $user['foto'])) {
+				unlink('./assets/static/img/photos/kemahasiswaan/' . $user['foto']);
 			}
 		}
 
@@ -119,16 +119,16 @@ class Dir_Kemahasiswaan extends CI_Controller
 
 		$this->load->library('upload', $config); // Load library dan config
 
-		$user = $this->M_dirKemahasiswaan->GetDirektur()->row();
-		$signature = $user->signature; // default signature
+		$user = $this->M_dirKemahasiswaan->GetDirektur();
+		$signature = $user['signature']; // default signature
 
 		if ($this->upload->do_upload('signature')) {
 			$signature_data = $this->upload->data();
 			$signature = $signature_data['file_name'];
 
 			// delete old signature
-			if (!empty($user->signature) && file_exists('./assets/static/img/photos/kemahasiswaan/signature/' . $user->signature)) {
-				unlink('./assets/static/img/photos/kemahasiswaan/signature/' . $user->signature);
+			if (!empty($user['signature']) && file_exists('./assets/static/img/photos/kemahasiswaan/signature/' . $user['signature'])) {
+				unlink('./assets/static/img/photos/kemahasiswaan/signature/' . $user['signature']);
 			}
 		}
 
@@ -150,16 +150,16 @@ class Dir_Kemahasiswaan extends CI_Controller
 
 		$this->load->library('upload', $config); // Load library dan config
 
-		$user = $this->M_dirKemahasiswaan->GetDirektur()->row();
-		$stamp = $user->stamp; // default stamp
+		$user = $this->M_dirKemahasiswaan->GetDirektur();
+		$stamp = $user['stamp']; // default stamp
 
 		if ($this->upload->do_upload('stamp')) {
 			$stamp_data = $this->upload->data();
 			$stamp = $stamp_data['file_name'];
 
 			// delete old stamp
-			if (!empty($user->stamp) && file_exists('./assets/static/img/photos/kemahasiswaan/stamp/' . $user->stamp)) {
-				unlink('./assets/static/img/photos/kemahasiswaan/stamp/' . $user->stamp);
+			if (!empty($user['stamp']) && file_exists('./assets/static/img/photos/kemahasiswaan/stamp/' . $user['stamp'])) {
+				unlink('./assets/static/img/photos/kemahasiswaan/stamp/' . $user['stamp']);
 			}
 		}
 

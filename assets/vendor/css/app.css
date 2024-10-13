@@ -6,3 +6,6 @@
 
 /* jquery datepicker */
 @import "../plugin/jquery/datepicker/css/jquery-datepicker-ui.css";
+
+/* print layout */
+@import "./print-layout.css";

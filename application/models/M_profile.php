@@ -16,6 +16,7 @@ class M_profile extends CI_Model
 		COALESCE(admin.alamat, admisi.alamat, kemahasiswaan.alamat, etiket_admin.alamat, mahasiswa.alamat) as alamat,
 		COALESCE(admin.email, admisi.email, kemahasiswaan.email, etiket_admin.email, mahasiswa.email) as email,
 		COALESCE(mahasiswa.program_studi) as program_studi,
+		COALESCE(mahasiswa.nim) as nim,
 		COALESCE(admin.jabatan,admisi.jabatan, kemahasiswaan.jabatan, etiket_admin.jabatan) as jabatan,
 		');
 

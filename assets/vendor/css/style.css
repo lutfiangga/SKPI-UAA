@@ -1,4 +1,14 @@
 /* custom style */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+.great-vibes {
+    font-family: 'Great Vibes', cursive;
+}
+
+.times-new-roman {
+	font-family: "Times New Roman", Times, serif;
+}
+
 .bg-lavender-gray {
 	background-color: #eef0f6;
 }
@@ -24,6 +34,14 @@ input {
 	background-color: #fafafa !important;
 	/* border: #111 !important; */
 	color: #333 !important;
+}
+
+.list-lower-alpha {
+	list-style-type: lower-alpha;
+}
+
+.list-upper-alpha {
+	list-style-type: upper-alpha;
 }
 
 /* datatable */

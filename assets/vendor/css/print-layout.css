@@ -1,0 +1,25 @@
+th .content-print,
+td .content-print {
+	border: none;
+}
+
+/* Styles for print */
+@media print {
+	th .content-print,
+	td .content-print {
+		border: none;
+	}
+
+	thead .header-print {
+		display: table-header-group;
+	}
+
+	tfoot .footer-print {
+		display: table-footer-group;
+		page-break-after: always;
+	}
+
+	body {
+		margin: 0;
+	}
+}

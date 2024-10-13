@@ -60,4 +60,11 @@ class M_eticket extends CI_Model
 	{
 		return $this->db->count_all($this->table);
 	}
+	public function getPoinByUser($id_user)
+	{
+		$this->db->select('SUM(CAST(poin AS NUMERIC)) as total_poin');
+		$this->db->where('etiket_mhs.nim', $id_user);
+		$query = $this->db->get($this->table);
+		return $query->row_array();
+	}
 }
