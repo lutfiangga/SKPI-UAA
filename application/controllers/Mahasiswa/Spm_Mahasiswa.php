@@ -9,7 +9,7 @@ class Spm_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_eticket', 'M_kategori_spm'));
+		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette', 'M_kategori_spm'));
 	}
 	function index()
 	{
@@ -45,11 +45,11 @@ class Spm_Mahasiswa extends CI_Controller
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiketPoin' => $this->M_eticket->getPoinByUser($id),
+			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 			'spm' => $this->M_spm->GetByNim($id),
-			'etiket' => $this->M_eticket->GetByNim($id),
+			'etiket' => $this->M_etiquette->GetByNim($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'print', $data);
 	}
@@ -68,11 +68,11 @@ class Spm_Mahasiswa extends CI_Controller
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiketPoin' => $this->M_eticket->getPoinByUser($id),
+			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 			'spm' => $this->M_spm->GetByNim($id),
-			'etiket' => $this->M_eticket->GetByNim($id),
+			'etiket' => $this->M_etiquette->GetByNim($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}

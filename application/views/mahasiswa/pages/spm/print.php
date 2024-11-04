@@ -172,7 +172,7 @@
 							<div class="absolute right-0 bottom-6">
 								<div class="relative w-[180px] h-auto">
 									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>" alt="Signature" class="absolute bottom-1 z-1">
-									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/stamp/' . $direktur['stamp']) ?>" alt="stamp" class="absolute bottom-1 z-2">
+									<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/stamp/' . $direktur['stamp']) ?>" alt="stamp" class="absolute bottom-1 z-2  opacity-75">
 								</div>
 							</div>
 						</div>

@@ -50,3 +50,16 @@
 	</div>
 
 </section>
+<section>
+	<button id="download_skpi" type="button" class="btn">Download skpi</button>
+	<div id="skpi" class="hidden">
+		<iframe src="<?= site_url('Mahasiswa/Skpi_Mahasiswa/export_pdf'); ?>" class="w-full" frameborder="0"></iframe>
+	</div>
+</section>
+<script>
+	$('#download_skpi').click(function() {
+		const iframe = document.querySelector('#skpi iframe');
+		iframe.contentWindow.focus();
+		iframe.contentWindow.print();
+	});
+</script>

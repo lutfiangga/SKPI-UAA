@@ -19,7 +19,7 @@ class Myprofile extends CI_Controller
 		$id = $this->session->userdata('id_user');
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . strtolower($role) . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "MY PROFILE",
 			'sub' => "Profile",

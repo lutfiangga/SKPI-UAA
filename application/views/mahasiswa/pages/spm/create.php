@@ -45,10 +45,10 @@
 				<!-- Nama Kategori -->
 				<div class="flex flex-col">
 					<label for="kategori" class="mb-2 text-sm font-medium text-gray-700">Nama Kategori:</label>
-					<select id="kategori" required name="id_kategori" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+					<select id="kategori" required name="id_kategori_spm" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Kategori--</option>
 						<?php foreach ($kategori->result_array() as $r) { ?>
-							<option value="<?= $r['id_kategori'] ?>"><?= $r['id_kategori'] . ' | ' . $r['nama_kategori']; ?></option>
+							<option value="<?= $r['id_kategori_spm'] ?>"><?= $r['id_kategori_spm'] . ' | ' . $r['nama_kategori']; ?></option>
 						<?php } ?>
 					</select>
 				</div>

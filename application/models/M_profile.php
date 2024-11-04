@@ -3,29 +3,28 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_profile extends CI_Model
 {
-	private $table = 'akun_users';
+	private $table = 'akun_user';
 	private $pk = 'id_akun';
 
 	public function getById($id)
 	{
-		$this->db->select('akun_users.*, 
-        COALESCE(admin.role, admisi.role, kemahasiswaan.role, etiket_admin.role, mahasiswa.role) as role, 
-        COALESCE(admin.nama, admisi.nama, kemahasiswaan.nama, etiket_admin.nama, mahasiswa.nama) as nama,
-        COALESCE(admin.jenis_kelamin, admisi.jenis_kelamin, kemahasiswaan.jenis_kelamin, etiket_admin.jenis_kelamin, mahasiswa.jenis_kelamin) as jenis_kelamin,
-		COALESCE(admin.no_hp, admisi.no_hp, kemahasiswaan.no_hp, etiket_admin.no_hp, mahasiswa.no_hp) as no_hp,
-		COALESCE(admin.alamat, admisi.alamat, kemahasiswaan.alamat, etiket_admin.alamat, mahasiswa.alamat) as alamat,
-		COALESCE(admin.email, admisi.email, kemahasiswaan.email, etiket_admin.email, mahasiswa.email) as email,
-		COALESCE(mahasiswa.program_studi) as program_studi,
+		$this->db->select('akun_user.*, 
+        COALESCE(staff.nama, mahasiswa.nama) as nama,
+        COALESCE(staff.jenis_kelamin, mahasiswa.jenis_kelamin) as jenis_kelamin,
+		COALESCE(staff.phone, mahasiswa.phone) as phone,
+		COALESCE(staff.email, mahasiswa.email) as email,
+		COALESCE(mahasiswa.id_prodi) as id_prodi,
+		COALESCE(prodi.prodi) as prodi,
 		COALESCE(mahasiswa.nim) as nim,
-		COALESCE(admin.jabatan,admisi.jabatan, kemahasiswaan.jabatan, etiket_admin.jabatan) as jabatan,
+		COALESCE(prodi.id_fakultas) as id_fakultas,
+		COALESCE(fakultas.fakultas) as fakultas,
+		COALESCE(staff.jabatan) as jabatan,
 		');
 
-		// Lakukan LEFT JOIN ke semua tabel yang terkait
-		$this->db->join('admin', 'akun_users.id_user = admin.id_admin', 'left');
-		$this->db->join('admisi', 'akun_users.id_user = admisi.id_admisi', 'left');
-		$this->db->join('kemahasiswaan', 'akun_users.id_user = kemahasiswaan.id_kemahasiswaan', 'left');
-		$this->db->join('etiket_admin', 'akun_users.id_user = etiket_admin.id_admin_etiket', 'left');
-		$this->db->join('mahasiswa', 'akun_users.id_user = mahasiswa.nim', 'left');
+		$this->db->join('staff', 'akun_user.id_user = staff.id_staff', 'left');
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim', 'left');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left'); 
+		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
 
 		// get data by id for profile
 		$this->db->where($this->pk, $id);

@@ -63,7 +63,7 @@
 						foreach ($read->result_array() as $row) { ?>
 							<tr class="border-t">
 								<td class="p-2"><?= $no; ?></td>
-								<td class="p-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['kategori'] ?></td>
 								<td>
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
@@ -72,12 +72,12 @@
 								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<button class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
-										onclick="openEditModal(<?= $row['id_kategori']; ?>, '<?= $row['nama_kategori']; ?>', '<?= $row['poin']; ?>')">
+										onclick="openEditModal(<?= $row['id_kategori_spm']; ?>, '<?= $row['kategori']; ?>', '<?= $row['poin']; ?>')">
 										<i data-feather="edit" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</button>
 
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal(<?= $row['id_kategori']; ?>)">
+									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal(<?= $row['id_kategori_spm']; ?>)">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 									</button>
@@ -124,7 +124,7 @@
 				<div>
 					<div class="mb-4">
 						<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
-						<input type="text" id="name" name="nama_kategori" required
+						<input type="text" id="name" name="kategori" required
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 							placeholder="Masukkan nama" />
 					</div>
@@ -160,11 +160,11 @@
 			<div class="divider border-gray-400"></div>
 			<form method="post" action="<?= site_url('Kemahasiswaan/Kategori_SPM_Mahasiswa/update'); ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
-				<input type="hidden" id="edit_id_kategori" name="id_kategori" value="" />
+				<input type="hidden" id="edit_id_kategori_spm" name="id_kategori_spm" value="" />
 
 				<div class="mb-4">
 					<label for="edit_name" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
-					<input type="text" id="edit_name" name="nama_kategori" required
+					<input type="text" id="edit_name" name="kategori" required
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan nama" />
 				</div>
@@ -201,7 +201,7 @@
 			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
 			<form method="post" action="<?= site_url('Kemahasiswaan/Kategori_SPM_Mahasiswa/delete'); ?>">
 				<?= csrf(); ?>
-				<input type="hidden" id="hapus_id_kategori" name="id_kategori" />
+				<input type="hidden" id="hapus_id_kategori_spm" name="id_kategori_spm" />
 				<div class="modal-action relative" style="z-index: 1000;">
 					<button type="button" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
 					<button type="submit" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Hapus</button>
@@ -213,9 +213,9 @@
 </section>
 <script>
 	// open modal edit
-	const openEditModal = (id, nama_kategori, poin, type) => {
-		document.getElementById('edit_id_kategori').value = id;
-		document.getElementById('edit_name').value = nama_kategori;
+	const openEditModal = (id, kategori, poin, type) => {
+		document.getElementById('edit_id_kategori_spm').value = id;
+		document.getElementById('edit_name').value = kategori;
 		document.getElementById('edit_poin').value = poin;
 
 		// Set radio button berdasarkan type
@@ -231,7 +231,7 @@
 
 	// delete kategori
 	const openDeleteModal = (id) => {
-		document.getElementById('hapus_id_kategori').value = id;
+		document.getElementById('hapus_id_kategori_spm').value = id;
 		document.getElementById('hapusKategori').showModal();
 	}
 </script>

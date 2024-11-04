@@ -10,10 +10,10 @@ class M_syarat_wajib extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'desc');
 
-		$this->db->join('akun_users', 'syarat_wajib.nim = akun_users.id_user', 'left');
+		$this->db->join('akun_user', 'syarat_wajib.nim = akun_user.id_user', 'left');
 		$this->db->join('mahasiswa AS mhs1', 'syarat_wajib.nim = mhs1.nim');
-		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_syarat_wajib_kategori = kategori_syarat_wajib.id_syarat_wajib_kategori');
-		$this->db->join('mahasiswa AS mhs2', 'akun_users.id_user = mhs2.nim');
+		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
+		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
 
 		return $this->db->get($this->table);
 	}
@@ -54,10 +54,10 @@ class M_syarat_wajib extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'desc');
 
-		$this->db->join('akun_users', 'syarat_wajib.nim = akun_users.id_user', 'left');
+		$this->db->join('akun_user', 'syarat_wajib.nim = akun_user.id_user', 'left');
 		$this->db->join('mahasiswa AS mhs1', 'syarat_wajib.nim = mhs1.nim');
-		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_syarat_wajib_kategori = kategori_syarat_wajib.id_syarat_wajib_kategori');
-		$this->db->join('mahasiswa AS mhs2', 'akun_users.id_user = mhs2.nim');
+		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
+		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
 		$this->db->where('mhs1.nim', $nim);
 
 		return $this->db->get($this->table)->result_array();

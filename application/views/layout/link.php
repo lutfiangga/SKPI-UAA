@@ -5,6 +5,10 @@
 <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/css/app.css" />
 <!-- Feather Icons -->
 <script src="<?= base_url(); ?>assets/vendor/js/plugin/feather.min.js"></script>
+
+<!-- chart js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -27,3 +31,7 @@
 <!-- jquery datepickr -->
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.14.0/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.14.0/jquery-ui.js"></script>
+
+<!-- Quill CSS -->
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.css" rel="stylesheet" />

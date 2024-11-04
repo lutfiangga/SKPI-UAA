@@ -15,8 +15,8 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	{
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->input->post('id_kategori');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$id = $this->input->post('id_kategori_spm');
 		$data = array(
 			'judul' => "KATEGORI SPM",
 			'sub' => "Kategori SPM",
@@ -38,9 +38,9 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 		// jika id tidak ditemukan, id diisi 1
 		$id = ($last_id == null) ? 1 : $last_id + 1;
 		$data = array(
-			'id_kategori' => $id,
-			'nama_kategori' => $this->input->post('nama_kategori'),
-			'poin' => $this->input->post('poin'),
+			'id_kategori_spm' => $id,
+			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
+			'poin' => $this->security->xss_clean($this->input->post('poin')),
 		);
 		$this->M_kategori_spm->save($data);
 		redirect($this->redirect, 'refresh');
@@ -49,10 +49,10 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	public function update()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_kategori');
+		$id = $this->input->post('id_kategori_spm');
 		$data = array(
-			'nama_kategori' => $this->input->post('nama_kategori'),
-			'poin' => $this->input->post('poin'),
+			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
+			'poin' => $this->security->xss_clean($this->input->post('poin')),
 		);
 		$this->M_kategori_spm->update($id, $data);
 		redirect($this->redirect, 'refresh');
@@ -60,9 +60,9 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	public function delete()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_kategori');
+		$id = $this->input->post('id_kategori_spm');
 		$data = array(
-			'id_kategori' => $id
+			'id_kategori_spm' => $id
 		);
 		$this->M_kategori_spm->delete($data);
 		redirect($this->redirect, 'refresh');

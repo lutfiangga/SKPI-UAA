@@ -47,8 +47,8 @@ class Auth extends CI_Controller
 			redirect('auth', 'refresh');
 		} else {
 			cek_csrf();
-			$username = $this->input->post('username');
-			$pwd = $this->input->post('password');
+			$username = $this->security->xss_clean($this->input->post('username'));
+			$pwd = $this->security->xss_clean($this->input->post('password'));
 
 			// Cek login
 			$data = $this->M_auth->CekLogin('username', $username);
@@ -66,7 +66,7 @@ class Auth extends CI_Controller
 					$this->session->set_flashdata('auth_error', 'Password salah!');
 					// echo $this->db->last_query();
 					// echo 'Role: ' . $data['role'];
-					// echo 'password'.$pwd;
+					// echo 'password: ' . $pwd;
 					redirect('auth', 'refresh');
 				}
 			} else if ($data) {
@@ -100,13 +100,14 @@ class Auth extends CI_Controller
 		$array = array(
 			'id_user' => $data['id_user'],
 			'nama' => $data['nama'],
-			'role' => strtolower($data['role']) == 'admin_eticket' ? 'eticket' : $data['role'],
+			'role' => $data['role'],
 			'img_user' => $data['img_user'],
 			'Admin' => strtolower($data['role']) == 'admin' ? 1 : 0,
 			'Kemahasiswaan' => strtolower($data['role']) == 'kemahasiswaan' ? 1 : 0,
 			'Admisi' => strtolower($data['role']) == 'admisi' ? 1 : 0,
-			'Eticket' => strtolower($data['role']) == 'admin_eticket' ? 1 : 0,
+			'Etiquette' => strtolower($data['role']) == 'etiquette' ? 1 : 0,
 			'Mahasiswa' => strtolower($data['role']) == 'mahasiswa' ? 1 : 0,
+			'Prodi' => strtolower($data['role']) == 'prodi' ? 1 : 0,
 		);
 
 		$this->session->set_userdata($array);
@@ -115,9 +116,6 @@ class Auth extends CI_Controller
 	// Helper untuk redirect berdasarkan role
 	private function role_redirect($role)
 	{
-		if ($role == 'admin_eticket') {
-			$role = 'eticket';
-		}
 
 		switch ($role) {
 			case 'admin':
@@ -129,11 +127,14 @@ class Auth extends CI_Controller
 			case 'mahasiswa':
 				redirect('Mahasiswa/Dashboard', 'refresh');
 				break;
-			case 'eticket':
-				redirect('Eticket/Dashboard', 'refresh');
+			case 'etiquette':
+				redirect('Etiquette/Dashboard', 'refresh');
 				break;
 			case 'kemahasiswaan':
 				redirect('Kemahasiswaan/Dashboard', 'refresh');
+				break;
+			case 'prodi':
+				redirect('Prodi/Dashboard', 'refresh');
 				break;
 			default:
 				redirect('auth', 'refresh');

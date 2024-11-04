@@ -6,7 +6,7 @@
 					<img src="<?= base_url('assets/static/img/logouaa.png'); ?>" alt="Logo uaa" class="w-auto h-[2rem] sm:h-[3rem] md:h-20">
 					<div class="flex flex-col items-end text-[#0B5E91]">
 						<h1 class="font-bold text-end text-[0.7rem] sm:text-[0.8rem] md:text-sm">Jl. Brawijaya No.99, Yogyakarta 55183</h1>
-						<p class="mt-1 text-end text-[0.8rem] sm:text-xs md:text-base">Telp. (0274) 4342288 Fax. (0274) 4342269</p>
+						<p class="mt-1 text-end text-[0.8rem] sm:text-sm md:text-base">Telp. (0274) 4342288 Fax. (0274) 4342269</p>
 						<div class="flex flex-row gap-2 items-center mt-1 text-[0.6rem] md:text-xs text-end">
 							<div class="flex flex-row items-center">
 								<i data-feather="globe" class="p-0.5 md:p-1 bg-[#0B5E91] text-white w-[12px] h-[12px] sm:w-[16px] sm:h-[16px] md:w-[20px] md:h-[20px] rounded-lg"></i>
@@ -133,6 +133,10 @@
 							<!-- INFORMASI TENTANG CAPAIAN PEMBELAJARAN  -->
 							<div class="my-6">
 								<li class="text-sm font-semibold uppercase">INFORMASI TENTANG CAPAIAN PEMBELAJARAN </li>
+								<li class="text-sm font-semibold uppercase"><?= auto_translate('INFORMASI TENTANG CAPAIAN PEMBELAJARAN'); ?> </li>
+								<script>
+									
+								</script>
 								<ol type="A" class="list-inside list-upper-alpha my-4 ml-4">
 									<!-- CAPAIAN PEMBELAJARAN -->
 									<div class="my-4">
@@ -259,6 +263,7 @@
 													?>
 															<tr>
 																<td class="border border-black px-6 text-xs whitespace-nowrap p-4"><?= $no; ?>. <?= $row['nama_kegiatan'] ?></td>
+																<td class="border border-black px-6 text-xs whitespace-nowrap p-4"><?= $no; ?>. <?= auto_translate($row['nama_kegiatan']) ?></td>
 															</tr>
 												<?php
 															$no++;
@@ -322,28 +327,31 @@
 								<li class="text-sm font-semibold uppercase m-3">PENGESAHAN SKPI</li>
 								<div class="text-sm text-justify grid grid-cols-2">
 
-									<!-- signature & stamp -->
+									<!-- Signature & Stamp -->
 									<div class="col-span-2 text-center my-2">
-										<div class="max-w-1/2 relative">
+										<div class="relative inline-block">
 											<p>Yogyakarta, <?= tanggal(date('Y-m-d')); ?></p>
 											<p>Dekan Fakultas ....</p>
 											<br><br><br><br><br><br>
-											<p class="capitalize text-center font-bold"><?= $direktur['nama']; ?></p>
-											<p class="capitalize text-center text-xs">Nomor Induk Pegawai: <?= $direktur['nama']; ?></p>
-											<div class="absolute bottom-12 left-[215px]">
-												<div class="relative w-[180px] h-auto">
-													<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>" alt="Signature" class="absolute bottom-1 z-1">
-													<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/stamp/' . $direktur['stamp']) ?>" alt="stamp" class="absolute bottom-1 z-2">
-												</div>
+											<p class="capitalize font-bold"><?= $direktur['nama']; ?></p>
+											<p class="capitalize text-xs">Nomor Induk Pegawai: <?= $direktur['nama']; ?></p>
+
+											<!-- Stamp and Signature Container -->
+											<div class="relative mx-auto -mt-40 w-[180px] h-auto">
+												<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>"
+													alt="Signature" class="absolute inset-0 z-0">
+												<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/stamp/' . $direktur['stamp']) ?>"
+													alt="Stamp" class="absolute inset-0 z-1 opacity-75">
 											</div>
 										</div>
 									</div>
 
+									<!-- Official Notes -->
 									<div class="border border-black p-2 text-xs">
 										Catatan resmi
 										<ul class="list-inside list-disc">
 											<li>
-												SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang mengeluarkan ijazah sesuai dengan paraturan perundang-undangan yang berlaku.
+												SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang mengeluarkan ijazah sesuai dengan peraturan perundang-undangan yang berlaku.
 											</li>
 											<li>
 												SKPI hanya diterbitkan setelah mahasiswa dinyatakan lulus dari suatu program studi secara resmi oleh Perguruan Tinggi.
@@ -352,13 +360,15 @@
 												SKPI diterbitkan dalam Bahasa Indonesia dan Bahasa Inggris.
 											</li>
 											<li>
-												SKPI yang asli diterbitkan mengunakan kertas khusus (barcode/halogram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.
+												SKPI yang asli diterbitkan menggunakan kertas khusus (barcode/hologram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.
 											</li>
 											<li>
 												Penerima SKPI dicantumkan dalam situs resmi Perguruan Tinggi.
 											</li>
 										</ul>
 									</div>
+
+									<!-- Address -->
 									<div class="border border-black p-2 text-xs">
 										Alamat
 										<br><br><br>
@@ -370,6 +380,7 @@
 									</div>
 								</div>
 							</div>
+
 						</ol>
 					</section>
 				</main>

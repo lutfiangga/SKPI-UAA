@@ -64,7 +64,7 @@
 						foreach ($read->result_array() as $row) { ?>
 							<tr class="border-t">
 								<td class="px-4 py-2"><?= $no; ?></td>
-								<td class="px-4 py-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
+								<td class="px-4 py-2 whitespace-normal"><?= $row['kategori'] ?></td>
 								<td>
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
@@ -94,12 +94,12 @@
 								</td>
 								<td class="px-4 py-2 flex flex-row items-center mt-2 gap-2">
 									<button class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
-										onclick="openEditModal(<?= $row['id_syarat_wajib_kategori']; ?>, '<?= $row['nama_kategori']; ?>', <?= $row['poin']; ?>, '<?= $row['type']; ?>')">
+										onclick="openEditModal(<?= $row['id_kategori_syarat_wajib']; ?>, '<?= $row['kategori']; ?>', <?= $row['poin']; ?>, '<?= $row['type']; ?>')">
 										<i data-feather="edit" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</button>
 
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal(<?= $row['id_syarat_wajib_kategori']; ?>)">
+									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal(<?= $row['id_kategori_syarat_wajib']; ?>)">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 									</button>
@@ -147,7 +147,7 @@
 				<div>
 					<div class="mb-4">
 						<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
-						<input type="text" id="name" name="nama_kategori" required
+						<input type="text" id="name" name="kategori" required
 							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 							placeholder="Masukkan nama" />
 					</div>
@@ -197,11 +197,11 @@
 			<div class="divider border-gray-400"></div>
 			<form method="post" action="<?= site_url('Admisi/Kategori_SPM_Mahasiswa/update'); ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
-				<input type="hidden" id="edit_id_syarat_wajib_kategori" name="id_syarat_wajib_kategori" value="" />
+				<input type="hidden" id="edit_id_kategori_syarat_wajib" name="id_kategori_syarat_wajib" value="" />
 
 				<div class="mb-4">
-					<label for="edit_name" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
-					<input type="text" id="edit_name" name="nama_kategori" required
+					<label for="edit_kategori" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
+					<input type="text" id="edit_kategori" name="kategori" required
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan nama" />
 				</div>
@@ -229,8 +229,8 @@
 				</div>
 
 				<div class="modal-action relative" style="z-index: 1000;">
-					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Update</button>
 					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Update</button>
 				</div>
 			</form>
 		</div>
@@ -253,7 +253,7 @@
 			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
 			<form method="post" action="<?= site_url('Admisi/Kategori_SPM_Mahasiswa/delete'); ?>">
 				<?= csrf(); ?>
-				<input type="hidden" id="hapus_id_syarat_wajib_kategori" name="id_syarat_wajib_kategori" />
+				<input type="hidden" id="hapus_id_kategori_syarat_wajib" name="id_kategori_syarat_wajib" />
 				<div class="modal-action relative" style="z-index: 1000;">
 					<button type="button" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
 					<button type="submit" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Hapus</button>
@@ -265,9 +265,9 @@
 </section>
 <script>
 	// open modal edit
-	const openEditModal = (id, nama_kategori, poin, type) => {
-		document.getElementById('edit_id_syarat_wajib_kategori').value = id;
-		document.getElementById('edit_name').value = nama_kategori;
+	const openEditModal = (id, kategori, poin, type) => {
+		document.getElementById('edit_id_kategori_syarat_wajib').value = id;
+		document.getElementById('edit_kategori').value = kategori;
 		document.getElementById('edit_poin').value = poin;
 
 		// Set radio button berdasarkan type
@@ -283,7 +283,7 @@
 
 	// delete kategori
 	const openDeleteModal = (id) => {
-		document.getElementById('hapus_id_syarat_wajib_kategori').value = id;
+		document.getElementById('hapus_id_kategori_syarat_wajib').value = id;
 		document.getElementById('hapusKategori').showModal();
 	}
 </script>

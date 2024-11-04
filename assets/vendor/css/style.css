@@ -1,13 +1,19 @@
 /* custom style */
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap");
 
 .great-vibes {
-    font-family: 'Great Vibes', cursive;
+	font-family: "Great Vibes", cursive;
 }
 
 .times-new-roman {
 	font-family: "Times New Roman", Times, serif;
 }
+
+.neumorphism-card {
+    filter: drop-shadow(5px 5px 1px #dcdcdc);
+    filter: drop-shadow(-5px -5px 1px #fff);
+}
+
 
 .bg-lavender-gray {
 	background-color: #eef0f6;
@@ -25,6 +31,7 @@
 .header-card {
 	clip-path: polygon(0 0, 83% 0, 100% 100%, 0% 100%);
 }
+
 .input {
 	background-color: #fafafa !important;
 	/* border: #111 !important; */

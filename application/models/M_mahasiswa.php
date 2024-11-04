@@ -9,7 +9,7 @@ class M_mahasiswa extends CI_Model
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'desc');
-		$this->db->join('akun_users', 'mahasiswa.nim = akun_users.id_user');
+		$this->db->join('akun_user', 'mahasiswa.nim = akun_user.id_user');
 		return $this->db->get($this->table);
 	}
 

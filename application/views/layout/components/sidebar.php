@@ -16,11 +16,13 @@
 				</a>
 			</li>
 			<!-- Dir Kemahasiswaan -->
-			<li class="my-2 <?= $role != 'kemahasiswaan' ? 'hidden' : 'block' ?>">
-				<a href="<?= site_url('Kemahasiswaan/Dir_Kemahasiswaan'); ?>" class="p-2.5 flex items-center rounded-full px-2 lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'dir_kemahasiswaan') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?>">
+			<li class="my-2 <?= ($role != 'admisi' && $role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(($role !== 'admisi' ? ucfirst($role) . '/Dir_Kemahasiswaan' : ucfirst($role) . '/Dir_Admisi')); ?>"
+					class="p-2.5 flex items-center rounded-full px-2 lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'direktur') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?>">
 					<i data-feather="smile"></i>
-					<span class="text-[15px] text-left ml-4">Direktur Kemahasiswaan</span>
+					<span class="text-[15px] text-left ml-4">Direktur <?= $role !== 'admisi' ? 'Kemahasiswaan' : 'Admisi'; ?></span>
 				</a>
+
 			</li>
 			<hr class="my-4 border-[#fafafa]">
 			<!-- data pengguna -->
@@ -82,6 +84,13 @@
 					<span class="text-[15px] ml-4">SKPI Mahasiswa</span>
 				</a>
 			</li>
+			<!-- CPL Mahasiswa -->
+			<li class="my-2 <?= $role != 'prodi' ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url('Prodi/Cpl_skpi'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'cpl') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="award"></i>
+					<span class="text-[15px] ml-4">CPL SKPI</span>
+				</a>
+			</li>
 			<!-- Kategori SPM Mahasiswa -->
 			<li class="my-2 <?= ($role != 'admisi' && $role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
 				<a href="<?= site_url(ucwords($role) . '/Kategori_Spm_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'kategori_spm') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
@@ -91,26 +100,26 @@
 			</li>
 
 			<!-- SPM Mahasiswa -->
-			<li class="my-2 <?= ($role != 'admin' && $role != 'eticket') ? 'block' : 'hidden'; ?>">
+			<li class="my-2 <?= ($role != 'admin' && $role != 'etiquette' && $role != 'prodi') ? 'block' : 'hidden'; ?>">
 				<a href="<?= site_url(ucwords($role) . '/Spm_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'spm_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="award"></i>
 					<span class="text-[15px] ml-4 flex gap-1">SPM Mahasiswa</span>
 				</a>
 			</li>
 
-			<!-- SPM Wajib -->
+			<!-- Syarat Wajib -->
 			<li class="my-2 <?= ($role != 'mahasiswa') ? 'hidden' : 'block'; ?>">
-				<a href="<?= site_url('Mahasiswa/Spm_wajib'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'spm_wajib') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+				<a href="<?= site_url('Mahasiswa/Syarat_wajib'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'syarat_wajib') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="check-circle"></i>
-					<span class="text-[15px] ml-4">SPM Wajib</span>
+					<span class="text-[15px] ml-4">Syarat Wajib</span>
 				</a>
 			</li>
 
-			<!-- Eticket Mahasiswa -->
-			<li class="my-2 <?= ($role != 'eticket' && $role != 'mahasiswa') ? 'hidden' : 'block'; ?>">
-				<a href="<?= site_url(ucwords($role) . '/Eticket_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'eticket_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+			<!-- Etiquette Mahasiswa -->
+			<li class="my-2 <?= ($role != 'etiquette' && $role != 'mahasiswa') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Etiquette_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'etiquette_mhs') ? 'bg-[#fafafa] text-blue-600 rounded-full px-2 duration-300 ring-2 ring-[#dadada]' : ''; ?> text-[#fafafa] rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="activity"></i>
-					<span class="text-[15px] ml-4">Eticket Mahasiswa</span>
+					<span class="text-[15px] ml-4">Etiquette Mahasiswa</span>
 				</a>
 			</li>
 

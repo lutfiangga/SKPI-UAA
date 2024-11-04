@@ -63,32 +63,209 @@
 		</div>
 	</section>
 	<!-- card -->
-	<section class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-		<!-- card -->
-		<div class="flex flex-col col-span-1 text-blue-600">
-			<div class="bg-off-white rounded-t-2xl flex flex-row p-4 w-5/6 items-center gap-4 header-card">
-				<!-- <i data-feather="clock"></i> -->
-				<div class="flex flex-col uppercase tracking-wide items-start">
-					<!-- <p class="text-[0.6rem]">diunggah tanggal</p> -->
-					<p class="text-sm font-semibold">Total Poin SPM</p>
-				</div>
+	<section class="grid grid-cols-2 md:grid-cols-3 gap-4">
+		<!-- card skor spm virified -->
+		<div class="bg-[#fafafa] flex items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="flex items-center justify-center bg-blue-100 text-blue-600 w-16 h-16 rounded-full shadow-sm">
+				<i data-feather="award" class="w-10 h-10"></i>
 			</div>
-			<div class="bg-off-white rounded-b-2xl rounded-tr-2xl p-4">
-				<div class="flex flex-row justify-between mx-2 items-center gap-2 hover:rounded-lg hover:bg-[#e7ecfb] cursor-pointer">
-					<div>
-						<div class="rounded-md text-off-white bg-blue-600 p-4">
-							<i data-feather="award"></i>
-						</div>
-					</div>
-					<p class="text-lg w-full whitespace-wrap font-bold"><?= $SpmPoin['total_poin'] ?> Poin</p>
-				</div>
-				<div class="flex flex-row gap-4 items-center mt-6 text-gray-500">
-					<i data-feather="award"></i>
-					<p class="truncate w-full ml-2 font-semibold">Total Poin SPM</p>
-				</div>
+			<div>
+				<em class="block text-sm text-gray-500">SPM Terverifikasi</em>
+				<p class="text-4xl font-extrabold">
+					<?= $SpmPoin['total_poin'] ?>
+					<span class="text-sm font-medium text-gray-600">Poin</span>
+				</p>
+			</div>
+		</div>
+		<!-- card -->
+
+		<!-- card skor spm unvirified -->
+		<div class="flex bg-[#fafafa] items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="flex items-center justify-center bg-red-100 text-red-600 w-16 h-16 rounded-full shadow-sm">
+				<i data-feather="x-circle" class="w-10 h-10"></i>
+			</div>
+			<div>
+				<em class="block text-sm text-gray-500">SPM Tidak Terverifikasi</em>
+				<p class="text-4xl font-extrabold">
+					<?= $SpmPoin['total_poin'] ?>
+					<span class="text-sm font-medium text-gray-600">Poin</span>
+				</p>
+			</div>
+		</div>
+		<!-- card -->
+
+		<!-- card skor spm unvirified -->
+		<div class="bg-[#fafafa] col-span-2 md:col-span-1 flex items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="flex items-center justify-center bg-orange-100 text-orange-600 w-16 h-16 rounded-full shadow-sm">
+				<i data-feather="alert-circle" class="w-10 h-10"></i>
+			</div>
+			<div>
+				<em class="block text-sm text-gray-500">Alma ata Etiquette</em>
+				<p class="text-4xl font-extrabold">
+					<?= $SpmPoin['total_poin'] ?>
+					<span class="text-sm font-medium text-gray-600">Poin</span>
+				</p>
 			</div>
 		</div>
 		<!-- card -->
 	</section>
 
+	<section class="my-4">
+		<div class="bg-[#fafafa] flex flex-col md:flex-row justify-center justify-between md:items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="w-full flex flex-col md:flex-row justify-between md:w-1/2 p-4 rounded-2xl text-gray-800">
+				<div class="flex flex-col justify-between mx-auto gap-4 w-full md:w-2/3">
+					<h2 class="text-lg font-semibold">SPM Overview</h2>
+					<p class="text-xs text-gray-600">
+						Overview laporan unggah SPM yang sudah diverifikasi.
+					</p>
+
+					<div class="flex flex-col justify-center gap-4">
+						<div class="flex flex-row items-center gap-2">
+							<!-- Circle Icon -->
+							<div class="bg-blue-600 rounded-full h-4 w-4 flex items-center justify-center"></div>
+
+							<!-- Kategori -->
+							<span class="text-base font-medium">
+								Kategori: <span class="font-bold">12</span>
+							</span>
+						</div>
+						<div class="flex flex-row items-center gap-2">
+							<!-- Circle Icon -->
+							<div class="bg-blue-600 rounded-full h-4 w-4 flex items-center justify-center"></div>
+
+							<!-- Kategori -->
+							<span class="text-base font-medium">
+								Kategori: <span class="font-bold">12</span>
+							</span>
+						</div>
+						<div class="flex flex-row items-center gap-2">
+							<!-- Circle Icon -->
+							<div class="bg-blue-600 rounded-full h-4 w-4 flex items-center justify-center"></div>
+
+							<!-- Kategori -->
+							<span class="text-base font-medium">
+								Kategori: <span class="font-bold">12</span>
+							</span>
+						</div>
+					</div>
+				</div>
+
+				<!-- Polar chart -->
+				<div class="w-full md:w-1/3 flex items-center justify-center">
+					<canvas id="myChart" class="w-full h-full"></canvas> 
+				</div>
+			</div>
+
+			<div class=" w-full md:w-1/2 p-2 md:p-4 bg-blue-600 rounded-2xl text-off-white flex justify-between">
+				<div class="flex flex-col md:flex-row justify-between mx-auto gap-4 space-x-6 md:max-h-48">
+					<!-- foto -->
+					<div class="mask mask-squircle text-center">
+						<img src="<?= base_url($foto); ?>" alt="role" class="object-cover h-full">
+					</div>
+					<!-- data diri -->
+					<div class="flex flex-col justify-center">
+						<p class="text-lg font-semibold"><?= $nama; ?></p>
+						<p class="font-semibold"><?= $id_user; ?></p>
+						<p class="text-sm"><?= $role; ?></p>
+						<div class="flex-flex-col gap-2 mt-4">
+							<p class="text-sm">Jumlah SKS Yang sudah Diambil:</p>
+							<p class="font-bold text-[2rem]">144 SKS</p>
+						</div>
+					</div>
+					<div id="download-container"
+						class="bg-[#fafafa] text-blue-600 md:w-16 h-16 md:h-auto rounded-xl flex flex-row md:flex-col items-center justify-between p-2 hover:bg-blue-100 transition cursor-pointer md:p-4 shadow-[0_4px_0px_0_rgba(191,219,254,0.5)] md:shadow-[6px_0_0px_0_rgba(191,219,254,0.5)]">
+
+						<i data-feather="refresh-cw" class="w-6 h-6" onclick="resetText()"></i>
+
+						<a href="download-skpi.pdf" id="download-text" class="md:-rotate-90 whitespace-nowrap uppercase font-bold text-xs">
+							Download SKPI
+						</a>
+
+						<i data-feather="triangle"
+							class="rotate-90 md:rotate-180 w-6 h-6"
+							fill="currentColor"
+							onclick="toggleDownload()">
+						</i>
+					</div>
+
+				</div>
+			</div>
+
+		</div>
+	</section>
+
 </section>
+<script>
+	function resetText() {
+		const textElement = document.getElementById('download-text');
+		textElement.textContent = 'Download SKPI';
+		textElement.href = 'download-skpi.pdf';
+		isSPM = false;
+	}
+
+	function toggleDownload() {
+		const textElement = document.getElementById('download-text');
+		const currentText = textElement.textContent;
+
+
+		if (currentText === 'Download SKPI') {
+			textElement.textContent = 'Download SPM';
+			textElement.href = 'download-spm.pdf';
+		} else {
+			textElement.textContent = 'Download SKPI';
+			textElement.href = 'download-skpi.pdf';
+		}
+	}
+
+	function resetText() {
+		const textElement = document.getElementById('download-text');
+		textElement.textContent = 'Download SKPI';
+	}
+</script>
+<script>
+	const ctx = document.getElementById('myChart').getContext('2d');
+
+	const myChart = new Chart(ctx, {
+		type: 'polarArea',
+		data: {
+			labels: ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5'],
+			datasets: [{
+				data: [12, 19, 3, 5, 2],
+				backgroundColor: [
+					'rgba(37, 99, 235, 0.8)', 
+					'rgba(251, 191, 36, 0.8)', 
+					'rgba(220, 38, 38, 0.8)',
+					'rgba(107, 114, 128, 0.8)', 
+					'rgba(16, 185, 129, 0.8)',
+				],
+				hoverBackgroundColor: [
+					'rgba(107, 114, 128, 1)', 
+					'rgba(37, 99, 235, 1)',
+					'rgba(220, 38, 38, 1)',
+					'rgba(16, 185, 129, 1)',
+					'rgba(251, 191, 36, 1)',
+				],
+				borderColor: 'rgba(0,0,0,0)',
+				borderWidth: 0
+			}]
+		},
+		options: {
+			responsive: true,
+			maintainAspectRatio: true,
+			scales: {
+				r: {
+					display: false,
+				}
+			},
+			plugins: {
+				legend: {
+					display: false,
+				},
+				tooltip: {
+					intersect: false,
+					enabled: true
+				}
+			}
+		}
+	});
+</script>

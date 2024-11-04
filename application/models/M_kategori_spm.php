@@ -5,7 +5,7 @@ class M_kategori_spm extends CI_Model
 	//$table sebagai tabel yang digunakan, dengan pemanggilannya $this->table
 	private $table = 'kategori_spm';
 	//$pk atau Primary Key yang digunakan, dengan pemanggilannya $this->pk
-	private $pk = 'id_kategori';
+	private $pk = 'id_kategori_spm';
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'desc');

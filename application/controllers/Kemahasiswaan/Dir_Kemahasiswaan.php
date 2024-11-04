@@ -11,7 +11,7 @@ class Dir_Kemahasiswaan extends CI_Controller
 		//protected routes
 		checkRole('Kemahasiswaan');
 		//load model
-		$this->load->model('M_dirKemahasiswaan');
+		$this->load->model(array('M_dirKemahasiswaan', 'M_staff'));
 	}
 
 	public function index()
@@ -19,95 +19,50 @@ class Dir_Kemahasiswaan extends CI_Controller
 		$id = $this->session->userdata('id_user');
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . strtolower($role) . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA DIREKTUR KEMAHASISWAAN",
 			'sub' => "Data Direktur Kemahasiswaan",
-			'active_menu' => 'dir_kemahasiswaan',
+			'active_menu' => 'direktur',
 			'id_user' => $id,
 			// from tabel user
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'role' => $role,
+			'staff' => $this->M_staff->GetAll(),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 		);
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
-	public function update()
-	{
-		$this->form_validation->set_rules(
-			'email',
-			'Email',
-			'required|valid_email',
-			array(
-				'required' => 'Email tidak boleh kosong.',
-				'valid_email' => 'Format email tidak valid.'
-			)
-		);
-		$this->form_validation->set_rules(
-			'no_hp',
-			'Phone',
-			'required|min_length[10]',
-			array(
-				'required' => 'Nomor telepon tidak boleh kosong.',
-				'min_length' => 'Nomor telepon harus terdiri dari minimal 10 karakter.'
-			)
-		);
-
-		// Jika validasi form gagal
-		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('validation_error', validation_errors());
-			redirect($this->redirect);
-		} else {
-			cek_csrf();
-
-			$id = $this->M_dirKemahasiswaan->GetDirektur()->row()->id_direktur;
-
-			$data = array(
-				'nama' => $this->input->post('nama'),
-				'jenis_kelamin' => $this->input->post('jenis_kelamin'),
-				'email' => $this->input->post('email'),
-				'no_hp' => $this->input->post('no_hp'),
-				'alamat' => $this->input->post('alamat'),
-			);
-
-			// Update data direktur
-			$this->M_dirKemahasiswaan->update($id, $data);
-			$this->session->set_flashdata('success', 'Data updated successfully.');
-			redirect($this->redirect, 'refresh');
-		}
-	}
-
-	public function change_image($id)
+	public function update($id)
 	{
 		cek_csrf();
-		$config['upload_path'] = './assets/static/img/photos/kemahasiswaan/';
-		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
-		$config['max_size'] = 6000; // KB
-		$config['file_name'] = 'direktur_kemahasiswaan_' . time();
-
-		$this->load->library('upload', $config); // Load library dan config
-
-		$user = $this->M_dirKemahasiswaan->GetDirektur();
-		$foto = $user['foto']; // default image
-
-		if ($this->upload->do_upload('foto')) {
-			$foto_data = $this->upload->data();
-			$foto = $foto_data['file_name'];
-
-			// delete old image
-			if (!empty($user['foto']) && file_exists('./assets/static/img/photos/kemahasiswaan/' . $user['foto'])) {
-				unlink('./assets/static/img/photos/kemahasiswaan/' . $user['foto']);
-			}
-		}
-
 		$data = array(
-			'foto' => $foto,
+			'id_direktur' => $this->security->xss_clean($this->input->post('id_direktur')),
 		);
+
+		// Update data direktur
 		$this->M_dirKemahasiswaan->update($id, $data);
+		$this->session->set_flashdata('success', 'Data updated successfully.');
 		redirect($this->redirect, 'refresh');
 	}
+
+	public function add_direktur()
+	{
+		cek_csrf();
+
+		$last_id = $this->M_dirKemahasiswaan->getLastId(); // get last id
+		// jika id tidak ditemukan, id diisi 1
+		$id = ($last_id == null) ? 1 : $last_id + 1;
+		$data = array(
+			'id' => $id,
+			'id_direktur' => $this->security->xss_clean($this->input->post('id_direktur')),
+		);
+		$this->M_dirKemahasiswaan->save($data);
+		redirect($this->redirect, 'refresh');
+	}
+
 	public function change_signature($id)
 	{
 		cek_csrf();

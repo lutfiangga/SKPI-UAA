@@ -7,7 +7,7 @@
 	<section class="md:w-3/5 w-full rounded-xl">
 		<div class="flex flex-col p-4 md:p-4 lg:p-6 ">
 			<img src="<?= base_url("assets/static/img/logo-uaa.png"); ?>" alt="UAA" class="w-32 h-auto mx-auto">
-			<h1 class="text-4xl  md:text-5xl lg:text-6xl xl:text-7xl text-gray-900 font-bold p-4 text-center montserrat">Selamat Datang</h1>
+			<h1 class="text-4xl  md:text-5xl lg:text-6xl xl:text-7xl text-gray-900 font-bold p-4 text-center montserrat">Selamat Datang <p class="text-lg md:text-xl"> Sistem Informasi SPM & SKPI </p> </h1>
 			<p class="text-center p-2 rounded-lg bg-[EEF0F6] font-sm text-gray-500 font-semibold kanit flex flex-row">Catatan! <marquee class="ml-2"><em class="font-normal">Jika ada kendala login silahkan hubungi FL (Frontliner) di Mal Layanan Mahasiswa</em> </marquee>
 			</p>
 			<!-- Alert no input form -->

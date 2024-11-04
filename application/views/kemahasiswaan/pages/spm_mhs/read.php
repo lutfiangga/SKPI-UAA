@@ -81,7 +81,7 @@
 									</div>
 								</td>
 								<td class="p-2 whitespace-normal"><?= $row['nama_kegiatan'] ?></td>
-								<td class="p-2 whitespace-normal"><?= $row['nama_kategori'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['kategori'] ?></td>
 								<td class="p-2 whitespace-nowrap">
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
@@ -177,6 +177,39 @@
 									<?php endif; ?>
 								</td>
 							</tr>
+
+							<!-- Modal Decline SPM -->
+							<dialog id="declineSPM" class="modal overflow-hidden">
+								<div class="modal-box bg-[#fafafa]">
+									<form method="dialog">
+										<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
+									</form>
+									<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
+										Tolak SPM
+										<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
+											<i data-feather="award" class="w-4 h-4"></i>
+										</div>
+									</h3>
+									<div class="divider border-gray-400"></div>
+									<form method="post" action="<?= site_url('Kemahasiswaan/Spm_Mahasiswa/decline/' . $row['id_spm']); ?>" enctype="multipart/form-data" role="form">
+										<?= csrf(); ?>
+										<input type="hidden" id="edit_id_spm" name="id_spm" value="" />
+
+										<div class="mb-4">
+											<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
+											<textarea type="text" rows="4" id="keterangan" name="keterangan" required
+												class="mt-1 block bg-[#fafafa] w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+												placeholder="Tulis Keterangan"></textarea>
+										</div>
+
+										<div class="modal-action relative" style="z-index: 1000;">
+											<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+											<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
+										</div>
+									</form>
+								</div>
+							</dialog>
+
 						<?php $no++;
 						}
 					} else { ?>
@@ -206,37 +239,6 @@
 		</div>
 	</section>
 
-	<!-- Modal Decline SPM -->
-	<dialog id="declineSPM" class="modal overflow-hidden">
-		<div class="modal-box bg-[#fafafa]">
-			<form method="dialog">
-				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
-			</form>
-			<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
-				Tolak SPM
-				<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
-					<i data-feather="award" class="w-4 h-4"></i>
-				</div>
-			</h3>
-			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Spm_Mahasiswa/decline/' . $row['id_spm']); ?>" enctype="multipart/form-data" role="form">
-				<?= csrf(); ?>
-				<input type="hidden" id="edit_id_spm" name="id_spm" value="" />
-
-				<div class="mb-4">
-					<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
-					<textarea type="text" rows="4" id="keterangan" name="keterangan" required
-						class="mt-1 block bg-[#fafafa] w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-						placeholder="Tulis Keterangan"></textarea>
-				</div>
-
-				<div class="modal-action relative" style="z-index: 1000;">
-					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
-					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
-				</div>
-			</form>
-		</div>
-	</dialog>
 
 </section>
 

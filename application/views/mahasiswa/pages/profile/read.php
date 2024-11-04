@@ -87,7 +87,7 @@
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Telepon:</label>
-						<p><?= $profile['no_hp']; ?></p>
+						<p><?= $profile['phone']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Email:</label>
@@ -95,15 +95,15 @@
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
-						<p><?= $profile['jenis_kelamin']; ?></p>
+						<p class="capitalize"><?= $profile['jenis_kelamin']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
 						<label class="font-semibold text-gray-700">Program Studi:</label>
-						<p><?= $profile['program_studi']; ?></p>
+						<p class="capitalize"><?= $profile['prodi']; ?></p>
 					</div>
 					<div class="text-xs sm:text-sm md:text-base">
-						<label class="font-semibold text-gray-700">Alamat:</label>
-						<p><?= $profile['alamat']; ?></p>
+						<label class="font-semibold text-gray-700">Fakultas:</label>
+						<p class="capitalize"><?= $profile['fakultas']; ?></p>
 					</div>
 				</div>
 

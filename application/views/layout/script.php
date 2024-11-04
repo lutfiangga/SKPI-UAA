@@ -22,3 +22,7 @@
 <script src="<?= base_url(); ?>assets/vendor/plugin/datatable/button/print.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/plugin/datatable/pdfmake/pdfmake.min.js"></script>
 <script src="<?= base_url(); ?>assets/vendor/plugin/datatable/pdfmake/vfs_fonts.js"></script>
+
+<script src="<?= base_url(); ?>assets/vendor/plugin/quill/quill.min.js"></script>
+<script src="<?= base_url(); ?>assets/vendor/plugin/quill/image-resize.min.js"></script>
+

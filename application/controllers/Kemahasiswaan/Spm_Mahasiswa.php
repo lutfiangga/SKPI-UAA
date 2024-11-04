@@ -15,7 +15,7 @@ class SPM_Mahasiswa extends CI_Controller
 	{
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
@@ -43,7 +43,7 @@ class SPM_Mahasiswa extends CI_Controller
 	{
 		cek_csrf();
 		$data = array(
-			'keterangan' => $this->input->post('keterangan'),
+			'keterangan' => $this->security->xss_clean($this->input->post('keterangan')),
 			'status' => 'ditolak',
 		);
 

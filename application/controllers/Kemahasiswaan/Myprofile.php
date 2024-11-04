@@ -19,7 +19,7 @@ class Myprofile extends CI_Controller
 		$id = $this->session->userdata('id_user');
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . strtolower($role) . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "MY PROFILE",
 			'sub' => "Profile",
@@ -42,7 +42,7 @@ class Myprofile extends CI_Controller
 		$id_user = $this->session->userdata('id_user');
 
 		// Konfigurasi image
-		$config['upload_path'] = './assets/static/img/photos/kemahasiswaan/';
+		$config['upload_path'] = './assets/static/img/photos/staff/';
 		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $role . '_' . $id_user . '_' . time();
@@ -57,8 +57,8 @@ class Myprofile extends CI_Controller
 			$img_user = $img_user_data['file_name'];
 
 			// delete old image
-			if (!empty($user['img_user']) && file_exists('./assets/static/img/photos/kemahasiswaan/' . $user['img_user'])) {
-				unlink('./assets/static/img/photos/kemahasiswaan/' . $user['img_user']);
+			if (!empty($user['img_user']) && file_exists('./assets/static/img/photos/staff/' . $user['img_user'])) {
+				unlink('./assets/static/img/photos/staff/' . $user['img_user']);
 			}
 		}
 
