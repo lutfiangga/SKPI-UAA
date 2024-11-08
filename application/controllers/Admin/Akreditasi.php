@@ -1,0 +1,119 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+class Akreditasi extends CI_Controller
+{
+	private $view = "admin/pages/akreditasi/";
+	private $redirect = "Admin/Akreditasi";
+	public function __construct()
+	{
+		parent::__construct();
+		// IsAdmin();
+		$this->load->model('M_akreditasi');
+		checkRole('Admin');
+	}
+
+	function index()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "DATA AKREDITASI",
+			'sub' => "Data Akreditasi",
+			'active_menu' => 'akreditasi',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'read' => $this->M_akreditasi->GetAll(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'read', $data);
+	}
+	function create()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "DATA AKREDITASI",
+			'sub' => "Data Akreditasi",
+			'active_menu' => 'akreditasi',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+		);
+		$this->template->load('layout/components/layout', $this->view . 'create', $data);
+	}
+	function edit($id)
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "DATA AKREDITASI",
+			'sub' => "Data Akreditasi",
+			'active_menu' => 'akreditasi',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'edit' => $this->M_akreditasi->edit($id),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
+	}
+	public function save()
+	{
+		cek_csrf();
+		$this->form_validation->set_rules(
+			'akreditasi',
+			'Akreditasi',
+			'required|is_unique[akreditasi.akreditasi]',
+			[
+				'required' => 'Akreditasi Wajib diisi!',
+				'is_unique' => 'Akreditasi sudah terdaftar!'
+			]
+		);
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('create_error', validation_errors());
+			redirect($this->redirect);
+		} else {
+			$last_id = $this->M_akreditasi->getLastId(); //get last id
+			// jika id tidak ditemukan, id diisi 1
+			$id = ($last_id == null) ? 1 : $last_id + 1;
+			$data = array(
+				'id_akreditasi' => $id,
+				'akreditasi' => $this->security->xss_clean($this->input->post('akreditasi')),
+			);
+
+			$this->M_akreditasi->save($data);
+			$this->session->set_flashdata('create_success', 'Data berhasil diupdate');
+			redirect($this->redirect, 'refresh');
+		}
+	}
+
+	public function update()
+	{
+		cek_csrf();
+		$id = $this->uri->segment(4);
+
+		$data = array(
+			'akreditasi' => $this->security->xss_clean($this->input->post('akreditasi')),
+		);
+		$this->M_akreditasi->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
+		redirect($this->redirect, 'refresh');
+	}
+
+	public function delete()
+	{
+		cek_csrf();
+		$id = $this->input->post('id_akreditasi');
+		$data = array(
+			'id_akreditasi' => $id
+		);
+		$this->M_akreditasi->delete($data);
+		redirect($this->redirect, 'refresh');
+	}
+}

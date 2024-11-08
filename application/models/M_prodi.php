@@ -9,7 +9,10 @@ class M_prodi extends CI_Model
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		return $this->db->get($this->table);
+		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas');
+		$this->db->join('staff', 'prodi.id_kaprodi = staff.id_staff');
+		$this->db->join('akreditasi', 'prodi.id_akreditasi = akreditasi.id_akreditasi');
+		return $this->db->get($this->table)->result_array();
 	}
 	public function save($data)
 	{

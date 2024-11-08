@@ -49,10 +49,10 @@
 	<div class="w-full mx-auto p-6 bg-white rounded-2xl shadow-sm md:shadow-md lg:shadow-lg">
 		<!-- Tabs -->
 		<div class="flex justify-end border-b mb-4">
-			<button class="px-4 py-2 text-xs sm:text-sm md:text-base md:text-base gap-2 tab-biodata text-blue-600 border-b-2 flex flex-row items-center border-blue-600 focus:outline-none">
+			<button class="px-4 py-2 text-xs sm:text-sm md:text-base gap-2 tab-biodata text-blue-600 border-b-2 flex flex-row items-center border-blue-600 focus:outline-none">
 				<i data-feather="info" class="w-4 h-auto"></i> Biodata
 			</button>
-			<button class="px-4 py-2 text-xs sm:text-sm md:text-base md:text-base gap-2 tab-password text-gray-600 border-b-2 flex flex-row items-center focus:outline-none">
+			<button class="px-4 py-2 text-xs sm:text-sm md:text-base gap-2 tab-password text-gray-600 border-b-2 flex flex-row items-center focus:outline-none">
 				<i data-feather="lock" class="w-4 h-auto"></i> Update Password
 			</button>
 		</div>
@@ -225,7 +225,7 @@
 				<div class="mb-4">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Foto:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />

@@ -36,7 +36,7 @@ class M_etiquette extends CI_Model
 	{
 		$this->db->where('nim', $nim);
 		$query = $this->db->get($this->table);
-		return $query->result();
+		return $query->result_array();
 	}
 
 	public function update($id, $data)

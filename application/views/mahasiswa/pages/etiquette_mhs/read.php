@@ -57,30 +57,30 @@
 					<?php
 					$no = 1;
 					foreach ($read as $row) {
-						if ($row->nim == $this->session->userdata('id_user')) {
+						if ($row['nim'] == $this->session->userdata('id_user')) {
 					?>
 							<tr class="border-t">
 								<td class="p-2">
 									<?= $no; ?>
 								</td>
-								<td class="p-2 whitespace-normal"><?= $row->pelanggaran ?></td>
-								<td class="p-2 whitespace-nowrap"><?= $row->jenis_pelanggaran ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['pelanggaran'] ?></td>
+								<td class="p-2 whitespace-nowrap"><?= $row['jenis_pelanggaran'] ?></td>
 								<td class="p-2">
-									<?php if (!empty($row->bukti)) : ?>
-										<a href="<?= base_url('assets/static/eticket/' . $row->bukti); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
+									<?php if (!empty($row['bukti'])) : ?>
+										<a href="<?= base_url('assets/static/eticket/' . $row['bukti']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
 											<div>
 												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
 													<i data-feather="image" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-normal w-full"><?= $row->bukti; ?></p>
+											<p class="text-sm max-w-full font-thin truncate whitespace-normal w-full"><?= $row['bukti']; ?></p>
 										</a>
 									<?php endif; ?>
 								</td>
 								<td class="p-2 whitespace-nowrap">
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
-										<?= $row->poin ?> Poin
+										<?= $row['poin'] ?> Poin
 									</span>
 								</td>
 							</tr>

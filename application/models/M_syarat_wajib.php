@@ -49,7 +49,15 @@ class M_syarat_wajib extends CI_Model
 	{
 		return $this->db->count_all($this->table);
 	}
-
+	public function getPoinByUser($id_user)
+	{
+		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
+		// Mengonversi poin ke tipe numeric
+		$this->db->select('SUM(CAST(kategori_syarat_wajib.poin AS NUMERIC)) as total_poin');
+		$this->db->where('syarat_wajib.nim', $id_user);
+		$query = $this->db->get($this->table);
+		return $query->row_array();
+	}
 	public function GetByNim($nim)
 	{
 		$this->db->order_by($this->pk, 'desc');

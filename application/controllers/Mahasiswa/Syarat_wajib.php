@@ -9,7 +9,7 @@ class Syarat_wajib extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_syarat_wajib', 'M_kategori_syarat_wajib'));
+		$this->load->model(array('M_syarat_wajib', 'M_kategori_syarat_wajib', 'M_profile', 'M_dirAdmisi'));
 	}
 
 	function index()
@@ -61,7 +61,7 @@ class Syarat_wajib extends CI_Controller
 		$data = array(
 			'id_syarat_wajib' => $id,
 			'nim' => $nim,
-			'id_syarat_wajib_kategori' => $this->input->post('id_syarat_wajib_kategori'),
+			'id_kategori_syarat_wajib' => $this->input->post('id_kategori_syarat_wajib'),
 			'url' => $this->input->post('url'),
 			'status' => 'pending',
 			'tanggal' => date('Y-m-d'),
@@ -92,8 +92,8 @@ class Syarat_wajib extends CI_Controller
 
 		$this->load->library('upload', $config); // Load library dan config
 
-		// Ambil id_syarat_wajib_kategori
-		$id_kategori = $this->input->post('id_syarat_wajib_kategori');
+		// Ambil id_kategori_syarat_wajib
+		$id_kategori = $this->input->post('id_kategori_syarat_wajib');
 		$kategori = $this->M_kategori_syarat_wajib->getId($id_kategori);
 
 		$file = null; // default value
@@ -114,7 +114,7 @@ class Syarat_wajib extends CI_Controller
 		}
 
 		$data = array(
-			'id_syarat_wajib_kategori' => $id_kategori,
+			'id_kategori_syarat_wajib' => $id_kategori,
 			'url' => $this->input->post('url'),
 		);
 
@@ -157,5 +157,51 @@ class Syarat_wajib extends CI_Controller
 		}
 
 		redirect($this->redirect, 'refresh');
+	}
+
+	public function print()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$id = $this->session->userdata('id_user');
+		$data = array(
+			'judul' => "SYARAT WAJIB",
+			'sub' => "Syarat Wajib",
+			'active_menu' => 'syarat_wajib',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $role,
+			'id_user' => $id,
+			'foto' => $foto,
+			'SpmPoin' => $this->M_spm->getPoinByUser($id),
+			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
+			'mhs' => $this->M_profile->getById($id),
+			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
+			'spm' => $this->M_spm->GetByNim($id),
+			'etiket' => $this->M_etiquette->GetByNim($id),
+		);
+		$this->template->load('layout/components/layout_export', $this->view . 'print', $data);
+	}
+
+	public function export_pdf()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$id = $this->session->userdata('id_user');
+		$data = array(
+			'judul' => "SYARAT WAJIB",
+			'sub' => "Syarat Wajib",
+			'active_menu' => 'syarat_wajib',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $role,
+			'id_user' => $id,
+			'foto' => $foto,
+			'SpmPoin' => $this->M_syarat_wajib->getPoinByUser($id),
+			'mhs' => $this->M_profile->getById($id),
+			'direktur' => $this->M_dirAdmisi->GetDirektur(),
+			'spm' => $this->M_syarat_wajib->GetByNim($id),
+		);
+		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}
 }

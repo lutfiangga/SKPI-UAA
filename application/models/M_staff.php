@@ -10,7 +10,12 @@ class M_staff extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'asc');
 		$this->db->join('akun_user', 'staff.id_staff = akun_user.id_user');
-		return $this->db->get($this->table);
+		return $this->db->get($this->table)->result_array();
+	}
+	public function GetAllStaff()
+	{
+		$this->db->order_by($this->pk, 'asc');
+		return $this->db->get($this->table)->result_array();
 	}
 	public function save($data)
 	{

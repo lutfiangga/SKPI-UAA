@@ -1,8 +1,8 @@
 <link rel="shortcut icon" href="<?= base_url('assets/static/img/logo-uaa.png'); ?>" type="image/x-icon">
-<!-- Tailwind CSS -->
-<script src="http://cdn.tailwindcss.com"></script>
 <!-- custom css -->
 <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/css/app.css" />
+<!-- Tailwind CSS -->
+<script src="http://cdn.tailwindcss.com"></script>
 <!-- Feather Icons -->
 <script src="<?= base_url(); ?>assets/vendor/js/plugin/feather.min.js"></script>
 
@@ -34,4 +34,3 @@
 
 <!-- Quill CSS -->
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet" />
-<link href="https://cdn.jsdelivr.net/npm/quill-image-resize-module@3.0.0/image-resize.min.css" rel="stylesheet" />

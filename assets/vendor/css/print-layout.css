@@ -5,6 +5,10 @@ td .content-print {
 
 /* Styles for print */
 @media print {
+*{
+	font-family: "Times New Roman", Times, serif;
+}
+
 	th .content-print,
 	td .content-print {
 		border: none;
@@ -20,6 +24,6 @@ td .content-print {
 	}
 
 	body {
-		margin: 0;
+		margin: -50px;
 	}
 }

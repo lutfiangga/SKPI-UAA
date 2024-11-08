@@ -5,7 +5,6 @@ export const fileUpload = (container) => {
 	const pText = container.querySelector(".progress-text");
 	const fName = container.querySelector(".file-name");
 	const modal = container.querySelector(".modal");
-	const cModal = container.querySelector(".close-modal");
 	const uImage = container.querySelector(".modal-content");
 	const pContainer = container.querySelector(".preview-container");
 	const cBtn = container.querySelector(".clear-btn");
@@ -138,10 +137,6 @@ export const fileUpload = (container) => {
 	pContainer.addEventListener("click", () => {
 		modal.classList.remove("hidden");
 		uImage.src = container.querySelector(".preview-image")?.src || "";
-	});
-
-	cModal.addEventListener("click", () => {
-		modal.classList.add("hidden");
 	});
 
 	cBtn.addEventListener("click", () => {

@@ -33,7 +33,7 @@ export const quillTextEditor = () => {
 
 	quill.on("text-change", () => {
 		const htmlContent = quill.root.innerHTML;
-		editorTextArea.value = htmlContent; // Update hidden textarea
-		outputContent.innerHTML = htmlContent; // Update real-time display
+		editorTextArea.value = htmlContent; 
+		outputContent.innerHTML = htmlContent; 
 	});
 };

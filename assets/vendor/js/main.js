@@ -21,28 +21,106 @@ window.SlimSelectOption = SlimSelectOption;
 window.pickdate = pickdate;
 window.quillTextEditor = quillTextEditor;
 
-document.addEventListener("DOMContentLoaded", function () {
-	// inisasi file upload
+window.addEventListener("load", function () {
+	console.log("Main.js loaded");
+
+	// Inisiasi file upload
 	document.querySelectorAll(".file-upload-container").forEach((container) => {
-		fileUpload(container);
+		try {
+			if (typeof fileUpload === "function") {
+				fileUpload(container);
+			} else {
+				console.warn("fileUpload tidak terdefinisi.");
+			}
+		} catch (error) {
+			console.error("Error saat menjalankan fileUpload:", error);
+		}
 	});
 
-	//inisiasi slim select
-	SlimSelectOption();
+	// Inisiasi Slim Select
+	if (typeof SlimSelectOption === "function") {
+		const selector = document.querySelectorAll('select[data-search="true"]');
+		if (selector.length > 0) {
+			console.log("select ditemukan, menjalankan SlimSelectOption.");
+			try {
+				SlimSelectOption();
+			} catch (error) {
+				console.error("Error saat menjalankan SlimSelectOption:", error);
+			}
+		} else {
+			console.warn("Tidak ada elemen select ditemukan.");
+		}
+	} else {
+		console.warn("SlimSelectOption tidak terdefinisi.");
+	}
 
-	pickdate();
+	// Inisiasi date picker
+	if (typeof pickdate === "function") {
+		const selector = document.querySelectorAll(".pickdate");
+		if (selector.length > 0) {
+			console.log("datepicker ditemukan, menjalankan pickdate.");
+			try {
+				pickdate();
+			} catch (error) {
+				console.error("Error saat menjalankan pickdate:", error);
+			}
+		} else {
+			console.warn("Tidak ada elemen datepicker ditemukan.");
+		}
+	} else {
+		console.warn("pickdate tidak terdefinisi.");
+	}
 
-	// texteditor
-	ckeditor();
-	
-	quillTextEditor();
+	// Inisiasi text editor
+	try {
+		if (typeof quillTextEditor === "function") {
+			quillTextEditor();
+		} else {
+			console.warn("quillTextEditor tidak terdefinisi.");
+		}
+	} catch (error) {
+		console.error("Error saat menjalankan quillTextEditor:", error);
+	}
 
-	// inisasi select custom date range
-	selectCustomDateRange();
+	// Inisiasi select custom date range
+	try {
+		if (typeof selectCustomDateRange === "function") {
+			selectCustomDateRange();
+		} else {
+			console.warn("selectCustomDateRange tidak terdefinisi.");
+		}
+	} catch (error) {
+		console.error("Error saat menjalankan selectCustomDateRange:", error);
+	}
 
-	// inisiasi required label
-	requiredLabel();
+	// Inisiasi required label
+	try {
+		if (typeof requiredLabel === "function") {
+			requiredLabel();
+		} else {
+			console.warn("requiredLabel tidak terdefinisi.");
+		}
+	} catch (error) {
+		console.error("Error saat menjalankan requiredLabel:", error);
+	}
 
-	// inisiasi profile tab
-	profileTab();
+	// Inisiasi profile tab
+	try {
+		if (typeof profileTab === "function") {
+			const tabBiodata = document.querySelector(".tab-biodata");
+			const tabPassword = document.querySelector(".tab-password");
+			const contentBiodata = document.querySelector(".content-biodata");
+			const contentPassword = document.querySelector(".content-password");
+			if (tabBiodata && tabPassword && contentBiodata && contentPassword) {
+				console.log("profile ditemukan, menjalankan profileTab.");
+				profileTab();
+			} else {
+				console.warn("Elemen profile tab tidak ditemukan.");
+			}
+		} else {
+			console.warn("profileTab tidak terdefinisi.");
+		}
+	} catch (error) {
+		console.error("Error saat menjalankan profileTab:", error);
+	}
 });

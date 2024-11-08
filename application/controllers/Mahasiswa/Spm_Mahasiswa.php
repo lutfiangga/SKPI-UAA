@@ -120,8 +120,8 @@ class Spm_Mahasiswa extends CI_Controller
 
 		// Proses upload foto kegiatan
 		$foto_kegiatan = '';
-		$config_foto['upload_path'] = './assets/static/spm/img/foto_kegiatan/';
-		$config_foto['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
+		$config_foto['upload_path'] = './assets/static/spm/pdf/foto_kegiatan/';
+		$config_foto['allowed_types'] = 'pdf|PDF';
 		$config_foto['max_size'] = 6000; // KB
 		$config_foto['file_name'] = $role . '_' . $id_user . '_' . time();
 
@@ -156,8 +156,8 @@ class Spm_Mahasiswa extends CI_Controller
 		$data = array(
 			'id_spm' => $id,
 			'nim' => $id_user,
-			'id_kategori' => $this->input->post('id_kategori'),
-			'nama_kegiatan' => $this->input->post('nama_kegiatan'),
+			'id_kategori_spm' => $this->input->post('id_kategori_spm'),
+			'kegiatan' => $this->input->post('kegiatan'),
 			'tanggal_mulai' => $this->input->post('tanggal_mulai'),
 			'penyelenggara' => $this->input->post('penyelenggara'),
 			'sertifikat' => $sertifikat,
@@ -224,8 +224,8 @@ class Spm_Mahasiswa extends CI_Controller
 
 		// Proses upload foto kegiatan
 		$foto_kegiatan = $spm['foto_kegiatan']; // Gunakan foto_kegiatan lama sebagai default
-		$config_foto['upload_path'] = './assets/static/spm/img/foto_kegiatan/';
-		$config_foto['allowed_types'] = 'jpg|jpeg|png|webp|JPG|PNG|JPEG|WEBP';
+		$config_foto['upload_path'] = './assets/static/spm/pdf/foto_kegiatan/';
+		$config_foto['allowed_types'] = 'pdf|PDF';
 		$config_foto['max_size'] = 6000; // KB
 		$config_foto['file_name'] = $role . '_' . $id_user . '_' . time();
 
@@ -236,8 +236,8 @@ class Spm_Mahasiswa extends CI_Controller
 			$foto_kegiatan = $foto_kegiatan_data['file_name'];
 
 			// Hapus foto kegiatan lama
-			if (!empty($spm['foto_kegiatan']) && file_exists('./assets/static/spm/img/foto_kegiatan/' . $spm['foto_kegiatan'])) {
-				unlink('./assets/static/spm/img/foto_kegiatan/' . $spm['foto_kegiatan']);
+			if (!empty($spm['foto_kegiatan']) && file_exists('./assets/static/spm/pdf/foto_kegiatan/' . $spm['foto_kegiatan'])) {
+				unlink('./assets/static/spm/pdf/foto_kegiatan/' . $spm['foto_kegiatan']);
 			}
 		}
 
@@ -261,7 +261,7 @@ class Spm_Mahasiswa extends CI_Controller
 		}
 
 		$data = array(
-			'nama_kegiatan' => $this->input->post('nama_kegiatan'),
+			'kegiatan' => $this->input->post('kegiatan'),
 			'tanggal_mulai' => $this->input->post('tanggal_mulai'),
 			'tanggal_selesai' => $this->input->post('tanggal_selesai'),
 			'penyelenggara' => $this->input->post('penyelenggara'),
@@ -293,7 +293,7 @@ class Spm_Mahasiswa extends CI_Controller
 
 			// Hapus file dari server
 			if ($foto_kegiatan) {
-				$filePath = './assets/static/spm/img/foto_kegiatan/' . $foto_kegiatan;
+				$filePath = './assets/static/spm/pdf/foto_kegiatan/' . $foto_kegiatan;
 				if (file_exists($filePath)) {
 					unlink($filePath);
 				}

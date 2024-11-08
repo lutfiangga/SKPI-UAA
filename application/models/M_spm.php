@@ -12,7 +12,7 @@ class M_spm extends CI_Model
 
 		$this->db->join('akun_user', 'spm.nim = akun_user.id_user', 'left');
 		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
-		$this->db->join('kategori_spm', 'spm.id_kategori = kategori_spm.id_kategori_spm');
+		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
 
 		return $this->db->get($this->table);
@@ -47,7 +47,7 @@ class M_spm extends CI_Model
 	}
 	public function getPoinByUser($id_user)
 	{
-		$this->db->join('kategori_spm', 'spm.id_kategori = kategori_spm.id_kategori_spm');
+		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		// Mengonversi poin ke tipe numeric
 		$this->db->select('SUM(CAST(kategori_spm.poin AS NUMERIC)) as total_poin');
 		$this->db->where('spm.nim', $id_user);
@@ -65,7 +65,7 @@ class M_spm extends CI_Model
 
 		$this->db->join('akun_user', 'spm.nim = akun_user.id_user', 'left');
 		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
-		$this->db->join('kategori_spm', 'spm.id_kategori = kategori_spm.id_kategori_spm');
+		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
 		$this->db->where('mhs1.nim', $nim);
 

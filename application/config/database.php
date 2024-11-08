@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'postgres',
-	'password' => 'root',
-	'database' => 'uaa',
+	'hostname' => 'uaa-pr0jectz.c.aivencloud.com',
+	'username' => 'avnadmin',
+	'password' => 'AVNS_qeQQXeqPJ5yN4WpvQ48',
+	'database' => 'defaultdb',
 	'dbdriver' => 'postgre',
-	'dbprefix' => 'skpi.',
+	'dbprefix' => 'public.',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -93,5 +93,5 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE,
-	'port' => 5433
+	'port' => 20668
 );

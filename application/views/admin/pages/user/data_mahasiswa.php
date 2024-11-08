@@ -83,7 +83,7 @@
 									<img src="<?= base_url($img_user); ?>" alt="<?= $row['role']; ?>" class="rounded-full w-8 h-8">
 									<div class="flex flex-col items-center justify-center">
 										<p class="truncate w-full ml-2 font-semibold"><?= $row['nama'] ?></p>
-										<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['program_studi']; ?> - <?= $row['nim']; ?></p>
+										<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['prodi']; ?> - <?= $row['nim']; ?></p>
 									</div>
 								</div>
 							</td>

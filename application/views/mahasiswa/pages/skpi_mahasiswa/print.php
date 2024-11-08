@@ -1,4 +1,4 @@
-<table class="w-full">
+<table class="w-full times-new-roman">
 	<thead class="header-print">
 		<tr>
 			<td class="content-print">
