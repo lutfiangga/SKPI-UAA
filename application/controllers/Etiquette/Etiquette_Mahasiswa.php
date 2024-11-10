@@ -90,11 +90,8 @@ class Etiquette_Mahasiswa extends CI_Controller
 			$bukti = $bukti_data['file_name'];
 		}
 
-		$last_id = $this->M_etiquette->getLastId(); // get last id
-		// jika id tidak ditemukan, id diisi 1
-		$id = ($last_id == null) ? 1 : $last_id + 1;
 		$data = array(
-			'id_etiquette' => $id,
+			'id_etiquette' => generate_uuid(),
 			'nim' => $nim,
 			'pelanggaran' => $this->security->xss_clean($this->input->post('pelanggaran')),
 			'jenis_pelanggaran' => $this->security->xss_clean($this->input->post('jenis_pelanggaran')),

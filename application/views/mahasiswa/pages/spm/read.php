@@ -180,7 +180,7 @@
 											<i data-feather="edit" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 										</a>
-										<button type="button" onclick="openDeleteModal(<?= $row['id_spm']; ?>)"
+										<button type="button" onclick="openDeleteModal('<?= $row['id_spm']; ?>')"
 											class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="trash-2" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>

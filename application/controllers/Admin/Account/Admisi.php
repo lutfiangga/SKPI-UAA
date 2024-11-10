@@ -37,7 +37,7 @@ class Admisi extends CI_Controller
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
-		'judul' => "AKUN ADMISI",
+			'judul' => "AKUN ADMISI",
 			'sub' => "Akun Admisi",
 			'active_menu' => 'admisi',
 			'id_user' => $this->session->userdata('id_user'),
@@ -54,7 +54,7 @@ class Admisi extends CI_Controller
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
-		'judul' => "AKUN ADMISI",
+			'judul' => "AKUN ADMISI",
 			'sub' => "Akun Admisi",
 			'active_menu' => 'admisi',
 			'id_user' => $this->session->userdata('id_user'),
@@ -83,11 +83,8 @@ class Admisi extends CI_Controller
 			$this->session->set_flashdata('create_error', validation_errors());
 			redirect($this->redirect);
 		} else {
-			$last_id = $this->M_auth->getLastId(); //get last id
-			// jika id tidak ditemukan, id diisi 1
-			$id = ($last_id == null) ? 1 : $last_id + 1;
 			$data = array(
-				'id_akun' => $id,
+				'id_akun' => generate_uuid(),
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),
 				'username' => $this->security->xss_clean($this->input->post('username')),
 				'password' => !empty($this->security->xss_clean($this->input->post('password'))) ? password_hash($this->input->post('password'), PASSWORD_ARGON2ID) : NULL,

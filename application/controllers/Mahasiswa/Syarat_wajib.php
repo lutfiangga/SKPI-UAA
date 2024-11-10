@@ -53,12 +53,8 @@ class Syarat_wajib extends CI_Controller
 			$file = $file_data['file_name'];
 		}
 
-		$last_id = $this->M_syarat_wajib->getLastId(); // get last id
-		// jika id tidak ditemukan, id diisi 1
-		$id = ($last_id == null) ? 1 : $last_id + 1;
-
 		$data = array(
-			'id_syarat_wajib' => $id,
+			'id_syarat_wajib' => generate_uuid(),
 			'nim' => $nim,
 			'id_kategori_syarat_wajib' => $this->input->post('id_kategori_syarat_wajib'),
 			'url' => $this->input->post('url'),
@@ -172,12 +168,11 @@ class Syarat_wajib extends CI_Controller
 			'role' => $role,
 			'id_user' => $id,
 			'foto' => $foto,
-			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
+			'SpmPoin' => $this->M_syarat_wajib->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),
-			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
-			'spm' => $this->M_spm->GetByNim($id),
-			'etiket' => $this->M_etiquette->GetByNim($id),
+			'direktur' => $this->M_dirAdmisi->GetDirektur(),
+			'spm' => $this->M_syarat_wajib->GetByNim($id),
+			'syaratSkor' => $this->M_syarat_wajib->getPoinByUser($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'print', $data);
 	}
@@ -200,6 +195,7 @@ class Syarat_wajib extends CI_Controller
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirAdmisi->GetDirektur(),
 			'spm' => $this->M_syarat_wajib->GetByNim($id),
+			'syaratSkor' => $this->M_syarat_wajib->getPoinByUser($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}

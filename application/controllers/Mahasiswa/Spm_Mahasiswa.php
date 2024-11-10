@@ -150,11 +150,8 @@ class Spm_Mahasiswa extends CI_Controller
 			$surat_tugas = $this->input->post('surat_tugas_current');
 		}
 
-		$last_id = $this->M_spm->getLastId(); //get last id
-		// jika id tidak ditemukan, id diisi 1
-		$id = ($last_id == null) ? 1 : $last_id + 1;
 		$data = array(
-			'id_spm' => $id,
+			'id_spm' => generate_uuid(),
 			'nim' => $id_user,
 			'id_kategori_spm' => $this->security->xss_clean($this->input->post('id_kategori_spm')),
 			'kegiatan' => $this->security->xss_clean($this->input->post('kegiatan')),

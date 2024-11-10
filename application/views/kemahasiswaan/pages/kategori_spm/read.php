@@ -72,12 +72,12 @@
 								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<button class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
-										onclick="openEditModal(<?= $row['id_kategori_spm']; ?>, '<?= $row['kategori']; ?>', '<?= $row['poin']; ?>')">
+										onclick="openEditModal('<?= $row['id_kategori_spm']; ?>', '<?= $row['kategori']; ?>', '<?= $row['poin']; ?>')">
 										<i data-feather="edit" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</button>
 
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal(<?= $row['id_kategori_spm']; ?>)">
+									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal('<?= $row['id_kategori_spm']; ?>')">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 									</button>

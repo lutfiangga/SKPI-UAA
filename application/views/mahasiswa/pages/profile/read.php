@@ -101,6 +101,10 @@
 					<form method="POST" action="<?= site_url(ucwords($role) . '/Myprofile/update'); ?>" enctype="multipart/form-data" class="grid grid-cols-2 gap-2 md:gap-4 ">
 						<?= csrf(); ?>
 						<div class="text-xs sm:text-sm md:text-base whitespace-normal">
+							<label class="font-semibold text-gray-700">NIM:</label>
+							<input type="text" id="nim" name="nim" value="<?= $profile['nim']; ?>" class="mt-1 capitalize block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2 cursor-not-allowed" disabled/>
+						</div>
+						<div class="text-xs sm:text-sm md:text-base whitespace-normal">
 							<label class="font-semibold text-gray-700">Nama:</label>
 							<input type="text" id="nama" name="nama" value="<?= $profile['nama']; ?>" class="mt-1 capitalize block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" />
 						</div>
@@ -143,7 +147,7 @@
 							<label class="font-semibold text-gray-700">Program Studi:</label>
 							<input type="text" id="prodi" disabled value="<?= $profile['prodi']; ?>" class="mt-1 capitalize cursor-not-allowed block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" />
 						</div>
-						<div class="text-xs sm:text-sm md:text-base col-span-2">
+						<div class="text-xs sm:text-sm md:text-base">
 							<label class="font-semibold text-gray-700">Fakultas:</label>
 							<input type="text" id="fakultas" disabled value="<?= $profile['fakultas']; ?>" class="mt-1 capitalize cursor-not-allowed block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" />
 						</div>

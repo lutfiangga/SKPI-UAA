@@ -33,12 +33,8 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	public function save()
 	{
 		cek_csrf();
-
-		$last_id = $this->M_kategori_spm->getLastId(); // get last id
-		// jika id tidak ditemukan, id diisi 1
-		$id = ($last_id == null) ? 1 : $last_id + 1;
 		$data = array(
-			'id_kategori_spm' => $id,
+			'id_kategori_spm' => generate_uuid(),
 			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
 			'poin' => $this->security->xss_clean($this->input->post('poin')),
 		);

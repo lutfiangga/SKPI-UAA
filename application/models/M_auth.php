@@ -40,35 +40,35 @@ class M_auth extends CI_Model
 	public function GetAdmin()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		$this->db->where('akun_user.role','admin');
+		$this->db->where('akun_user.role', 'admin');
 		$this->db->join('staff', 'akun_user.id_user = staff.id_staff');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function GetAdmisi()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		$this->db->where('akun_user.role','admisi');
+		$this->db->where('akun_user.role', 'admisi');
 		$this->db->join('staff', 'akun_user.id_user = staff.id_staff');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function GetProdi()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		$this->db->where('akun_user.role','prodi');
+		$this->db->where('akun_user.role', 'prodi');
 		$this->db->join('staff', 'akun_user.id_user = staff.id_staff');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function GetEtiquette()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		$this->db->where('akun_user.role','etiquette');
+		$this->db->where('akun_user.role', 'etiquette');
 		$this->db->join('staff', 'akun_user.id_user = staff.id_staff');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function GetKemahasiswaan()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		$this->db->where('akun_user.role','kemahasiswaan');
+		$this->db->where('akun_user.role', 'kemahasiswaan');
 		$this->db->join('staff', 'akun_user.id_user = staff.id_staff');
 		return $this->db->get($this->table)->result_array();
 	}

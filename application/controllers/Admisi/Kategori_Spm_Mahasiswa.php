@@ -33,21 +33,11 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	public function save()
 	{
 		cek_csrf();
-
-		$last_id = $this->M_kategori_syarat_wajib->getLastId();
-
-		// jika tidak ditemukan, id diisi 1
-		if ($last_id == null) {
-			$id = 1;
-		} else {
-			// jika ditemukan, tambahkan 1 pada id terakhir
-			$id = $last_id + 1;
-		}
 		$data = array(
-			'id_kategori_syarat_wajib' => $id,
-			'kategori' => $this->input->post('kategori'),
-			'poin' => $this->input->post('poin'),
-			'type' => $this->input->post('type'),
+			'id_kategori_syarat_wajib' => generate_uuid(),
+			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
+			'poin' => $this->security->xss_clean($this->input->post('poin')),
+			'type' => $this->security->xss_clean($this->input->post('type')),
 		);
 		$this->M_kategori_syarat_wajib->save($data);
 		redirect($this->redirect, 'refresh');
@@ -58,9 +48,9 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 		cek_csrf();
 		$id = $this->input->post('id_kategori_syarat_wajib');
 		$data = array(
-			'kategori' => $this->input->post('kategori'),
-			'poin' => $this->input->post('poin'),
-			'type' => $this->input->post('type'),
+			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
+			'poin' => $this->security->xss_clean($this->input->post('poin')),
+			'type' => $this->security->xss_clean($this->input->post('type')),
 		);
 		$this->M_kategori_syarat_wajib->update($id, $data);
 		redirect($this->redirect, 'refresh');

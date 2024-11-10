@@ -107,7 +107,7 @@
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</a>
 
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal(<?= $row['id_etiquette']; ?>)">
+									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal('<?= $row['id_etiquette']; ?>')">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 									</button>

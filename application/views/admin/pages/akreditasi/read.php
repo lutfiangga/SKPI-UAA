@@ -128,7 +128,7 @@
 								<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus Data ini?</p>
 								<form method="post" action="<?= site_url('Admin/Akreditasi/delete/'); ?>">
 									<?= csrf(); ?>
-									<input id="id" type="text" name="id_akreditasi">
+									<input id="id" type="text" name="id_akreditasi" hidden>
 									<div class="modal-action relative" style="z-index: 1000;">
 										<button type="button" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
 										<button type="submit" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Hapus</button>

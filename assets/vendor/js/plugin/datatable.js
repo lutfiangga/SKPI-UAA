@@ -40,8 +40,6 @@ $(document).ready(function () {
 						className: "ring-1 ring-inset ring-gray-300",
 						buttons: [
 							{ extend: "copy", text: "Copy to Clipboard" },
-							{ extend: "print", text: "Print" },
-							{ extend: "pdfHtml5", text: "Export as PDF" },
 							{ extend: "csvHtml5", text: "Export as CSV" },
 							{ extend: "excelHtml5", text: "Export as Excel" },
 						],

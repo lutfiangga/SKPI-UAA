@@ -221,7 +221,7 @@
 									<i data-feather="eye-off" class="h-4 w-4 hidden iconHide"></i>
 								</button>
 							</div>
-							<p id="new-passwordError" class="text-red-500 text-xs sm:text-sm md:text-base mt-2 hidden">Password harus memiliki minimal 6 karakter, mengandung huruf besar, huruf kecil, dan angka dan tidka boleh sama dengan password sekarang!</p>
+							<p id="new-passwordError" class="text-red-500 text-xs sm:text-sm md:text-base mt-2 hidden">Password harus memiliki minimal 6 karakter, mengandung huruf besar, huruf kecil, dan angka dan tidak boleh sama dengan password sekarang!</p>
 						</div>
 						<div>
 							<label for="confirm-password" class="block text-xs sm:text-sm md:text-base font-medium text-gray-700">Confirm Password:</label>
