@@ -31,7 +31,7 @@
 						<i data-feather="activity" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
 
-							Eticket
+							Etiquette
 						</span>
 					</a>
 				</li>

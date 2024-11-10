@@ -82,4 +82,36 @@ class M_syarat_wajib extends CI_Model
 		$this->db->where('syarat_wajib.status', 'diterima');
 		return $this->db->get($this->table)->result_array();
 	}
+
+	public function countSPM()
+	{
+		return $this->db->count_all($this->table);
+	}
+	public function countAccepted()
+	{
+		$this->db->where('status', 'diterima');
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function countDeclined()
+	{
+		$this->db->where('status', 'ditolak');
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function countPending()
+	{
+		$this->db->where('status', 'pending');
+		return $this->db->count_all_results($this->table);
+	}
+
+
+	public function countNotPending()
+	{
+		$this->db->select('status, COUNT(*) as count');
+		$this->db->where('status !=', 'pending');
+		$this->db->group_by('status');
+		return $this->db->get($this->table)->result_array();
+	}
+
 }

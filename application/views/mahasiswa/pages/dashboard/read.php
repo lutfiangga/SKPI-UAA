@@ -120,75 +120,25 @@
 					</p>
 
 					<div class="flex flex-col justify-center gap-4">
-						<div class="flex flex-row items-center gap-2">
-							<!-- Circle Icon -->
-							<div class="bg-blue-600 rounded-full h-4 w-4 flex items-center justify-center"></div>
+						<?php foreach ($spm as $row) : ?>
+							<div class="flex flex-row items-center gap-2">
+								<!-- Circle Icon -->
+								<div id="circle-<?= $row['kategori']; ?>" class="bg-circle mr-1 rounded-full h-4 w-4 flex items-center justify-center"></div>
 
-							<!-- Kategori -->
-							<span class="text-base font-medium">
-								Kategori: <span class="font-bold">12</span>
-							</span>
-						</div>
-						<div class="flex flex-row items-center gap-2">
-							<!-- Circle Icon -->
-							<div class="bg-blue-600 rounded-full h-4 w-4 flex items-center justify-center"></div>
-
-							<!-- Kategori -->
-							<span class="text-base font-medium">
-								Kategori: <span class="font-bold">12</span>
-							</span>
-						</div>
-						<div class="flex flex-row items-center gap-2">
-							<!-- Circle Icon -->
-							<div class="bg-blue-600 rounded-full h-4 w-4 flex items-center justify-center"></div>
-
-							<!-- Kategori -->
-							<span class="text-base font-medium">
-								Kategori: <span class="font-bold">12</span>
-							</span>
-						</div>
+								<!-- Kategori -->
+								<p class="text-base capitalize font-medium">
+									Kategori: <?= $row['kategori']; ?> <span class="font-bold"><?= $row['poin']; ?> Poin</span>
+								</p>
+							</div>
+						<?php endforeach; ?>
 					</div>
 				</div>
 
-				<!-- Polar chart -->
-				<div class="w-full md:w-1/3 flex items-center justify-center">
-					<canvas id="myChart" class="w-full h-full"></canvas>
-				</div>
 			</div>
-
-			<div class=" w-full md:w-1/2 p-2 md:p-4 bg-blue-600 rounded-2xl text-off-white flex justify-between">
-				<div class="flex flex-col md:flex-row justify-between mx-auto gap-4 space-x-6 md:max-h-48">
-					<!-- foto -->
-					<div class="mask mask-squircle text-center">
-						<img src="<?= base_url($foto); ?>" alt="role" class="object-cover h-full">
-					</div>
-					<!-- data diri -->
-					<div class="flex flex-col justify-center">
-						<p class="text-lg font-semibold"><?= $nama; ?></p>
-						<p class="font-semibold"><?= $id_user; ?></p>
-						<p class="text-sm"><?= $role; ?></p>
-						<div class="flex-flex-col gap-2 mt-4">
-							<p class="text-sm">Jumlah SKS Yang sudah Diambil:</p>
-							<p class="font-bold text-[2rem]">144 SKS</p>
-						</div>
-					</div>
-					<div id="download-container"
-						class="bg-[#fafafa] text-blue-600 md:w-16 h-16 md:h-auto rounded-xl flex flex-row md:flex-col items-center justify-between p-2 hover:bg-blue-100 transition cursor-pointer md:p-4 shadow-[0_4px_0px_0_rgba(191,219,254,0.5)] md:shadow-[6px_0_0px_0_rgba(191,219,254,0.5)]">
-
-						<i data-feather="refresh-cw" class="w-6 h-6" onclick="resetText()"></i>
-
-						<a href="download-skpi.pdf" id="download-text" class="md:-rotate-90 whitespace-nowrap uppercase font-bold text-xs">
-							Download SKPI
-						</a>
-
-						<i data-feather="triangle"
-							class="rotate-90 md:rotate-180 w-6 h-6"
-							fill="currentColor"
-							onclick="toggleDownload()">
-						</i>
-					</div>
-
-				</div>
+			<!-- Polar chart -->
+			<div class="w-full md:w-1/2 max-h-48 flex items-center justify-center">
+				<div id="no-graph" class="text-red" style="display: none;">Tidak ada grafik</div>
+				<canvas id="myChart" class="w-full h-full"></canvas>
 			</div>
 
 		</div>
@@ -225,47 +175,81 @@
 <script>
 	const ctx = document.getElementById('myChart').getContext('2d');
 
-	const myChart = new Chart(ctx, {
-		type: 'polarArea',
-		data: {
-			labels: ['Kategori 1', 'Kategori 2', 'Kategori 3', 'Kategori 4', 'Kategori 5'],
-			datasets: [{
-				data: [12, 19, 3, 5, 2],
-				backgroundColor: [
-					'rgba(37, 99, 235, 0.8)',
-					'rgba(251, 191, 36, 0.8)',
-					'rgba(220, 38, 38, 0.8)',
-					'rgba(107, 114, 128, 0.8)',
-					'rgba(16, 185, 129, 0.8)',
-				],
-				hoverBackgroundColor: [
-					'rgba(107, 114, 128, 1)',
-					'rgba(37, 99, 235, 1)',
-					'rgba(220, 38, 38, 1)',
-					'rgba(16, 185, 129, 1)',
-					'rgba(251, 191, 36, 1)',
-				],
-				borderColor: 'rgba(0,0,0,0)',
-				borderWidth: 0
-			}]
-		},
-		options: {
-			responsive: true,
-			maintainAspectRatio: true,
-			scales: {
-				r: {
-					display: false,
-				}
+	function getRandomColor() {
+		let letters = '0123456789ABCDEF';
+		let color = '#';
+		for (let i = 0; i < 6; i++) {
+			color += letters[Math.floor(Math.random() * 16)];
+		}
+		return color;
+	}
+
+	let labels = [];
+	let data = [];
+	let backgroundColors = [];
+	let hoverBackgroundColors = [];
+	let colorsMap = {}; // Untuk menyimpan warna untuk setiap kategori
+
+	<?php foreach ($spm as $row) : ?>
+		let kategori = "<?= $row['kategori'] ?>";
+		let poin = <?= $row['poin'] ?>;
+
+		// Generate a color for this category if not already generated
+		if (!colorsMap[kategori]) {
+			colorsMap[kategori] = getRandomColor();
+		}
+
+		let bgColor = colorsMap[kategori];
+		let hoverColor = getRandomColor();
+
+		labels.push(kategori);
+		data.push(poin);
+		backgroundColors.push(bgColor);
+		hoverBackgroundColors.push(hoverColor);
+
+		// Apply the color to the span element corresponding to the category
+		let element = document.getElementById('circle-' + kategori);
+		if (element) {
+			element.style.backgroundColor = bgColor; // Use the color for this category
+		}
+	<?php endforeach; ?>
+
+	// Check if there is any data to display
+	if (labels.length === 0 || data.length === 0) {
+		document.getElementById('no-graph').style.display = 'block';
+		document.getElementById('myChart').style.display = 'none'; // Hide the canvas
+	} else {
+		let polarChart = new Chart(ctx, {
+			type: 'polarArea',
+			data: {
+				labels: labels,
+				datasets: [{
+					label: 'Total Uang Keluar',
+					data: data,
+					backgroundColor: backgroundColors,
+					borderColor: 'rgba(0,0,0,0)', // Transparent border
+					borderWidth: 0, // No border
+					hoverBackgroundColor: hoverBackgroundColors
+				}]
 			},
-			plugins: {
-				legend: {
-					display: false,
+			options: {
+				responsive: true,
+				maintainAspectRatio: true,
+				scales: {
+					r: {
+						display: false,
+					}
 				},
-				tooltip: {
-					intersect: false,
-					enabled: true
+				plugins: {
+					legend: {
+						display: false,
+					},
+					tooltip: {
+						intersect: false,
+						enabled: true
+					}
 				}
 			}
-		}
-	});
+		});
+	}
 </script>

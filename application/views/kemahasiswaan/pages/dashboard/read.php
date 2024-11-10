@@ -63,29 +63,48 @@
 		</div>
 	</section>
 	<!-- card -->
-	<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-		<!-- card -->
-		<div class="flex flex-col col-span-1 text-blue-600">
-			<div class="bg-off-white rounded-t-2xl flex flex-row p-4 w-3/4 items-center gap-4 header-card">
-				<i data-feather="clock"></i>
-				<div class="flex flex-col uppercase tracking-wide items-start">
-					<p class="text-[0.6rem]">diunggah tanggal</p>
-					<p class="text-sm font-semibold">12 Februari 2022</p>
-				</div>
+	<section class="grid grid-cols-2 md:grid-cols-3 gap-4">
+		<!-- card skor spm virified -->
+		<div class="bg-[#fafafa] flex items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="flex items-center justify-center bg-blue-100 text-blue-600 w-16 h-16 rounded-full shadow-sm">
+				<i data-feather="award" class="w-10 h-10"></i>
 			</div>
-			<div class="bg-off-white rounded-b-2xl rounded-tr-2xl p-4">
-				<div class="flex flex-row justify-between mx-2 items-center gap-2 hover:rounded-lg hover:bg-[#e7ecfb] cursor-pointer">
-					<div>
-						<div class="rounded-md text-off-white bg-blue-600 p-4">
-							<i data-feather="file-text"></i>
-						</div>
-					</div>
-					<p class="text-sm w-full whitespace-wrap font-thin">Lorem ipsum dolor sit amet consectetur adipisicing elit.pdf</p>
-				</div>
-				<div class="flex flex-row gap-4 items-center mt-6 text-gray-500">
-					<img src="https://via.placeholder.com/40" alt="role" class="rounded-full w-8 h-8">
-					<p class="truncate w-full ml-2 font-semibold">Mahasiswa aktif tahun ajaran 2020</p>
-				</div>
+			<div>
+				<em class="block text-sm text-gray-500">SPM Terverifikasi</em>
+				<p class="text-4xl font-extrabold">
+					<?= $countAcc ?>
+					<span class="text-sm font-medium text-gray-600">Berkas</span>
+				</p>
+			</div>
+		</div>
+		<!-- card -->
+
+		<!-- card skor spm unvirified -->
+		<div class="flex bg-[#fafafa] items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="flex items-center justify-center bg-red-100 text-red-600 w-16 h-16 rounded-full shadow-sm">
+				<i data-feather="x-circle" class="w-10 h-10"></i>
+			</div>
+			<div>
+				<em class="block text-sm text-gray-500">SPM Tidak Terverifikasi</em>
+				<p class="text-4xl font-extrabold">
+					<?= $countDecl ?>
+					<span class="text-sm font-medium text-gray-600">Berkas</span>
+				</p>
+			</div>
+		</div>
+		<!-- card -->
+
+		<!-- card skor spm unvirified -->
+		<div class="bg-[#fafafa] col-span-2 md:col-span-1 flex items-center  text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+			<div class="flex items-center justify-center bg-orange-100 text-orange-600 w-16 h-16 rounded-full shadow-sm">
+				<i data-feather="alert-circle" class="w-10 h-10"></i>
+			</div>
+			<div>
+				<em class="block text-sm text-gray-500">SPM Belum Direview</em>
+				<p class="text-4xl font-extrabold">
+					<?= $countPend ?>
+					<span class="text-sm font-medium text-gray-600">Berkas</span>
+				</p>
 			</div>
 		</div>
 		<!-- card -->

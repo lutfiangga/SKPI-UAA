@@ -15,7 +15,7 @@
 		<!-- Profile Dropdown -->
 		<div class="relative">
 			<button aria-label="Profile" onclick="toggleProfileMenu()" class="flex flex-row gap-2 items-center space-x-2">
-				<span class="text-gray-800 truncate hidden md:block"><?= $nama; ?></span>
+				<span class="text-gray-800 truncate hidden md:block capitalize"><?= $nama; ?></span>
 				<div class="avatar">
 					<div class="ring-primary w-10 rounded-full ring ring-offset-2">
 						<img src="<?= base_url($foto) ?>" alt="Profile Picture" />

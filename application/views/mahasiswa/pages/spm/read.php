@@ -46,23 +46,6 @@
 				<i data-feather="upload-cloud" class="w-4 h-4"></i>
 				Upload SPM
 			</a>
-			<!-- <div class="dropdown justify-end dropdown-bottom dropdown-end">
-				<div tabindex="0" role="button" class="btn m-1 bg-[#fafafa] text-blue-600 border-none shadow-md hover:bg-blue-600 hover:text-[#fafafa]">Export SPM</div>
-				<ul tabindex="0" class="dropdown-content menu bg-[#fafafa] rounded-box z-[1] w-52 p-2 shadow">
-					<li>
-						<a href="<?= site_url('Mahasiswa/Spm_Mahasiswa/print'); ?>" class="bg-[#fafafa] text-blue-600 rounded-lg px-2 duration-300 hover:bg-blue-600 hover:text-[#fafafa] flex flex-row items-center">
-							<i data-feather="printer" class="w-4 h-4"></i>
-							Print
-						</a>
-					</li>
-					<li>
-						<a href="<?= base_url('Mahasiswa/Spm_Mahasiswa/export_pdf'); ?>" class="bg-[#fafafa] text-blue-600 rounded-lg px-2 duration-300 hover:bg-blue-600 hover:text-[#fafafa] flex flex-row items-center">
-							<i data-feather="file-text" class="w-4 h-4"></i>
-							Export to PDF
-						</a>
-					</li>
-				</ul>
-			</div> -->
 
 		</div>
 
@@ -71,15 +54,16 @@
 				<thead class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Nama Kegiatan</th>
+						<th class="p-2 whitespace-normal">Nama Kegiatan</th>
 						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Tanggal</th>
 						<th class="p-2">Sertifikat</th>
-						<th class="p-2">Link Kegiatan</th>
-						<th class="p-2">Foto Kegiatan</th>
-						<th class="p-2">Surat Tugas</th>
-						<th class="p-2">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Link Kegiatan</th>
+						<th class="p-2 whitespace-normal">Foto Kegiatan</th>
+						<th class="p-2 whitespace-normal">Surat Tugas</th>
+						<th class="p-2 ">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Tempat Kegiatan</th>
 						<th class="p-2">Status</th>
 						<th class="p-2">Aksi</th>
 					</tr>
@@ -167,6 +151,7 @@
 									<?php endif; ?>
 								</td>
 								<td class="p-2 whitespace-normal"><?= $row['penyelenggara'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['tempat_kegiatan'] ?></td>
 								<td>
 									<?php if ($row['status'] == 'pending') : ?>
 										<span
@@ -216,15 +201,16 @@
 				<tfoot class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Nama Kegiatan</th>
+						<th class="p-2 whitespace-normal">Nama Kegiatan</th>
 						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Tanggal</th>
 						<th class="p-2">Sertifikat</th>
-						<th class="p-2">Link Kegiatan</th>
-						<th class="p-2">Foto Kegiatan</th>
-						<th class="p-2">Surat Tugas</th>
-						<th class="p-2">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Link Kegiatan</th>
+						<th class="p-2 whitespace-normal">Foto Kegiatan</th>
+						<th class="p-2 whitespace-normal">Surat Tugas</th>
+						<th class="p-2 ">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Tempat Kegiatan</th>
 						<th class="p-2">Status</th>
 						<th class="p-2">Aksi</th>
 					</tr>

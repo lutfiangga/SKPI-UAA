@@ -62,32 +62,5 @@
 			<img src="<?= base_url('assets/static/img/har-uaa.png'); ?>" alt="role" class=" w-auto h-48">
 		</div>
 	</section>
-	<!-- card -->
-	<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-		<!-- card -->
-		<div class="flex flex-col col-span-1 text-blue-600">
-			<div class="bg-off-white rounded-t-2xl flex flex-row p-4 w-3/4 items-center gap-4 header-card">
-				<i data-feather="clock"></i>
-				<div class="flex flex-col uppercase tracking-wide items-start">
-					<p class="text-[0.6rem]">diunggah tanggal</p>
-					<p class="text-sm font-semibold">12 Februari 2022</p>
-				</div>
-			</div>
-			<div class="bg-off-white rounded-b-2xl rounded-tr-2xl p-4">
-				<div class="flex flex-row justify-between mx-2 items-center gap-2 hover:rounded-lg hover:bg-[#e7ecfb] cursor-pointer">
-					<div>
-						<div class="rounded-md text-off-white bg-blue-600 p-4">
-							<i data-feather="file-text"></i>
-						</div>
-					</div>
-					<p class="text-sm w-full whitespace-wrap font-thin">Lorem ipsum dolor sit amet consectetur adipisicing elit.pdf</p>
-				</div>
-				<div class="flex flex-row gap-4 items-center mt-6 text-gray-500">
-					<img src="https://via.placeholder.com/40" alt="role" class="rounded-full w-8 h-8">
-					<p class="truncate w-full ml-2 font-semibold">Mahasiswa aktif tahun ajaran 2020</p>
-				</div>
-			</div>
-		</div>
-		<!-- card -->
-	</section>
+
 </section>

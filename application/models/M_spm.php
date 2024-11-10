@@ -72,6 +72,34 @@ class M_spm extends CI_Model
 	{
 		return $this->db->count_all($this->table);
 	}
+	public function countAccepted()
+	{
+		$this->db->where('status', 'diterima');
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function countDeclined()
+	{
+		$this->db->where('status', 'ditolak');
+		return $this->db->count_all_results($this->table);
+	}
+
+	public function countPending()
+	{
+		$this->db->where('status', 'pending');
+		return $this->db->count_all_results($this->table);
+	}
+
+
+	public function countNotPending()
+	{
+		$this->db->select('status, COUNT(*) as count');
+		$this->db->where('status !=', 'pending');
+		$this->db->group_by('status');
+		return $this->db->get($this->table)->result_array();
+	}
+
+
 	public function GetSpm($nim)
 	{
 		$this->db->order_by($this->pk, 'asc');
@@ -81,8 +109,7 @@ class M_spm extends CI_Model
 		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
 		$this->db->where('mhs1.nim', $nim);
-		$query = $this->db->get($this->table);
-		return $query->result_array();
+		return $this->db->get($this->table)->result_array();
 	}
 	public function GetByNim($nim)
 	{

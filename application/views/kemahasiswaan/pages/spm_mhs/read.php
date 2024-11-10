@@ -47,16 +47,17 @@
 				<thead class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Mahasiswa</th>
-						<th class="p-2">Nama Kegiatan</th>
+						<th class="p-2">Nama</th>
+						<th class="p-2 whitespace-normal">Nama Kegiatan</th>
 						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Tanggal</th>
 						<th class="p-2">Sertifikat</th>
-						<th class="p-2">Link Kegiatan</th>
-						<th class="p-2">Foto Kegiatan</th>
-						<th class="p-2">Surat Tugas</th>
-						<th class="p-2">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Link Kegiatan</th>
+						<th class="p-2 whitespace-normal">Foto Kegiatan</th>
+						<th class="p-2 whitespace-normal">Surat Tugas</th>
+						<th class="p-2 ">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Tempat Kegiatan</th>
 						<th class="p-2">Status</th>
 						<th class="p-2">Aksi</th>
 					</tr>
@@ -142,6 +143,7 @@
 									<?php endif; ?>
 								</td>
 								<td class="p-2 whitespace-normal"><?= $row['penyelenggara'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['tempat_kegiatan'] ?></td>
 								<td>
 									<?php if ($row['status'] == 'pending') : ?>
 										<span class="flex items-center text-sm gap-2 text-orange-600 hover:bg-[#EEF0F6] p-2 rounded-full">
@@ -193,7 +195,7 @@
 									<div class="divider border-gray-400"></div>
 									<form method="post" action="<?= site_url('Kemahasiswaan/Spm_Mahasiswa/decline/' . $row['id_spm']); ?>" enctype="multipart/form-data" role="form">
 										<?= csrf(); ?>
-										<input type="text" id="edit_id_spm" name="id_spm" hidden/>
+										<input type="text" id="edit_id_spm" name="id_spm" hidden />
 
 										<div class="mb-4">
 											<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
@@ -221,16 +223,17 @@
 				<tfoot class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Mahasiswa</th>
-						<th class="p-2">Nama Kegiatan</th>
+						<th class="p-2">Nama</th>
+						<th class="p-2 whitespace-normal">Nama Kegiatan</th>
 						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Tanggal</th>
 						<th class="p-2">Sertifikat</th>
-						<th class="p-2">Link Kegiatan</th>
-						<th class="p-2">Foto Kegiatan</th>
-						<th class="p-2">Surat Tugas</th>
-						<th class="p-2">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Link Kegiatan</th>
+						<th class="p-2 whitespace-normal">Foto Kegiatan</th>
+						<th class="p-2 whitespace-normal">Surat Tugas</th>
+						<th class="p-2 ">Penyelenggara</th>
+						<th class="p-2 whitespace-normal">Tempat Kegiatan</th>
 						<th class="p-2">Status</th>
 						<th class="p-2">Aksi</th>
 					</tr>

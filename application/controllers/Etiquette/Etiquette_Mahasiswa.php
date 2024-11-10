@@ -27,9 +27,47 @@ class Etiquette_Mahasiswa extends CI_Controller
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_etiquette->GetAll(),
-			'mhs' => $this->M_mahasiswa->GetAll(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
+	}
+	function create()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "Etiquette MAHASISWA",
+			'sub' => "Etiquette Mahasiswa",
+			'active_menu' => 'etiquette_mhs',
+			// from tabel auth
+			'nama' => $this->session->userdata('nama'),
+			'role' => $role,
+			// from tabel user
+			'id_user' => $this->session->userdata('id_user'),
+			'foto' => $foto,
+			'mhs' => $this->M_mahasiswa->GetAllMhs(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'create', $data);
+	}
+	function edit($id)
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "Etiquette MAHASISWA",
+			'sub' => "Etiquette Mahasiswa",
+			'active_menu' => 'etiquette_mhs',
+			// from tabel auth
+			'nama' => $this->session->userdata('nama'),
+			'role' => $role,
+			// from tabel user
+			'id_user' => $this->session->userdata('id_user'),
+			'foto' => $foto,
+			'edit' => $this->M_etiquette->edit($id),
+			'mhs' => $this->M_mahasiswa->GetAllMhs(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
 	}
 
 	public function save()
@@ -70,7 +108,7 @@ class Etiquette_Mahasiswa extends CI_Controller
 	public function update()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_etiquette');
+		$id = $this->uri->segment(4);
 		$nim = $this->input->post('nim');
 		// Konfigurasi upload file
 		$config['upload_path'] = './assets/static/etiquette/';
@@ -80,16 +118,16 @@ class Etiquette_Mahasiswa extends CI_Controller
 		// Memuat library upload dengan konfigurasi
 		$this->load->library('upload', $config);
 
-		$etiket = $this->M_etiquette->getById($id); //get by id
-		$bukti = $etiket['bukti']; // default bukti
+		$etiquette = $this->M_etiquette->getById($id); //get by id
+		$bukti = $etiquette['bukti']; // default bukti
 
 		if ($this->upload->do_upload('bukti')) {
 			$bukti_data = $this->upload->data();
 			$bukti = $bukti_data['file_name'];
 
 			// delete old bukti
-			if (!empty($etiket['bukti']) && file_exists('./assets/static/etiquette/' . $etiket['bukti'])) {
-				unlink('./assets/static/etiquette/' . $etiket['bukti']);
+			if (!empty($etiquette['bukti']) && file_exists('./assets/static/etiquette/' . $etiquette['bukti'])) {
+				unlink('./assets/static/etiquette/' . $etiquette['bukti']);
 			}
 		}
 
@@ -109,9 +147,9 @@ class Etiquette_Mahasiswa extends CI_Controller
 		cek_csrf();
 		$id = $this->input->post('id_etiquette');
 
-		$etiket = $this->M_etiquette->edit($id);
-		if ($etiket) {
-			$bukti = $etiket['bukti'];
+		$etiquette = $this->M_etiquette->edit($id);
+		if ($etiquette) {
+			$bukti = $etiquette['bukti'];
 
 			// Hapus data dari database
 			$data = array('id_etiquette' => $id);

@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Admisi');
+		$this->load->model(array('M_syarat_wajib'));
 	}
 	public function index()
 	{
@@ -22,6 +23,10 @@ class Dashboard extends CI_Controller
 			'role' => $role,
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
+			'spm' => $this->M_syarat_wajib->countNotPending(),
+			'countAcc' => $this->M_syarat_wajib->countAccepted(),
+			'countDecl' => $this->M_syarat_wajib->countDeclined(),
+			'countPend' => $this->M_syarat_wajib->countPending(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

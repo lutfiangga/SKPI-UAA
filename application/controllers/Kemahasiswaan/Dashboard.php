@@ -8,6 +8,7 @@ class Dashboard extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Kemahasiswaan');
+		$this->load->model(array('M_spm'));
 	}
 	public function index()
 	{
@@ -22,6 +23,10 @@ class Dashboard extends CI_Controller
 			'role' => $role,
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
+			'spm' => $this->M_spm->countNotPending(),
+			'countAcc' => $this->M_spm->countAccepted(),
+			'countDecl' => $this->M_spm->countDeclined(),
+			'countPend' => $this->M_spm->countPending(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
