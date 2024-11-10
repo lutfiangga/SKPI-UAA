@@ -79,6 +79,8 @@ class Mahasiswa extends CI_Controller
 				'status_mahasiswa' => $this->security->xss_clean($this->input->post('status_mahasiswa')),
 				'semester_diakui' => $this->security->xss_clean($this->input->post('semester_diakui')),
 				'periode' => $this->security->xss_clean($this->input->post('periode')),
+				'nomor_ijazah' => !empty($this->security->xss_clean($this->input->post('nomor_ijazah'))) ? $this->security->xss_clean($this->input->post('nomor_ijazah')) : NULL,
+				'tempat_lahir' => !empty($this->security->xss_clean($this->input->post('tempat_lahir'))) ? $this->security->xss_clean($this->input->post('tempat_lahir')) : NULL,
 			);
 
 			$this->M_mahasiswa->save($data);
@@ -123,6 +125,8 @@ class Mahasiswa extends CI_Controller
 			'status_mahasiswa' => $this->security->xss_clean($this->input->post('status_mahasiswa')),
 			'semester_diakui' => $this->security->xss_clean($this->input->post('semester_diakui')),
 			'periode' => $this->security->xss_clean($this->input->post('periode')),
+			'nomor_ijazah' => !empty($this->security->xss_clean($this->input->post('nomor_ijazah'))) ? $this->security->xss_clean($this->input->post('nomor_ijazah')) : NULL,
+			'tempat_lahir' => !empty($this->security->xss_clean($this->input->post('tempat_lahir'))) ? $this->security->xss_clean($this->input->post('tempat_lahir')) : NULL,
 		);
 
 		$this->M_mahasiswa->update($id, $data);

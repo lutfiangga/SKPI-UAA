@@ -12,6 +12,7 @@ class M_prodi extends CI_Model
 		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas');
 		$this->db->join('staff', 'prodi.id_kaprodi = staff.id_staff');
 		$this->db->join('akreditasi', 'prodi.id_akreditasi = akreditasi.id_akreditasi');
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function save($data)

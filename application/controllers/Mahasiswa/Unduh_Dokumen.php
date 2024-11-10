@@ -8,7 +8,7 @@ class Unduh_Dokumen extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette'));
+		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette', 'M_syarat_wajib'));
 	}
 	public function index()
 	{
@@ -25,6 +25,8 @@ class Unduh_Dokumen extends CI_Controller
 			'id_user' => $id_user,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id_user),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id_user),
+			'syaratSkor' => $this->M_syarat_wajib->getPoinByUser($id_user),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

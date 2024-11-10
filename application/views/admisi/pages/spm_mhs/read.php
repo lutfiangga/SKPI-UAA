@@ -58,7 +58,7 @@
 				<tbody>
 					<?php if (!empty($read)) {
 						$no = 1;
-						foreach ($read->result_array() as $row) {
+						foreach ($read as $row) {
 							$img_user = $row['img_user'] ? 'assets/static/img/photos/' . strtolower($row['role']) . '/' . $row['img_user'] : 'assets/static/img/user.png';
 					?>
 							<tr class="border-t">
@@ -70,7 +70,7 @@
 										<img src="<?= base_url($img_user); ?>" alt="role" class="rounded-full w-8 h-8">
 										<div class="flex flex-col items-center justify-center">
 											<p class="truncate w-full text-xs md:text-sm ml-2 font-semibold whitespace-normal"><?= $row['nama'] ?></p>
-											<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['program_studi']; ?> - <?= $row['nim']; ?></p>
+											<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['prodi']; ?> - <?= $row['nim']; ?></p>
 										</div>
 									</div>
 								</td>
@@ -150,12 +150,12 @@
 									<div class="divider border-gray-400"></div>
 									<form method="post" action="<?= site_url('Admisi/Spm_Mahasiswa/decline/' . $row['id_syarat_wajib']); ?>" enctype="multipart/form-data" role="form">
 										<?= csrf(); ?>
-										<input type="hidden" id="edit_id_syarat_wajib" name="id_syarat_wajib" value="" />
+										<input type="text" id="edit_id_syarat_wajib" name="id_syarat_wajib" hidden />
 
 										<div class="mb-4">
 											<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
 											<textarea type="text" rows="4" id="keterangan" name="keterangan" required
-												class="mt-1 block bg-[#fafafa] w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+												class="mt-1 block bg-[#fafafa] w-full border text-gray-800 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 												placeholder="Tulis Keterangan"></textarea>
 										</div>
 

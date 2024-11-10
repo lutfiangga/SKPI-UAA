@@ -49,10 +49,10 @@
 	<div class="w-full mx-auto p-6 bg-white rounded-2xl shadow-sm md:shadow-md lg:shadow-lg">
 		<!-- Tabs -->
 		<div class="flex justify-end border-b mb-4">
-			<button class="px-4 py-2 text-xs sm:text-sm md:text-base md:text-base gap-2 tab-biodata text-blue-600 border-b-2 flex flex-row items-center border-blue-600 focus:outline-none">
+			<button class="px-4 py-2 text-xs sm:text-sm md:text-base gap-2 tab-biodata text-blue-600 border-b-2 flex flex-row items-center border-blue-600 focus:outline-none">
 				<i data-feather="info" class="w-4 h-auto"></i> Biodata
 			</button>
-			<button class="px-4 py-2 text-xs sm:text-sm md:text-base md:text-base gap-2 tab-password text-gray-600 border-b-2 flex flex-row items-center focus:outline-none">
+			<button class="px-4 py-2 text-xs sm:text-sm md:text-base gap-2 tab-password text-gray-600 border-b-2 flex flex-row items-center focus:outline-none">
 				<i data-feather="lock" class="w-4 h-auto"></i> Update Password
 			</button>
 		</div>
@@ -79,32 +79,68 @@
 
 			<!-- Content Profile-->
 			<div class="md:col-span-2">
+				<!-- Alert success -->
+				<?php if ($this->session->flashdata('update_profile_success')): ?>
+					<div role="alert" class="alert alert-success mb-2">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6 shrink-0 stroke-current"
+							fill="none"
+							viewBox="0 0 24 24">
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+						</svg>
+						<span> <?= $this->session->flashdata('update_profile_success'); ?></span>
+					</div>
+				<?php endif; ?>
 				<!-- Biodata Tab Content -->
-				<div class="space-y-2 grid grid-cols-2 gap-2 md:gap-4 content-biodata">
-					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
-						<label class="font-semibold text-gray-700">Nama:</label>
-						<p class="capitalize"><?= $profile['nama']; ?></p>
-					</div>
-					<div class="text-xs sm:text-sm md:text-base">
-						<label class="font-semibold text-gray-700">Telepon:</label>
-						<p><?= $profile['phone']; ?></p>
-					</div>
-					<div class="text-xs sm:text-sm md:text-base">
-						<label class="font-semibold text-gray-700">Email:</label>
-						<p><?= $profile['email']; ?></p>
-					</div>
-					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
-						<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
-						<p><?= $profile['jenis_kelamin']; ?></p>
-					</div>
-					<div class="text-xs sm:text-sm md:text-base whitespace-normal">
-						<label class="font-semibold text-gray-700">Jabatan:</label>
-						<p><?= $profile['jabatan']; ?></p>
-					</div>
-					<!-- <div class="text-xs sm:text-sm md:text-base whitespace-normal">
-						<label class="font-semibold text-gray-700">Alamat:</label>
-						<p><?= $profile['alamat']; ?></p>
-					</div> -->
+				<div class="content-biodata">
+					<form method="POST" action="<?= site_url(ucwords($role) . '/Myprofile/update'); ?>" enctype="multipart/form-data" class="grid grid-cols-2 gap-2 md:gap-4 ">
+						<?= csrf(); ?>
+						<div class="text-xs sm:text-sm md:text-base whitespace-normal">
+							<label class="font-semibold text-gray-700">Nama:</label>
+							<input type="text" id="nama" name="nama" value="<?= $profile['nama']; ?>" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" />
+						</div>
+						<div class="text-xs sm:text-sm md:text-base whitespace-normal">
+							<label class="font-semibold text-gray-700">Jenis Kelamin:</label>
+							<div class="flex gap-2 mt-2">
+								<div class="flex items-center">
+									<input id="Laki-laki" name="jenis_kelamin" <?= ($profile['jenis_kelamin'] == 'Laki-laki') ? 'checked' : '' ?> type="radio" value="Laki-laki" class="radio radio-primary" />
+									<label for="Laki-laki" class="ml-2 block text-sm font-medium text-gray-700">Laki-Laki</label>
+								</div>
+								<div class="flex items-center">
+									<input id="Perempuan" name="jenis_kelamin" <?= ($profile['jenis_kelamin'] == 'Perempuan') ? 'checked' : '' ?> type="radio" value="Perempuan" class="radio radio-primary" />
+									<label for="Perempuan" class="ml-2 block text-sm font-medium text-gray-700">Perempuan</label>
+								</div>
+							</div>
+						</div>
+						<div class="text-xs sm:text-sm md:text-base">
+							<label for="tanggal_lahir" class="mb-2 text-sm font-medium text-gray-700">Tanggal Lahir:</label>
+							<input id="tanggal_lahir" type="text" name="tgl_lahir" value="<?= $profile['tgl_lahir']; ?>"
+								class="pickdate p-2 w-full rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300"
+								placeholder="YYYY/MM/DD">
+						</div>
+						<div class="text-xs sm:text-sm md:text-base">
+							<label class="font-semibold text-gray-700">Telepon:</label>
+							<input type="number" inputmode="numeric" id="phone" name="phone" value="<?= $profile['phone']; ?>" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" />
+						</div>
+						<div class="text-xs sm:text-sm md:text-base col-span-2">
+							<label class="font-semibold text-gray-700">Email:</label>
+							<input type="text" id="email" name="email" value="<?= $profile['email']; ?>" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2" />
+						</div>
+						<div class="text-xs sm:text-sm md:text-base whitespace-normal col-span-2">
+							<label class="font-semibold text-gray-700">Jabatan:</label>
+							<textarea type="text" id="jabatan" rows="2" name="jabatan" class="mt-1 block bg-[#fafafa] text-gray-800 w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"><?= $profile['jabatan']; ?></textarea>
+						</div>
+						<div class="divider border-gray-400"></div>
+						<div class="flex justify-end">
+							<button type="submit"
+								class="btn disabled:text-gray-400 disabled:cursor-not-allowed bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Update</button>
+						</div>
+					</form>
 				</div>
 
 				<!-- update data Tab Content -->
@@ -225,7 +261,7 @@
 				<div class="mb-4">
 					<label for="file" class="block text-xs sm:text-sm font-medium text-gray-700 mb-2">Upload Foto:</label>
 					<div class="relative file-upload-container">
-						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-2 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
+						<div class="bg-white drop-zone relative cursor-pointer transition-all text-center p-8 border-blue-400 border-2 border-dashed rounded-lg  w-full shadow-lg transtition">
 							<div class="text-center flex flex-col gap-1 md:gap-2">
 								<svg class="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 									<path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />

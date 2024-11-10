@@ -64,7 +64,7 @@
 				<tbody>
 					<?php if (!empty($read)) {
 						$no = 1;
-						foreach ($read->result_array() as $row) {
+						foreach ($read as $row) {
 							$img_user = $row['img_user'] ? 'assets/static/img/photos/' . strtolower($row['role']) . '/' . $row['img_user'] : 'assets/static/img/user.png';
 					?>
 							<tr class="border-t">
@@ -76,11 +76,11 @@
 										<img src="<?= base_url($img_user); ?>" alt="role" class="rounded-full w-8 h-8">
 										<div class="flex flex-col items-center justify-center">
 											<p class="truncate w-full text-xs md:text-sm ml-2 font-semibold whitespace-normal"><?= $row['nama'] ?></p>
-											<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase"><?= $row['program_studi']; ?> - <?= $row['nim']; ?></p>
+											<p class="truncate w-full ml-2 text-[0.6rem] tracking-wide uppercase whitespace-normal"><?= $row['prodi']; ?> - <?= $row['nim']; ?></p>
 										</div>
 									</div>
 								</td>
-								<td class="p-2 whitespace-normal"><?= $row['nama_kegiatan'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['kegiatan'] ?></td>
 								<td class="p-2 whitespace-normal"><?= $row['kategori'] ?></td>
 								<td class="p-2 whitespace-nowrap">
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
@@ -166,7 +166,7 @@
 											<i data-feather="check-circle" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Diterima</p>
 										</a>
-										<button onclick="openDeclineModal(<?= $row['id_spm']; ?>)" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+										<button onclick="openDeclineModal('<?= $row['id_spm']; ?>')" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 											<i data-feather="x-circle" class="w-4 h-auto"></i>
 											<p class="hidden group-hover:block text-white transition-opacity duration-300">Ditolak</p>
 										</button>
@@ -193,12 +193,12 @@
 									<div class="divider border-gray-400"></div>
 									<form method="post" action="<?= site_url('Kemahasiswaan/Spm_Mahasiswa/decline/' . $row['id_spm']); ?>" enctype="multipart/form-data" role="form">
 										<?= csrf(); ?>
-										<input type="hidden" id="edit_id_spm" name="id_spm" value="" />
+										<input type="text" id="edit_id_spm" name="id_spm" hidden/>
 
 										<div class="mb-4">
 											<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
 											<textarea type="text" rows="4" id="keterangan" name="keterangan" required
-												class="mt-1 block bg-[#fafafa] w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+												class="mt-1 block bg-[#fafafa] w-full border text-gray-800 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 												placeholder="Tulis Keterangan"></textarea>
 										</div>
 

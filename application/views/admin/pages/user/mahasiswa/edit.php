@@ -57,7 +57,7 @@
 					<select id="prodi" name="id_prodi"
 						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Prodi--</option>
-						<?php foreach ($prodi->result_array() as $r) { ?>
+						<?php foreach ($prodi as $r) { ?>
 							<option value="<?= $r['id_prodi'] ?>" <?= ($r['id_prodi'] == $edit['id_prodi']) ? 'selected' : '' ?>><?= $r['id_prodi'] . ' | ' . $r['prodi']; ?></option>
 						<?php } ?>
 					</select>

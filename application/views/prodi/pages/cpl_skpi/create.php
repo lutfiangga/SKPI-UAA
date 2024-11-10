@@ -20,7 +20,7 @@
 				<label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Program Studi:</label>
 				<select id="prodi" required name="id_prodi" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 					<option value="" selected disabled>--Pilih Program Studi--</option>
-					<?php foreach ($prodi->result_array() as $r) { ?>
+					<?php foreach ($prodi as $r) { ?>
 						<option value="<?= $r['id_prodi'] ?>"><?= $r['id_prodi'] . ' | ' . $r['prodi']; ?></option>
 					<?php } ?>
 				</select>
@@ -49,7 +49,7 @@
 					class="bg-[#fafafa] rounded-lg shadow p-4 w-full">
 					<div class="toolbar-container"></div>
 					<!-- Toolbar -->
-					<div class="mt-2 quill-editor"></div>
+					<div class="mt-2 quill-editor text-black"></div>
 					<!-- Editor area -->
 				</div>
 			</div>

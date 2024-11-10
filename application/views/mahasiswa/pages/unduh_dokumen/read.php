@@ -61,20 +61,25 @@
 						<!-- Document Title -->
 						<div class="flex flex-col gap-0.5">
 							<h2 class="text-blue-700 text-lg font-semibold">Dokumen SPM</h2>
-							<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+								<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php else: ?>
+								<p class="text-xs text-gray-500">Skor anda masih kurang!</p>
+							<?php endif; ?>
 						</div>
-
-						<!-- Print Button with Tooltip -->
 						<a href="<?= base_url('Mahasiswa/Spm_Mahasiswa/export_pdf'); ?>" aria-label="Print Dokumen"
 							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
 							View
 							<i data-feather="eye" class="w-5 h-5"></i>
 						</a>
-						<button id="print_spm" aria-label="Print Dokumen"
-							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
-							Print
-							<i data-feather="printer" class="w-5 h-5"></i>
-						</button>
+						<!-- Print Button with Tooltip -->
+						<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+							<button id="print_spm" aria-label="Print Dokumen"
+								class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
+								Print
+								<i data-feather="printer" class="w-5 h-5"></i>
+							</button>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -93,20 +98,25 @@
 						<!-- Document Title -->
 						<div class="flex flex-col gap-0.5">
 							<h2 class="text-blue-700 text-lg font-semibold">Dokumen SKPI</h2>
-							<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+								<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php else: ?>
+								<p class="text-xs text-gray-500">Skor anda masih kurang!</p>
+							<?php endif; ?>
 						</div>
-
-						<!-- Print Button with Tooltip -->
 						<a href="<?= base_url('Mahasiswa/Skpi_Mahasiswa/export_pdf'); ?>" aria-label="Print Dokumen"
 							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
 							View
 							<i data-feather="eye" class="w-5 h-5"></i>
 						</a>
-						<button id="print_skpi" aria-label="Print Dokumen"
-							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
-							Print
-							<i data-feather="printer" class="w-5 h-5"></i>
-						</button>
+						<!-- Print Button with Tooltip -->
+						<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+							<button id="print_skpi" aria-label="Print Dokumen"
+								class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
+								Print
+								<i data-feather="printer" class="w-5 h-5"></i>
+							</button>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>
@@ -125,20 +135,25 @@
 						<!-- Document Title -->
 						<div class="flex flex-col gap-0.5">
 							<h2 class="text-blue-700 text-lg font-semibold">Dokumen Syarat Wajib</h2>
-							<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php if ($syaratSkor['total_poin'] >= 9): ?>
+								<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php else: ?>
+								<p class="text-xs text-gray-500">Skor anda masih kurang!</p>
+							<?php endif; ?>
 						</div>
-
-						<!-- Print Button with Tooltip -->
 						<a href="<?= base_url('Mahasiswa/Syarat_wajib/export_pdf'); ?>" aria-label="Print Dokumen"
 							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
 							View
 							<i data-feather="eye" class="w-5 h-5"></i>
 						</a>
-						<button id="print_syarat_wajib" aria-label="Print Dokumen"
-							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
-							Print
-							<i data-feather="printer" class="w-5 h-5"></i>
-						</button>
+						<!-- Print Button with Tooltip -->
+						<?php if ($syaratSkor['total_poin'] >= 9): ?>
+							<button id="print_syarat_wajib" aria-label="Print Dokumen"
+								class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
+								Print
+								<i data-feather="printer" class="w-5 h-5"></i>
+							</button>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

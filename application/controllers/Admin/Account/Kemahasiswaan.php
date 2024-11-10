@@ -31,7 +31,41 @@ class Kemahasiswaan extends CI_Controller
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
-
+	function create()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "AKUN KEMAHASISWAAN",
+			'sub' => "Akun Kemahasiswaan",
+			'active_menu' => 'kemahasiswaan',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'staff' => $this->M_staff->GetAllStaff(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'create', $data);
+	}
+	function edit($id)
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "AKUN KEMAHASISWAAN",
+			'sub' => "Akun Kemahasiswaan",
+			'active_menu' => 'kemahasiswaan',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'edit' => $this->M_auth->edit($id),
+			'staff' => $this->M_staff->GetAllStaff(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
+	}
 	public function save()
 	{
 		cek_csrf();
@@ -68,7 +102,7 @@ class Kemahasiswaan extends CI_Controller
 	public function update()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_akun');
+		$id = $this->uri->segment(5);
 
 		// Ambil data username lama dari database
 		$user = $this->M_auth->edit($id);

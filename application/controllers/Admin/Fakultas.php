@@ -26,9 +26,45 @@ class Fakultas extends CI_Controller
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_fakultas->GetAll(),
-			'staff' => $this->M_staff->GetAllStaff(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
+	}
+	function create()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "DATA FAKULTAS",
+			'sub' => "Data Fakultas",
+			'active_menu' => 'fakultas',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'read' => $this->M_fakultas->GetAll(),
+			'staff' => $this->M_staff->GetAllStaff(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'create', $data);
+	}
+	function edit($id)
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "DATA FAKULTAS",
+			'sub' => "Data Fakultas",
+			'active_menu' => 'fakultas',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'read' => $this->M_fakultas->GetAll(),
+			'staff' => $this->M_staff->GetAllStaff(),
+			'edit' => $this->M_fakultas->edit($id),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
 	}
 
 	public function save()
@@ -63,17 +99,29 @@ class Fakultas extends CI_Controller
 	public function update()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_fakultas');
-
-		$data = array(
-			'id_fakultas' => $this->security->xss_clean($this->input->post('id_fakultas')),
-			'fakultas' => $this->security->xss_clean($this->input->post('fakultas')),
-			'id_dekan' => $this->security->xss_clean($this->input->post('id_dekan')),
+		$id = $this->uri->segment(4);
+		$this->form_validation->set_rules(
+			'fakultas',
+			'Fakultas',
+			'required|is_unique[fakultas.fakultas]',
+			[
+				'required' => 'Fakultas Wajib diisi!',
+				'is_unique' => 'Fakultas sudah terdaftar!'
+			]
 		);
-		// Perform the update
-		$this->M_fakultas->update($id, $data);
-		$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
-		redirect($this->redirect, 'refresh');
+		if ($this->form_validation->run() == FALSE) {
+			$this->session->set_flashdata('update_error', validation_errors());
+			redirect($this->redirect);
+		} else {
+			$data = array(
+				'fakultas' => $this->security->xss_clean($this->input->post('fakultas')),
+				'id_dekan' => $this->security->xss_clean($this->input->post('id_dekan')),
+			);
+			// Perform the update
+			$this->M_fakultas->update($id, $data);
+			$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
+			redirect($this->redirect, 'refresh');
+		}
 	}
 
 	public function delete()

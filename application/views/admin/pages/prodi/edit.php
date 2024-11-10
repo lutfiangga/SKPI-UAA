@@ -61,20 +61,29 @@
 			<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 				<div class="">
 					<label for="id_prodi" class="block text-sm font-medium text-gray-700 mb-2">Kode Program Studi:</label>
-					<input type="text" id="id_prodi" name="id_prodi" required value="<?= $edit['id_prodi']; ?>" disabled
+					<input type="text" id="id_prodi" name="id_prodi" value="<?= $edit['id_prodi']; ?>" disabled
 						class="mt-1 cursor-not-allowed block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan Kode Fakultas" />
 				</div>
 				<div class="">
+					<label for="select_dekan" class="block text-sm font-medium text-gray-700 mb-2">Jenjang Program Studi:</label>
+					<select id="select_dekan" required name="id_jenjang" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+						<option value="" selected disabled>--Pilih Jenjang Program Studi--</option>
+						<?php foreach ($jenjang as $r) { ?>
+							<option value="<?= $r['id_jenjang'] ?>" <?= ($r['id_jenjang'] == $edit['id_jenjang']) ? 'selected' : '' ?>><?= $r['id_jenjang'] . ' | ' . $r['jenjang']; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div class="">
 					<label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Program Studi:</label>
-					<input type="text" id="prodi" name="prodi" required value="<?= $edit['prodi']; ?>"
+					<input type="text" id="prodi" name="prodi" value="<?= $edit['prodi']; ?>"
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan prodi" />
 				</div>
 
 				<div class="">
 					<label for="select_dekan" class="block text-sm font-medium text-gray-700 mb-2">Kepala Program Studi:</label>
-					<select id="select_dekan" required name="id_kaprodi" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+					<select id="select_dekan" name="id_kaprodi" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Kepala Program Studi--</option>
 						<?php foreach ($staff as $r) { ?>
 							<option value="<?= $r['id_staff'] ?>" <?= ($r['id_staff'] == $edit['id_kaprodi']) ? 'selected' : '' ?>><?= $r['id_staff'] . ' | ' . $r['nama']; ?></option>
@@ -83,7 +92,7 @@
 				</div>
 				<div class="">
 					<label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Fakultas:</label>
-					<select id="fakultas" required name="id_fakultas" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+					<select id="fakultas" name="id_fakultas" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Fakultas--</option>
 						<?php foreach ($fakultas as $r) { ?>
 							<option value="<?= $r['id_fakultas'] ?>" <?= ($r['id_fakultas'] == $edit['id_fakultas']) ? 'selected' : '' ?>><?= $r['id_fakultas'] . ' | ' . $r['fakultas']; ?></option>
@@ -92,7 +101,7 @@
 				</div>
 				<div class="">
 					<label for="akreditasi" class="block text-sm font-medium text-gray-700 mb-2">Akreditasi Program Studi:</label>
-					<select id="select_dekan" required name="id_akreditasi" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+					<select id="select_dekan" name="id_akreditasi" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Akreditasi Program Studi--</option>
 						<?php foreach ($akred as $r) { ?>
 							<option value="<?= $r['id_akreditasi'] ?>" <?= ($r['id_akreditasi'] == $edit['id_akreditasi']) ? 'selected' : '' ?>><?= $r['akreditasi']; ?></option>
@@ -100,10 +109,22 @@
 					</select>
 				</div>
 				<div class="">
-					<label for="jenjang_lanjutan" class="block text-sm font-medium text-gray-700 mb-2">Jenjang Selanjutnya:</label>
-					<input type="text" id="jenjang_lanjutan" name="jenjang_lanjutan" required value="<?= $edit['jenjang_lanjutan']; ?>"
+					<label for="gelar" class="block text-sm font-medium text-gray-700 mb-2">Gelar:</label>
+					<input type="text" id="gelar" name="gelar" value="<?= $edit['gelar']; ?>"
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-						placeholder="Masukkan jenjang selanjutnya contoh: Doctor" />
+						placeholder="Masukkan gelar. contoh Sarjana Komputer" />
+				</div>
+				<div class="">
+					<label for="singkatan_gelar" class="block text-sm font-medium text-gray-700 mb-2">Singkatan Gelar:</label>
+					<input type="text" id="singkatan_gelar" name="singkatan_gelar" value="<?= $edit['singkatan_gelar']; ?>"
+						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+						placeholder="Masukkan singkatan gelar. contoh S.Kom" />
+				</div>
+				<div class="col-span-2">
+					<label for="sistem_pembelajaran" class="block text-sm font-medium text-gray-700 mb-2">Sistem Pembelajaran:</label>
+					<input type="text" id="sistem_pembelajaran" name="sistem_pembelajaran" value="<?= $edit['sistem_pembelajaran']; ?>"
+						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+						placeholder="Masukkan sistem pembelajaran. contoh Regular" />
 				</div>
 			</div>
 

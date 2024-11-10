@@ -62,7 +62,7 @@
 				<tbody>
 					<?php if (!empty($read)) {
 						$no = 1;
-						foreach ($read->result_array() as $row) { ?>
+						foreach ($read as $row) { ?>
 							<tr class="border-t">
 								<td class="p-2">
 									<?= $no; ?>

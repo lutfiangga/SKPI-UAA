@@ -77,12 +77,12 @@
 											if ($row['nim'] == $this->session->userdata('id_user')) {
 												if ($kategori != $row['kategori']) {
 													$kategori = $row['kategori'];
-													echo "<tr><td colspan='3' class=' px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$row['kategori']}</td></tr>";
+													echo "<tr><td colspan='4' class=' px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$row['kategori']}</td></tr>";
 												}
 										?>
 												<tr>
 													<th class="border-t-0 px-6 border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-center"><?= $no; ?></th>
-													<td class="border-t-0 px-6 border-l-0 border-r-0 text-sm whitespace-nowrap p-4"><?= $row['nama_kegiatan'] ?></td>
+													<td class="border-t-0 px-6 border-l-0 border-r-0 text-sm whitespace-nowrap p-4"><?= $row['url'] ?></td>
 													<td class="border-t-0 px-6 text-center border-l-0 border-r-0 text-sm whitespace-nowrap p-4"><?= $row['poin'] ?></td>
 													<td class="border-t-0 px-6 text-center border-l-0 border-r-0 text-sm whitespace-nowrap p-4"><?= ($row['status'] != 'ditolak') ? 'Memenuhi' : 'Tidak Memenuhhi' ?></td>
 												</tr>
@@ -115,12 +115,14 @@
 							<br><br><br><br>
 							<hr class="border-b-1 border-black mt-2">
 							<p class="capitalize text-center"><?= $direktur['nama']; ?></p>
-							<div class="absolute left-0 bottom-6">
-								<div class="relative w-[180px] h-auto">
-									<img src="<?= base_url('assets/static/img/photos/admisi/signature/' . $direktur['signature']) ?>" alt="Signature" class="absolute bottom-1 z-1">
-									<img src="<?= base_url('assets/static/img/photos/admisi/stamp/' . $direktur['stamp']) ?>" alt="stamp" class="absolute bottom-1 z-2  opacity-75">
+							<?php if ($syaratSkor['total_poin'] >= 9): ?>
+								<div class="absolute left-0 bottom-6">
+									<div class="relative w-[180px] h-auto">
+										<img src="<?= base_url('assets/static/img/photos/admisi/signature/' . $direktur['signature']) ?>" alt="Signature" class="absolute bottom-1 z-1">
+										<img src="<?= base_url('assets/static/img/photos/admisi/stamp/' . $direktur['stamp']) ?>" alt="stamp" class="absolute bottom-1 z-2  opacity-75">
+									</div>
 								</div>
-							</div>
+							<?php endif; ?>
 						</div>
 					</div>
 					<!-- end signature & stamp -->

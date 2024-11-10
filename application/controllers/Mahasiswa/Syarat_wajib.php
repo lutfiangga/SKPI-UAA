@@ -18,7 +18,6 @@ class Syarat_wajib extends CI_Controller
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_user');
-		$read = $this->M_syarat_wajib->GetByNim($id);
 		$data = array(
 			'judul' => "SYARAT WAJIB",
 			'sub' => "Syarat Wajib",
@@ -27,7 +26,7 @@ class Syarat_wajib extends CI_Controller
 			'role' => $role,
 			'id_user' => $id,
 			'foto' => $foto,
-			'read' => $read,
+			'read' => $this->M_syarat_wajib->GetSyaratWajibMhs($id),
 			'kategori' => $this->M_kategori_syarat_wajib->GetKategori(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);

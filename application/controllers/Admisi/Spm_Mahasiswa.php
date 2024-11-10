@@ -29,25 +29,26 @@ class SPM_Mahasiswa extends CI_Controller
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
 
-	public function accept($kd)
+	public function accept($id)
 	{
 		$data = array(
 			'keterangan' => '',
 			'status' => 'diterima',
 		);
 
-		$this->M_syarat_wajib->update($kd, $data);
+		$this->M_syarat_wajib->update($id, $data);
 		redirect($this->redirect);
 	}
-	public function decline($kd)
+	public function decline()
 	{
 		cek_csrf();
+		$id = $this->input->post('id_syarat_wajib');
 		$data = array(
 			'keterangan' => $this->input->post('keterangan'),
 			'status' => 'ditolak',
 		);
 
-		$this->M_syarat_wajib->update($kd, $data);
+		$this->M_syarat_wajib->update($id, $data);
 		redirect($this->redirect);
 	}
 }

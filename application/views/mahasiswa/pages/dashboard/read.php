@@ -65,14 +65,14 @@
 	<!-- card -->
 	<section class="grid grid-cols-2 md:grid-cols-3 gap-4">
 		<!-- card skor spm virified -->
-		<div class="bg-[#fafafa] flex items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+		<div class="bg-[#fafafa] flex items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
 			<div class="flex items-center justify-center bg-blue-100 text-blue-600 w-16 h-16 rounded-full shadow-sm">
 				<i data-feather="award" class="w-10 h-10"></i>
 			</div>
 			<div>
 				<em class="block text-sm text-gray-500">SPM Terverifikasi</em>
 				<p class="text-4xl font-extrabold">
-					<?= $SpmPoin['total_poin'] ?>
+					<?= $SpmPoin['spm_poin'] ?>
 					<span class="text-sm font-medium text-gray-600">Poin</span>
 				</p>
 			</div>
@@ -80,14 +80,14 @@
 		<!-- card -->
 
 		<!-- card skor spm unvirified -->
-		<div class="flex bg-[#fafafa] items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+		<div class="flex bg-[#fafafa] items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
 			<div class="flex items-center justify-center bg-red-100 text-red-600 w-16 h-16 rounded-full shadow-sm">
 				<i data-feather="x-circle" class="w-10 h-10"></i>
 			</div>
 			<div>
 				<em class="block text-sm text-gray-500">SPM Tidak Terverifikasi</em>
 				<p class="text-4xl font-extrabold">
-					<?= $SpmPoin['total_poin'] ?>
+					<?= $declinedSpm['spm_poin'] ?>
 					<span class="text-sm font-medium text-gray-600">Poin</span>
 				</p>
 			</div>
@@ -95,14 +95,14 @@
 		<!-- card -->
 
 		<!-- card skor spm unvirified -->
-		<div class="bg-[#fafafa] col-span-2 md:col-span-1 flex items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+		<div class="bg-[#fafafa] col-span-2 md:col-span-1 flex items-center  text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
 			<div class="flex items-center justify-center bg-orange-100 text-orange-600 w-16 h-16 rounded-full shadow-sm">
 				<i data-feather="alert-circle" class="w-10 h-10"></i>
 			</div>
 			<div>
 				<em class="block text-sm text-gray-500">Alma ata Etiquette</em>
 				<p class="text-4xl font-extrabold">
-					<?= $SpmPoin['total_poin'] ?>
+					<?= $etiquettePoin['etiquette_poin'] ?>
 					<span class="text-sm font-medium text-gray-600">Poin</span>
 				</p>
 			</div>
@@ -111,7 +111,7 @@
 	</section>
 
 	<section class="my-4">
-		<div class="bg-[#fafafa] flex flex-col md:flex-row justify-center justify-between md:items-center col-span-1 text-gray-800 shadow-md rounded-3xl border border-gray-200 bg-white hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
+		<div class="bg-[#fafafa] flex flex-col md:flex-row justify-between md:items-center  text-gray-800 shadow-md rounded-3xl border border-gray-200 hover:shadow-lg transition-shadow duration-300 ease-in-out p-6 space-x-6">
 			<div class="w-full flex flex-col md:flex-row justify-between md:w-1/2 p-4 rounded-2xl text-gray-800">
 				<div class="flex flex-col justify-between mx-auto gap-4 w-full md:w-2/3">
 					<h2 class="text-lg font-semibold">SPM Overview</h2>
@@ -152,7 +152,7 @@
 
 				<!-- Polar chart -->
 				<div class="w-full md:w-1/3 flex items-center justify-center">
-					<canvas id="myChart" class="w-full h-full"></canvas> 
+					<canvas id="myChart" class="w-full h-full"></canvas>
 				</div>
 			</div>
 
@@ -232,14 +232,14 @@
 			datasets: [{
 				data: [12, 19, 3, 5, 2],
 				backgroundColor: [
-					'rgba(37, 99, 235, 0.8)', 
-					'rgba(251, 191, 36, 0.8)', 
+					'rgba(37, 99, 235, 0.8)',
+					'rgba(251, 191, 36, 0.8)',
 					'rgba(220, 38, 38, 0.8)',
-					'rgba(107, 114, 128, 0.8)', 
+					'rgba(107, 114, 128, 0.8)',
 					'rgba(16, 185, 129, 0.8)',
 				],
 				hoverBackgroundColor: [
-					'rgba(107, 114, 128, 1)', 
+					'rgba(107, 114, 128, 1)',
 					'rgba(37, 99, 235, 1)',
 					'rgba(220, 38, 38, 1)',
 					'rgba(16, 185, 129, 1)',

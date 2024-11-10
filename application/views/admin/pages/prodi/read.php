@@ -76,7 +76,7 @@
 		<!-- add user -->
 		<a href="<?= site_url('Admin/Prodi/create'); ?>" class="btn max-w-[15rem] bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4 md:w-auto flex flex-row items-center">
 			<div class="bg-[#faafa] md:p-3 p-2 rounded-lg">
-				<i data-feather="user-plus" fill="currentColor" class="w-4 h-4"></i>
+				<i data-feather="plus-circle" class="w-4 h-4"></i>
 			</div>
 			Tambah Program Studi
 		</a>
@@ -92,6 +92,7 @@
 						<th class="p-2 whitespace-normal">Fakultas</th>
 						<th class="p-2 whitespace-normal">Akreditasi</th>
 						<th class="p-2 whitespace-normal">Jenjang Lanjutan</th>
+						<th class="p-2 whitespace-normal">Sistem Pembelajaran</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
@@ -103,13 +104,14 @@
 						<tr class="border-t">
 							<td class="p-2"><?= $no; ?></td>
 							<td class="p-2 whitespace-nowrap"><?= $row['id_prodi']; ?></td>
-							<td class="p-2 whitespace-nowrap"><?= $row['prodi']; ?></td>
+							<td class="p-2 whitespace-nowrap"><?= $row['tingkat_jenjang']; ?> <?= $row['prodi']; ?></td>
 							<td class="p-2 whitespace-nowrap"><?= $row['nama']; ?></td>
 							<td class="p-2 whitespace-nowrap"><?= $row['fakultas']; ?></td>
 							<td class="p-2 whitespace-nowrap"><?= $row['akreditasi']; ?></td>
 							<td class="p-2 whitespace-nowrap"><?= $row['jenjang_lanjutan']; ?></td>
+							<td class="p-2 whitespace-nowrap"><?= $row['sistem_pembelajaran']; ?></td>
 							<td class="p-2 flex flex-row items-center justify-center mt-2 gap-2">
-								<a href="<?= site_url('Admin/Prodi/edit/' . $row['id_prodi']);?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+								<a href="<?= site_url('Admin/Prodi/edit/' . $row['id_prodi']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 									<i data-feather="edit" class="w-4 h-auto"></i>
 									<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 								</a>
@@ -160,6 +162,7 @@
 						<th class="p-2 whitespace-normal">Fakultas</th>
 						<th class="p-2 whitespace-normal">Akreditasi</th>
 						<th class="p-2 whitespace-normal">Jenjang Lanjutan</th>
+						<th class="p-2 whitespace-normal">Sistem Pembelajaran</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>

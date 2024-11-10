@@ -66,6 +66,15 @@
 						placeholder="Masukkan Kode Fakultas" />
 				</div>
 				<div class="">
+					<label for="select_dekan" class="block text-sm font-medium text-gray-700 mb-2">Jenjang Program Studi:</label>
+					<select id="select_dekan" required name="id_jenjang" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+						<option value="" selected disabled>--Pilih Jenjang Program Studi--</option>
+						<?php foreach ($jenjang as $r) { ?>
+							<option value="<?= $r['id_jenjang'] ?>"><?= $r['id_jenjang'] . ' | ' . $r['jenjang']; ?></option>
+						<?php } ?>
+					</select>
+				</div>
+				<div class="">
 					<label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Program Studi:</label>
 					<input type="text" id="prodi" name="prodi" required
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
@@ -100,10 +109,22 @@
 					</select>
 				</div>
 				<div class="">
-					<label for="jenjang_lanjutan" class="block text-sm font-medium text-gray-700 mb-2">Jenjang Selanjutnya:</label>
-					<input type="text" id="jenjang_lanjutan" name="jenjang_lanjutan" required
+					<label for="gelar" class="block text-sm font-medium text-gray-700 mb-2">Gelar:</label>
+					<input type="text" id="gelar" name="gelar" required
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-						placeholder="Masukkan jenjang selanjutnya contoh: Doctor" />
+						placeholder="Masukkan gelar. contoh Sarjana Komputer" />
+				</div>
+				<div class="">
+					<label for="singkatan_gelar" class="block text-sm font-medium text-gray-700 mb-2">Singkatan Gelar:</label>
+					<input type="text" id="singkatan_gelar" name="singkatan_gelar" required
+						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+						placeholder="Masukkan singkatan gelar. contoh S.Kom" />
+				</div>
+				<div class="col-span-2">
+					<label for="sistem_pembelajaran" class="block text-sm font-medium text-gray-700 mb-2">Sistem Pembelajaran:</label>
+					<input type="text" id="sistem_pembelajaran" name="sistem_pembelajaran" required
+						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+						placeholder="Masukkan sistem pembelajaran. contoh Regular" />
 				</div>
 			</div>
 

@@ -63,7 +63,7 @@ class M_etiquette extends CI_Model
 	}
 	public function getPoinByUser($id_user)
 	{
-		$this->db->select('SUM(CAST(poin AS NUMERIC)) as total_poin');
+		$this->db->select('COALESCE(SUM(CAST(poin AS NUMERIC)), 0) as etiquette_poin');
 		$this->db->where('etiquette.nim', $id_user);
 		$query = $this->db->get($this->table);
 		return $query->row_array();

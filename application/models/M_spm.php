@@ -14,8 +14,9 @@ class M_spm extends CI_Model
 		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
 		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
+		$this->db->join('prodi', 'mhs1.id_prodi = prodi.id_prodi');
 
-		return $this->db->get($this->table);
+		return $this->db->get($this->table)->result_array();
 	}
 
 	public function save($data)
@@ -48,27 +49,51 @@ class M_spm extends CI_Model
 	public function getPoinByUser($id_user)
 	{
 		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
-		// Mengonversi poin ke tipe numeric
-		$this->db->select('SUM(CAST(kategori_spm.poin AS NUMERIC)) as total_poin');
+		$this->db->join('mahasiswa', 'spm.nim = mahasiswa.nim');
+		$this->db->select('COALESCE(SUM(CAST(kategori_spm.poin AS NUMERIC)), 0) as spm_poin');
 		$this->db->where('spm.nim', $id_user);
+		$this->db->where('spm.status', 'diterima');
 		$query = $this->db->get($this->table);
 		return $query->row_array();
 	}
+	public function getPoinDecline($id_user)
+	{
+		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('mahasiswa', 'spm.nim = mahasiswa.nim');
+		$this->db->select('COALESCE(SUM(CAST(kategori_spm.poin AS NUMERIC)), 0) as spm_poin');
+		$this->db->where('spm.nim', $id_user);
+		$this->db->where('spm.status', 'ditolak');
+		$query = $this->db->get($this->table);
+		return $query->row_array();
+	}
+
 
 	public function countSPM()
 	{
 		return $this->db->count_all($this->table);
 	}
-	public function GetByNim($nim)
+	public function GetSpm($nim)
 	{
-		$this->db->order_by($this->pk, 'desc');
+		$this->db->order_by($this->pk, 'asc');
 
 		$this->db->join('akun_user', 'spm.nim = akun_user.id_user', 'left');
 		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
 		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
 		$this->db->where('mhs1.nim', $nim);
+		$query = $this->db->get($this->table);
+		return $query->result_array();
+	}
+	public function GetByNim($nim)
+	{
+		$this->db->order_by($this->pk, 'asc');
 
+		$this->db->join('akun_user', 'spm.nim = akun_user.id_user', 'left');
+		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
+		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
+		$this->db->where('mhs1.nim', $nim);
+		$this->db->where('spm.status', 'diterima');
 		$query = $this->db->get($this->table);
 		return $query->result_array();
 	}

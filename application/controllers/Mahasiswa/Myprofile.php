@@ -12,7 +12,7 @@ class Myprofile extends CI_Controller
 		//protected routes
 		checkRole('Mahasiswa');
 		//load model
-		$this->load->model(array('M_profile', 'M_auth'));
+		$this->load->model(array('M_profile', 'M_auth', 'M_mahasiswa'));
 	}
 
 	public function index()
@@ -34,7 +34,24 @@ class Myprofile extends CI_Controller
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
+	public function update()
+	{
+		cek_csrf();
+		$id = $this->session->userdata('id_user');
 
+		$data = array(
+			'nama' => $this->security->xss_clean($this->input->post('nama')),
+			'jenis_kelamin' => $this->security->xss_clean($this->input->post('jenis_kelamin')),
+			'tempat_lahir' => !empty($this->input->post('tempat_lahir')) ? $this->input->post('tempat_lahir') : NULL,
+			'tgl_lahir' => !empty($this->input->post('tgl_lahir')) ? $this->input->post('tgl_lahir') : NULL,
+			'email' => !empty($this->security->xss_clean($this->input->post('email'))) ? $this->security->xss_clean($this->input->post('email')) : NULL,
+			'phone' => !empty($this->security->xss_clean($this->input->post('phone'))) ? $this->security->xss_clean($this->input->post('phone')) : NULL,
+		);
+
+		$this->M_mahasiswa->update($id, $data);
+		$this->session->set_flashdata('update_profile_success', 'Data berhasil diupdate');
+		redirect($this->redirect, 'refresh');
+	}
 	public function change_profile_picture($id)
 	{
 		cek_csrf();

@@ -25,7 +25,7 @@ class Spm_Mahasiswa extends CI_Controller
 			'nama' => $this->session->userdata('nama'),
 			'id_user' => $id,
 			'foto' => $foto,
-			'read' => $this->M_spm->GetByNim($id),
+			'read' => $this->M_spm->GetSpm($id),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
@@ -45,11 +45,11 @@ class Spm_Mahasiswa extends CI_Controller
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 			'spm' => $this->M_spm->GetByNim($id),
-			'etiket' => $this->M_etiquette->GetByNim($id),
+			'etiquette' => $this->M_etiquette->GetByNim($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'print', $data);
 	}
@@ -68,11 +68,11 @@ class Spm_Mahasiswa extends CI_Controller
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 			'spm' => $this->M_spm->GetByNim($id),
-			'etiket' => $this->M_etiquette->GetByNim($id),
+			'etiquette' => $this->M_etiquette->GetByNim($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}
@@ -156,19 +156,18 @@ class Spm_Mahasiswa extends CI_Controller
 		$data = array(
 			'id_spm' => $id,
 			'nim' => $id_user,
-			'id_kategori_spm' => $this->input->post('id_kategori_spm'),
-			'kegiatan' => $this->input->post('kegiatan'),
-			'tanggal_mulai' => $this->input->post('tanggal_mulai'),
-			'penyelenggara' => $this->input->post('penyelenggara'),
+			'id_kategori_spm' => $this->security->xss_clean($this->input->post('id_kategori_spm')),
+			'kegiatan' => $this->security->xss_clean($this->input->post('kegiatan')),
+			'tanggal_mulai' => $this->security->xss_clean($this->input->post('tanggal_mulai')),
+			'penyelenggara' => $this->security->xss_clean($this->input->post('penyelenggara')),
 			'sertifikat' => $sertifikat,
-			'link_kegiatan' => $this->input->post('link_kegiatan'),
+			'link_kegiatan' => $this->security->xss_clean($this->input->post('link_kegiatan')),
+			'tempat_kegiatan' => !empty($this->security->xss_clean($this->input->post('tempat_kegiatan'))) ? $this->security->xss_clean($this->input->post('tempat_kegiatan')) : NULL,
+			'tanggal_selesai' => !empty($this->security->xss_clean($this->input->post('tanggal_selesai'))) ? $this->security->xss_clean($this->input->post('tanggal_selesai')) : NULL,
 			'foto_kegiatan' => $foto_kegiatan,
 			'surat_tugas' => $surat_tugas,
 			'status' => 'pending'
 		);
-		if ($this->input->post('tanggal_selesai')) {
-			$data['tanggal_selesai'] = $this->input->post('tanggal_selesai');
-		}
 
 		$this->M_spm->save($data);
 		redirect($this->redirect, 'refresh');
@@ -261,15 +260,15 @@ class Spm_Mahasiswa extends CI_Controller
 		}
 
 		$data = array(
-			'kegiatan' => $this->input->post('kegiatan'),
-			'tanggal_mulai' => $this->input->post('tanggal_mulai'),
-			'tanggal_selesai' => $this->input->post('tanggal_selesai'),
-			'penyelenggara' => $this->input->post('penyelenggara'),
+			'kegiatan' => $this->security->xss_clean($this->input->post('kegiatan')),
+			'tanggal_mulai' => $this->security->xss_clean($this->input->post('tanggal_mulai')),
+			'penyelenggara' => $this->security->xss_clean($this->input->post('penyelenggara')),
 			'sertifikat' => $sertifikat,
-			'link_kegiatan' => $this->input->post('link_kegiatan'),
+			'link_kegiatan' => $this->security->xss_clean($this->input->post('link_kegiatan')),
+			'tempat_kegiatan' => !empty($this->security->xss_clean($this->input->post('tempat_kegiatan'))) ? $this->security->xss_clean($this->input->post('tempat_kegiatan')) : NULL,
+			'tanggal_selesai' => !empty($this->security->xss_clean($this->input->post('tanggal_selesai'))) ? $this->security->xss_clean($this->input->post('tanggal_selesai')) : NULL,
 			'foto_kegiatan' => $foto_kegiatan,
 			'surat_tugas' => $surat_tugas,
-			'status' => 'pending'
 		);
 
 		$this->M_spm->update($id, $data);

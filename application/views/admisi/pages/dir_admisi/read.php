@@ -213,7 +213,7 @@
 						<label for="direktur" class="block text-sm font-medium text-gray-700 mb-2">Direktur Admisi:</label>
 						<select id="direktur" name="id_direktur" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 							<option value="" selected disabled>--Pilih Direktur--</option>
-							<?php foreach ($staff->result_array() as $r) { ?>
+							<?php foreach ($staff as $r) { ?>
 								<option value="<?= $r['id_staff'] ?>"><?= $r['id_staff'] . ' | ' . $r['nama']; ?></option>
 							<?php } ?>
 						</select>
@@ -250,7 +250,7 @@
 						<label for="direktur" class="block text-sm font-medium text-gray-700 mb-2">Direktur Mahasiswa:</label>
 						<select id="direktur" name="id_direktur" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 							<option value="" selected disabled>--Pilih Direktur--</option>
-							<?php foreach ($staff->result_array() as $r) { ?>
+							<?php foreach ($staff as $r) { ?>
 								<option value="<?= $r['id_staff'] ?>" <?= ($r['id_staff'] == $direktur['id_staff']) ? 'selected' : '' ?>>
 									<?= $r['id_staff'] . ' | ' . $r['nama']; ?>
 								</option>

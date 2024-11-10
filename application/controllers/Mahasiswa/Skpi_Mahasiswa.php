@@ -8,7 +8,7 @@ class Skpi_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette'));
+		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette', 'M_mahasiswa', 'M_cpl'));
 	}
 	public function index()
 	{
@@ -28,7 +28,7 @@ class Skpi_Mahasiswa extends CI_Controller
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
-	
+
 	public function print()
 	{
 		$role = $this->session->userdata('role');
@@ -70,8 +70,10 @@ class Skpi_Mahasiswa extends CI_Controller
 			'etiketPoin' => $this->M_etiquette->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
+			'cpl' => $this->M_cpl->GetAll(),
 			'spm' => $this->M_spm->GetByNim($id),
 			'etiket' => $this->M_etiquette->GetByNim($id),
+			'skpi' => $this->M_mahasiswa->getSKPI($id),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}

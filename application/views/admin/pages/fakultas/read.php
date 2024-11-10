@@ -74,12 +74,12 @@
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 		<!-- add user -->
-		<button type="button" onclick="document.getElementById('addFakultas').showModal()" class="btn max-w-[15rem] bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4 md:w-auto flex flex-row items-center">
+		<a href="<?= site_url('Admin/Fakultas/create'); ?>" class="btn max-w-[15rem] bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4 md:w-auto flex flex-row items-center">
 			<div class="bg-[#faafa] md:p-3 p-2 rounded-lg">
-				<i data-feather="user-plus" fill="currentColor" class="w-4 h-4"></i>
+				<i data-feather="plus-circle" class="w-4 h-4"></i>
 			</div>
 			Tambah Fakultas
-		</button>
+		</a>
 
 		<div class="overflow-x-auto">
 			<table id="" class="min-w-full table-auto table-data">
@@ -103,139 +103,16 @@
 							<td class="p-2 whitespace-nowrap"><?= $row['fakultas']; ?></td>
 							<td class="p-2 whitespace-nowrap"><?= $row['nama']; ?></td>
 							<td class="p-2 flex flex-row items-center justify-center mt-2 gap-2">
-								<button type="button" onclick="openEditModal('<?= $row['id_fakultas']; ?>','<?= $row['id_dekan']; ?>','<?= $row['fakultas']; ?>')" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+								<a href="<?= site_url('Admin/Fakultas/edit/' . $row['id_fakultas']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 									<i data-feather="edit" class="w-4 h-auto"></i>
 									<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
-								</button>
+								</a>
 								<button type="button" onclick="openDeleteModal('<?= $row['id_fakultas']; ?>')" class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 									<i data-feather="trash-2" class="w-4 h-auto"></i>
 									<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 								</button>
 							</td>
 						</tr>
-
-						<!-- modal add Fakultas -->
-						<dialog id="addFakultas" class="modal overflow-hidden">
-							<div class="modal-box bg-[#fafafa] mx-auto p-4">
-								<!-- Tombol close di sudut kanan atas -->
-								<form method="dialog">
-									<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
-								</form>
-								<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
-									Tambah Fakultas Universitas
-									<div class="bg-blue-600 p-2 sm:p-3 text-[#fafafa] rounded-lg ml-2 sm:ml-4">
-										<i data-feather="activity" class="w-4 h-4"></i>
-									</div>
-								</h3>
-								<div class="divider border-gray-400"></div>
-								<!-- Alert duplicate fakultas -->
-								<?php if ($this->session->flashdata('create_error')): ?>
-									<div role="alert" class="alert alert-warning mb-2">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="h-6 w-6 shrink-0 stroke-current"
-											fill="none"
-											viewBox="0 0 24 24">
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-										</svg>
-										<span> <?= $this->session->flashdata('create_error'); ?></span>
-									</div>
-								<?php endif; ?>
-								<form method="post" action="<?= site_url('Admin/Fakultas/save'); ?>" enctype="multipart/form-data" role="form">
-									<?= csrf(); ?>
-									<div class="mb-4">
-										<label for="id_fakultas" class="block text-sm font-medium text-gray-700 mb-2">Kode Fakultas:</label>
-										<input type="text" id="id_fakultas" name="id_fakultas" required
-											class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-											placeholder="Masukkan Kode Fakultas" />
-									</div>
-									<div class="mb-4">
-										<label for="fakultas" class="block text-sm font-medium text-gray-700 mb-2">Fakultas:</label>
-										<input type="text" id="fakultas" name="fakultas" required
-											class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-											placeholder="Masukkan fakultas" />
-									</div>
-									<div class="mb-4">
-										<label for="select_dekan" class="block text-sm font-medium text-gray-700 mb-2">Dekan Fakultas:</label>
-										<select id="select_dekan" required name="id_dekan" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
-											<option value="" selected disabled>--Pilih Dekan Fakultas--</option>
-											<?php foreach ($staff as $r) { ?>
-												<option value="<?= $r['id_staff'] ?>"><?= $r['id_staff'] . ' | ' . $r['nama']; ?></option>
-											<?php } ?>
-										</select>
-									</div>
-									<div class="divider border-gray-400"></div>
-									<div class="modal-action relative flex justify-end gap-4">
-										<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 mb-4"
-											onclick="this.closest('dialog').close();">Close</button>
-										<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 mb-4">Submit</button>
-									</div>
-								</form>
-							</div>
-						</dialog>
-
-						<!-- Modal edit Fakultas -->
-						<dialog id="editFakultas" class="modal overflow-hidden">
-							<div class="modal-box bg-[#fafafa]">
-								<form method="dialog">
-									<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
-								</form>
-								<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
-									Edit Fakultas Mahasiswa
-									<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
-										<i data-feather="activity" class="w-4 h-4"></i>
-									</div>
-								</h3>
-								<div class="divider border-gray-400"></div>
-								<!-- Alert duplicate fakultas -->
-								<?php if ($this->session->flashdata('update_error')): ?>
-									<div role="alert" class="alert alert-warning mb-2">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											class="h-6 w-6 shrink-0 stroke-current"
-											fill="none"
-											viewBox="0 0 24 24">
-											<path
-												stroke-linecap="round"
-												stroke-linejoin="round"
-												stroke-width="2"
-												d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-										</svg>
-										<span> <?= $this->session->flashdata('update_error'); ?></span>
-									</div>
-								<?php endif; ?>
-								<form method="post" action="<?= site_url('Admin/Fakultas/update/' . $row['id_fakultas']); ?>" enctype="multipart/form-data" role="form">
-									<?= csrf(); ?>
-									<div class="mb-4">
-										<label for="fakultas_id" class="block text-sm font-medium text-gray-700 mb-2">Kode Fakultas:</label>
-										<input type="text" id="fakultas_id" name="id_fakultas" class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2 cursor-not-allowed" readonly />
-									</div>
-									<div class="mb-4">
-										<label for="fakultas_univ" class="block text-sm font-medium text-gray-700 mb-2">Fakultas:</label>
-										<input type="text" id="fakultas_univ" name="fakultas" required
-											class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-											placeholder="Masukkan fakultas" />
-									</div>
-									<div class="mb-4">
-										<label for="dekan" class="block text-sm font-medium text-gray-700 mb-2">Dekan Fakultas:</label>
-										<select id="dekan" name="id_dekan" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
-											<option value="" selected disabled>--Pilih Dekan Fakultas--</option>
-											<?php foreach ($staff as $r) { ?>
-												<option value="<?= $r['id_staff'] ?>" <?= ($r['id_staff'] == $row['id_staff']) ? 'selected' : '' ?>><?= $r['id_staff'] . ' | ' . $r['nama']; ?></option>
-											<?php } ?>
-										</select>
-									</div>
-									<div class="modal-action relative" style="z-index: 1000;">
-										<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
-										<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Update</button>
-									</div>
-								</form>
-							</div>
-						</dialog>
 
 						<!-- Modal Hapus Fakultas -->
 						<dialog id="hapusFakultas" class="modal overflow-hidden">
@@ -255,7 +132,7 @@
 								<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus Data ini?</p>
 								<form method="post" action="<?= site_url('Admin/Fakultas/delete/'); ?>">
 									<?= csrf(); ?>
-									<input id="id" type="text" name="id_fakultas">
+									<input id="id" type="text" name="id_fakultas" hidden>
 									<div class="modal-action relative" style="z-index: 1000;">
 										<button type="button" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
 										<button type="submit" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Hapus</button>

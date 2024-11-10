@@ -27,9 +27,43 @@ class Admin extends CI_Controller
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_auth->GetAdmin(),
-			'staff' => $this->M_staff->GetAllStaff(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
+	}
+	function create()
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "AKUN ADMIN",
+			'sub' => "Akun Admin",
+			'active_menu' => 'admin',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'staff' => $this->M_staff->GetAllStaff(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'create', $data);
+	}
+	function edit($id)
+	{
+		$role = $this->session->userdata('role');
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "AKUN ADMIN",
+			'sub' => "Akun Admin",
+			'active_menu' => 'admin',
+			'id_user' => $this->session->userdata('id_user'),
+			'role' => $role,
+			'nama' => $this->session->userdata('nama'),
+			'foto' => $foto,
+			'edit' => $this->M_auth->edit($id),
+			'staff' => $this->M_staff->GetAllStaff(),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
 	}
 
 	public function save()
@@ -47,7 +81,7 @@ class Admin extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('create_error', validation_errors());
-			redirect($this->redirect);
+			redirect($this->redirect . '/create');
 		} else {
 			$last_id = $this->M_auth->getLastId(); //get last id
 			// jika id tidak ditemukan, id diisi 1
@@ -68,7 +102,7 @@ class Admin extends CI_Controller
 	public function update()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_akun');
+		$id = $this->uri->segment(5);
 
 		// Ambil data username lama dari database
 		$user = $this->M_auth->edit($id);
@@ -100,7 +134,7 @@ class Admin extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('update_error', validation_errors());
-			redirect($this->redirect);
+			redirect($this->redirect . '/edit');
 		} else {
 			$data = array(
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),

@@ -19,19 +19,17 @@
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="users" class="w-4 h-auto"></i>
+						<i data-feather="award" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-
-							Mahasiswa
+							SPM
 						</span>
 					</a>
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="activity" class="w-4 h-auto"></i>
+						<i data-feather="user" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-
-							Eticket
+							Mahasiswa
 						</span>
 					</a>
 				</li>

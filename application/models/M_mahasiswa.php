@@ -20,12 +20,29 @@ class M_mahasiswa extends CI_Model
 		$this->db->order_by($this->pk, 'desc');
 		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left');
 		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
-
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang', 'left');
 		$mahasiswa = $this->db->get($this->table)->result_array();
 
 		foreach ($mahasiswa as &$mhs) {
 			$mhs['semester'] = $this->getSemester($mhs);
 		}
+		return $mahasiswa;
+	}
+
+	public function getSKPI($id)
+	{
+		$this->db->where($this->pk, $id);
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left');
+		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
+		$this->db->join('staff', 'fakultas.id_dekan = staff.id_staff', 'left');
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang', 'left');
+
+		// Pilih semua kolom dari mahasiswa serta kolom dekan dari tabel staff
+		$this->db->select('mahasiswa.*, prodi.*, fakultas.*, jenjang.*, staff.nama as nama_dekan, staff.id_staff');
+
+		$mahasiswa = $this->db->get($this->table)->row_array();
+		$mahasiswa['semester'] = $this->getSemester($mahasiswa);
+
 		return $mahasiswa;
 	}
 

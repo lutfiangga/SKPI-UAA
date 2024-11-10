@@ -7,7 +7,7 @@ class Prodi extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model(array('M_prodi', 'M_staff', 'M_akreditasi', 'M_fakultas'));
+		$this->load->model(array('M_prodi', 'M_staff', 'M_jenjang', 'M_akreditasi', 'M_fakultas'));
 		checkRole('Admin');
 	}
 
@@ -43,6 +43,7 @@ class Prodi extends CI_Controller
 			'foto' => $foto,
 			'staff' => $this->M_staff->GetAllStaff(),
 			'akred' => $this->M_akreditasi->GetAll(),
+			'jenjang' => $this->M_jenjang->GetAll(),
 			'fakultas' => $this->M_fakultas->GetAll(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'create', $data);
@@ -62,6 +63,7 @@ class Prodi extends CI_Controller
 			'foto' => $foto,
 			'staff' => $this->M_staff->GetAllStaff(),
 			'akred' => $this->M_akreditasi->GetAll(),
+			'jenjang' => $this->M_jenjang->GetAll(),
 			'fakultas' => $this->M_fakultas->GetAll(),
 			'edit' => $this->M_prodi->edit($id),
 		);
@@ -100,7 +102,10 @@ class Prodi extends CI_Controller
 				'id_fakultas' => $this->security->xss_clean($this->input->post('id_fakultas')),
 				'id_kaprodi' => $this->security->xss_clean($this->input->post('id_kaprodi')),
 				'id_akreditasi' => $this->security->xss_clean($this->input->post('id_akreditasi')),
-				'jenjang_lanjutan' => $this->security->xss_clean($this->input->post('jenjang_lanjutan')),
+				'id_jenjang' => $this->security->xss_clean($this->input->post('id_jenjang')),
+				'gelar' => $this->security->xss_clean($this->input->post('gelar')),
+				'singkatan_gelar' => $this->security->xss_clean($this->input->post('singkatan_gelar')),
+				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')),
 			);
 
 			$this->M_prodi->save($data);
@@ -131,7 +136,10 @@ class Prodi extends CI_Controller
 				'id_fakultas' => $this->security->xss_clean($this->input->post('id_fakultas')),
 				'id_kaprodi' => $this->security->xss_clean($this->input->post('id_kaprodi')),
 				'id_akreditasi' => $this->security->xss_clean($this->input->post('id_akreditasi')),
-				'jenjang_lanjutan' => $this->security->xss_clean($this->input->post('jenjang_lanjutan')),
+				'id_jenjang' => $this->security->xss_clean($this->input->post('id_jenjang')),
+				'gelar' => $this->security->xss_clean($this->input->post('gelar')),
+				'singkatan_gelar' => $this->security->xss_clean($this->input->post('singkatan_gelar')),
+				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')),
 			);
 			$this->M_prodi->update($id, $data);
 			$this->session->set_flashdata('update_success', 'Data berhasil diupdate');

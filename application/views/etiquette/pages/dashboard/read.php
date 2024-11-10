@@ -90,29 +90,4 @@
 		</div>
 		<!-- card -->
 	</section>
-
-	<!-- Form to Submit Editor Content -->
-	<form action="/save-content" method="POST" class="w-full max-w-2xl">
-		<!-- Textarea with name attribute to store editor content -->
-		<textarea name="editorContent" class="editor-quill hidden"></textarea>
-
-		<!-- Quill Editor Container -->
-		<div
-			id="editor-container"
-			class="bg-[#fafafa] rounded-lg shadow p-4 w-full">
-			<div class="toolbar-container"></div>
-			<!-- Toolbar -->
-			<div class="mt-2 quill-editor"></div>
-			<!-- Editor area -->
-		</div>
-
-		<!-- Submit Button -->
-		<button type="submit" class="btn btn-primary mt-4">Save Content</button>
-	</form>
-
-	<!-- Real-Time Output Display -->
-	<div class="output w-full max-w-2xl bg-white rounded-lg shadow p-4">
-		<h3 class="text-lg font-semibold mb-2">Editor Output:</h3>
-		<div class="p-2 output-content bg-gray-100 rounded quill-content"></div>
-	</div>
 </section>

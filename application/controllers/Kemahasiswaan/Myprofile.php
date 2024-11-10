@@ -34,7 +34,24 @@ class Myprofile extends CI_Controller
 
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
+	public function update()
+	{
+		cek_csrf();
+		$id = $this->session->userdata('id_user');
 
+		$data = array(
+			'nama' => $this->security->xss_clean($this->input->post('nama')),
+			'tgl_lahir' => !empty($this->input->post('tgl_lahir')) ? $this->input->post('tgl_lahir') : NULL,
+			'jenis_kelamin' => !empty($this->input->post('jenis_kelamin')) ? $this->input->post('jenis_kelamin') : NULL,
+			'email' => !empty($this->security->xss_clean($this->input->post('email'))) ? $this->security->xss_clean($this->input->post('email')) : NULL,
+			'phone' => !empty($this->security->xss_clean($this->input->post('phone'))) ? $this->security->xss_clean($this->input->post('phone')) : NULL,
+			'jabatan' => !empty($this->security->xss_clean($this->input->post('jabatan'))) ? $this->security->xss_clean($this->input->post('jabatan')) : NULL,
+		);
+
+		$this->M_staff->update($id, $data);
+		$this->session->set_flashdata('update_profile_success', 'Data berhasil diupdate');
+		redirect($this->redirect, 'refresh');
+	}
 	public function change_profile_picture($id)
 	{
 		cek_csrf();

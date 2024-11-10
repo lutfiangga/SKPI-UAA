@@ -10,7 +10,7 @@ class M_cpl extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'desc');
 		$this->db->join('prodi', 'cpl.id_prodi = prodi.id_prodi');
-		return $this->db->get($this->table);
+		return $this->db->get($this->table)->result_array();
 	}
 
 	public function save($data)

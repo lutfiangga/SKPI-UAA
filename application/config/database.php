@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'uaa-pr0jectz.c.aivencloud.com',
-	'username' => 'avnadmin',
-	'password' => 'AVNS_qeQQXeqPJ5yN4WpvQ48',
-	'database' => 'defaultdb',
+	'hostname' => 'aws-0-ap-southeast-1.pooler.supabase.com',
+	'username' => 'postgres.tsiowklbvnidtdjbqgcq',
+	'password' => '8ap2q5rKhEBL4w8L',
+	'database' => 'postgres',
 	'dbdriver' => 'postgre',
 	'dbprefix' => 'public.',
 	'pconnect' => FALSE,
@@ -93,5 +93,5 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE,
-	'port' => 20668
+	'port' => 6543
 );
