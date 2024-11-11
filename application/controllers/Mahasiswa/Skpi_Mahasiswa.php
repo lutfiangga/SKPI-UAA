@@ -8,7 +8,7 @@ class Skpi_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette', 'M_mahasiswa', 'M_cpl'));
+		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette', 'M_mahasiswa', 'M_cpl', 'M_kategori_cpl'));
 	}
 	public function index()
 	{
@@ -74,7 +74,11 @@ class Skpi_Mahasiswa extends CI_Controller
 			'spm' => $this->M_spm->GetByNim($id),
 			'etiket' => $this->M_etiquette->GetByNim($id),
 			'skpi' => $this->M_mahasiswa->getSKPI($id),
+			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
 		);
+		// echo "<pre>";
+		// var_dump($data['cpl']); // Menampilkan data di Controller
+		// echo "</pre>";
 		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}
 }

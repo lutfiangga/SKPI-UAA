@@ -147,127 +147,57 @@
 									<div class="my-4 text-justify">
 										<li class="font-semibold text-sm">CAPAIAN PEMBELAJARAN</li>
 										<em class="font-semibold text-sm">LEARNING OUTCOMES</em>
-										<ol type="1" class="list-inside list-decimal my-2 ml-4">
-											<!-- CAPAIAN PEMBELAJARAN BIDANG SIKAP DAN TATA NILAI -->
-											<div class="my-2">
-												<li class="font-semibold text-sm">CAPAIAN PEMBELAJARAN BIDANG SIKAP DAN TATA NILAI <span><em>ATTITUDE LEARNING OUTCOMES</em></span></li>
-												<ol class="list-lower-alpha list-outside text-xs lg:text-sm border border-black text-justify pl-5 py-2 pr-2 ml-2 my-2">
-													<?php
-													$no = 1;
-													// Cek apakah $cpl kosong
-													if (empty($cpl)) { ?>
-														<p class="text-center">
-															N/A.
-														</p>
-														<?php
-													} else {
-														foreach ($cpl as $row) {
-															if ($row['kategori'] == 'Capaian Pembelajaran Bidang Sikap dan Tata Nilai' && $row['id_prodi'] == $skpi['id_prodi']) {
-														?>
-																<li>
-																	<div class="flex flex-row text-justify whitespace-nowrap">
-																		<?= $row['konten'] ?>.<span class="ml-1"><em><?= auto_translate($row['konten']) ?></em>.</span>
-																	</div>
-																</li>
-													<?php
-																$no++;
-															}
-														}
-													}
-													?>
-												</ol>
-											</div>
+										<ol type="1" class="list-outside list-decimal my-2 ml-4">
+											<?php
+											$no = 1;
+											$id_kategori = [];
+											$current_category = ''; // Variable to keep track of the current category
 
-											<!-- CAPAIAN PEMBELAJARAN BIDANG KETERAMPILAN UMUM -->
-											<div class="my-2">
-												<li class="font-semibold text-sm">CAPAIAN PEMBELAJARAN BIDANG KETERAMPILAN UMUM <span><em>GENERAL SKILLS LEARNING OUTCOMES</em></span></li>
-												<ol class="list-lower-alpha list-outside text-xs lg:text-sm border border-black text-justify pl-5 py-2 pr-2 ml-2 my-2">
-													<?php
-													$no = 1;
-													// Cek apakah $cpl kosong
-													if (empty($cpl)) { ?>
-														<p class="text-center">
-															N/A.
-														</p>
-														<?php
-													} else {
-														foreach ($cpl as $row) {
-															if ($row['kategori'] == 'Capaian Pembelajaran Bidang Keterampilan Umum' && $row['id_prodi'] == $skpi['id_prodi']) {
-														?>
-																<li>
-																	<div class="flex flex-row text-justify whitespace-nowrap">
-																		<?= $row['konten'] ?>.<span class="ml-1"><em><?= auto_translate($row['konten']) ?></em>.</span>
-																	</div>
-																</li>
-													<?php
-																$no++;
-															}
-														}
-													}
-													?>
-												</ol>
-											</div>
+											// Simpan id_kategori yang diambil dari database ke dalam array
+											foreach ($kategori_cpl as $row) {
+												$id_kategori[] = $row['id_kategori_cpl'];
+											}
 
-											<!-- CAPAIAN PEMBELAJARAN BIDANG PENGETAHUAN  -->
-											<div class="my-2">
-												<li class="font-semibold text-sm">CAPAIAN PEMBELAJARAN BIDANG PENGETAHUAN <span><em>KNOWLEDGE LEARNING OUTCOMES</em></span></li>
-												<ol class="list-lower-alpha list-outside text-xs lg:text-sm border border-black text-justify pl-5 py-2 pr-2 ml-2 my-2">
-													<?php
-													$no = 1;
-													// Cek apakah $cpl kosong
-													if (empty($cpl)) { ?>
-														<p class="text-center">
-															N/A.
-														</p>
-														<?php
-													} else {
-														foreach ($cpl as $row) {
-															if ($row['kategori'] == 'Capaian Pembelajaran Bidang Pengetahuan' && $row['id_prodi'] == $skpi['id_prodi']) {
-														?>
-																<li>
-																	<div class="flex flex-row text-justify whitespace-nowrap">
-																		<?= $row['konten'] ?>.<span class="ml-1"><em><?= auto_translate($row['konten']) ?></em>.</span>
-																	</div>
-																</li>
-													<?php
-																$no++;
-															}
+											foreach ($cpl as $row) {
+												if (in_array($row['id_kategori_cpl'], $id_kategori) && $row['id_prodi'] == $skpi['id_prodi']) {
+													// Check if the category has changed
+													if ($current_category !== $row['kategori']) {
+														// If the category is different, close the previous <ol> (if any) and start a new <ol>
+														if ($current_category !== '') {
+															echo '</ol>'; // Close previous <ol>
 														}
-													}
-													?>
-												</ol>
 
-											</div>
+														// Start a new <div> and category for the new category
+														echo '<div class="my-2">';
+														echo '<li class="font-semibold text-sm uppercase">';
+														// Clean the category name by removing 'values' if it exists
+														echo $row['kategori']; // Remove 'values' from category
+														echo '<span><em> ' . auto_translate($row['kategori']) . '</em></span>';
+														echo '</li>';
 
-											<!-- CAPAIAN PEMBELAJARAN BIDANG KETERAMPILAN KHUSUS  -->
-											<div class="my-2">
-												<li class="font-semibold text-sm">CAPAIAN PEMBELAJARAN BIDANG KETERAMPILAN KHUSUS <span><em>SPECIAL SKILLS LEARNING OUTCOMES</em></span></li>
-												<ol class="list-lower-alpha list-outside text-xs lg:text-sm border border-black text-justify pl-5 py-2 pr-2 ml-2 my-2">
-													<?php
-													$no = 1;
-													// Cek apakah $cpl kosong
-													if (empty($cpl)) { ?>
-														<p class="text-center">
-															N/A.
-														</p>
-														<?php
-													} else {
-														foreach ($cpl as $row) {
-															if ($row['kategori'] == 'Capaian Pembelajaran Bidang Keterampilan Khusus' && $row['id_prodi'] == $skpi['id_prodi']) {
-														?>
-																<li>
-																	<div class="flex flex-row text-justify whitespace-nowrap">
-																		<?= $row['konten'] ?>.<span class="ml-1"><em><?= auto_translate($row['konten']) ?></em>.</span>
-																	</div>
-																</li>
-													<?php
-																$no++;
-															}
-														}
+														// Start a new <ol> for the new category
+														echo '<ol class="list-lower-alpha list-outside text-xs lg:text-sm border border-black text-justify pl-5 py-2 pr-2 ml-2 my-2">';
+														$current_category = $row['kategori']; // Update the current category
 													}
-													?>
-												</ol>
-											</div>
+
+													// Output each item within the same <ol> for the same category
+													echo '<li>';
+													echo '<div class="flex flex-row text-justify whitespace-nowrap">';
+													echo $row['konten'] . '.';
+													echo '<span class="ml-1"><em>' . auto_translate($row['konten']) . '.</em></span>';
+													echo '</div>';
+													echo '</li>';
+
+													$no++;
+												}
+											}
+
+											// Close the last <ol> after the loop
+											if ($current_category !== '') {
+												echo '</ol>';
+												echo '</div>'; // Close the last <div> for the last category
+											}
+											?>
 										</ol>
 									</div>
 
@@ -299,7 +229,7 @@
 																<td class="border border-black text-xs lg:text-sm whitespace-normal p-4">
 																	<?= $no; ?>. <?= $row['kategori'] ?> "<?= $row['kegiatan'] ?>" yang diselenggarakan <?= $row['penyelenggara'] ?> pada tanggal <?= tanggal($row['tanggal_mulai']) ?>
 																	<?= !empty($row['tanggal_selesai']) ? 'sampai ' . tanggal($row['tanggal_selesai']) : '' ?>
-																	<?= !empty($row['tempat_kegiatan']) ? 'di ' . tanggal($row['tempat_kegiatan']) : '' ?>. <em><span class="capitalize"> <?= auto_translate($row['kategori']) ?> </span>"<?= auto_translate($row['kegiatan']) ?>" was held by<?= auto_translate($row['penyelenggara']) ?> on <?= auto_translate(tanggal($row['tanggal_mulai'])) ?>
+																	<?= !empty($row['tempat_kegiatan']) ? 'di ' . tanggal($row['tempat_kegiatan']) : '' ?>. <em><span class="capitalize"> <?= auto_translate($row['kategori']) ?> </span>"<?= auto_translate($row['kegiatan']) ?>" was held by <?= auto_translate($row['penyelenggara']) ?> on <?= auto_translate(tanggal($row['tanggal_mulai'])) ?>
 																		<?= !empty($row['tanggal_selesai']) ? 'until ' . auto_translate(tanggal($row['tanggal_selesai'])) : '' ?>
 																		<?= !empty($row['tempat_kegiatan']) ? 'at ' . auto_translate(tanggal($row['tempat_kegiatan'])) : '' ?>. </em>
 																</td>

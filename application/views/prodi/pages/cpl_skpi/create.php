@@ -31,40 +31,26 @@
 		<div class="grid grid-cols-1 gap-4">
 			<div class="mb-4">
 				<label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">Bidang CPL:</label>
-				<select id="kategori" required name="kategori" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+				<select id="kategori" required name="id_kategori_cpl" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 					<option value="" selected disabled>--Pilih Bidang CPL--</option>
-					<option value="Capaian Pembelajaran Bidang Sikap dan Tata Nilai">CAPAIAN PEMBELAJARAN BIDANG SIKAP DAN TATA NILAI </option>
-					<option value="Capaian Pembelajaran Bidang Keterampilan Umum">CAPAIAN PEMBELAJARAN BIDANG KETERAMPILAN UMUM </option>
-					<option value="Capaian Pembelajaran Bidang Pengetahuan">CAPAIAN PEMBELAJARAN BIDANG PENGETAHUAN </option>
-					<option value="Capaian Pembelajaran Bidang Keterampilan Khusus">CAPAIAN PEMBELAJARAN BIDANG KETERAMPILAN KHUSUS </option>
+					<?php foreach ($cpl as $r) { ?>
+						<option value="<?= $r['id_kategori_cpl'] ?>"><?= $r['kategori']; ?></option>
+					<?php } ?>
 				</select>
 			</div>
 			<div class="mb-4">
 				<label for="konten" class="block text-sm font-medium text-gray-700 mb-2">Capaian Pembelajaran:</label>
-				<textarea id="konten" name="konten" class="editor-quill hidden"></textarea>
-
-				<!-- Quill Editor Container -->
-				<div
-					id="editor-container"
-					class="bg-[#fafafa] rounded-lg shadow p-4 w-full">
-					<div class="toolbar-container"></div>
-					<!-- Toolbar -->
-					<div class="mt-2 quill-editor text-black"></div>
-					<!-- Editor area -->
-				</div>
+				<textarea type="text" id="konten" name="konten" required rows="2"
+					class="mt-1 block w-full border border-gray-300 text-gray-800 bg-[#fafafa] rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+					placeholder="Tata Nilai"> </textarea>
 			</div>
-			<!-- <div class="output w-full max-w-2xl bg-white rounded-lg shadow p-4">
-						<h3 class="text-lg font-semibold mb-2">Editor Output:</h3>
-						<div class="p-2 output-content bg-gray-100 rounded quill-content"></div>
-					</div> -->
-		</div>
 
 
-		<div class="divider border-gray-400"></div>
-		<div class="relative flex justify-end gap-4">
-			<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 mb-4"
-				onclick="window.location.href='<?= site_url('Prodi/Cpl_skpi');?>';">Close</button>
-			<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 mb-4">Submit</button>
-		</div>
+			<div class="divider border-gray-400"></div>
+			<div class="relative flex justify-end gap-4">
+				<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 mb-4"
+					onclick="window.location.href='<?= site_url('Prodi/Cpl_skpi'); ?>';">Close</button>
+				<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 mb-4">Submit</button>
+			</div>
 	</form>
 </div>

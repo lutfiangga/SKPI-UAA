@@ -1,16 +1,14 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class M_cpl extends CI_Model
+class M_kategori_cpl extends CI_Model
 {
 	//$table sebagai tabel yang digunakan, dengan pemanggilannya $this->table
-	private $table = 'cpl';
+	private $table = 'kategori_cpl';
 	//$pk atau Primary Key yang digunakan, dengan pemanggilannya $this->pk
-	private $pk = 'id_cpl';
+	private $pk = 'id_kategori_cpl';
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		$this->db->join('prodi', 'cpl.id_prodi = prodi.id_prodi');
-		$this->db->join('kategori_cpl', 'cpl.id_kategori_cpl = kategori_cpl.id_kategori_cpl');
 		return $this->db->get($this->table)->result_array();
 	}
 

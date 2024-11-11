@@ -142,7 +142,7 @@
 			</li>
 			<!-- Data Prodi -->
 			<li class="my-2 <?= $role != 'admin' ? 'hidden' : 'block'; ?>">
-				<a href="<?= site_url('Admin/Prodi'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'prodi') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?>  rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+				<a href="<?= site_url('Admin/Prodi'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'program_studi') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?>  rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="briefcase"></i>
 					<span class="text-[15px] ml-4">Program Studi</span>
 				</a>
@@ -159,6 +159,14 @@
 				<a href="<?= site_url('Admin/Jenjang'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'jenjang') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?>  rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="activity"></i>
 					<span class="text-[15px] ml-4">List Jenjang</span>
+				</a>
+			</li>
+			<!-- Kategori CPL -->
+			<li class="my-2 <?= $role != 'prodi' ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url('Prodi/Kategori_Cpl'); ?>"
+					class="p-2.5 flex items-center text-left  <?= ($active_menu === 'kategori_cpl') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?>  rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="paperclip"></i>
+					<span class="text-[15px] ml-4">Kategori CPL</span>
 				</a>
 			</li>
 			<!-- CPL Mahasiswa -->

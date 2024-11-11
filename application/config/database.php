@@ -75,12 +75,12 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => 'localhost',
-	'username' => 'postgres',
-	'password' => 'root',
-	'database' => 'uaa',
+	'hostname' => 'aws-0-ap-southeast-1.pooler.supabase.com',
+	'username' => 'postgres.tsiowklbvnidtdjbqgcq',
+	'password' => '8ap2q5rKhEBL4w8L',
+	'database' => 'postgres',
 	'dbdriver' => 'postgre',
-	'dbprefix' => 'skpi.',
+	'dbprefix' => 'public.',
 	'pconnect' => FALSE,
 	'db_debug' => (ENVIRONMENT !== 'production'),
 	'cache_on' => FALSE,
@@ -93,5 +93,5 @@ $db['default'] = array(
 	'stricton' => FALSE,
 	'failover' => array(),
 	'save_queries' => TRUE,
-	'port' => 5433
+	'port' => 6543
 );

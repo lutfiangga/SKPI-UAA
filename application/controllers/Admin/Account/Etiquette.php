@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Etiquette extends CI_Controller
 {
 	private $view = "admin/pages/account/etiquette/";
-	private $redirect = "Admin/Account/Ettiquette";
+	private $redirect = "Admin/Account/Etiquette";
 	public function __construct()
 	{
 		parent::__construct();

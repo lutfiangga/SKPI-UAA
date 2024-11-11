@@ -19,7 +19,7 @@ class Prodi extends CI_Controller
 		$data = array(
 			'judul' => "DATA PROGRAM STUDI",
 			'sub' => "Data Program Studi",
-			'active_menu' => 'prodi',
+			'active_menu' => 'program_studi',
 			'id_user' => $this->session->userdata('id_user'),
 			'role' => $role,
 			'nama' => $this->session->userdata('nama'),
@@ -36,7 +36,7 @@ class Prodi extends CI_Controller
 		$data = array(
 			'judul' => "DATA PROGRAM STUDI",
 			'sub' => "Data Program Studi",
-			'active_menu' => 'prodi',
+			'active_menu' => 'program_studi',
 			'id_user' => $this->session->userdata('id_user'),
 			'role' => $role,
 			'nama' => $this->session->userdata('nama'),
@@ -56,7 +56,7 @@ class Prodi extends CI_Controller
 		$data = array(
 			'judul' => "DATA PROGRAM STUDI",
 			'sub' => "Data Program Studi",
-			'active_menu' => 'prodi',
+			'active_menu' => 'program_studi',
 			'id_user' => $this->session->userdata('id_user'),
 			'role' => $role,
 			'nama' => $this->session->userdata('nama'),

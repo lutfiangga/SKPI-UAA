@@ -9,7 +9,7 @@ class Cpl_skpi extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Prodi');
-		$this->load->model(array('M_cpl', 'M_prodi'));
+		$this->load->model(array('M_cpl', 'M_prodi', 'M_kategori_cpl'));
 	}
 	function index()
 	{
@@ -47,6 +47,7 @@ class Cpl_skpi extends CI_Controller
 			'foto' => $foto,
 			'read' => $this->M_cpl->GetAll(),
 			'prodi' => $this->M_prodi->GetAll(),
+			'cpl' => $this->M_kategori_cpl->GetAll(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'create', $data);
 	}
@@ -57,7 +58,7 @@ class Cpl_skpi extends CI_Controller
 		$data = array(
 			'id_cpl' => $this->security->xss_clean($this->input->post('id_cpl')),
 			'id_prodi' => $this->security->xss_clean($this->input->post('id_prodi')),
-			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
+			'id_kategori_cpl' => $this->security->xss_clean($this->input->post('id_kategori_cpl')),
 			'konten' => $this->security->xss_clean($this->input->post('konten')),
 		);
 		$this->M_cpl->save($data);
@@ -83,6 +84,7 @@ class Cpl_skpi extends CI_Controller
 			'read' => $this->M_cpl->GetAll(),
 			'prodi' => $this->M_prodi->GetAll(),
 			'edit' => $this->M_cpl->edit($id),
+			'cpl' => $this->M_kategori_cpl->GetAll(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'edit', $data);
 	}
@@ -92,7 +94,7 @@ class Cpl_skpi extends CI_Controller
 		$id = $this->uri->segment(4);
 		$data = array(
 			'id_prodi' => $this->security->xss_clean($this->input->post('id_prodi')),
-			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
+			'id_kategori_cpl' => $this->security->xss_clean($this->input->post('id_kategori_cpl')),
 			'konten' => $this->security->xss_clean($this->input->post('konten')),
 		);
 		$this->M_cpl->update($id, $data);

@@ -29,7 +29,7 @@ class Dir_Admisi extends CI_Controller
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'role' => $role,
-			'staff' => $this->M_staff->GetAll(),
+			'staff' => $this->M_staff->GetAllStaff(),
 			'direktur' => $this->M_dirAdmisi->GetDirektur(),
 		);
 
