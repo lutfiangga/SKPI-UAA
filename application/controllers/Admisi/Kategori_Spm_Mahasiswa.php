@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 class Kategori_Spm_Mahasiswa extends CI_Controller
 {
-	private $view = "admisi/pages/kategori_spm_wajib/";
+	private $view = "admisi/pages/kategori_syarat_wajib/";
 	private $redirect = "Admisi/Kategori_Spm_Mahasiswa";
 	public function __construct()
 	{
@@ -18,8 +18,8 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->input->post('id_kategori_syarat_wajib');
 		$data = array(
-			'judul' => "KATEGORI SPM WAJIB",
-			'sub' => "Kategori SPM Wajib",
+			'judul' => "KATEGORI SYARAT WAJIB",
+			'sub' => "Kategori Syarat Wajib",
 			'active_menu' => 'kategori_spm',
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,

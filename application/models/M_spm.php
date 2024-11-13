@@ -105,12 +105,13 @@ class M_spm extends CI_Model
 		$this->db->order_by($this->pk, 'asc');
 
 		$this->db->join('akun_user', 'spm.nim = akun_user.id_user', 'left');
-		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
 		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
-		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
-		$this->db->where('mhs1.nim', $nim);
+		$this->db->join('mahasiswa', 'spm.nim = mahasiswa.nim');
+
+		$this->db->where('mahasiswa.nim', $nim);
 		return $this->db->get($this->table)->result_array();
 	}
+
 	public function GetByNim($nim)
 	{
 		$this->db->order_by($this->pk, 'asc');
@@ -123,5 +124,19 @@ class M_spm extends CI_Model
 		$this->db->where('spm.status', 'diterima');
 		$query = $this->db->get($this->table);
 		return $query->result_array();
+	}
+	public function GetTotalByNim($nim)
+	{
+		$this->db->select('kategori_spm.kategori, SUM(CAST(kategori_spm.poin AS INTEGER)) AS total_poin');
+		$this->db->join('akun_user', 'spm.nim = akun_user.id_user', 'left');
+		$this->db->join('mahasiswa AS mhs1', 'spm.nim = mhs1.nim');
+		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
+		$this->db->where('mhs1.nim', $nim);
+		$this->db->where('spm.status', 'diterima');
+		$this->db->group_by('kategori_spm.kategori');
+		$this->db->order_by('kategori_spm.kategori', 'asc');
+
+		return $this->db->get($this->table)->result_array();
 	}
 }

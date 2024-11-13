@@ -99,6 +99,7 @@ class Auth extends CI_Controller
 	{
 		$array = array(
 			'id_user' => $data['id_user'],
+			'id_akun' => $data['id_akun'],
 			'nama' => $data['nama'],
 			'role' => $data['role'],
 			'img_user' => $data['img_user'],

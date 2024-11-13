@@ -26,6 +26,7 @@ class Dashboard extends CI_Controller
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id_user),
 			'spm' => $this->M_spm->GetByNim($id_user),
+			'spmMhs' => $this->M_spm->GetTotalByNim($id_user),
 			'declinedSpm' => $this->M_spm->getPoinDecline($id_user),
 			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id_user),
 		);

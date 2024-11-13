@@ -120,14 +120,14 @@
 					</p>
 
 					<div class="flex flex-col justify-center gap-4">
-						<?php foreach ($spm as $row) : ?>
+						<?php foreach ($spmMhs as $row) : ?>
 							<div class="flex flex-row items-center gap-2">
 								<!-- Circle Icon -->
 								<div id="circle-<?= $row['kategori']; ?>" class="bg-circle mr-1 rounded-full h-4 w-4 flex items-center justify-center"></div>
 
 								<!-- Kategori -->
 								<p class="text-base capitalize font-medium">
-									Kategori: <?= $row['kategori']; ?> <span class="font-bold"><?= $row['poin']; ?> Poin</span>
+									Kategori: <?= $row['kategori']; ?> <span class="font-bold"><?= $row['total_poin']; ?> Poin</span>
 								</p>
 							</div>
 						<?php endforeach; ?>
@@ -190,17 +190,17 @@
 	let hoverBackgroundColors = [];
 	let colorsMap = {}; // Untuk menyimpan warna untuk setiap kategori
 
-	<?php foreach ($spm as $row) : ?>
-		let kategori = "<?= $row['kategori'] ?>";
-		let poin = <?= $row['poin'] ?>;
+	<?php foreach ($spmMhs as $row) : ?>
+		var kategori = "<?= $row['kategori'] ?>";
+		var poin = <?= $row['total_poin'] ?>;
 
 		// Generate a color for this category if not already generated
 		if (!colorsMap[kategori]) {
 			colorsMap[kategori] = getRandomColor();
 		}
 
-		let bgColor = colorsMap[kategori];
-		let hoverColor = getRandomColor();
+		var bgColor = colorsMap[kategori];
+		var hoverColor = getRandomColor();
 
 		labels.push(kategori);
 		data.push(poin);
@@ -208,7 +208,7 @@
 		hoverBackgroundColors.push(hoverColor);
 
 		// Apply the color to the span element corresponding to the category
-		let element = document.getElementById('circle-' + kategori);
+		var element = document.getElementById('circle-' + kategori);
 		if (element) {
 			element.style.backgroundColor = bgColor; // Use the color for this category
 		}
@@ -219,12 +219,12 @@
 		document.getElementById('no-graph').style.display = 'block';
 		document.getElementById('myChart').style.display = 'none'; // Hide the canvas
 	} else {
-		let polarChart = new Chart(ctx, {
+		var polarChart = new Chart(ctx, {
 			type: 'polarArea',
 			data: {
 				labels: labels,
 				datasets: [{
-					label: 'Total Uang Keluar',
+					label: labels,
 					data: data,
 					backgroundColor: backgroundColors,
 					borderColor: 'rgba(0,0,0,0)', // Transparent border

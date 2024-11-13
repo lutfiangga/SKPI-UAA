@@ -18,17 +18,18 @@
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="paperclip" class="w-4 h-auto"></i>
+						<i data-feather="server" class="w-4 h-auto rotate-90"></i>
 						<span class="hidden md:block">
-							Kategori
+							University
 						</span>
 					</a>
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="award" class="w-4 h-auto"></i>
+						<i data-feather="user" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-							SPM
+
+							<?= ucwords($active_menu); ?>
 						</span>
 					</a>
 				</li>
@@ -72,8 +73,8 @@
 						placeholder="Masukkan fakultas" />
 				</div>
 				<div class="col-span-2">
-					<label for="select_dekan" class="block text-sm font-medium text-gray-700 mb-2">Dekan Fakultas:</label>
-					<select id="select_dekan" required name="id_dekan" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+					<label for="id_dekan" class="block text-sm font-medium text-gray-700 mb-2">Dekan Fakultas:</label>
+					<select id="id_dekan" required name="id_dekan" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Dekan Fakultas--</option>
 						<?php foreach ($staff as $r) { ?>
 							<option value="<?= $r['id_staff'] ?>"><?= $r['id_staff'] . ' | ' . $r['nama']; ?></option>

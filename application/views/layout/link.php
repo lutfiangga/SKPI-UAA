@@ -2,7 +2,7 @@
 <!-- custom css -->
 <link rel="stylesheet" href="<?= base_url(); ?>assets/vendor/css/app.css" />
 <!-- Tailwind CSS -->
-<script src="http://cdn.tailwindcss.com"></script>
+<script src="https://cdn.tailwindcss.com"></script>
 <!-- Feather Icons -->
 <script src="<?= base_url(); ?>assets/vendor/js/plugin/feather.min.js"></script>
 

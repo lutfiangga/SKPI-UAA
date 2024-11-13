@@ -67,7 +67,7 @@
 					<?php
 					$no = 1;
 					foreach ($read as $row) {
-						if ($row['nim'] == $this->session->userdata('id_user')) {
+						if ($row['nim'] == $id_user && $row['id_akun'] == $id_akun) {
 					?>
 							<tr class="border-t">
 								<td class="p-2">
@@ -165,7 +165,7 @@
 										</div>
 									</h3>
 									<div class="divider border-gray-400"></div>
-									<form method="post" action="<?= site_url('Mahasiswa/Syarat_Wajib/update'); ?>" enctype="multipart/form-data"
+									<form method="post" action="<?= site_url('Mahasiswa/Syarat_wajib/update'); ?>" enctype="multipart/form-data"
 										role="form">
 										<?= csrf(); ?>
 										<input type="hidden" id="edit_id_syarat_wajib" name="id_syarat_wajib" value="" />
@@ -179,7 +179,7 @@
 													<option value="<?= $r['id_kategori_syarat_wajib'] ?>"
 														<?= ($r['id_kategori_syarat_wajib'] == $row['id_kategori_syarat_wajib']) ? 'selected' : '' ?>
 														data-type="<?= $r['type'] ?>">
-														<?= $r['id_kategori_syarat_wajib'] . ' | ' . $r['kategori']; ?></option>
+														<?= $r['kategori']; ?></option>
 												<?php } ?>
 											</select>
 
@@ -296,7 +296,7 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Mahasiswa/Syarat_Wajib/save'); ?>" enctype="multipart/form-data"
+			<form method="post" action="<?= site_url('Mahasiswa/Syarat_wajib/save'); ?>" enctype="multipart/form-data"
 				role="form">
 				<?= csrf(); ?>
 
@@ -308,7 +308,7 @@
 						<option value="" selected disabled>--Pilih Kategori--</option>
 						<?php foreach ($kategori->result_array() as $r) { ?>
 							<option value="<?= $r['id_kategori_syarat_wajib'] ?>" data-type="<?= $r['type'] ?>">
-								<?= $r['id_kategori_syarat_wajib'] . ' | ' . $r['kategori']; ?></option>
+								<?= $r['kategori']; ?></option>
 						<?php } ?>
 					</select>
 				</div>
@@ -398,7 +398,7 @@
 			</h3>
 			<div class="divider border-gray-400"></div>
 			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus?</p>
-			<form method="post" action="<?= site_url('Mahasiswa/Syarat_Wajib/delete'); ?>">
+			<form method="post" action="<?= site_url('Mahasiswa/Syarat_wajib/delete'); ?>">
 				<?= csrf(); ?>
 				<input type="hidden" id="hapus_id_syarat_wajib" name="id_syarat_wajib" />
 				<div class="modal-action relative" style="z-index: 1000;">

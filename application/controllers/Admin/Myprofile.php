@@ -3,7 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Myprofile extends CI_Controller
 {
-	private $view = "Admin/pages/profile/";
+	private $view = "admin/pages/profile/";
 	private $redirect = "Admin/Myprofile/";
 
 	public function __construct()
@@ -17,7 +17,8 @@ class Myprofile extends CI_Controller
 
 	public function index()
 	{
-		$id = $this->session->userdata('id_user');
+		$id_user = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
@@ -25,7 +26,7 @@ class Myprofile extends CI_Controller
 			'judul' => "MY PROFILE",
 			'sub' => "Profile",
 			'active_menu' => 'myprofile',
-			'id_user' => $id,
+			'id_user' => $id_user,
 			// from tabel user
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
@@ -59,9 +60,10 @@ class Myprofile extends CI_Controller
 		cek_csrf();
 		$role = $this->session->userdata('role');
 		$id_user = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
 
 		// Konfigurasi upload image
-		$config['upload_path'] = './assets/static/img/photos/admin/';
+		$config['upload_path'] = './assets/static/img/photos/staff/';
 		$config['allowed_types'] = 'jpg|jpeg|png|wepb|JPG|PNG|JPEG|WEPB';
 		$config['max_size'] = 6000; // KB
 		$config['file_name'] = $role . '_' . $id_user . '_' . time();
@@ -76,8 +78,8 @@ class Myprofile extends CI_Controller
 			$img_user = $img_user_data['file_name'];
 
 			// delete old image
-			if (!empty($user['img_user']) && file_exists('./assets/static/img/photos/admin/' . $user['img_user'])) {
-				unlink('./assets/static/img/photos/admin/' . $user['img_user']);
+			if (!empty($user['img_user']) && file_exists('./assets/static/img/photos/staff/' . $user['img_user'])) {
+				unlink('./assets/static/img/photos/staff/' . $user['img_user']);
 			}
 		}
 

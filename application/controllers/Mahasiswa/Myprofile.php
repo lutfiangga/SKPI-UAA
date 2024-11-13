@@ -17,7 +17,8 @@ class Myprofile extends CI_Controller
 
 	public function index()
 	{
-		$id = $this->session->userdata('id_user');
+		$id_user = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . strtolower($role) . '/' . $img_user : 'assets/static/img/user.png';
@@ -25,7 +26,7 @@ class Myprofile extends CI_Controller
 			'judul' => "MY PROFILE",
 			'sub' => "Profile",
 			'active_menu' => 'myprofile',
-			'id_user' => $id,
+			'id_user' => $id_user,
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'role' => $role,
@@ -57,6 +58,7 @@ class Myprofile extends CI_Controller
 		cek_csrf();
 		$role = $this->session->userdata('role');
 		$id_user = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
 
 		// Konfigurasi upload foto
 		$config['upload_path'] = './assets/static/img/photos/mahasiswa/';

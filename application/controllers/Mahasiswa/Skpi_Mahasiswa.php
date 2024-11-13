@@ -1,7 +1,7 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
 class Skpi_Mahasiswa extends CI_Controller
 {
-	private $view = "mahasiswa/pages/skpi_Mahasiswa/";
+	private $view = "mahasiswa/pages/skpi_mahasiswa/";
 	private $redirect = "Mahasiswa/Skpi_Mahasiswa";
 	public function __construct()
 	{

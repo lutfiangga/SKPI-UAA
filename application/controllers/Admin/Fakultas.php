@@ -100,28 +100,14 @@ class Fakultas extends CI_Controller
 	{
 		cek_csrf();
 		$id = $this->uri->segment(4);
-		$this->form_validation->set_rules(
-			'fakultas',
-			'Fakultas',
-			'required|is_unique[fakultas.fakultas]',
-			[
-				'required' => 'Fakultas Wajib diisi!',
-				'is_unique' => 'Fakultas sudah terdaftar!'
-			]
+		$data = array(
+			'fakultas' => $this->security->xss_clean($this->input->post('fakultas')),
+			'id_dekan' => $this->security->xss_clean($this->input->post('id_dekan')),
 		);
-		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('update_error', validation_errors());
-			redirect($this->redirect);
-		} else {
-			$data = array(
-				'fakultas' => $this->security->xss_clean($this->input->post('fakultas')),
-				'id_dekan' => $this->security->xss_clean($this->input->post('id_dekan')),
-			);
-			// Perform the update
-			$this->M_fakultas->update($id, $data);
-			$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
-			redirect($this->redirect, 'refresh');
-		}
+		// Perform the update
+		$this->M_fakultas->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
+		redirect($this->redirect, 'refresh');
 	}
 
 	public function delete()

@@ -70,7 +70,7 @@
 					<select id="select_dekan" required name="id_jenjang" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Jenjang Program Studi--</option>
 						<?php foreach ($jenjang as $r) { ?>
-							<option value="<?= $r['id_jenjang'] ?>"><?= $r['id_jenjang'] . ' | ' . $r['jenjang']; ?></option>
+							<option value="<?= $r['id_jenjang'] ?>"><?= $r['jenjang']; ?></option>
 						<?php } ?>
 					</select>
 				</div>

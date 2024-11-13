@@ -79,11 +79,8 @@ class Akreditasi extends CI_Controller
 			$this->session->set_flashdata('create_error', validation_errors());
 			redirect($this->redirect);
 		} else {
-			$last_id = $this->M_akreditasi->getLastId(); //get last id
-			// jika id tidak ditemukan, id diisi 1
-			$id = ($last_id == null) ? 1 : $last_id + 1;
 			$data = array(
-				'id_akreditasi' => $id,
+				'id_akreditasi' => generate_uuid(),
 				'akreditasi' => $this->security->xss_clean($this->input->post('akreditasi')),
 			);
 

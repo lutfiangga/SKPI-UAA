@@ -79,11 +79,8 @@ class Jenjang extends CI_Controller
 			$this->session->set_flashdata('create_error', validation_errors());
 			redirect($this->redirect);
 		} else {
-			$last_id = $this->M_jenjang->getLastId(); //get last id
-			// jika id tidak ditemukan, id diisi 1
-			$id = ($last_id == null) ? 1 : $last_id + 1;
 			$data = array(
-				'id_jenjang' => $id,
+				'id_jenjang' => generate_uuid(),
 				'jenjang' => $this->security->xss_clean($this->input->post('jenjang')),
 				'tingkat_jenjang' => $this->security->xss_clean($this->input->post('tingkat_jenjang')),
 				'jenjang_lanjutan' => $this->security->xss_clean($this->input->post('jenjang_lanjutan')),

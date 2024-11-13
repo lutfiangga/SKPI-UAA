@@ -17,6 +17,7 @@ class Spm_Mahasiswa extends CI_Controller
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_user');
+		$akun = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
@@ -24,6 +25,7 @@ class Spm_Mahasiswa extends CI_Controller
 			'role' => $role,
 			'nama' => $this->session->userdata('nama'),
 			'id_user' => $id,
+			'id_akun' => $akun,
 			'foto' => $foto,
 			'read' => $this->M_spm->GetSpm($id),
 		);

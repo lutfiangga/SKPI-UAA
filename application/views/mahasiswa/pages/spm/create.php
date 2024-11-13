@@ -51,7 +51,7 @@
 						<option value="" selected disabled>--Pilih Kategori--</option>
 						<?php foreach ($kategori->result_array() as $r) { ?>
 							<option value="<?= $r['id_kategori_spm'] ?>">
-								<?= $r['id_kategori_spm'] . ' | ' . $r['kategori']; ?></option>
+								<?= $r['kategori']; ?></option>
 						<?php } ?>
 					</select>
 				</div>

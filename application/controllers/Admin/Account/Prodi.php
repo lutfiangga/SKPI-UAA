@@ -101,15 +101,14 @@ class Prodi extends CI_Controller
 		cek_csrf();
 		$id = $this->uri->segment(5);
 
-		// Ambil data username lama dari database
+		// Ambil data user lama dari database
 		$user = $this->M_auth->edit($id);
 		$old_username = $user ? $user['username'] : '';
+		$old_password = $user ? $user['password'] : '';
 
-		// Cek apakah username baru sama dengan username lama
 		$new_username = $this->input->post('username');
 		$updated_username = ($new_username === $old_username);
 
-		// Set aturan validasi username hanya jika username berbeda
 		if (!$updated_username) {
 			$this->form_validation->set_rules(
 				'username',
@@ -131,23 +130,22 @@ class Prodi extends CI_Controller
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('update_error', validation_errors());
-			redirect($this->redirect);
+			redirect($this->redirect . '/edit');
 		} else {
+			$new_password = $this->security->xss_clean($this->input->post('password'));
+			$password = !empty($new_password) ? password_hash($new_password, PASSWORD_ARGON2ID) : $old_password;
+
 			$data = array(
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),
-				// Hanya update username jika berbeda
 				'username' => $updated_username ? $old_username : $this->security->xss_clean($new_username),
-				'password' => !empty($this->security->xss_clean($this->input->post('password'))) ? password_hash($this->input->post('password'), PASSWORD_ARGON2ID) : NULL,
+				'password' => $password,
 				'role' => $this->security->xss_clean($this->input->post('role')),
 			);
 
-			// Lakukan update data
 			$this->M_auth->updateAccount($id, $data);
 			redirect($this->redirect, 'refresh');
 		}
 	}
-
-
 	public function delete()
 	{
 		cek_csrf();

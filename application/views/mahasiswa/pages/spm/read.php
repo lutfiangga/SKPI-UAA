@@ -72,7 +72,7 @@
 					<?php
 					$no = 1;
 					foreach ($read as $row) {
-						if ($row['nim'] == $this->session->userdata('id_user')) {
+						if ($row['nim'] == $id_user && $row['id_akun'] == $id_akun) {
 					?>
 							<tr class="border-t">
 								<td class="p-2">
