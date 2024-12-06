@@ -80,7 +80,7 @@ class Akreditasi extends CI_Controller
 			redirect($this->redirect);
 		} else {
 			$data = array(
-				'id_akreditasi' => generate_uuid(),
+				'id_akreditasi' => generate_uuid_v7_v7(),
 				'akreditasi' => $this->security->xss_clean($this->input->post('akreditasi')),
 			);
 

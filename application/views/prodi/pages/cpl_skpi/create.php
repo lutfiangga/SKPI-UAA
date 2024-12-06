@@ -11,12 +11,6 @@
 		<?= csrf(); ?>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			<div class="mb-4">
-				<label for="id_cpl" class="block text-sm font-medium text-gray-700 mb-2">Kode CPL:</label>
-				<input type="text" id="id_cpl" name="id_cpl" required
-					class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-					placeholder="Masukkan kode CPL" />
-			</div>
-			<div class="mb-4">
 				<label for="prodi" class="block text-sm font-medium text-gray-700 mb-2">Program Studi:</label>
 				<select id="prodi" required name="id_prodi" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 					<option value="" selected disabled>--Pilih Program Studi--</option>
@@ -25,10 +19,6 @@
 					<?php } ?>
 				</select>
 			</div>
-
-		</div>
-
-		<div class="grid grid-cols-1 gap-4">
 			<div class="mb-4">
 				<label for="kategori" class="block text-sm font-medium text-gray-700 mb-2">Bidang CPL:</label>
 				<select id="kategori" required name="id_kategori_cpl" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
@@ -38,6 +28,9 @@
 					<?php } ?>
 				</select>
 			</div>
+		</div>
+
+		<div class="grid grid-cols-1 gap-4">
 			<div class="mb-4">
 				<label for="konten" class="block text-sm font-medium text-gray-700 mb-2">Capaian Pembelajaran:</label>
 				<textarea type="text" id="konten" name="konten" required rows="2"

@@ -56,7 +56,7 @@ class Cpl_skpi extends CI_Controller
 	{
 		cek_csrf();
 		$data = array(
-			'id_cpl' => $this->security->xss_clean($this->input->post('id_cpl')),
+			'id_cpl' => generate_uuid_v7(),
 			'id_prodi' => $this->security->xss_clean($this->input->post('id_prodi')),
 			'id_kategori_cpl' => $this->security->xss_clean($this->input->post('id_kategori_cpl')),
 			'konten' => $this->security->xss_clean($this->input->post('konten')),

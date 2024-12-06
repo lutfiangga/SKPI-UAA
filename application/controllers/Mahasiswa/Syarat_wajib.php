@@ -17,16 +17,15 @@ class Syarat_wajib extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_user');
-		$akun = $this->session->userdata('id_akun');
+		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SYARAT WAJIB",
 			'sub' => "Syarat Wajib",
 			'active_menu' => 'syarat_wajib',
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			'id_user' => $id,
-			'id_akun' => $akun,
+			'id_user' => $this->session->userdata('id_user'),
+			'id_akun' => $id,
 			'foto' => $foto,
 			'read' => $this->M_syarat_wajib->GetSyaratWajibMhs($id),
 			'kategori' => $this->M_kategori_syarat_wajib->GetKategori(),
@@ -39,6 +38,7 @@ class Syarat_wajib extends CI_Controller
 		cek_csrf();
 
 		$nim = $this->session->userdata('id_user');
+		$id_akun = $this->session->userdata('id_akun');
 
 		// Konfigurasi upload file
 		$config['upload_path'] = './assets/static/spm/img/syarat_wajib/';
@@ -56,8 +56,8 @@ class Syarat_wajib extends CI_Controller
 		}
 
 		$data = array(
-			'id_syarat_wajib' => generate_uuid(),
-			'nim' => $nim,
+			'id_syarat_wajib' => generate_uuid_v7(),
+			'id_akun' => $id_akun,
 			'id_kategori_syarat_wajib' => $this->input->post('id_kategori_syarat_wajib'),
 			'url' => $this->input->post('url'),
 			'status' => 'pending',
@@ -184,14 +184,15 @@ class Syarat_wajib extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
+		$id_user = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SYARAT WAJIB",
 			'sub' => "Syarat Wajib",
 			'active_menu' => 'syarat_wajib',
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			'id_user' => $id,
+			'id_user' => $id_user,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_syarat_wajib->getPoinByUser($id),
 			'mhs' => $this->M_profile->getById($id),

@@ -48,7 +48,7 @@
 										</tr>
 										<tr>
 											<td class="p-2 border border-black capitalize"><?= $skpi['nama']; ?></td>
-											<td class="p-2 border border-black"><?= $skpi['tahun_masuk']; ?><?= $skpi['tahun_lulus']; ?> <br> <em><?= $skpi['tahun_masuk']; ?><?= $skpi['tahun_lulus']; ?></em></td>
+											<td class="p-2 border border-black"><?= $skpi['tahun_masuk']; ?><?= !empty($skpi['tahun_lulus']) ? ' - ' . $skpi['tahun_lulus'] : ''; ?> <br> <em><?= $skpi['tahun_masuk']; ?><?= $skpi['tahun_lulus']; ?></em></td>
 										</tr>
 
 										<tr>
@@ -56,8 +56,8 @@
 											<th class="border border-black">NOMOR SERI IJAZAH <span><em>Diploma Serial Number</em></span></th>
 										</tr>
 										<tr>
-											<td class="p-2 border border-black"><?= $skpi['tempat_lahir']; ?>, <?= $skpi['tgl_lahir']; ?><br> <em><?= auto_translate($skpi['tempat_lahir']); ?>, <?= auto_translate($skpi['tgl_lahir']); ?></em></td>
-											<td class="p-2 border border-black"><?= $skpi['nomor_ijazah']; ?></td>
+											<td class="p-2 border border-black"><?= $skpi['tempat_lahir']; ?> <?= (!empty($skpi['tempat_lahir'] && $skpi['tgl_lahir'])) ? $skpi['tempat_lahir'] . ', ' . $skpi['tgl_lahir'] : '' ?><br> <em><?= (!empty($skpi['tempat_lahir'] && $skpi['tgl_lahir'])) ? auto_translate($skpi['tempat_lahir']) . ', ' . auto_translate($skpi['tgl_lahir']) : ''; ?></em></td>
+											<td class="p-2 border border-black"><?= $skpi['nomor_ijazah']; ?> <br><em><?= $skpi['nomor_ijazah']; ?></em></td>
 										</tr>
 
 										<tr>
@@ -65,7 +65,7 @@
 											<th class="border border-black">GELAR DAN SINGKATAN <span><em>Name of Qualification</em></span></th>
 										</tr>
 										<tr>
-											<td class="p-2 border border-black"><?= $skpi['nim']; ?></td>
+											<td class="p-2 border border-black"><?= $skpi['nim']; ?><br><em><?= $skpi['nim']; ?></em></td>
 											<td class="p-2 border border-black"><?= $skpi['gelar']; ?> (<?= $skpi['singkatan_gelar']; ?>) <br><em><?= auto_translate($skpi['gelar']); ?> (<?= $skpi['singkatan_gelar']; ?>)</em></td>
 										</tr>
 
@@ -129,7 +129,7 @@
 										<th class="border border-black">JENIS DAN JENJANG PENDIDIKAN LANJUTAN <span><em>Access to Further Study</em></span></th>
 									</tr>
 									<tr>
-										<td class="p-2 border border-black">Jenjang <?= $skpi['jenjang_kualifikasi'] ?> <br><em><?= auto_translate('Jenjang' . $skpi['jenjang_kualifikasi']); ?></em></td>
+										<td class="p-2 border border-black"><?= (!empty($skpi['jenjang_kualifikasi'])) ? 'Jenjang ' . $skpi['jenjang_kualifikasi'] : '' ?> <br><em><?= (!empty($skpi['jenjang_kualifikasi'])) ? auto_translate('Jenjang' . $skpi['jenjang_kualifikasi']):''; ?></em></td>
 										<td class="p-2 border border-black"><?= $skpi['jenjang_lanjutan'] ?> <br><em><?= auto_translate($skpi['jenjang_lanjutan']); ?></em></td>
 									</tr>
 
@@ -151,20 +151,20 @@
 											<?php
 											$no = 1;
 											$id_kategori = [];
-											$current_category = ''; // Variable to keep track of the current category
+											$current_category = '';
 
-											// Simpan id_kategori yang diambil dari database ke dalam array
+
 											foreach ($kategori_cpl as $row) {
 												$id_kategori[] = $row['id_kategori_cpl'];
 											}
 
 											foreach ($cpl as $row) {
 												if (in_array($row['id_kategori_cpl'], $id_kategori) && $row['id_prodi'] == $skpi['id_prodi']) {
-													// Check if the category has changed
+
 													if ($current_category !== $row['kategori']) {
-														// If the category is different, close the previous <ol> (if any) and start a new <ol>
+
 														if ($current_category !== '') {
-															echo '</ol>'; // Close previous <ol>
+															echo '</ol>';
 														}
 
 														// Start a new <div> and category for the new category
@@ -183,8 +183,8 @@
 													// Output each item within the same <ol> for the same category
 													echo '<li>';
 													echo '<div class="flex flex-row text-justify whitespace-nowrap">';
-													echo $row['konten'] . '.';
-													echo '<span class="ml-1"><em>' . auto_translate($row['konten']) . '.</em></span>';
+													echo ucfirst($row['konten']) . '.';
+													echo '<span class="ml-1"><em>' . auto_translate(ucfirst($row['konten'])) . '.</em></span>';
 													echo '</div>';
 													echo '</li>';
 
@@ -227,11 +227,26 @@
 													?>
 															<tr>
 																<td class="border border-black text-xs lg:text-sm whitespace-normal p-4">
-																	<?= $no; ?>. <?= $row['kategori'] ?> "<?= $row['kegiatan'] ?>" yang diselenggarakan <?= $row['penyelenggara'] ?> pada tanggal <?= tanggal($row['tanggal_mulai']) ?>
-																	<?= !empty($row['tanggal_selesai']) ? 'sampai ' . tanggal($row['tanggal_selesai']) : '' ?>
-																	<?= !empty($row['tempat_kegiatan']) ? 'di ' . tanggal($row['tempat_kegiatan']) : '' ?>. <em><span class="capitalize"> <?= auto_translate($row['kategori']) ?> </span>"<?= auto_translate($row['kegiatan']) ?>" was held by <?= auto_translate($row['penyelenggara']) ?> on <?= auto_translate(tanggal($row['tanggal_mulai'])) ?>
-																		<?= !empty($row['tanggal_selesai']) ? 'until ' . auto_translate(tanggal($row['tanggal_selesai'])) : '' ?>
-																		<?= !empty($row['tempat_kegiatan']) ? 'at ' . auto_translate(tanggal($row['tempat_kegiatan'])) : '' ?>. </em>
+																	<?=
+																	$no . '. ' .
+																		ucwords($row['kategori']) . ' "' .
+																		$row['kegiatan'] . '" ' .
+																		" yang diselenggarakan oleh " .
+																		ucwords($row['penyelenggara']) .
+																		" pada tanggal " .
+																		tanggal($row['tanggal_mulai']) .
+																		(!empty($row['tanggal_selesai']) ? ' sampai ' . tanggal($row['tanggal_selesai']) : '') .
+																		(!empty($row['tempat_kegiatan']) ? ' di ' . ucwords($row['tempat_kegiatan']) : '') .
+																		"."
+																	?>
+
+																	<em>
+																		<?= ucwords(auto_translate($row['kategori'])) .
+																			' "' . auto_translate($row['kegiatan']) . '" ' .
+																			' was held by ' . auto_translate(ucwords($row['penyelenggara'])) .
+																			' on ' . auto_translate(tanggal($row['tanggal_mulai'])) . (!empty($row['tanggal_selesai']) ? ' until ' . auto_translate(tanggal($row['tanggal_selesai'])) : '') .
+																			(!empty($row['tempat_kegiatan']) ? ' at ' . auto_translate(ucwords($row['tempat_kegiatan'])) : '') . '.'  ?>
+																	</em>
 																</td>
 
 															</tr>

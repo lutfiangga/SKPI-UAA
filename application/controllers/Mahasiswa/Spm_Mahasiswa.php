@@ -16,16 +16,15 @@ class Spm_Mahasiswa extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_user');
-		$akun = $this->session->userdata('id_akun');
+		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
 			'active_menu' => 'spm_mhs',
 			'role' => $role,
 			'nama' => $this->session->userdata('nama'),
-			'id_user' => $id,
-			'id_akun' => $akun,
+			'id_user' => $this->session->userdata('id_user'),
+			'id_akun' => $id,
 			'foto' => $foto,
 			'read' => $this->M_spm->GetSpm($id),
 		);
@@ -34,17 +33,16 @@ class Spm_Mahasiswa extends CI_Controller
 
 	public function print()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
 			'active_menu' => 'spm_mhs',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
-			'id_user' => $id,
+			'role' => $this->session->userdata('role'),
+			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
 			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
@@ -60,21 +58,22 @@ class Spm_Mahasiswa extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
+		$id_user = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
 			'active_menu' => 'spm_mhs',
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			'id_user' => $id,
+			'id_user' => $id_user,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id_user),
 			'mhs' => $this->M_profile->getById($id),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 			'spm' => $this->M_spm->GetByNim($id),
-			'etiquette' => $this->M_etiquette->GetByNim($id),
+			'etiquette' => $this->M_etiquette->GetByNim($id_user),
 		);
 		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
 	}
@@ -102,6 +101,7 @@ class Spm_Mahasiswa extends CI_Controller
 
 		// Mendapatkan data pengguna
 		$id_user = $this->session->userdata('id_user');
+		$id_akun = $this->session->userdata('id_akun');
 		$role = $this->session->userdata('role');
 
 		// Proses upload sertifikat
@@ -153,8 +153,8 @@ class Spm_Mahasiswa extends CI_Controller
 		}
 
 		$data = array(
-			'id_spm' => generate_uuid(),
-			'nim' => $id_user,
+			'id_spm' => generate_uuid_v7(),
+			'id_akun' => $id_akun,
 			'id_kategori_spm' => $this->security->xss_clean($this->input->post('id_kategori_spm')),
 			'kegiatan' => $this->security->xss_clean($this->input->post('kegiatan')),
 			'tanggal_mulai' => $this->security->xss_clean($this->input->post('tanggal_mulai')),

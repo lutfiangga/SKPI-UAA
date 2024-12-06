@@ -79,7 +79,7 @@ class Kategori_Cpl extends CI_Controller
 			redirect($this->redirect . '/create');
 		} else {
 			$data = array(
-				'id_kategori_cpl' => generate_uuid(),
+				'id_kategori_cpl' => generate_uuid_v7(),
 				'kategori' => $this->security->xss_clean($this->input->post('kategori')),
 			);
 			$this->M_kategori_cpl->save($data);

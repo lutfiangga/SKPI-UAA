@@ -52,10 +52,9 @@
 				<thead class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Kode</th>
-						<th class="p-2 whitespace-normal">Program Studi</th>
-						<th class="p-2">Kategori</th>
 						<th class="p-2">CPL</th>
+						<th class="p-2">Kategori</th>
+						<th class="p-2 whitespace-normal">Program Studi</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
@@ -67,12 +66,11 @@
 								<td class="p-2">
 									<?= $no; ?>
 								</td>
-								<td class="p-2 whitespace-normal"><?= $row['id_cpl'] ?></td>
-								<td class="p-2 whitespace-nowrap"><?= $row['prodi'] ?></td>
-								<td class="p-2 whitespace-nowrap"><?= $row['kategori'] ?></td>
 								<td class="p-2 whitespace-normal">
 									<?= mb_strlen($row['konten']) > 50 ? mb_substr($row['konten'], 0, 50) . '...' : $row['konten'] ?>
 								</td>
+								<td class="p-2 whitespace-nowrap"><?= $row['kategori'] ?></td>
+								<td class="p-2 whitespace-nowrap"><?= $row['prodi'] ?></td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<!-- Button Edit -->
 									<a href="<?= site_url('Prodi/Cpl_skpi/edit/' . $row['id_cpl']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
@@ -100,10 +98,9 @@
 				<tfoot class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Kode</th>
-						<th class="p-2 whitespace-normal">Program Studi</th>
-						<th class="p-2">Kategori</th>
 						<th class="p-2">CPL</th>
+						<th class="p-2">Kategori</th>
+						<th class="p-2 whitespace-normal">Program Studi</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>

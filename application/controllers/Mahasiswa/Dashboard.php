@@ -15,20 +15,20 @@ class Dashboard extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id_user = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "DASHBOARD",
 			'sub' => "Dashboard",
 			'active_menu' => 'home',
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			'id_user' => $id_user,
+			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'SpmPoin' => $this->M_spm->getPoinByUser($id_user),
-			'spm' => $this->M_spm->GetByNim($id_user),
-			'spmMhs' => $this->M_spm->GetTotalByNim($id_user),
-			'declinedSpm' => $this->M_spm->getPoinDecline($id_user),
-			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id_user),
+			'SpmPoin' => $this->M_spm->getPoinByUser($id),
+			'spm' => $this->M_spm->GetByNim($id),
+			'spmMhs' => $this->M_spm->GetTotalByNim($id),
+			'declinedSpm' => $this->M_spm->getPoinDecline($id),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

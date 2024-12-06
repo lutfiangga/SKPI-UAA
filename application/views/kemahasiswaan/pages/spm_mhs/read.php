@@ -39,6 +39,32 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
+
+	<div class="w-full bg-[#fafafa] rounded-2xl p-4">
+		<form action="<?= site_url(ucwords($role) . '/Spm_Mahasiswa'); ?>" method="get" class="w-full flex flex-col md:flex-row justify-between gap-4">
+			<!-- Dropdown Status -->
+			<div class="flex flex-col md:flex-row items-start md:items-center gap-2 w-full">
+				<label for="status" class="text-gray-800 md:whitespace-nowrap font-semibold">Status SPM: </label>
+				<select
+					id="status"
+					name="status"
+					class="w-full md:flex-1 p-2 rounded-md bg-[#fafafa] border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none select-bordered"
+					data-search="true">
+					<option value="" selected disabled>Status</option>
+					<option value="pending" <?= ('pending' == $status) ? 'selected' : '' ?>>On Review</option>
+					<option value="diterima" <?= ('diterima' == $status) ? 'selected' : '' ?>>Verified</option>
+					<option value="ditolak" <?= ('ditolak' == $status) ? 'selected' : '' ?>>Unverified</option>
+				</select>
+				<!-- Filter Button -->
+				<button
+					type="submit"
+					class="w-full md:w-auto px-6 py-3 inline-flex gap-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+					<i data-feather="filter" fill="currentColor"></i><span>Filter</span>
+				</button>
+			</div>
+		</form>
+	</div>
+
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 
@@ -241,7 +267,6 @@
 			</table>
 		</div>
 	</section>
-
 
 </section>
 

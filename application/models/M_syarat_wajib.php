@@ -10,11 +10,24 @@ class M_syarat_wajib extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'desc');
 
-		$this->db->join('akun_user', 'syarat_wajib.nim = akun_user.id_user', 'left');
-		$this->db->join('mahasiswa AS mhs1', 'syarat_wajib.nim = mhs1.nim');
+		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun');
 		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
-		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
-		$this->db->join('prodi', 'mhs1.id_prodi = prodi.id_prodi');
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
+		return $this->db->get($this->table)->result_array();
+	}
+
+	public function filteredData($data)
+	{
+		$this->db->order_by($this->pk, 'desc');
+		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun');
+		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
+
+		if (!empty($data)) {
+			$this->db->where('syarat_wajib.status', $data);
+		}
 		return $this->db->get($this->table)->result_array();
 	}
 
@@ -49,36 +62,33 @@ class M_syarat_wajib extends CI_Model
 	{
 		return $this->db->count_all($this->table);
 	}
-	public function getPoinByUser($id_user)
+	public function getPoinByUser($id)
 	{
 		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
 		// Mengonversi poin ke tipe numeric
 		$this->db->select('SUM(CAST(kategori_syarat_wajib.poin AS NUMERIC)) as total_poin');
-		$this->db->where('syarat_wajib.nim', $id_user);
+		$this->db->where('syarat_wajib.id_akun', $id);
 		$this->db->where('syarat_wajib.status', 'diterima');
-		$query = $this->db->get($this->table);
-		return $query->row_array();
+		return $this->db->get($this->table)->row_array();
 	}
-	public function GetSyaratWajibMhs($nim)
+	public function GetSyaratWajibMhs($id)
 	{
 		$this->db->order_by($this->pk, 'asc');
 
-		$this->db->join('akun_user', 'syarat_wajib.nim = akun_user.id_user', 'left');
-		$this->db->join('mahasiswa AS mhs1', 'syarat_wajib.nim = mhs1.nim');
+		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun', 'left');
 		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
-		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
-		$this->db->where('mhs1.nim', $nim);
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->where('akun_user.id_akun', $id);
 		return $this->db->get($this->table)->result_array();
 	}
-	public function GetByNim($nim)
+	public function GetByNim($id)
 	{
 		$this->db->order_by($this->pk, 'asc');
 
-		$this->db->join('akun_user', 'syarat_wajib.nim = akun_user.id_user', 'left');
-		$this->db->join('mahasiswa AS mhs1', 'syarat_wajib.nim = mhs1.nim');
+		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun', 'left');
 		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
-		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
-		$this->db->where('mhs1.nim', $nim);
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->where('akun_user.id_akun', $id);
 		$this->db->where('syarat_wajib.status', 'diterima');
 		return $this->db->get($this->table)->result_array();
 	}
@@ -113,5 +123,4 @@ class M_syarat_wajib extends CI_Model
 		$this->db->group_by('status');
 		return $this->db->get($this->table)->result_array();
 	}
-
 }

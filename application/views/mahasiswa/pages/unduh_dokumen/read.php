@@ -47,11 +47,45 @@
 	<div class="container mx-auto ">
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 
+			<!-- Dokumen Syarat Wajib -->
+			<div
+				class="card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:scale-105">
+				<div class="relative h-64">
+					<iframe id="spm" class="absolute inset-0 w-full h-full object-cover"
+						src="<?= site_url('Mahasiswa/Syarat_wajib/export_pdf'); ?>" frameborder="0"
+						scrolling="no"></iframe>
+
+					<!-- Enhanced Gradient Overlay -->
+					<div class="absolute bottom-0 left-0 right-0 h-1/4 bg-white p-4 flex justify-between items-center">
+						<!-- Document Title -->
+						<div class="flex flex-col gap-0.5">
+							<h2 class="text-blue-700 text-lg font-semibold">Dokumen Syarat Wajib</h2>
+							<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+								<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
+							<?php else: ?>
+								<p class="text-xs text-gray-500">Skor anda masih kurang!</p>
+							<?php endif; ?>
+						</div>
+						<a href="<?= base_url('Mahasiswa/Syarat_wajib/export_pdf'); ?>" aria-label="Print Dokumen"
+							class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
+							View
+							<i data-feather="eye" class="w-5 h-5"></i>
+						</a>
+						<!-- Print Button with Tooltip -->
+						<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+							<button id="print_spm" aria-label="Print Dokumen"
+								class="flex border gap-1 text-[#fafafa] border-blue-600 items-center space-x-2 bg-blue-600 hover:bg-gray-600 p-2 rounded-lg transition duration-200">
+								Print
+								<i data-feather="printer" class="w-5 h-5"></i>
+							</button>
+						<?php endif; ?>
+					</div>
+				</div>
+			</div>
 			<!-- Dokumen SPM -->
 			<div
 				class="card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:scale-105">
 				<div class="relative h-64">
-					<!-- Iframe for Unsplash document image -->
 					<iframe id="spm" class="absolute inset-0 w-full h-full object-cover"
 						src="<?= site_url('Mahasiswa/Spm_Mahasiswa/export_pdf'); ?>" frameborder="0"
 						scrolling="no"></iframe>
@@ -83,12 +117,10 @@
 					</div>
 				</div>
 			</div>
-
 			<!-- Dokumen SKPI -->
 			<div
-				class="card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:scale-105">
+				class="card bg-white rounded-lg md:col-span-2 shadow-lg overflow-hidden hover:shadow-xl transition duration-300 transform hover:scale-105">
 				<div class="relative h-64">
-					<!-- Iframe for Unsplash document image -->
 					<iframe id="skpi" class="absolute inset-0 w-full h-full"
 						src="<?= site_url('Mahasiswa/Skpi_Mahasiswa/export_pdf'); ?>" frameborder="0"
 						scrolling="no"></iframe>

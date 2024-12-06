@@ -16,6 +16,14 @@ class SPM_Mahasiswa extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+
+		$status = $this->security->xss_clean($this->input->get('status'));
+		if ($status) {
+			$read = $this->M_spm->filteredData($status);
+		} else {
+			$read = $this->M_spm->getAll();
+		}
+
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
@@ -24,7 +32,8 @@ class SPM_Mahasiswa extends CI_Controller
 			'role' => $role,
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'read' => $this->M_spm->getAll(),
+			'read' => $read,
+			'status' => $status,
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

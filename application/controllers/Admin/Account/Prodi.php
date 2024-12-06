@@ -84,7 +84,7 @@ class Prodi extends CI_Controller
 			redirect($this->redirect);
 		} else {
 			$data = array(
-				'id_akun' => generate_uuid(),
+				'id_akun' => generate_uuid_v7(),
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),
 				'username' => $this->security->xss_clean($this->input->post('username')),
 				'password' => !empty($this->security->xss_clean($this->input->post('password'))) ? password_hash($this->input->post('password'), PASSWORD_ARGON2ID) : NULL,

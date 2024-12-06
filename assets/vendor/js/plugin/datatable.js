@@ -17,7 +17,7 @@ $(document).ready(function () {
 				select: true,
 				searching: true,
 				paging: true,
-				pagingType: "full",
+				pagingType: "full_numbers",
 				language: {
 					searchPlaceholder: "Cari...",
 					lengthMenu: "_MENU_ Data per halaman",

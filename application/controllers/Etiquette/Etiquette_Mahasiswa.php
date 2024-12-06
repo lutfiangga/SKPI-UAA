@@ -91,7 +91,7 @@ class Etiquette_Mahasiswa extends CI_Controller
 		}
 
 		$data = array(
-			'id_etiquette' => generate_uuid(),
+			'id_etiquette' => generate_uuid_v7(),
 			'nim' => $nim,
 			'pelanggaran' => $this->security->xss_clean($this->input->post('pelanggaran')),
 			'jenis_pelanggaran' => $this->security->xss_clean($this->input->post('jenis_pelanggaran')),

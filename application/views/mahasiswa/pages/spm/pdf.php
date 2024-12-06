@@ -82,7 +82,7 @@
 										<?php
 									} else {
 										foreach ($spm as $row) {
-											if ($row['nim'] == $this->session->userdata('id_user')) {
+											if ($row['nim'] == $id_user) {
 												if ($kategori != $row['kategori']) {
 													$kategori = $row['kategori'];
 													echo "<tr><td colspan='3' class='px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$row['kategori']}</td></tr>";
@@ -112,7 +112,7 @@
 											Total Skor</th>
 										<th
 											class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-center">
-											<?= (!empty($SpmPoin['total_poin'])) ? $SpmPoin['total_poin'] : 'N/A' ?>
+											<?= (!empty($SpmPoin['spm_poin'])) ? $SpmPoin['spm_poin'] : 'N/A' ?>
 										</th>
 									</tr>
 								</tfoot>
@@ -185,7 +185,7 @@
 											Total Skor</th>
 										<th
 											class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-center">
-											<?= (!empty($etiquettePoin['total_poin'])) ? $etiquettePoin['total_poin'] : 'N/A' ?>
+											<?= (!empty($etiquettePoin['etiquette_poin'])) ? $etiquettePoin['etiquette_poin'] : 'N/A' ?>
 										</th>
 									</tr>
 								</tfoot>
@@ -221,7 +221,7 @@
 								<br><br><br><br>
 								<hr class="border-b-1 border-black mt-2">
 								<p class="capitalize text-center"><?= $direktur['nama']; ?></p>
-								<?php if ($total = $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin'] >= 25): ?>
+								<?php if ($SpmPoin['spm_poin'] >= 25): ?>
 									<div class="absolute right-0 bottom-6">
 										<div class="relative w-[180px] h-auto">
 											<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>"

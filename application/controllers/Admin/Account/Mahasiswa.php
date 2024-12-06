@@ -86,7 +86,7 @@ class Mahasiswa extends CI_Controller
 		} else {
 			$password = $this->security->xss_clean($this->input->post('password'));
 			$data = array(
-				'id_akun' => generate_uuid(),
+				'id_akun' => generate_uuid_v7(),
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),
 				'username' => $this->security->xss_clean($this->input->post('username')),
 				'password' => !empty($password) ? password_hash($password, PASSWORD_ARGON2ID) : NULL,

@@ -80,7 +80,7 @@ class Jenjang extends CI_Controller
 			redirect($this->redirect);
 		} else {
 			$data = array(
-				'id_jenjang' => generate_uuid(),
+				'id_jenjang' => generate_uuid_v7(),
 				'jenjang' => $this->security->xss_clean($this->input->post('jenjang')),
 				'tingkat_jenjang' => $this->security->xss_clean($this->input->post('tingkat_jenjang')),
 				'jenjang_lanjutan' => $this->security->xss_clean($this->input->post('jenjang_lanjutan')),

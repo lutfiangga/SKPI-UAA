@@ -18,17 +18,17 @@
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="paperclip" class="w-4 h-auto"></i>
+						<i data-feather="users" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-							Kategori
+							Users
 						</span>
 					</a>
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="award" class="w-4 h-auto"></i>
+						<i data-feather="user" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-							SPM
+							Mahasiswa
 						</span>
 					</a>
 				</li>
@@ -51,18 +51,6 @@
 						placeholder="Masukkan NIM">
 				</div>
 
-				<!-- Nama Prodi -->
-				<div class="flex flex-col">
-					<label for="prodi" class="mb-2 text-sm font-medium text-gray-700">Program Studi:</label>
-					<select id="prodi" name="id_prodi"
-						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
-						<option value="" selected disabled>--Pilih Prodi--</option>
-						<?php foreach ($prodi as $r) { ?>
-							<option value="<?= $r['id_prodi'] ?>" <?= ($r['id_prodi'] == $edit['id_prodi']) ? 'selected' : '' ?>><?= $r['id_prodi'] . ' | ' . $r['prodi']; ?></option>
-						<?php } ?>
-					</select>
-				</div>
-
 				<!-- Nama -->
 				<div class="flex flex-col">
 					<label for="name" class="mb-2 text-sm font-medium text-gray-700">Nama:</label>
@@ -71,9 +59,21 @@
 						placeholder="Masukkan nama">
 					<p id="nameError" class="text-red-500 mt-2 text-xs lg:text-sm hidden">Nama harus minimal 3 karakter dan hanya mengandung huruf.</p>
 				</div>
+
+				<!-- Nama Prodi -->
+				<div class="flex flex-col">
+					<label for="prodi" class="mb-1 text-sm font-medium text-gray-700">Program Studi:</label>
+					<select id="prodi" name="id_prodi"
+						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
+						<option value="" selected disabled>--Pilih Prodi--</option>
+						<?php foreach ($prodi as $r) { ?>
+							<option value="<?= $r['id_prodi'] ?>" <?= ($r['id_prodi'] == $edit['id_prodi']) ? 'selected' : '' ?>><?= $r['id_prodi'] . ' | ' . $r['prodi']; ?></option>
+						<?php } ?>
+					</select>
+				</div>
 				<!-- jenis kelamin -->
 				<div class="flex flex-col">
-					<label for="jenis_kelamin" class="mb-2 text-sm font-medium text-gray-700">jenis Kelamin</label>
+					<label for="jenis_kelamin" class="mb-1 text-sm font-medium text-gray-700">Jenis Kelamin</label>
 					<select id="jenis_kelamin" name="jenis_kelamin"
 						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Jenis Kelamin--</option>
@@ -119,10 +119,16 @@
 						class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 						placeholder="Masukkan tahun lulus">
 				</div>
-
+				<!-- ijazah -->
+				<div class="flex flex-col">
+					<label for="name" class="mb-2 text-sm font-medium text-gray-700">Nomor Ijazah:</label>
+					<input type="text" id="name" name="nomor_ijazah" oninput="inputValidation(this)" value="<?= $edit['nomor_ijazah']; ?>"
+						class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+						placeholder="Masukkan nomor ijazah">
+				</div>
 				<!-- status mahasiswa -->
 				<div class="flex flex-col">
-					<label for="status_mahasiswa" class="mb-2 text-sm font-medium text-gray-700">Status Mahasiswa:</label>
+					<label for="status_mahasiswa" class="mb-1 text-sm font-medium text-gray-700">Status Mahasiswa:</label>
 					<select id="status_mahasiswa" name="status_mahasiswa"
 						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Status Mahasiswa--</option>
@@ -138,7 +144,7 @@
 						placeholder="Masukkan semester yang sudah ditempuh">
 				</div>
 				<!-- Periode Ajaran -->
-				<div class="flex flex-col">
+				<div class="flex flex-col md:col-span-2">
 					<label for="periode" class="mb-2 text-sm font-medium text-gray-700">Periode Ajaran:</label>
 					<select id="periode" name="periode"
 						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">

@@ -57,7 +57,8 @@ class Skpi_Mahasiswa extends CI_Controller
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_user');
+		$id = $this->session->userdata('id_akun');
+		$id_user = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
@@ -73,7 +74,7 @@ class Skpi_Mahasiswa extends CI_Controller
 			'cpl' => $this->M_cpl->GetAll(),
 			'spm' => $this->M_spm->GetByNim($id),
 			'etiket' => $this->M_etiquette->GetByNim($id),
-			'skpi' => $this->M_mahasiswa->getSKPI($id),
+			'skpi' => $this->M_mahasiswa->getSKPI($id_user),
 			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
 		);
 		// echo "<pre>";

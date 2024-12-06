@@ -34,7 +34,7 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	{
 		cek_csrf();
 		$data = array(
-			'id_kategori_spm' => generate_uuid(),
+			'id_kategori_spm' => generate_uuid_v7(),
 			'kategori' => $this->security->xss_clean($this->input->post('kategori')),
 			'poin' => $this->security->xss_clean($this->input->post('poin')),
 		);

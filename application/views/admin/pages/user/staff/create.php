@@ -18,17 +18,17 @@
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="paperclip" class="w-4 h-auto"></i>
+						<i data-feather="users" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-							Kategori
+							Users
 						</span>
 					</a>
 				</li>
 				<li>
 					<a class="gap-2 flex items-center">
-						<i data-feather="award" class="w-4 h-auto"></i>
+						<i data-feather="user" class="w-4 h-auto"></i>
 						<span class="hidden md:block">
-							SPM
+							Staff
 						</span>
 					</a>
 				</li>

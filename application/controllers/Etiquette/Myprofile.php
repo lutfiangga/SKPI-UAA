@@ -40,8 +40,9 @@ class Myprofile extends CI_Controller
 		cek_csrf();
 		$id = $this->session->userdata('id_user');
 
+		$nama = $this->security->xss_clean($this->input->post('nama'));
 		$data = array(
-			'nama' => $this->security->xss_clean($this->input->post('nama')),
+			'nama' => $nama,
 			'tgl_lahir' => !empty($this->input->post('tgl_lahir')) ? $this->input->post('tgl_lahir') : NULL,
 			'jenis_kelamin' => !empty($this->input->post('jenis_kelamin')) ? $this->input->post('jenis_kelamin') : NULL,
 			'email' => !empty($this->security->xss_clean($this->input->post('email'))) ? $this->security->xss_clean($this->input->post('email')) : NULL,
@@ -50,6 +51,7 @@ class Myprofile extends CI_Controller
 		);
 
 		$this->M_staff->update($id, $data);
+		$this->session->set_userdata('nama', $nama);
 		$this->session->set_flashdata('update_profile_success', 'Data berhasil diupdate');
 		redirect($this->redirect, 'refresh');
 	}
