@@ -18,6 +18,10 @@ class M_cpl extends CI_Model
 	{
 		return $this->db->insert($this->table, $data);
 	}
+	public function save_batch($data)
+	{
+		$this->db->insert_batch($this->table, $data);
+	}
 	public function edit($id)
 	{
 		$this->db->where($this->pk, $id);

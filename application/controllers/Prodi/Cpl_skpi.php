@@ -52,7 +52,7 @@ class Cpl_skpi extends CI_Controller
 		$this->template->load('layout/components/layout', $this->view . 'create', $data);
 	}
 
-	public function save()
+	public function saved()
 	{
 		cek_csrf();
 		$data = array(
@@ -62,6 +62,31 @@ class Cpl_skpi extends CI_Controller
 			'konten' => $this->security->xss_clean($this->input->post('konten')),
 		);
 		$this->M_cpl->save($data);
+		redirect($this->redirect, 'refresh');
+	}
+
+	public function save()
+	{
+		cek_csrf();
+
+		// Ambil data dari input form
+		$id_prodi = $this->security->xss_clean($this->input->post('id_prodi'));
+		$id_kategori_cpl = $this->security->xss_clean($this->input->post('id_kategori_cpl'));
+		$konten = $this->security->xss_clean($this->input->post('konten'));
+
+		// Looping untuk menyimpan setiap item
+		$data = [];
+		for ($i = 0; $i < count($konten); $i++) {
+			$data[] = array(
+				'id_cpl' => generate_uuid_v7(),
+				'id_prodi' => $id_prodi,
+				'id_kategori_cpl' => $id_kategori_cpl,
+				'konten' => $konten[$i],
+			);
+		}
+
+		$this->M_cpl->save_batch($data);
+		$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -98,6 +123,7 @@ class Cpl_skpi extends CI_Controller
 			'konten' => $this->security->xss_clean($this->input->post('konten')),
 		);
 		$this->M_cpl->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 		redirect($this->redirect, 'refresh');
 	}
 

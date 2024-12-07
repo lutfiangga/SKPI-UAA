@@ -46,5 +46,6 @@
 					onclick="window.location.href='<?= site_url('Prodi/Cpl_skpi'); ?>';">Close</button>
 				<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 mb-4">Submit</button>
 			</div>
+		</div>
 	</form>
 </div>

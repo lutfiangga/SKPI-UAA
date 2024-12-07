@@ -36,6 +36,39 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
+	<?php if ($this->session->flashdata('create_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('create_success'); ?></span>
+		</div>
+	<?php endif; ?>
+	<?php if ($this->session->flashdata('update_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('update_success'); ?></span>
+		</div>
+	<?php endif; ?>
+
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 
@@ -116,13 +149,13 @@
 				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
 			</form>
 			<h3 class="text-lg font-bold text-red-600 flex flex-row items-center">
-				Hapus Kategori
+				Hapus CPL
 				<div class="bg-red-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
 					<i data-feather="trash-2" class="w-4 h-4"></i>
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
+			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus CPL ini?</p>
 			<form method="post" action="<?= site_url('Prodi/Cpl_skpi/delete'); ?>">
 				<?= csrf(); ?>
 				<input type="hidden" id="hapus_id_cpl" name="id_cpl" />
