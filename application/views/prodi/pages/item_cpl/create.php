@@ -7,7 +7,7 @@
 		</div>
 	</h3>
 	<div class="divider border-gray-400"></div>
-	<form method="post" action="<?= site_url('Prodi/Cpl_skpi/save'); ?>" enctype="multipart/form-data" role="form">
+	<form method="post" action="<?= site_url('Prodi/Item_Cpl/save'); ?>" enctype="multipart/form-data" role="form">
 		<?= csrf(); ?>
 		<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
 			<div class="mb-4">
@@ -62,7 +62,7 @@
 		<div class="divider border-gray-400"></div>
 		<div class="relative flex justify-end gap-4">
 			<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 mb-4"
-				onclick="window.location.href='<?= site_url('Prodi/Cpl_skpi'); ?>';">Close</button>
+				onclick="window.location.href='<?= site_url('Prodi/Item_Cpl'); ?>';">Close</button>
 			<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 mb-4">Submit</button>
 		</div>
 	</form>

@@ -27,6 +27,12 @@ class M_cpl extends CI_Model
 		$this->db->where($this->pk, $id);
 		return $this->db->get($this->table)->row_array();
 	}
+	public function detail($id_prodi)
+	{
+		$this->db->join('prodi', 'cpl.id_prodi = prodi.id_prodi');
+		$this->db->join('kategori_cpl', 'cpl.id_kategori_cpl = kategori_cpl.id_kategori_cpl');
+		return $this->db->get_where($this->table, ['cpl.id_prodi' => $id_prodi])->result_array();
+	}
 	public function getById($id)
 	{
 		$this->db->where($this->pk, $id);
