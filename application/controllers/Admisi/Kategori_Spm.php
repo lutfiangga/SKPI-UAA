@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
-class Kategori_Spm_Mahasiswa extends CI_Controller
+class Kategori_Spm extends CI_Controller
 {
 	private $view = "admisi/pages/kategori_syarat_wajib/";
-	private $redirect = "Admisi/Kategori_Spm_Mahasiswa";
+	private $redirect = "Admisi/Kategori_Spm";
 	public function __construct()
 	{
 		parent::__construct();
@@ -13,7 +13,6 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 	}
 	function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->input->post('id_kategori_syarat_wajib');
@@ -22,7 +21,7 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'sub' => "Kategori Syarat Wajib",
 			'active_menu' => 'kategori_spm',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_kategori_syarat_wajib->getAll(),
@@ -40,6 +39,7 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'type' => $this->security->xss_clean($this->input->post('type')),
 		);
 		$this->M_kategori_syarat_wajib->save($data);
+		$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -53,6 +53,7 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'type' => $this->security->xss_clean($this->input->post('type')),
 		);
 		$this->M_kategori_syarat_wajib->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 		redirect($this->redirect, 'refresh');
 	}
 	public function delete()
@@ -64,6 +65,7 @@ class Kategori_Spm_Mahasiswa extends CI_Controller
 			'id_kategori_syarat_wajib' => $id
 		);
 		$this->M_kategori_syarat_wajib->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

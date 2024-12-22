@@ -17,20 +17,6 @@ class M_syarat_wajib extends CI_Model
 		return $this->db->get($this->table)->result_array();
 	}
 
-	public function filteredData($data)
-	{
-		$this->db->order_by($this->pk, 'desc');
-		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun');
-		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
-		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
-		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
-
-		if (!empty($data)) {
-			$this->db->where('syarat_wajib.status', $data);
-		}
-		return $this->db->get($this->table)->result_array();
-	}
-
 	public function save($data)
 	{
 		return $this->db->insert($this->table, $data);
@@ -66,7 +52,7 @@ class M_syarat_wajib extends CI_Model
 	{
 		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
 		// Mengonversi poin ke tipe numeric
-		$this->db->select('SUM(CAST(kategori_syarat_wajib.poin AS NUMERIC)) as total_poin');
+		$this->db->select('SUM(CAST(kategori_syarat_wajib.poin AS NUMERIC)) as syarat_skor');
 		$this->db->where('syarat_wajib.id_akun', $id);
 		$this->db->where('syarat_wajib.status', 'diterima');
 		return $this->db->get($this->table)->row_array();
@@ -76,8 +62,8 @@ class M_syarat_wajib extends CI_Model
 		$this->db->order_by($this->pk, 'asc');
 
 		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun', 'left');
-		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib');
-		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->join('kategori_syarat_wajib', 'syarat_wajib.id_kategori_syarat_wajib = kategori_syarat_wajib.id_kategori_syarat_wajib', 'left');
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim', 'left');
 		$this->db->where('akun_user.id_akun', $id);
 		return $this->db->get($this->table)->result_array();
 	}
@@ -121,6 +107,34 @@ class M_syarat_wajib extends CI_Model
 		$this->db->select('status, COUNT(*) as count');
 		$this->db->where('status !=', 'pending');
 		$this->db->group_by('status');
+		return $this->db->get($this->table)->result_array();
+	}
+
+	public function GetSpm()
+	{
+		$this->db->select('akun_user.id_akun,  
+        akun_user.img_user,  
+        MAX(syarat_wajib.status) as status, 
+        string_agg(DISTINCT CAST(syarat_wajib.id_syarat_wajib AS VARCHAR), \',\') as id_syarat_wajib,  
+        (SELECT COUNT(*) FROM skpi.syarat_wajib WHERE syarat_wajib.id_akun = akun_user.id_akun AND syarat_wajib.status = \'pending\') as jumlah_pending, 
+        mahasiswa.nim,  
+        mahasiswa.nama,  
+        prodi.prodi,
+        MAX(SUBSTRING(syarat_wajib.id_syarat_wajib::text FROM 1 FOR 8)) as terakhir_ditambahkan');
+
+		$this->db->join('akun_user', 'syarat_wajib.id_akun = akun_user.id_akun');
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
+
+		$this->db->group_by('akun_user.id_akun,  
+        akun_user.img_user,  
+        mahasiswa.nim,  
+        mahasiswa.nama,  
+        prodi.prodi');
+
+		// Urutkan berdasarkan timestamp UUID v7
+		$this->db->order_by('terakhir_ditambahkan', 'desc');
+
 		return $this->db->get($this->table)->result_array();
 	}
 }

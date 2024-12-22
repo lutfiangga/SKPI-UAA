@@ -1,4 +1,4 @@
-<table class="w-full times-new-roman">
+<table class="w-full font-tnr">
 	<thead class="header-print">
 		<tr>
 			<td class="content-print">
@@ -43,10 +43,110 @@
 					<div class="mt-4">
 						<p class="capitalize"><strong>Nama:</strong> <?= $mhs['nama']; ?></p>
 						<p><strong>NIM:</strong> <?= $mhs['nim']; ?></p>
-						<p class="capitalize"><strong>Program Studi:</strong> <?= $mhs['prodi']; ?></p>
+						<p class="capitalize"><strong>Program Studi:</strong> <?= $mhs['tingkat_jenjang'] . ' ' . $mhs['prodi']; ?></p>
 						<p class="capitalize"><strong>Fakultas:</strong> <?= $mhs['fakultas']; ?></p>
 					</div>
 					<!-- end data mahasiswa -->
+
+					<!-- table syarat wajib -->
+					<div class="mt-8">
+						<h3 class="text-xl font-semibold mb-4">Syarat Wajib Mahasiswa</h3>
+						<div class="overflow-x-auto">
+							<table class="items-center bg-transparent w-full border-collapse">
+								<thead>
+									<tr>
+										<th
+											class="px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+											No</th>
+										<th
+											class="px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+											Konten / Ulasan</th>
+										<th
+											class="px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+											Skor</th>
+										<th
+											class="px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+											Verfikasi</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php
+									$no = 1;
+									$kategori = '';
+									$kategoriCounter = 0;
+
+									// Cek apakah $syaratWajib kosong
+									if (empty($syaratWajib)) {
+									?>
+										<tr>
+											<td colspan="4" class="text-center px-6 py-3 text-sm text-gray-500">
+												N/A
+											</td>
+										</tr>
+										<?php
+									} else {
+										foreach ($syaratWajib as $row) {
+											if ($row['nim'] == $id_user) {
+												if ($kategori != $row['kategori']) {
+													$kategoriCounter++;
+													$kategori = $row['kategori'];
+													echo "<tr><td colspan='4' class='px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$kategoriCounter}. {$row['kategori']}</td></tr>";
+												}
+										?>
+												<tr>
+													<th
+														class="border-t-0 px-6 border-l-0 border-r-0 text-sm whitespace-nowrap p-4 text-center">
+														<?= $no; ?>
+													</th>
+													<td class="border-t-0 px-6 border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+														<a href="<?= $row['url'] ?>"><?= $row['url'] ?></a>
+													</td>
+													<td
+														class="border-t-0 px-6 text-center border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+														<?= $row['poin'] ?>
+													</td>
+													<td
+														class="border-t-0 px-6 text-center border-l-0 border-r-0 text-sm whitespace-nowrap p-4">
+														<?php if ($row['status'] == 'pending') : ?>
+															Dalam Review
+														<?php elseif ($row['status'] == 'diterima'): ?>
+															Memenuhi
+														<?php else: ?>
+															Tidak Memenuhi
+														<?php endif; ?>
+													</td>
+												</tr>
+									<?php
+												$no++;
+											}
+										}
+									}
+									?>
+								</tbody>
+								<tfoot>
+									<tr class="bg-gray-200/50">
+										<th colspan="2"
+											class="px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center">
+											Total Skor</th>
+										<th
+											class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-center">
+											<?= (!empty($syaratSkor['syarat_skor'])) ? $syaratSkor['syarat_skor'] : 'N/A' ?>
+										</th>
+										<th
+											class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-center uppercase">
+											<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor']) : ?>
+												Memenuhi
+											<?php else : ?>
+												Tidak Memenuhi
+											<?php endif; ?>
+										</th>
+
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+					<!-- end table syarat wajib -->
 
 					<!-- table prestasi -->
 					<div class="mt-8">
@@ -70,6 +170,9 @@
 									<?php
 									$no = 1;
 									$kategori = '';
+									$subkategori = '';
+									$kategori_counter = 0;
+									$subkategori_counter = 0;
 
 									// Cek apakah $spm kosong
 									if (empty($spm)) {
@@ -85,7 +188,19 @@
 											if ($row['nim'] == $id_user) {
 												if ($kategori != $row['kategori']) {
 													$kategori = $row['kategori'];
-													echo "<tr><td colspan='3' class='px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$row['kategori']}</td></tr>";
+													$kategori_counter++;
+													echo "<tr><td colspan='3' class='px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>";
+													echo "<ol class='list-decimal' start='{$kategori_counter}'><li>{$row['kategori']}</li></ol>";
+													echo "</td></tr>";
+													$subkategori = ''; // Reset subkategori saat kategori baru
+													$subkategori_counter = 'A';
+												}
+												if ($subkategori != $row['subkategori']) {
+													$subkategori = $row['subkategori'];
+													echo "<tr><td colspan='3' class='px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>";
+													echo "<ul><li>{$subkategori_counter}. {$row['subkategori']}</li></ul>";
+													echo "</td></tr>";
+													$subkategori_counter++;
 												}
 										?>
 												<tr>
@@ -143,6 +258,7 @@
 									<?php
 									$no = 1;
 									$kategori = '';
+									$kategoriCounter = 0;
 
 									// Cek apakah $etiket kosong
 									if (empty($etiquette)) {
@@ -157,8 +273,9 @@
 										foreach ($etiquette as $row) {
 											if ($row['nim'] == $this->session->userdata('id_user')) {
 												if ($kategori != $row['jenis_pelanggaran']) {
+													$kategoriCounter++;
 													$kategori = $row['jenis_pelanggaran'];
-													echo "<tr><td colspan='3' class='px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$row['jenis_pelanggaran']}</td></tr>";
+													echo "<tr><td colspan='3' class='px-6 border border-solid border-gray-400 py-3 text-sm uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-left'>{$kategoriCounter}. {$row['jenis_pelanggaran']}</td></tr>";
 												}
 										?>
 												<tr>
@@ -199,16 +316,20 @@
 						<div class="">
 							<table class="w-full text-sm text-left border-collapse">
 								<tr class="border-b border-gray-400">
+									<th class="p-2 font-semibold text-gray-600">Total Skor Syarat Wajib:</th>
+									<td class="p-2 text-gray-800 text-base text-right"><?= $syaratSkor['syarat_skor'] ?? 0; ?></td>
+								</tr>
+								<tr class="border-b border-gray-400">
 									<th class="p-2 font-semibold text-gray-600">Total Skor SPM:</th>
-									<td class="p-2 text-gray-800 text-base text-right"><?= $SpmPoin['spm_poin']; ?></td>
+									<td class="p-2 text-gray-800 text-base text-right"><?= $SpmPoin['spm_poin'] ?? 0; ?></td>
 								</tr>
 								<tr class="border-b border-gray-400">
 									<th class="p-2 font-semibold text-gray-600">Total Skor Etiquette:</th>
-									<td class="p-2 text-gray-800 text-base text-right"><?= $etiquettePoin['etiquette_poin']; ?></td>
+									<td class="p-2 text-gray-800 text-base text-right"><?= $etiquettePoin['etiquette_poin'] ?? 0; ?></td>
 								</tr>
 								<tr class="bg-gray-100 border-b border-gray-400">
 									<th class="p-2 font-semibold text-gray-600">Total Skor Akhir:</th>
-									<td class="p-2 font-bold text-gray-900 text-base text-right"><?= $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin']; ?></td>
+									<td class="p-2 font-bold text-gray-900 text-base text-right"><?= $syaratSkor['syarat_skor'] + $SpmPoin['spm_poin'] - $etiquettePoin['etiquette_poin']; ?></td>
 								</tr>
 							</table>
 						</div>
@@ -221,7 +342,7 @@
 								<br><br><br><br>
 								<hr class="border-b-1 border-black mt-2">
 								<p class="capitalize text-center"><?= $direktur['nama']; ?></p>
-								<?php if ($SpmPoin['spm_poin'] >= 25): ?>
+								<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor'] && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
 									<div class="absolute right-0 bottom-6">
 										<div class="relative w-[180px] h-auto">
 											<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>"
@@ -239,6 +360,7 @@
 					<div class="text-sm my-8">
 						<p>Tembusan:</p>
 						<ol class="list-decimal pl-5">
+							<li>Direktur Pembelajaran</li>
 							<li>Direktur Kemahasiswaan</li>
 							<li>Dekan</li>
 							<li>Kaprodi</li>
@@ -254,7 +376,7 @@
 	<tfoot class="footer-print great-vibes">
 		<tr>
 			<td class="content-print">
-				<footer class="print-footer bg-yellow-400 p-2">
+				<footer class="print-footer bg-yellow-400 p-2 font-footer-pdf">
 					<p class="text-center text-white tracking-widest text-lg fotn-semibold">
 						The University that never ends with its innovation
 					</p>

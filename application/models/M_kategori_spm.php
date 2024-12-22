@@ -9,7 +9,7 @@ class M_kategori_spm extends CI_Model
 	public function GetAll()
 	{
 		$this->db->order_by($this->pk, 'asc');
-		return $this->db->get($this->table);
+		return $this->db->get($this->table)->result_array();
 	}
 	public function save($data)
 	{
@@ -41,5 +41,20 @@ class M_kategori_spm extends CI_Model
 	public function countKategori()
 	{
 		return $this->db->count_all($this->table);
+	}
+	public function get_kategori_grouped()
+	{
+		$this->db->order_by('kategori', 'asc');
+		$query = $this->db->get($this->table)->result_array();
+
+		$result = [];
+		foreach ($query as $row) {
+
+			$label = $row['kategori'];
+			$options = $row['subkategori'];
+			$result[$label][$row['id_kategori_spm']] = $options;
+		}
+
+		return $result;
 	}
 }

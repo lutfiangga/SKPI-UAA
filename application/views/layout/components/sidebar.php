@@ -133,6 +133,14 @@
 				</ul>
 			</li>
 
+			<!-- Data SKPI Mhs -->
+			<li class="my-2 <?= $role != 'admin' ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url('Admin/Skpi_Mahasiswa'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'skpi') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?>  rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="archive"></i>
+					<span class="text-[15px] ml-4">SKPI Mahasiswa</span>
+				</a>
+			</li>
+
 			<!-- Data Fakultas -->
 			<li class="my-2 <?= $role != 'admin' ? 'hidden' : 'block'; ?>">
 				<a href="<?= site_url('Admin/Fakultas'); ?>" class="p-2.5 flex items-center text-left  <?= ($active_menu === 'fakultas') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?>  rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
@@ -185,12 +193,36 @@
 					<span class="text-[15px] ml-4">CPL SKPI</span>
 				</a>
 			</li>
-			<!-- Kategori SPM Mahasiswa -->
+			<!-- Skor Minimum SPM  -->
 			<li class="my-2 <?= ($role != 'admisi' && $role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
-				<a href="<?= site_url(ucwords($role) . '/Kategori_Spm_Mahasiswa'); ?>"
+				<a href="<?= site_url(ucwords($role) . '/Skor_Minimum_Spm'); ?>"
+					class="p-2.5 flex items-center text-left  <?= ($active_menu === 'skor_spm') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?> rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="crosshair"></i>
+					<span class="text-[15px] ml-4 flex gap-1">Skor Minimum SPM </span>
+				</a>
+			</li>
+			<!-- Periode SPM  -->
+			<li class="my-2 <?= ($role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Periode_Spm'); ?>"
+					class="p-2.5 flex items-center text-left  <?= ($active_menu === 'periode_spm') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?> rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="clock"></i>
+					<span class="text-[15px] ml-4 flex gap-1">Periode SPM </span>
+				</a>
+			</li>
+			<!-- Kategori SPM  -->
+			<li class="my-2 <?= ($role != 'admisi' && $role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Kategori_Spm'); ?>"
 					class="p-2.5 flex items-center text-left  <?= ($active_menu === 'kategori_spm') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?> rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
+					<i data-feather="box"></i>
+					<span class="text-[15px] ml-4 flex gap-1">Kategori SPM </span>
+				</a>
+			</li>
+			<!-- Subkategori SPM  -->
+			<li class="my-2 <?= ($role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
+				<a href="<?= site_url(ucwords($role) . '/Subkategori_Spm'); ?>"
+					class="p-2.5 flex items-center text-left  <?= ($active_menu === 'subkategori_spm') ? 'bg-[#fafafa] text-blue-600  ring-2 ring-[#dadada]' : ''; ?> rounded-full px-2 whitespace-wrap lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold">
 					<i data-feather="paperclip"></i>
-					<span class="text-[15px] ml-4 flex gap-1">Kategori SPM Mahasiswa</span>
+					<span class="text-[15px] ml-4 flex gap-1">Subkategori SPM </span>
 				</a>
 			</li>
 

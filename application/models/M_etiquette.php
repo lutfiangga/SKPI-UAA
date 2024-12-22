@@ -10,10 +10,9 @@ class M_etiquette extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'desc');
 
-		$this->db->join('akun_user', 'etiquette.nim = akun_user.id_user', 'left');
-		$this->db->join('mahasiswa AS mhs1', 'etiquette.nim = mhs1.nim');
-		$this->db->join('prodi', 'mhs1.id_prodi = prodi.id_prodi');
-		$this->db->join('mahasiswa AS mhs2', 'akun_user.id_user = mhs2.nim');
+		$this->db->join('mahasiswa', 'etiquette.nim = mahasiswa.nim','left');
+		$this->db->join('akun_user', 'mahasiswa.nim = akun_user.id_user', 'left');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi','left');
 
 		return $this->db->get($this->table);
 	}

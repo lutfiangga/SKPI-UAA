@@ -191,7 +191,7 @@
 	let colorsMap = {}; // Untuk menyimpan warna untuk setiap kategori
 
 	<?php foreach ($spmMhs as $row) : ?>
-		var kategori = "<?= $row['kategori'] ?>";
+		var kategori = "<?= $row['subkategori'] ?>";
 		var poin = <?= $row['total_poin'] ?>;
 
 		// Generate a color for this category if not already generated

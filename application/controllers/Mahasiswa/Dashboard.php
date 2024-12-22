@@ -16,19 +16,20 @@ class Dashboard extends CI_Controller
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
+		$nim = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "DASHBOARD",
 			'sub' => "Dashboard",
 			'active_menu' => 'home',
 			'nama' => $this->session->userdata('nama'),
 			'role' => $role,
-			'id_user' => $this->session->userdata('id_user'),
+			'id_user' => $nim,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
 			'spm' => $this->M_spm->GetByNim($id),
 			'spmMhs' => $this->M_spm->GetTotalByNim($id),
 			'declinedSpm' => $this->M_spm->getPoinDecline($id),
-			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($nim),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

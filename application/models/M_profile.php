@@ -23,6 +23,8 @@ class M_profile extends CI_Model
 		COALESCE(mahasiswa.periode) as periode,
 		COALESCE(prodi.prodi) as prodi,
 		COALESCE(mahasiswa.nim) as nim,
+		COALESCE(jenjang.id_jenjang) as id_jenjang,
+		COALESCE(jenjang.tingkat_jenjang) as tingkat_jenjang,
 		COALESCE(prodi.id_fakultas) as id_fakultas,
 		COALESCE(fakultas.fakultas) as fakultas,
 		COALESCE(staff.jabatan) as jabatan,
@@ -32,6 +34,7 @@ class M_profile extends CI_Model
 		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim', 'left');
 		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left');
 		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang', 'left');
 
 		// get data by id for profile
 		$this->db->where($this->pk, $id);

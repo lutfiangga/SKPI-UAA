@@ -85,7 +85,7 @@ class Akreditasi extends CI_Controller
 			);
 
 			$this->M_akreditasi->save($data);
-			$this->session->set_flashdata('create_success', 'Data berhasil diupdate');
+			$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -99,7 +99,7 @@ class Akreditasi extends CI_Controller
 			'akreditasi' => $this->security->xss_clean($this->input->post('akreditasi')),
 		);
 		$this->M_akreditasi->update($id, $data);
-		$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 		redirect($this->redirect, 'refresh');
 	}
 

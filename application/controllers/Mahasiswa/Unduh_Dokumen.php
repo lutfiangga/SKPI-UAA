@@ -8,7 +8,7 @@ class Unduh_Dokumen extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_spm', 'M_profile', 'M_dirKemahasiswaan', 'M_etiquette', 'M_syarat_wajib'));
+		$this->load->model(array('M_spm', 'M_profile', 'M_skor_syarat_wajib', 'M_skor_spm','M_mahasiswa', 'M_dirKemahasiswaan', 'M_etiquette', 'M_syarat_wajib'));
 	}
 	public function index()
 	{
@@ -17,6 +17,9 @@ class Unduh_Dokumen extends CI_Controller
 		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$id_user = $this->session->userdata('id_user');
+
+		$mhs = $this->M_mahasiswa->getId($id_user);
+
 		$data = array(
 			'judul' => "UNDUH DOKUMEN",
 			'sub' => "Unduh Dokumen",
@@ -25,9 +28,12 @@ class Unduh_Dokumen extends CI_Controller
 			'role' => $role,
 			'id_user' => $id_user,
 			'foto' => $foto,
+			'mhs' => $this->M_mahasiswa->getId($id_user),
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
 			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id_user),
 			'syaratSkor' => $this->M_syarat_wajib->getPoinByUser($id),
+			'skorSyaratWajib' => $this->M_skor_syarat_wajib->skorMinimum($mhs['tahun_masuk'], $mhs['id_jenjang']),
+			'skorMinSpm' => $this->M_skor_spm->skorMinimum($mhs['tahun_masuk'], $mhs['id_jenjang']),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

@@ -24,6 +24,7 @@ class Cpl_Skpi extends CI_Controller
 			'role' => $role,
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
+			'cpl' => $this->M_cpl->GetAll(),
 			'read' => $this->M_prodi->GetAll(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);

@@ -15,6 +15,16 @@ $(document).ready(function () {
 				responsive: true,
 				autoWidth: true,
 				select: true,
+				columnDefs: [
+					{
+						targets: [0, -1], // First and last columns
+						orderable: false, // Disable sorting
+					},
+					{
+						targets: "_all", // All columns
+						searchable: true, // Enable searching
+					},
+				],
 				searching: true,
 				paging: true,
 				pagingType: "full_numbers",
@@ -58,6 +68,16 @@ $(document).ready(function () {
 				responsive: true,
 				autoWidth: true,
 				select: true,
+				columnDefs: [
+					{
+						targets: [0, -1], // First and last columns
+						orderable: false, // Disable sorting
+					},
+					{
+						targets: "_all", // All columns
+						searchable: true, // Enable searching
+					},
+				],
 				searching: true,
 				paging: true,
 				pagingType: "full",

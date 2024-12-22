@@ -142,7 +142,7 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Admisi/Kategori_Spm_Mahasiswa/save'); ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Admisi/Kategori_Spm/save'); ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
 				<div>
 					<div class="mb-4">
@@ -195,7 +195,7 @@
 				</div>
 			</h3>
 			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Admisi/Kategori_Spm_Mahasiswa/update'); ?>" enctype="multipart/form-data" role="form">
+			<form method="post" action="<?= site_url('Admisi/Kategori_Spm/update'); ?>" enctype="multipart/form-data" role="form">
 				<?= csrf(); ?>
 				<input type="hidden" id="edit_id_kategori_syarat_wajib" name="id_kategori_syarat_wajib" value="" />
 
@@ -251,7 +251,7 @@
 			</h3>
 			<div class="divider border-gray-400"></div>
 			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
-			<form method="post" action="<?= site_url('Admisi/Kategori_Spm_Mahasiswa/delete'); ?>">
+			<form method="post" action="<?= site_url('Admisi/Kategori_Spm/delete'); ?>">
 				<?= csrf(); ?>
 				<input type="hidden" id="hapus_id_kategori_syarat_wajib" name="id_kategori_syarat_wajib" />
 				<div class="modal-action relative" style="z-index: 1000;">

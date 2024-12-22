@@ -36,16 +36,67 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
-
+	<!-- Alert success -->
+	<!-- create -->
+	<?php if ($this->session->flashdata('create_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('create_success'); ?></span>
+		</div>
+	<?php endif; ?>
+	<!-- update -->
+	<?php if ($this->session->flashdata('update_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('update_success'); ?></span>
+		</div>
+	<?php endif; ?>
+	<!-- delete -->
+	<?php if ($this->session->flashdata('delete_success')): ?>
+		<div role="alert" class="alert alert-error">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('delete_error'); ?></span>
+		</div>
+	<?php endif; ?>
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 		<!-- add user -->
-		<button class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4 w-full md:w-auto flex flex-row items-center" onclick="addkategori.showModal()">
+		<a href="<?= site_url(ucwords($role) . '/Kategori_Spm/create'); ?>" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4 w-full md:w-auto flex flex-row items-center max-w-xs">
 			<div class="bg-[#faafa] md:p-3 p-2 rounded-lg">
 				<i data-feather="paperclip" class="w-4 h-4"></i>
 			</div>
 			Tambah Kategori
-		</button>
+		</a>
 
 		<div class="overflow-x-auto">
 			<table id="" class="min-w-full table-auto table-data">
@@ -53,29 +104,21 @@
 					<tr>
 						<th class="p-2">No</th>
 						<th class="p-2">Kategori</th>
-						<th class="p-2">Poin</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php if (!empty($read)) {
 						$no = 1;
-						foreach ($read->result_array() as $row) { ?>
+						foreach ($read as $row) { ?>
 							<tr class="border-t">
 								<td class="p-2"><?= $no; ?></td>
 								<td class="p-2 whitespace-normal"><?= $row['kategori'] ?></td>
-								<td>
-									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
-										<i data-feather="check-circle" class="w-4 h-auto"></i>
-										<?= $row['poin'] ?> Poin
-									</span>
-								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
-									<button class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
-										onclick="openEditModal('<?= $row['id_kategori_spm']; ?>', '<?= $row['kategori']; ?>', '<?= $row['poin']; ?>')">
+									<a href="<?= site_url(ucwords($role) . '/Kategori_Spm/edit/' . $row['id_kategori_spm']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
 										<i data-feather="edit" class="w-4 h-auto"></i>
 										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
-									</button>
+									</a>
 
 									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal('<?= $row['id_kategori_spm']; ?>')">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
@@ -88,7 +131,7 @@
 						}
 					} else { ?>
 						<tr>
-							<td colspan="4" class="text-center">Tidak ada data</td>
+							<td colspan="3" class="text-center">Tidak ada data</td>
 						</tr>
 					<?php } ?>
 				</tbody>
@@ -96,7 +139,6 @@
 					<tr>
 						<th class="p-2">No</th>
 						<th class="p-2">Kategori</th>
-						<th class="p-2">Poin</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>
@@ -104,85 +146,6 @@
 		</div>
 
 	</section>
-
-	<!-- modal add Kategori -->
-	<dialog id="addkategori" class="modal overflow-hidden">
-		<div class="modal-box bg-[#fafafa]">
-			<!-- Tombol close di sudut kanan atas -->
-			<form method="dialog">
-				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
-			</form>
-			<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
-				Tambah Kategori
-				<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
-					<i data-feather="paperclip" class="w-4 h-4"></i>
-				</div>
-			</h3>
-			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Kategori_SPM_Mahasiswa/save'); ?>" enctype="multipart/form-data" role="form">
-				<?= csrf(); ?>
-				<div>
-					<div class="mb-4">
-						<label for="name" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
-						<input type="text" id="name" name="kategori" required
-							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-							placeholder="Masukkan nama" />
-					</div>
-
-					<div class="mb-4">
-						<label for="poin" class="block text-sm font-medium text-gray-700 mb-2">Poin:</label>
-						<input type="number" id="poin" name="poin" required
-							class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-							placeholder="Masukkan poin" />
-					</div>
-
-					<div class="divider border-gray-400"></div>
-					<div class="modal-action relative" style="z-index: 1000;">
-						<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
-						<button type="submit" class="btn disabled:text-gray-400 disabled:cursor-not-allowed bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
-					</div>
-			</form>
-		</div>
-	</dialog>
-
-	<!-- Modal edit Kategori -->
-	<dialog id="editKategori" class="modal overflow-hidden">
-		<div class="modal-box bg-[#fafafa]">
-			<form method="dialog">
-				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
-			</form>
-			<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
-				Edit Kategori
-				<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
-					<i data-feather="paperclip" class="w-4 h-4"></i>
-				</div>
-			</h3>
-			<div class="divider border-gray-400"></div>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Kategori_SPM_Mahasiswa/update'); ?>" enctype="multipart/form-data" role="form">
-				<?= csrf(); ?>
-				<input type="hidden" id="edit_id_kategori_spm" name="id_kategori_spm" value="" />
-
-				<div class="mb-4">
-					<label for="edit_name" class="block text-sm font-medium text-gray-700 mb-2">Nama Kategori:</label>
-					<input type="text" id="edit_name" name="kategori" required
-						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-						placeholder="Masukkan nama" />
-				</div>
-
-				<div class="mb-4">
-					<label for="edit_poin" class="block text-sm font-medium text-gray-700 mb-2">Poin:</label>
-					<input type="number" id="edit_poin" name="poin" required
-						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-						placeholder="Masukkan poin" />
-				</div>
-
-				<div class="modal-action relative" style="z-index: 1000;">
-					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
-					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Update</button>
-				</div>
-			</form>
-		</div>
-	</dialog>
 
 	<!-- Modal Hapus Kategori -->
 	<dialog id="hapusKategori" class="modal overflow-hidden">
@@ -199,7 +162,7 @@
 			</h3>
 			<div class="divider border-gray-400"></div>
 			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Kategori_SPM_Mahasiswa/delete'); ?>">
+			<form method="post" action="<?= site_url('Kemahasiswaan/Kategori_Spm/delete'); ?>">
 				<?= csrf(); ?>
 				<input type="hidden" id="hapus_id_kategori_spm" name="id_kategori_spm" />
 				<div class="modal-action relative" style="z-index: 1000;">
@@ -212,23 +175,6 @@
 
 </section>
 <script>
-	// open modal edit
-	const openEditModal = (id, kategori, poin, type) => {
-		document.getElementById('edit_id_kategori_spm').value = id;
-		document.getElementById('edit_name').value = kategori;
-		document.getElementById('edit_poin').value = poin;
-
-		// Set radio button berdasarkan type
-		if (type === 'file') {
-			document.getElementById('edit_file').checked = true;
-		} else if (type === 'link') {
-			document.getElementById('edit_link').checked = true;
-		}
-
-		document.getElementById('editKategori').showModal();
-	}
-
-
 	// delete kategori
 	const openDeleteModal = (id) => {
 		document.getElementById('hapus_id_kategori_spm').value = id;

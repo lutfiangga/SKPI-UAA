@@ -46,21 +46,22 @@
 				<!-- Nama Kategori -->
 				<div class="flex flex-col">
 					<label for="kategori" class="mb-2 text-sm font-medium text-gray-700">Kategori:</label>
-					<select id="kategori" required name="id_kategori_spm"
-						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
-						<option value="" selected disabled>--Pilih Kategori--</option>
-						<?php foreach ($kategori->result_array() as $r) { ?>
-							<option value="<?= $r['id_kategori_spm'] ?>"
-								<?= ($r['id_kategori_spm'] == $r['id_kategori_spm']) ? 'selected' : '' ?>>
-								<?= $r['kategori']; ?></option>
-						<?php } ?>
+					<select id="kategori"  name="id_subkategori_spm"
+						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md capitalize" data-search="true">
+						<?php foreach ($kategori as $group_label => $options): ?>
+							<optgroup label="<?= $group_label; ?>">
+								<?php foreach ($options as $id => $option_label): ?>
+									<option value="<?= $id; ?>" <?= ($id == $edit['id_subkategori_spm']) ? 'selected' : '' ?>><?= $option_label; ?></option>
+								<?php endforeach; ?>
+							</optgroup>
+						<?php endforeach; ?>
 					</select>
 				</div>
 
 				<!-- Nama Kegiatan -->
 				<div class="flex flex-col">
 					<label for="kegiatan" class="mb-2 text-sm font-medium text-gray-700">Nama Kegiatan:</label>
-					<input type="text" required id="kegiatan" name="kegiatan"
+					<input type="text"  id="kegiatan" name="kegiatan"
 						class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 						value="<?= $edit['kegiatan']; ?>">
 				</div>
@@ -68,7 +69,7 @@
 				<!-- Penyelenggara -->
 				<div class="flex flex-col">
 					<label for="penyelenggara" class="mb-2 text-sm font-medium text-gray-700">Penyelenggara:</label>
-					<input type="text" required id="penyelenggara" name="penyelenggara"
+					<input type="text"  id="penyelenggara" name="penyelenggara"
 						class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 						value="<?= $edit['penyelenggara']; ?>">
 				</div>
@@ -76,7 +77,7 @@
 				<!-- Tanggal -->
 				<div class="flex flex-col relative">
 					<label for="tanggal_mulai" class="mb-2 text-sm font-medium text-gray-700">Tanggal Mulai</label>
-					<input type="text" id="tanggal_mulai" required name="tanggal_mulai"
+					<input type="text" id="tanggal_mulai"  name="tanggal_mulai"
 						class="pickdate p-2 w-full rounded-md bg-[#fafafa] focus:ring-inset focus:ring-blue-400 border border-gray-300"
 						placeholder="Tanggal Mulai" value="<?= $edit['tanggal_mulai']; ?>">
 				</div>
@@ -91,7 +92,7 @@
 				<!-- Link Kegiatan -->
 				<div class="flex flex-col">
 					<label for="url" class="mb-2 text-sm font-medium text-gray-700">Link Kegiatan:</label>
-					<input type="url" required id="url" name="link_kegiatan"
+					<input type="url"  id="url" name="link_kegiatan"
 						class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 						value="<?= $edit['link_kegiatan']; ?>" placeholder="https://example.com"
 						oninput=" inputValidation(this)">
@@ -100,7 +101,7 @@
 				</div>
 				<div class="flex flex-col md:col-span-2">
 					<label for="tempat_kegiatan" class="mb-2 text-sm font-medium text-gray-700">Tempat Kegiatan:</label>
-					<input type="tempat_kegiatan" required id="tempat_kegiatan" name="tempat_kegiatan" value="<?= $edit['tempat_kegiatan']; ?>"
+					<input type="tempat_kegiatan"  id="tempat_kegiatan" name="tempat_kegiatan" value="<?= $edit['tempat_kegiatan']; ?>"
 						class="p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
 						placeholder="Kantor Kemdikbud">
 				</div>
@@ -125,7 +126,7 @@
 								<p class="text-xs text-gray-500 mb-2">PDF Only up to 5 MB</p>
 							</div>
 
-							<input id="sertifikat" required value="<?= $edit['sertifikat']; ?>" name="sertifikat"
+							<input id="sertifikat"  value="<?= $edit['sertifikat']; ?>" name="sertifikat"
 								accept="application/pdf" type="file" class="file-input hidden" />
 
 							<div class="relative mt-4">

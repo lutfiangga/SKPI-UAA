@@ -5,7 +5,7 @@ import { requiredLabel } from "./form/requiredLabel.js";
 import { fileUpload } from "./form/file-upload.js";
 import { selectCustomDateRange } from "./form/select-custom-date-form.js";
 import { profileTab } from "./dashboard/profile-tab.js";
-import { SlimSelectOption } from "./plugin/slim-select.js";
+import { GropSelectOption, SlimSelectOption } from "./plugin/slim-select.js";
 import { pickdate } from "../plugin/jquery/datepicker/js/jquery-datepicker.js";
 import { quillTextEditor } from "./plugin/quill.js";
 
@@ -18,6 +18,7 @@ window.fileUpload = fileUpload;
 window.selectCustomDateRange = selectCustomDateRange;
 window.profileTab = profileTab;
 window.SlimSelectOption = SlimSelectOption;
+window.GropSelectOption = GropSelectOption;
 window.pickdate = pickdate;
 window.quillTextEditor = quillTextEditor;
 
@@ -52,6 +53,22 @@ window.addEventListener("load", function () {
 		}
 	} else {
 		console.warn("SlimSelectOption tidak terdefinisi.");
+	}
+	// Inisiasi group Select
+	if (typeof GropSelectOption === "function") {
+		const selector = document.querySelectorAll('select[group-search="true"]');
+		if (selector.length > 0) {
+			console.log("select ditemukan, menjalankan GropSelectOption.");
+			try {
+				GropSelectOption();
+			} catch (error) {
+				console.error("Error saat menjalankan GropSelectOption:", error);
+			}
+		} else {
+			console.warn("Tidak ada elemen select ditemukan.");
+		}
+	} else {
+		console.warn("GropSelectOption tidak terdefinisi.");
 	}
 
 	// Inisiasi date picker

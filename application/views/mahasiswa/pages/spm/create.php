@@ -36,7 +36,23 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
-
+	<!-- Alert error -->
+	<?php if ($this->session->flashdata('create_error')): ?>
+		<div role="alert" class="alert alert-warning">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+			</svg>
+			<span> <?= $this->session->flashdata('create_error'); ?></span>
+		</div>
+	<?php endif; ?>
 	<!-- form data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 		<form method="post" action="<?= site_url(ucwords($role) . '/Spm_Mahasiswa/save/') ?>"
@@ -46,13 +62,15 @@
 				<!-- Nama Kategori -->
 				<div class="flex flex-col">
 					<label for="kategori" class="mb-2 text-sm font-medium text-gray-700">Nama Kategori:</label>
-					<select id="kategori" required name="id_kategori_spm"
-						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
-						<option value="" selected disabled>--Pilih Kategori--</option>
-						<?php foreach ($kategori->result_array() as $r) { ?>
-							<option value="<?= $r['id_kategori_spm'] ?>">
-								<?= $r['kategori']; ?></option>
-						<?php } ?>
+					<select id="kategori" required name="id_subkategori_spm"
+						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md capitalize" data-search="true">
+						<?php foreach ($kategori as $group_label => $options): ?>
+							<optgroup label="<?= $group_label; ?>">
+								<?php foreach ($options as $id => $option_label): ?>
+									<option value="<?= $id; ?>"><?= $option_label; ?></option>
+								<?php endforeach; ?>
+							</optgroup>
+						<?php endforeach; ?>
 					</select>
 				</div>
 				<!-- Nama Kegiatan -->

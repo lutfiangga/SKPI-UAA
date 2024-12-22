@@ -12,7 +12,8 @@ class M_mahasiswa extends CI_Model
 		$this->db->join('akun_user', 'mahasiswa.nim = akun_user.id_user');
 		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left');
 		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
-		return $this->db->get($this->table);
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang', 'left');
+		return $this->db->get($this->table)->result_array();
 	}
 
 	public function GetAllMhs()
@@ -100,29 +101,83 @@ class M_mahasiswa extends CI_Model
 		$this->db->where($data);
 		return $this->db->delete($this->table);
 	}
-	public function getId($id_user)
+	public function getId($nim)
 	{
-		$this->db->where('id_user', $id_user);
-		$query = $this->db->get($this->table);
-		return $query->row();
+		$this->db->where($this->pk, $nim);
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left');
+		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
+		$this->db->join('staff', 'fakultas.id_dekan = staff.id_staff', 'left');
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang', 'left');
+		return $this->db->get($this->table)->row_array();
 	}
 
-	public function getUsername($username)
+	// Di model M_mahasiswa
+	// Di model M_mahasiswa
+	public function getMahasiswaEligible()
 	{
-		$this->db->where($this->pk, $username);
-		$query = $this->db->get($this->table);
-		return $query->row(); // Returns a single row result
-	}
-	public function getLastId()
-	{
-		$this->db->select_max($this->pk);
-		$query = $this->db->get($this->table);
-		$result = $query->row_array();
+		// Dapatkan semua mahasiswa dengan skor mereka
+		$this->db->select('mahasiswa.*, prodi.prodi, fakultas.fakultas, 
+                       jenjang.id_jenjang, mahasiswa.tahun_masuk,
+                       syarat_wajib.skor as skor_wajib,
+                       spm.skor as skor_spm,
+                       akun_user.id_akun');
 
-		return $result[$this->pk];
-	}
-	public function countUser()
-	{
-		return $this->db->count_all($this->table);
+		$this->db->from('mahasiswa');
+
+		// Join dengan akun_user
+		$this->db->join('akun_user', 'mahasiswa.nim = akun_user.id_user', 'left');
+
+		// Join untuk data program studi dan fakultas
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi', 'left');
+		$this->db->join('fakultas', 'prodi.id_fakultas = fakultas.id_fakultas', 'left');
+		$this->db->join('jenjang', 'prodi.id_jenjang = jenjang.id_jenjang', 'left');
+
+		// Join untuk skor syarat wajib melalui akun_user
+		$this->db->join(
+			'syarat_wajib',
+			'akun_user.id_akun = syarat_wajib.id_akun',
+			'left'
+		);
+
+		// Join untuk skor SPM melalui akun_user
+		$this->db->join(
+			'spm',
+			'akun_user.id_akun = spm.id_akun',
+			'left'
+		);
+
+		$result = $this->db->get()->result_array();
+
+		// Filter mahasiswa yang memenuhi syarat
+		$eligible_students = array();
+
+		foreach ($result as $student) {
+			// Dapatkan skor minimum untuk masing-masing kategori
+			$min_wajib = $this->M_skor_syarat_wajib->skorMinimum(
+				$student['tahun_masuk'],
+				$student['id_jenjang']
+			);
+
+			$min_spm = $this->M_skor_spm->skorMinimum(
+				$student['tahun_masuk'],
+				$student['id_jenjang']
+			);
+
+			// Cek apakah mahasiswa memenuhi kedua syarat
+			if (
+				$min_wajib && $min_spm &&
+				$student['skor_wajib'] >= $min_wajib['skor'] &&
+				$student['skor_spm'] >= $min_spm['skor']
+			) {
+
+				// Tambahkan skor minimum ke data mahasiswa
+				$student['min_skor_wajib'] = $min_wajib['skor'];
+				$student['min_skor_spm'] = $min_spm['skor'];
+
+				$eligible_students[] = $student;
+			}
+		}
+
+		return $eligible_students;
 	}
 }

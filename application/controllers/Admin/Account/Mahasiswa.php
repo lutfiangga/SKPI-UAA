@@ -79,10 +79,19 @@ class Mahasiswa extends CI_Controller
 				'is_unique' => 'Username sudah terdaftar!'
 			]
 		);
+		$this->form_validation->set_rules(
+			'id_user',
+			'NIM',
+			'required|is_unique[akun_user.id_user]',
+			[
+				'required' => 'NIM Wajib diisi!',
+				'is_unique' => 'NIM sudah terdaftar!'
+			]
+		);
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('create_error', validation_errors());
-			redirect($this->redirect);
+			redirect($this->redirect . '/create');
 		} else {
 			$password = $this->security->xss_clean($this->input->post('password'));
 			$data = array(

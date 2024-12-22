@@ -9,33 +9,46 @@ class SPM_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Admisi');
-		$this->load->model('M_syarat_wajib');
+		$this->load->model(array('M_syarat_wajib', 'M_profile'));
 	}
 	function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
-
-		$status = $this->security->xss_clean($this->input->get('status'));
-		if ($status) {
-			$read = $this->M_syarat_wajib->filteredData($status);
-		} else {
-			$read = $this->M_syarat_wajib->getAll();
-		}
 
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
 			'active_menu' => 'spm_mhs',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'read' => $read,
-			'status' => $status,
+			'read' => $this->M_syarat_wajib->getSpm(),
 		);
+		// echo ($role);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
+	}
+	function detail($id)
+	{
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		// $id = $this->uri->segment(4);
+
+		$data = array(
+			'judul' => "SPM MAHASISWA",
+			'sub' => "SPM Mahasiswa",
+			'active_menu' => 'spm_mhs',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $this->session->userdata('role'),
+			'id_user' => $this->session->userdata('id_user'),
+			'foto' => $foto,
+			'mhs' => $this->M_profile->getById($id),
+			'spm' => $this->M_syarat_wajib->GetSyaratWajibMhs($id),
+		);
+		// $detail = $this->M_syarat_wajib->GetSyaratWajibMhs($id);
+		// echo($detail['id_akun']);
+		$this->template->load('layout/components/layout', $this->view . 'detail', $data);
 	}
 
 	public function accept($id)

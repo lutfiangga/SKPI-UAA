@@ -9,55 +9,69 @@ class SPM_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Kemahasiswaan');
-		$this->load->model('M_spm');
+		$this->load->model(array('M_spm', 'M_profile'));
 	}
 	function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
-
-		$status = $this->security->xss_clean($this->input->get('status'));
-		if ($status) {
-			$read = $this->M_spm->filteredData($status);
-		} else {
-			$read = $this->M_spm->getAll();
-		}
 
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
 			'active_menu' => 'spm_mhs',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'read' => $read,
-			'status' => $status,
+			'read' => $this->M_spm->getSpmMhs(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
 
-	public function accept($id)
+	function detail($id)
 	{
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		// $id = $this->uri->segment(4);
+
+		$data = array(
+			'judul' => "SPM MAHASISWA",
+			'sub' => "SPM Mahasiswa",
+			'active_menu' => 'spm_mhs',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $this->session->userdata('role'),
+			'id_user' => $this->session->userdata('id_user'),
+			'foto' => $foto,
+			'mhs' => $this->M_profile->getById($id),
+			'spm' => $this->M_spm->getSpm($id),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'detail', $data);
+	}
+
+	public function accept($id_spm, $id_akun)
+	{
+		$id_akun = $this->uri->segment(5);
 		$data = array(
 			'keterangan' => '',
 			'status' => 'diterima',
 		);
 
-		$this->M_spm->update($id, $data);
-		redirect($this->redirect);
+		$this->M_spm->update($id_spm, $data);
+		redirect($this->redirect . '/detail/' . $id_akun);
 	}
 	public function decline()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_spm');
+		$id_akun = $this->uri->segment(5);
+		$id = $this->security->xss_clean($this->input->post('id_spm'));
 		$data = array(
 			'keterangan' => $this->security->xss_clean($this->input->post('keterangan')),
 			'status' => 'ditolak',
 		);
+		// echo $id_akun;
 
 		$this->M_spm->update($id, $data);
-		redirect($this->redirect);
+		redirect($this->redirect . '/detail/' . $id_akun);
 	}
 }

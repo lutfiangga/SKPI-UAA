@@ -4,10 +4,21 @@ export const pickdate = () => {
 		dateFormat: "yy-mm-dd", // Date format (e.g., YYYY-MM-DD)
 		yearRange: "-100:+100", // Allows selection of years from 100 years ago to 100 years in the future
 		beforeShow: function (input) {
-			setTimeout(() => generateButtons(input), 1); // Call generateButtons with slight delay
+			// Apply z-index to the Datepicker widget
+			setTimeout(() => {
+				$(input)
+					.datepicker("widget")
+					.css("z-index", 1000); // Ensure Datepicker appears above other elements
+				generateButtons(input); // Call generateButtons with slight delay
+			}, 1);
 		},
 		onChangeMonthYear: function (yy, mm, inst) {
-			setTimeout(() => generateButtons(inst.input), 1); // Call generateButtons on month or year change
+			setTimeout(() => {
+				$(inst.input)
+					.datepicker("widget")
+					.css("z-index", 1000); // Ensure z-index persists on month/year change
+				generateButtons(inst.input); // Call generateButtons on month or year change
+			}, 1);
 		},
 		showWeek: true,
 		firstDay: 1,

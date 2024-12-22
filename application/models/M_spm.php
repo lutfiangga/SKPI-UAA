@@ -11,7 +11,8 @@ class M_spm extends CI_Model
 		$this->db->order_by($this->pk, 'desc');
 
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun', 'left');
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa ', 'akun_user.id_user = mahasiswa.nim');
 		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
 
@@ -21,7 +22,8 @@ class M_spm extends CI_Model
 	{
 		$this->db->order_by($this->pk, 'desc');
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun', 'left');
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa ', 'akun_user.id_user = mahasiswa.nim');
 		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
 
@@ -60,18 +62,20 @@ class M_spm extends CI_Model
 	}
 	public function getPoinByUser($id)
 	{
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun');
-		$this->db->select('COALESCE(SUM(CAST(kategori_spm.poin AS NUMERIC)), 0) as spm_poin');
+		$this->db->select('COALESCE(SUM(CAST(subkategori_spm.poin AS NUMERIC)), 0) as spm_poin');
 		$this->db->where('spm.id_akun', $id);
 		$this->db->where('spm.status', 'diterima');
 		return $this->db->get($this->table)->row_array();
 	}
 	public function getPoinDecline($id)
 	{
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun');
-		$this->db->select('COALESCE(SUM(CAST(kategori_spm.poin AS NUMERIC)), 0) as spm_poin');
+		$this->db->select('COALESCE(SUM(CAST(subkategori_spm.poin AS NUMERIC)), 0) as spm_poin');
 		$this->db->where('spm.id_akun', $id);
 		$this->db->where('spm.status', 'ditolak');
 		return $this->db->get($this->table)->row_array();
@@ -114,7 +118,8 @@ class M_spm extends CI_Model
 		$this->db->order_by($this->pk, 'asc');
 
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun', 'left');
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
 
 		$this->db->where('akun_user.id_akun', $id);
@@ -126,7 +131,8 @@ class M_spm extends CI_Model
 		$this->db->order_by('tanggal_mulai', 'asc');
 
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun', 'left');
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
 		$this->db->where('akun_user.id_akun', $id);
 		$this->db->where('spm.status', 'diterima');
@@ -134,14 +140,43 @@ class M_spm extends CI_Model
 	}
 	public function GetTotalByNim($id)
 	{
-		$this->db->select('kategori_spm.kategori, SUM(CAST(kategori_spm.poin AS INTEGER)) AS total_poin');
+		$this->db->select('kategori_spm.kategori,subkategori_spm.subkategori, SUM(CAST(subkategori_spm.poin AS INTEGER)) AS total_poin');
 		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun', 'left');
-		$this->db->join('kategori_spm', 'spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		$this->db->join('subkategori_spm', 'spm.id_subkategori_spm = subkategori_spm.id_subkategori_spm');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
 		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
 		$this->db->where('akun_user.id_akun', $id);
 		$this->db->where('spm.status', 'diterima');
-		$this->db->group_by('kategori_spm.kategori');
+		$this->db->group_by('kategori_spm.kategori,subkategori_spm.subkategori');
 		$this->db->order_by('kategori_spm.kategori', 'asc');
+
+		return $this->db->get($this->table)->result_array();
+	}
+
+	public function GetSpmMhs()
+	{
+		$this->db->select('akun_user.id_akun,  
+        akun_user.img_user,  
+        MAX(spm.status) as status, 
+        string_agg(DISTINCT CAST(spm.id_spm AS VARCHAR), \',\') as id_spm,  
+        (SELECT COUNT(*) FROM skpi.spm WHERE spm.id_akun = akun_user.id_akun AND spm.status = \'pending\') as jumlah_pending, 
+        mahasiswa.nim,  
+        mahasiswa.nama,  
+        prodi.prodi,
+        MAX(SUBSTRING(spm.id_spm::text FROM 1 FOR 8)) as terakhir_ditambahkan');
+
+		$this->db->join('akun_user', 'spm.id_akun = akun_user.id_akun');
+		$this->db->join('mahasiswa', 'akun_user.id_user = mahasiswa.nim');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
+
+		$this->db->group_by('akun_user.id_akun,  
+        akun_user.img_user,  
+        mahasiswa.nim,  
+        mahasiswa.nama,  
+        prodi.prodi');
+
+		// Urutkan berdasarkan timestamp UUID v7
+		$this->db->order_by('terakhir_ditambahkan', 'desc');
 
 		return $this->db->get($this->table)->result_array();
 	}

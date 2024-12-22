@@ -78,7 +78,7 @@
 								<td class="p-2">
 									<?= $no; ?>
 								<td class="p-2 whitespace-normal"><?= $row['kegiatan'] ?></td>
-								<td class="p-2 whitespace-normal"><?= $row['kategori'] ?></td>
+								<td class="p-2 whitespace-normal"><?= $row['kategori'] . ' ' . $row['subkategori'] ?></td>
 								<td class="p-2 whitespace-nowrap">
 									<span
 										class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
@@ -101,8 +101,8 @@
 													<i data-feather="file-text" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-normal">
-												<?= $row['sertifikat']; ?></p>
+											<p class="text-sm max-w-full font-thin underline">
+												Sertifikat</p>
 										</a>
 									<?php endif; ?>
 								</td>
@@ -122,7 +122,7 @@
 								</td>
 								<td class="p-2">
 									<?php if (!empty($row['foto_kegiatan'])) : ?>
-										<a href="<?= base_url('assets/static/spm/img/foto_kegiatan/' . $row['foto_kegiatan']); ?>"
+										<a href="<?= base_url('assets/static/spm/pdf/foto_kegiatan/' . $row['foto_kegiatan']); ?>"
 											download
 											class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
 											<div>
@@ -130,8 +130,8 @@
 													<i data-feather="image" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-normal">
-												<?= $row['foto_kegiatan']; ?></p>
+											<p class="text-sm max-w-full font-thin underline">
+												Foto Kegiatan</p>
 										</a>
 									<?php endif; ?>
 								</td>
@@ -145,8 +145,8 @@
 													<i data-feather="file-text" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-normal">
-												<?= $row['surat_tugas']; ?></p>
+											<p class="text-sm max-w-full font-thin underline">
+												Surat Tugas</p>
 										</a>
 									<?php endif; ?>
 								</td>
