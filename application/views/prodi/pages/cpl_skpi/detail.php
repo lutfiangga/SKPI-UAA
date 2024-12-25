@@ -123,14 +123,19 @@
 												<td class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-semibold text-left"><?= $noItem++ . '. ' . $row['konten']; ?></td>
 												<td class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-semibold text-left">
 													<!-- Button Edit -->
-													<div class="flex justify-end text-orange-500 hover:text-red-600">
-														<a href="<?= site_url('Prodi/Item_Cpl/edit/' . $row['id_cpl']); ?>" class=" max-w-20 p-2 flex items-center gap-2">
+													<div class="flex justify-end gap-2">
+														<a href="<?= site_url('Prodi/Item_Cpl/edit/' . $row['id_cpl']); ?>" class="rounded-full p-2 bg-orange-100 text-orange-600 hover:scale-125 hover:bg-orange-200 flex items-center gap-2">
 															<i data-feather="edit" class="w-4 h-auto"></i>
-															Edit
 														</a>
+														<!-- Button Delete -->
+														<button class="rounded-full p-2 bg-red-100 text-red-600 hover:scale-125 hover:bg-red-200 flex items-center gap-2"
+															onclick="openDeleteModal('<?= $row['id_cpl']; ?>')">
+															<i data-feather="trash-2" class="w-4 h-auto"></i>
+														</button>
 													</div>
 												</td>
 											</tr>
+
 										<?php endforeach; ?>
 									</tbody>
 								</table>
@@ -165,4 +170,37 @@
 		</table>
 	</div>
 
+	<!-- Modal Hapus -->
+	<dialog id="hapusCPL" class="modal overflow-hidden">
+		<div class="modal-box bg-[#fafafa]">
+			<!-- Tombol close di sudut kanan atas -->
+			<form method="dialog">
+				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
+			</form>
+			<h3 class="text-lg font-bold text-red-600 flex flex-row items-center">
+				Hapus CPL
+				<div class="bg-red-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
+					<i data-feather="trash-2" class="w-4 h-4"></i>
+				</div>
+			</h3>
+			<div class="divider border-gray-400"></div>
+			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus CPL ini?</p>
+			<form method="post" action="<?= site_url('Prodi/Item_Cpl/delete'); ?>">
+				<?= csrf(); ?>
+				<input type="hidden" id="hapus_id_cpl" name="id_cpl" />
+				<div class="modal-action relative" style="z-index: 1000;">
+					<button type="button" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+					<button type="submit" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Hapus</button>
+				</div>
+			</form>
+		</div>
+	</dialog>
 </section>
+
+<script>
+	// Function to open delete modal and set data
+	function openDeleteModal(id_cpl) {
+		document.getElementById('hapus_id_cpl').value = id_cpl;
+		document.getElementById('hapusCPL').showModal();
+	}
+</script>

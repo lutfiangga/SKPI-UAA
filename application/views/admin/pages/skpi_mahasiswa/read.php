@@ -75,7 +75,7 @@
 			<div class="mt-2 md:mt-5">
 				<button
 					type="submit"
-					class="w-full text-center inline-flex justify-center items-center md:w-auto px-6 py-3 gap-2 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+					class="w-full text-center inline-flex justify-center items-center md:w-auto px-6 py-3 gap-2 rounded-md bg-blue-100 text-blue-600 font-semibold hover:bg-blue-200 focus:ring-2 focus:ring-blue-400 focus:outline-none">
 					<i data-feather="filter" fill="currentColor"></i><span>Filter</span>
 				</button>
 			</div>
@@ -103,7 +103,7 @@
 						$mhs_folder = 'assets/static/img/photos/staff/mahasiswa/';
 						$default_image = 'assets/static/img/user.png';
 
-						$img_user = !empty($row['img_user']) && file_exists($role_folder . $row['img_user']) ? $role_folder . $row['img_user'] : $default_image;
+						$img_user = !empty($row['img_user']) && file_exists($mhs_folder . $row['img_user']) ? $mhs_folder . $row['img_user'] : $default_image;
 					?>
 						<tr class="border-t">
 							<td class="p-2"><?= $no; ?></td>
@@ -121,8 +121,13 @@
 							</td>
 							<td class="p-2 whitespace-nowrap">Semester <?= $row['semester']; ?></td>
 							<td class="p-2 flex flex-row items-center justify-center mt-2 gap-2">
-								<a href="<?= site_url('Admin/Skpi_Mahasiswa/pdf/' . $row['nim'] . '/' . $row['id_akun']) ?>" class="bg-blue-600 rounded-full p-2 hover:scale-125 text-[#fafafa] flex items-center gap-2 group">
+								<a href="<?= site_url('Admin/Skpi_Mahasiswa/detail/' . $row['nim'] . '/' . $row['id_akun']) ?>" class="bg-blue-100 rounded-full p-2 hover:scale-125 hover:bg-blue-200 text-blue-600 flex items-center gap-2 group">
 									<i data-feather="eye" class="w-4 h-auto"></i>
+								</a>
+								<a href="<?= site_url(ucwords($role) . '/Skpi_Mahasiswa/pdf/' . $row['nim'] . '/' . $row['id_akun']) ?>" aria-label="Print Dokumen"
+									class="flex border gap-1 text-orange-600 items-center space-x-2 bg-orange-100 hover:bg-orange-200 p-2 rounded-lg transition duration-200">
+									<i data-feather="file-text" class="w-5 h-5"></i>
+									<p class="font-semibold hidden md:block">PDF</p>
 								</a>
 							</td>
 						</tr>

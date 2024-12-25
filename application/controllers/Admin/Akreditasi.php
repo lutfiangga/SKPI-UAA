@@ -14,15 +14,14 @@ class Akreditasi extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA AKREDITASI",
 			'sub' => "Data Akreditasi",
 			'active_menu' => 'akreditasi',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_akreditasi->GetAll(),
@@ -31,15 +30,14 @@ class Akreditasi extends CI_Controller
 	}
 	function create()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA AKREDITASI",
 			'sub' => "Data Akreditasi",
 			'active_menu' => 'akreditasi',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 		);
@@ -47,15 +45,14 @@ class Akreditasi extends CI_Controller
 	}
 	function edit($id)
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA AKREDITASI",
 			'sub' => "Data Akreditasi",
 			'active_menu' => 'akreditasi',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'edit' => $this->M_akreditasi->edit($id),
@@ -80,7 +77,7 @@ class Akreditasi extends CI_Controller
 			redirect($this->redirect);
 		} else {
 			$data = array(
-				'id_akreditasi' => generate_uuid_v7_v7(),
+				'id_akreditasi' => generate_uuid_v7(),
 				'akreditasi' => $this->security->xss_clean($this->input->post('akreditasi')),
 			);
 
@@ -111,6 +108,7 @@ class Akreditasi extends CI_Controller
 			'id_akreditasi' => $id
 		);
 		$this->M_akreditasi->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

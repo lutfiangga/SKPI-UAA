@@ -14,7 +14,7 @@ class SPM_Mahasiswa extends CI_Controller
 	function index()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 
 		$data = array(
 			'judul' => "SPM MAHASISWA",
@@ -32,7 +32,7 @@ class SPM_Mahasiswa extends CI_Controller
 	function detail($id)
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		// $id = $this->uri->segment(4);
 
 		$data = array(

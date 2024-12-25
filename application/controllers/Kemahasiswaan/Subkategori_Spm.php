@@ -14,7 +14,7 @@ class Subkategori_Spm extends CI_Controller
 	function index()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SUBKATEGORI SPM",
 			'sub' => "Subkategori SPM",
@@ -31,7 +31,7 @@ class Subkategori_Spm extends CI_Controller
 	function create()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SUBKATEGORI SPM",
 			'sub' => "Subkategori SPM",
@@ -47,7 +47,7 @@ class Subkategori_Spm extends CI_Controller
 	function edit($id)
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SUBKATEGORI SPM",
 			'sub' => "Subkategori SPM",

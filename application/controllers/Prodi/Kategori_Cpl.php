@@ -13,15 +13,15 @@ class Kategori_Cpl extends CI_Controller
 	}
 	function index()
 	{
-		$role = $this->session->userdata('role');
+
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "KATEGORI CPL",
 			'sub' => "Kategori CPL",
 			'active_menu' => 'kategori_cpl',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_kategori_cpl->getAll(),
@@ -30,15 +30,15 @@ class Kategori_Cpl extends CI_Controller
 	}
 	function create()
 	{
-		$role = $this->session->userdata('role');
+
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "KATEGORI CPL",
 			'sub' => "Kategori CPL",
 			'active_menu' => 'kategori_cpl',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 		);
@@ -46,15 +46,15 @@ class Kategori_Cpl extends CI_Controller
 	}
 	function edit($id)
 	{
-		$role = $this->session->userdata('role');
+
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "KATEGORI CPL",
 			'sub' => "Kategori CPL",
 			'active_menu' => 'kategori_cpl',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'edit' => $this->M_kategori_cpl->edit($id),
@@ -122,6 +122,7 @@ class Kategori_Cpl extends CI_Controller
 			'id_kategori_cpl' => $id
 		);
 		$this->M_kategori_cpl->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

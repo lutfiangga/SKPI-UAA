@@ -10,7 +10,7 @@ class Pdfgenerator
 	{
 		$options = new Options();
 		$options->set('isRemoteEnabled', TRUE); // Enable remote resources
-		$options->set('defaultFont', 'Arial'); // Set default font if necessary
+		$options->set('defaultFont', 'Times New Roman'); // Set default font if necessary
 		$dompdf = new Dompdf($options);
 
 		$dompdf->loadHtml($html);

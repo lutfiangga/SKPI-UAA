@@ -14,7 +14,7 @@ class Spm_Mahasiswa extends CI_Controller
 	function index()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SPM MAHASISWA",
@@ -33,7 +33,7 @@ class Spm_Mahasiswa extends CI_Controller
 	public function print()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SPM MAHASISWA",
@@ -55,7 +55,7 @@ class Spm_Mahasiswa extends CI_Controller
 	public function export_pdf()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$id_user = $this->session->userdata('id_user');
 
@@ -86,7 +86,7 @@ class Spm_Mahasiswa extends CI_Controller
 	function create()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
@@ -183,6 +183,7 @@ class Spm_Mahasiswa extends CI_Controller
 			);
 
 			$this->M_spm->save($data);
+			$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -191,7 +192,7 @@ class Spm_Mahasiswa extends CI_Controller
 	{
 		$id = $this->uri->segment(4);
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SPM MAHASISWA",
 			'sub' => "SPM Mahasiswa",
@@ -294,6 +295,7 @@ class Spm_Mahasiswa extends CI_Controller
 			);
 
 			$this->M_spm->update($id, $data);
+			$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -334,6 +336,7 @@ class Spm_Mahasiswa extends CI_Controller
 			}
 		}
 		$this->M_spm->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 

@@ -14,16 +14,16 @@ class Syarat_wajib extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SYARAT WAJIB",
 			'sub' => "Syarat Wajib",
 			'active_menu' => 'syarat_wajib',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'id_akun' => $id,
 			'foto' => $foto,
@@ -69,6 +69,7 @@ class Syarat_wajib extends CI_Controller
 		}
 
 		$this->M_syarat_wajib->save($data);
+		$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -128,6 +129,7 @@ class Syarat_wajib extends CI_Controller
 		}
 
 		$this->M_syarat_wajib->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -152,22 +154,22 @@ class Syarat_wajib extends CI_Controller
 				}
 			}
 		}
-
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 
 	public function print()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SYARAT WAJIB",
 			'sub' => "Syarat Wajib",
 			'active_menu' => 'syarat_wajib',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_syarat_wajib->getPoinByUser($id),
@@ -181,9 +183,9 @@ class Syarat_wajib extends CI_Controller
 
 	public function export_pdf()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$id_user = $this->session->userdata('id_user');
 		$data = array(
@@ -191,7 +193,7 @@ class Syarat_wajib extends CI_Controller
 			'sub' => "Syarat Wajib",
 			'active_menu' => 'syarat_wajib',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $id_user,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_syarat_wajib->getPoinByUser($id),

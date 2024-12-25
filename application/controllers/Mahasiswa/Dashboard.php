@@ -12,9 +12,8 @@ class Dashboard extends CI_Controller
 	}
 	public function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$nim = $this->session->userdata('id_user');
 		$data = array(
@@ -22,7 +21,7 @@ class Dashboard extends CI_Controller
 			'sub' => "Dashboard",
 			'active_menu' => 'home',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $nim,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),

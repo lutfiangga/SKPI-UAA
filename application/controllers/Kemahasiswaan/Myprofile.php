@@ -16,20 +16,17 @@ class Myprofile extends CI_Controller
 
 	public function index()
 	{
-		$id_user = $this->session->userdata('id_user');
 		$id = $this->session->userdata('id_akun');
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "MY PROFILE",
 			'sub' => "Profile",
 			'active_menu' => 'myprofile',
-			'id_user' => $id_user,
-			// from tabel user
+			'id_user' => $this->session->userdata('id_user'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'profile' => $this->M_profile->getById($id),
 		);
 

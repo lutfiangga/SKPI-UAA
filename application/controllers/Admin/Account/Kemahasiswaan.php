@@ -15,15 +15,15 @@ class Kemahasiswaan extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "AKUN KEMAHASISWAAN",
 			'sub' => "Akun Kemahasiswaan",
 			'active_menu' => 'kemahasiswaan',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_auth->GetKemahasiswaan(),
@@ -33,15 +33,15 @@ class Kemahasiswaan extends CI_Controller
 	}
 	function create()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "AKUN KEMAHASISWAAN",
 			'sub' => "Akun Kemahasiswaan",
 			'active_menu' => 'kemahasiswaan',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'staff' => $this->M_staff->GetAllStaff(),
@@ -50,15 +50,15 @@ class Kemahasiswaan extends CI_Controller
 	}
 	function edit($id)
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "AKUN KEMAHASISWAAN",
 			'sub' => "Akun Kemahasiswaan",
 			'active_menu' => 'kemahasiswaan',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'edit' => $this->M_auth->edit($id),
@@ -93,6 +93,7 @@ class Kemahasiswaan extends CI_Controller
 			);
 
 			$this->M_auth->save($data);
+			$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -144,6 +145,7 @@ class Kemahasiswaan extends CI_Controller
 			);
 
 			$this->M_auth->updateAccount($id, $data);
+			$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -155,6 +157,7 @@ class Kemahasiswaan extends CI_Controller
 			'id_akun' => $id
 		);
 		$this->M_auth->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

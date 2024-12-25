@@ -14,7 +14,7 @@ class Periode_Spm extends CI_Controller
 	function index()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "PERIODE SPM",
 			'sub' => "Periode SPM",
@@ -31,7 +31,7 @@ class Periode_Spm extends CI_Controller
 	function create()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "PERIODE SPM",
 			'sub' => "Periode SPM",
@@ -46,7 +46,7 @@ class Periode_Spm extends CI_Controller
 	function edit($id)
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "PERIODE SPM",
 			'sub' => "Periode SPM",
@@ -76,8 +76,8 @@ class Periode_Spm extends CI_Controller
 			);
 			$this->M_periode_spm->save($data);
 			$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
+			redirect($this->redirect, 'refresh');
 		}
-		redirect($this->redirect, 'refresh');
 	}
 
 	public function update($id)

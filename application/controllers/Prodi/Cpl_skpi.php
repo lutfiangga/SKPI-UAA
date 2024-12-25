@@ -13,15 +13,15 @@ class Cpl_Skpi extends CI_Controller
 	}
 	function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "CPL SKPI PRODI",
 			'sub' => "CPL SKPI Prodi",
 			'active_menu' => 'cpl',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'cpl' => $this->M_cpl->GetAll(),
@@ -32,15 +32,15 @@ class Cpl_Skpi extends CI_Controller
 
 	function detail($id)
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "CPL SKPI PRODI",
 			'sub' => "CPL SKPI Prodi",
 			'active_menu' => 'cpl',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'read' => $this->M_cpl->GetAll(),

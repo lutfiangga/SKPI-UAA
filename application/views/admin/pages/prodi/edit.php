@@ -120,7 +120,13 @@
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan singkatan gelar. contoh S.Kom" />
 				</div>
-				<div class="col-span-2">
+				<div class="">
+					<label for="sk_akreditasi" class="block text-sm font-medium text-gray-700 mb-2">SK Akreditasi Prodi:</label>
+					<input type="text" id="sk_akreditasi" name="sk_akreditasi" value="<?= $edit['sk_akreditasi']; ?>"
+						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+						placeholder="Masukkan SK Akreditasi Prodi" />
+				</div>
+				<div class="">
 					<label for="sistem_pembelajaran" class="block text-sm font-medium text-gray-700 mb-2">Sistem Pembelajaran:</label>
 					<input type="text" id="sistem_pembelajaran" name="sistem_pembelajaran" value="<?= $edit['sistem_pembelajaran']; ?>"
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"

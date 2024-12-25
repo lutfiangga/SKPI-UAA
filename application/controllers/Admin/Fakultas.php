@@ -14,15 +14,14 @@ class Fakultas extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA FAKULTAS",
 			'sub' => "Data Fakultas",
 			'active_menu' => 'fakultas',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_fakultas->GetAll(),
@@ -31,15 +30,14 @@ class Fakultas extends CI_Controller
 	}
 	function create()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA FAKULTAS",
 			'sub' => "Data Fakultas",
 			'active_menu' => 'fakultas',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_fakultas->GetAll(),
@@ -49,15 +47,14 @@ class Fakultas extends CI_Controller
 	}
 	function edit($id)
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA FAKULTAS",
 			'sub' => "Data Fakultas",
 			'active_menu' => 'fakultas',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_fakultas->GetAll(),
@@ -118,6 +115,7 @@ class Fakultas extends CI_Controller
 			'id_fakultas' => $id
 		);
 		$this->M_fakultas->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

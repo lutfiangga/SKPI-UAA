@@ -45,7 +45,7 @@
 	<?php if (empty($direktur)): ?>
 		<button onclick="addDirektur.showModal()" class="bg-blue-600 rounded-full text-[#fafafa] p-4 text-sm flex items-center gap-2 group">
 			<i data-feather="user-plus" class="w-4 h-auto"></i>
-			<p class="ext-white transition-opacity duration-300">Tambah Direktur</p>
+			<p class="text-white transition-opacity duration-300">Tambah Direktur</p>
 		</button>
 	<?php else: ?>
 		<!-- Alert no input form -->

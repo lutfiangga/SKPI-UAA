@@ -12,25 +12,25 @@ class Unduh_Dokumen extends CI_Controller
 	}
 	public function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
-		$id_user = $this->session->userdata('id_user');
+		$nim = $this->session->userdata('id_user');
 
-		$mhs = $this->M_mahasiswa->getId($id_user);
+		$mhs = $this->M_mahasiswa->getId($nim);
 
 		$data = array(
 			'judul' => "UNDUH DOKUMEN",
 			'sub' => "Unduh Dokumen",
 			'active_menu' => 'dokumen',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
-			'id_user' => $id_user,
+			'role' => $this->session->userdata('role'),
+			'id_user' => $nim,
 			'foto' => $foto,
-			'mhs' => $this->M_mahasiswa->getId($id_user),
+			'mhs' => $this->M_mahasiswa->getId($nim),
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id_user),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($nim),
 			'syaratSkor' => $this->M_syarat_wajib->getPoinByUser($id),
 			'skorSyaratWajib' => $this->M_skor_syarat_wajib->skorMinimum($mhs['tahun_masuk'], $mhs['id_jenjang']),
 			'skorMinSpm' => $this->M_skor_spm->skorMinimum($mhs['tahun_masuk'], $mhs['id_jenjang']),
@@ -40,16 +40,16 @@ class Unduh_Dokumen extends CI_Controller
 
 	public function print()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
 			'active_menu' => 'skpi',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
@@ -63,16 +63,16 @@ class Unduh_Dokumen extends CI_Controller
 	}
 	public function export_pdf()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
 			'active_menu' => 'skpi',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),

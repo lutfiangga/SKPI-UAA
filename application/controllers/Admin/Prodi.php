@@ -13,15 +13,14 @@ class Prodi extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA PROGRAM STUDI",
 			'sub' => "Data Program Studi",
 			'active_menu' => 'program_studi',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_prodi->GetAll(),
@@ -30,15 +29,14 @@ class Prodi extends CI_Controller
 	}
 	function create()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA PROGRAM STUDI",
 			'sub' => "Data Program Studi",
 			'active_menu' => 'program_studi',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'staff' => $this->M_staff->GetAllStaff(),
@@ -50,15 +48,14 @@ class Prodi extends CI_Controller
 	}
 	function edit($id)
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA PROGRAM STUDI",
 			'sub' => "Data Program Studi",
 			'active_menu' => 'program_studi',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'staff' => $this->M_staff->GetAllStaff(),
@@ -73,24 +70,13 @@ class Prodi extends CI_Controller
 	public function save()
 	{
 		cek_csrf();
-		$this->form_validation->set_rules(
-			'id_prodi',
-			'Kode Prodi',
-			'required|is_unique[prodi.id_prodi]',
-			[
-				'required' => 'Kode Prodi Wajib diisi!',
-				'is_unique' => 'Kode Prodi sudah terdaftar!'
-			]
-		);
-		$this->form_validation->set_rules(
-			'prodi',
-			'Prodi',
-			'required|is_unique[prodi.prodi]',
-			[
-				'required' => 'Prodi Wajib diisi!',
-				'is_unique' => 'Prodi sudah terdaftar!'
-			]
-		);
+		$this->form_validation->set_rules('id_prodi', 'Kode Prodi', 'required|is_unique[prodi.id_prodi]', ['required' => 'Kode Prodi Wajib diisi!', 'is_unique' => 'Kode Prodi sudah terdaftar!']);
+		$this->form_validation->set_rules('id_jenjang', 'Jenjang', 'required', ['required' => 'Jenjang Program Studi Wajib diisi!']);
+		$this->form_validation->set_rules('prodi', 'Prodi', 'required|is_unique[prodi.prodi]', ['required' => 'Prodi Wajib diisi!', 'is_unique' => 'Prodi sudah terdaftar!']);
+		$this->form_validation->set_rules('id_kaprodi', 'kaprodi', 'required', ['required' => 'Kaprodi Wajib diisi!']);
+		$this->form_validation->set_rules('id_fakultas', 'Fakultas', 'required', ['required' => 'Fakultas Wajib diisi!']);
+		$this->form_validation->set_rules('gelar', 'Gelar', 'required', ['required' => 'Gelar Wajib diisi!']);
+		$this->form_validation->set_rules('singkatan_gelar', 'Singkatan Gelar', 'required', ['required' => 'Singkatan Gelar Wajib diisi!']);
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('create_error', validation_errors());
@@ -101,11 +87,12 @@ class Prodi extends CI_Controller
 				'prodi' => $this->security->xss_clean($this->input->post('prodi')),
 				'id_fakultas' => $this->security->xss_clean($this->input->post('id_fakultas')),
 				'id_kaprodi' => $this->security->xss_clean($this->input->post('id_kaprodi')),
-				'id_akreditasi' => $this->security->xss_clean($this->input->post('id_akreditasi')),
+				'id_akreditasi' => $this->security->xss_clean($this->input->post('id_akreditasi')) ?? NULL,
 				'id_jenjang' => $this->security->xss_clean($this->input->post('id_jenjang')),
 				'gelar' => $this->security->xss_clean($this->input->post('gelar')),
 				'singkatan_gelar' => $this->security->xss_clean($this->input->post('singkatan_gelar')),
-				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')),
+				'sk_akreditasi' => $this->security->xss_clean($this->input->post('sk_akreditasi')) ?? NULL,
+				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')) ?? NULL,
 			);
 
 			$this->M_prodi->save($data);
@@ -118,15 +105,12 @@ class Prodi extends CI_Controller
 	{
 		cek_csrf();
 		$id = $this->uri->segment(4);
-		$this->form_validation->set_rules(
-			'prodi',
-			'Prodi',
-			'required|is_unique[prodi.prodi]',
-			[
-				'required' => 'Prodi Wajib diisi!',
-				'is_unique' => 'Prodi sudah terdaftar!'
-			]
-		);
+		$this->form_validation->set_rules('id_jenjang', 'Jenjang', 'required', ['required' => 'Jenjang Program Studi Wajib diisi!']);
+		$this->form_validation->set_rules('prodi', 'Prodi', 'required', ['required' => 'Prodi Wajib diisi!']);
+		$this->form_validation->set_rules('id_kaprodi', 'kaprodi', 'required', ['required' => 'Kaprodi Wajib diisi!']);
+		$this->form_validation->set_rules('id_fakultas', 'Fakultas', 'required', ['required' => 'Fakultas Wajib diisi!']);
+		$this->form_validation->set_rules('gelar', 'Gelar', 'required', ['required' => 'Gelar Wajib diisi!']);
+		$this->form_validation->set_rules('singkatan_gelar', 'Singkatan Gelar', 'required', ['required' => 'Singkatan Gelar Wajib diisi!']);
 		if ($this->form_validation->run() == FALSE) {
 			$this->session->set_flashdata('update_error', validation_errors());
 			redirect($this->redirect);
@@ -135,11 +119,12 @@ class Prodi extends CI_Controller
 				'prodi' => $this->security->xss_clean($this->input->post('prodi')),
 				'id_fakultas' => $this->security->xss_clean($this->input->post('id_fakultas')),
 				'id_kaprodi' => $this->security->xss_clean($this->input->post('id_kaprodi')),
-				'id_akreditasi' => $this->security->xss_clean($this->input->post('id_akreditasi')),
+				'id_akreditasi' => $this->security->xss_clean($this->input->post('id_akreditasi')) ?? NULL,
 				'id_jenjang' => $this->security->xss_clean($this->input->post('id_jenjang')),
 				'gelar' => $this->security->xss_clean($this->input->post('gelar')),
 				'singkatan_gelar' => $this->security->xss_clean($this->input->post('singkatan_gelar')),
-				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')),
+				'sk_akreditasi' => $this->security->xss_clean($this->input->post('sk_akreditasi')) ?? NULL,
+				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')) ?? NULL,
 			);
 			$this->M_prodi->update($id, $data);
 			$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
@@ -155,6 +140,7 @@ class Prodi extends CI_Controller
 			'id_prodi' => $id
 		);
 		$this->M_prodi->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

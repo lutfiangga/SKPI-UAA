@@ -60,9 +60,8 @@
 								<td class="p-2 whitespace-nowrap"><?= $row['prodi'] ?></td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<!-- Button detail -->
-									<a href="<?= site_url('Prodi/Cpl_skpi/detail/' . $row['id_prodi']); ?>" class="bg-gray-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+									<a href="<?= site_url('Prodi/Cpl_skpi/detail/' . $row['id_prodi']); ?>" class="rounded-full p-2 bg-blue-100 text-blue-600 hover:scale-125 hover:bg-blue-200 flex items-center gap-2">
 										<i data-feather="eye" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Detail</p>
 									</a>
 
 								</td>

@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-	<meta charset="UTF-8">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>SKPI-<?= $skpi['nim'] ?></title>
-</head>
-
-<body>
-	<main class="font-tnr" style="max-width: 100%; margin-left: auto; margin-right: auto; padding: 0.75rem; color: black;">
+	<main style="max-width: 100%; margin-left: auto; margin-right: auto; padding: 0.75rem; color: black;">
 		<section>
 			<h2 style="text-align: justify; font-size: 0.875rem; line-height: 1.25rem; font-weight: 600;">
 				Surat Keterangan Pendamping Ijazah (SKPI) ini mengacu pada Kerangka Kualiﬁkasi Nasional Indonesia (KKNI), Peraturan Mentri Ristek Dikti RI Nomor 44 Tahun 2015 (Tentang SNPT), Konvensi UNESCO (tentang pengakuan studi, ijazah dan gelar pendidikan tinggi) dan SK Rektor Universitas Alma Ata Nomor 088/A/SK/UAA/IX/2016 (Tentang Capaian Pembelajaran). Tujuan dari SKPI ini adalah menjadi dokumen yang menyatakan kemampuan kerja, penguasaan pengetahuan, dan sikap/moral pemegangnya.
@@ -18,9 +7,9 @@
 				This Diploma Supplement refers to the Indonesian Qualiﬁcation Framework and UNESCO Convention on the Recognition of Studies, Diplomas and Degrees in Higher Education. The purpose of the supplement is to provide a description of the nature, level, context and status of the studies that were pursued and successfully completed by the individual named on the original qualiﬁcation to which this supplement is appended.
 			</em>
 			<section>
-				<ol type="1" style="list-style-position: inside; margin-top: 1rem; margin-bottom: 1rem;">
+				<ol type="1" style="list-style-position: inside; margin-top: 1.5rem; margin-bottom: 1.5rem;">
 					<!-- INFORMASI TENTANG IDENTITAS DIRI PEMEGANG SKPI -->
-					<div style="margin-top: 1rem; margin-bottom: 1rem;">
+					<div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
 						<p style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">01. INFORMASI TENTANG IDENTITAS DIRI PEMEGANG SKPI</p>
 						<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">01. Information Identifying The Holder of Diploma Supplement</em>
 						<table style="width: 100%; margin-top: 0.5rem; font-size: 0.875rem; text-align: center;">
@@ -56,7 +45,7 @@
 			</section>
 			<section>
 				<!-- INFORMASI TENTANG IDENTITAS PENYELENGGARA PROGRAM -->
-				<div style="margin-top: 1rem; margin-bottom: 1rem;">
+				<div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
 					<p style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">02. INFORMASI TENTANG IDENTITAS PENYELENGGARA PROGRAM</p>
 					<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">02. Information Identifying The Awarding Institution</em>
 					<table style="width: 100%; margin-top: 0.5rem; font-size: 0.875rem; text-align: center; border-collapse: collapse;">
@@ -118,7 +107,7 @@
 			</section>
 			<section>
 				<!-- INFORMASI TENTANG CAPAIAN PEMBELAJARAN -->
-				<div style="margin-top: 1rem; margin-bottom: 1rem;">
+				<div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
 					<p style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">03. INFORMASI TENTANG CAPAIAN PEMBELAJARAN </p>
 					<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">03. Information Identifying the Learning Outcomes </em>
 
@@ -241,7 +230,7 @@
 			</section>
 			<section>
 				<!-- INFORMASI TENTANG SISTEM PENDIDIKAN TINGGI DI INDONESIA -->
-				<div style="margin: 1rem 0;">
+				<div style="margin: 1.5rem 0;">
 					<div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">04. INFORMASI TENTANG SISTEM PENDIDIKAN TINGGI DI INDONESIA</div>
 					<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">04. Information on the Indonesian Higher Education System and the Indonesian National Qualifications Framework</em>
 					<div style="border: 1px solid black; margin: 1rem 0; padding: 0.5rem; font-weight: 600; font-size: 0.875rem; text-align: justify;">
@@ -309,7 +298,7 @@
 			</section>
 			<section>
 				<!-- INFORMASI TENTANG KERANGKA KUALIFIKASI NASIONAL INDONESIA (KKNI) -->
-				<div style="margin-top: 1rem; margin-bottom: 1rem;">
+				<div style="margin-top: 1.5rem; margin-bottom: 1.5rem;">
 					<div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">05. INFORMASI TENTANG KERANGKA KUALIFIKASI NASIONAL INDONESIA (KKNI)</div>
 					<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase;">05. Information of Indonesian Qualification Framework</em>
 					<div style="border: 1px solid black; margin-top: 1rem; margin-bottom: 1rem; padding: 0.5rem; font-weight: 600; font-size: 0.875rem; text-align: justify;">
@@ -325,60 +314,50 @@
 			</section>
 			<section>
 				<!-- PENGESAHAN SKPI -->
-				<div style="margin-top: 1rem; margin-bottom: 1rem; border: 1px solid black; ">
-					<div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-left: 0.75rem; margin-top: 0.75rem; ">
-						06. PENGESAHAN SKPI
-					</div>
-					<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-left: 0.75rem; ">
-						06. SKPI Legalization
-					</em>
-					<div style="font-size: 0.875rem; text-align: justify; display:flex; flex-direction: column; ">
+				<div style="margin-top: 1.5rem; margin-bottom: 1.5rem; border: 1px solid black;">
+					<div style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-left: 0.75rem; margin-top: 0.75rem;">06. PENGESAHAN SKPI</div>
+					<em style="font-size: 0.875rem; font-weight: 600; text-transform: uppercase; margin-left: 0.75rem;">06. SKPI Legalization</em>
+					<div style="font-size: 0.875rem; text-align: justify; display: grid; grid-template-columns: repeat(2, 1fr);">
 
 						<!-- Signature & Stamp -->
-						<div style="text-align: center; margin-top: 0.5rem; margin-bottom: 0.5rem; ">
-							<div>
+						<div style="grid-column: span 2; text-align: center; margin-top: 0.5rem; margin-bottom: 0.5rem;">
+							<div style="position: relative; display: inline-block;">
 								<p>Yogyakarta, <?= tanggal(date('Y-m-d')); ?></p>
 								<em><?= auto_translate('Yogyakarta,' . tanggal(date('Y-m-d'))); ?></em>
 								<p style="text-transform: capitalize;">Dekan Fakultas <?= $skpi['fakultas'] ?></p>
 								<em style="text-transform: capitalize;">Dekan Fakultas <?= auto_translate($skpi['fakultas']) ?></em>
 								<br><br><br><br><br><br>
 								<p style="text-transform: capitalize; font-weight: bold;"><?= $skpi['nama_dekan']; ?></p>
-								<p style="text-transform: capitalize; font-size: 0.75rem;">
-									Nomor Induk Pegawai/<span><em>Employee ID Number:</em></span> <?= $skpi['id_staff']; ?>
-								</p>
+								<p style="text-transform: capitalize; font-size: 0.75rem;">Nomor Induk Pegawai/<span><em>Employee ID Number:</em></span> <?= $skpi['id_staff']; ?></p>
 							</div>
 						</div>
-						<div style="display: flex; flex-direction: row; width:100%;">
-							<!-- Official Notes -->
-							<div style="border-top: 1px solid black; border-right: 1px solid black; padding: 0.5rem; font-size: 0.75rem; width: 50%; ">
-								Catatan resmi
-								<ul style="list-style-type: disc; list-style-position: inside; ">
-									<li>SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang mengeluarkan ijazah sesuai dengan peraturan perundang-undangan yang berlaku.</li>
-									<li>SKPI hanya diterbitkan setelah mahasiswa dinyatakan lulus dari suatu program studi secara resmi oleh Perguruan Tinggi.</li>
-									<li>SKPI diterbitkan dalam Bahasa Indonesia dan Bahasa Inggris.</li>
-									<li>SKPI yang asli diterbitkan menggunakan kertas khusus (barcode/hologram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.</li>
-									<li>Penerima SKPI dicantumkan dalam situs resmi Perguruan Tinggi.</li>
-								</ul>
-							</div>
-							<!-- Address -->
-							<div style="border-top: 1px solid black; padding: 0.5rem; font-size: 0.75rem; width: 50%; ">
-								Alamat
-								<br><br><br>
-								UNIVERSITAS ALMA ATA <br>
-								Jl. Brawijaya No 99, Tamantirto DI Yogyakarta <br>
-								Tel: (+62 274) 434 22 88 <br>
-								Fax: (+62 274) 434 22 69 <br>
-								Website: www.almaata.ac.id
-							</div>
+
+						<!-- Official Notes -->
+						<div style="border-top: 1px solid black; border-right: 1px solid black; padding: 0.5rem; font-size: 0.75rem;">
+							Catatan resmi
+							<ul style="list-style-type: disc; list-style-position: inside;">
+								<li>SKPI dikeluarkan oleh institusi pendidikan tinggi yang berwenang mengeluarkan ijazah sesuai dengan peraturan perundang-undangan yang berlaku.</li>
+								<li>SKPI hanya diterbitkan setelah mahasiswa dinyatakan lulus dari suatu program studi secara resmi oleh Perguruan Tinggi.</li>
+								<li>SKPI diterbitkan dalam Bahasa Indonesia dan Bahasa Inggris.</li>
+								<li>SKPI yang asli diterbitkan menggunakan kertas khusus (barcode/hologram security paper) berlogo Perguruan Tinggi, yang diterbitkan secara khusus oleh Perguruan Tinggi.</li>
+								<li>Penerima SKPI dicantumkan dalam situs resmi Perguruan Tinggi.</li>
+							</ul>
+						</div>
+
+						<!-- Address -->
+						<div style="border-top: 1px solid black; padding: 0.5rem; font-size: 0.75rem;">
+							Alamat
+							<br><br><br>
+							UNIVERSITAS ALMA ATA <br>
+							Jl. Brawijaya No 99, Tamantirto DI Yogyakarta <br>
+							Tel: (+62 274) 434 22 88 <br>
+							Fax: (+62 274) 434 22 69 <br>
+							Website: www.almaata.ac.id
 						</div>
 					</div>
 				</div>
 			</section>
 
-
 			</ol>
 		</section>
 	</main>
-</body>
-
-</html>

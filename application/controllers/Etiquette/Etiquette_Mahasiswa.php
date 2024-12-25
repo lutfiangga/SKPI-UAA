@@ -13,26 +13,43 @@ class Etiquette_Mahasiswa extends CI_Controller
 	}
 	function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "Etiquette MAHASISWA",
 			'sub' => "Etiquette Mahasiswa",
 			'active_menu' => 'etiquette_mhs',
-			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
-			// from tabel user
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'read' => $this->M_etiquette->GetAll(),
+			'read' => $this->M_etiquette->GetEtiquette(),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
+	function detail($id)
+	{
+		
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$data = array(
+			'judul' => "Etiquette MAHASISWA",
+			'sub' => "Etiquette Mahasiswa",
+			'active_menu' => 'etiquette_mhs',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $this->session->userdata('role'),
+			'id_user' => $this->session->userdata('id_user'),
+			'foto' => $foto,
+			'mhs' => $this->M_mahasiswa->getId($id),
+			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
+			'read' => $this->M_etiquette->GetByNim($id),
+		);
+		$this->template->load('layout/components/layout', $this->view . 'detail', $data);
+	}
 	function create()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
@@ -41,7 +58,7 @@ class Etiquette_Mahasiswa extends CI_Controller
 			'active_menu' => 'etiquette_mhs',
 			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
@@ -51,16 +68,16 @@ class Etiquette_Mahasiswa extends CI_Controller
 	}
 	function edit($id)
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "Etiquette MAHASISWA",
 			'sub' => "Etiquette Mahasiswa",
 			'active_menu' => 'etiquette_mhs',
 			// from tabel auth
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			// from tabel user
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
@@ -99,6 +116,7 @@ class Etiquette_Mahasiswa extends CI_Controller
 			'bukti' => $bukti,
 		);
 		$this->M_etiquette->save($data);
+		$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -136,7 +154,8 @@ class Etiquette_Mahasiswa extends CI_Controller
 			'bukti' => $bukti,
 		);
 		$this->M_etiquette->update($id, $data);
-		redirect($this->redirect, 'refresh');
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
+		redirect($this->redirect . '/detail/' . $nim, 'refresh');
 	}
 
 	public function delete()
@@ -145,6 +164,7 @@ class Etiquette_Mahasiswa extends CI_Controller
 		$id = $this->input->post('id_etiquette');
 
 		$etiquette = $this->M_etiquette->edit($id);
+		$nim = $etiquette['nim'];
 		if ($etiquette) {
 			$bukti = $etiquette['bukti'];
 
@@ -160,7 +180,7 @@ class Etiquette_Mahasiswa extends CI_Controller
 				}
 			}
 		}
-
-		redirect($this->redirect, 'refresh');
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
+		!empty($nim) ? redirect($this->redirect . '/detail/' . $nim, 'refresh') : redirect($this->redirect, 'refresh');
 	}
 }

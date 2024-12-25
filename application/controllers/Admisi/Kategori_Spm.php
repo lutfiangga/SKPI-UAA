@@ -14,7 +14,7 @@ class Kategori_Spm extends CI_Controller
 	function index()
 	{
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->input->post('id_kategori_syarat_wajib');
 		$data = array(
 			'judul' => "KATEGORI SYARAT WAJIB",

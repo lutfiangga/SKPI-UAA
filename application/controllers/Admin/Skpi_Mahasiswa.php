@@ -8,7 +8,7 @@ class Skpi_Mahasiswa extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Admin');
-		$this->load->model(array('M_spm', 'M_auth', 'M_profile','M_prodi', 'M_skor_syarat_wajib', 'M_skor_spm', 'M_dirKemahasiswaan', 'M_etiquette', 'M_mahasiswa', 'M_cpl', 'M_kategori_cpl'));
+		$this->load->model(array('M_spm', 'M_auth', 'M_profile', 'M_prodi', 'M_skor_syarat_wajib', 'M_skor_spm', 'M_dirKemahasiswaan', 'M_etiquette', 'M_mahasiswa', 'M_cpl', 'M_kategori_cpl'));
 	}
 	public function index()
 	{
@@ -23,7 +23,7 @@ class Skpi_Mahasiswa extends CI_Controller
 		}
 
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
@@ -40,14 +40,69 @@ class Skpi_Mahasiswa extends CI_Controller
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
 
+	public function detail($nim, $id_akun)
+	{
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$id_akun = $this->uri->segment(5);
+		$nim = $this->uri->segment(4);
+		$data = array(
+			'judul' => "SKPI MAHASISWA",
+			'sub' => "SKPI Mahasiswa",
+			'active_menu' => 'skpi',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $this->session->userdata('role'),
+			'id_user' => $nim,
+			'foto' => $foto,
+			'SpmPoin' => $this->M_spm->getPoinByUser($id_akun),
+			'mhs' => $this->M_profile->getById($id_akun),
+			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
+			'cpl' => $this->M_cpl->GetAll(),
+			'spm' => $this->M_spm->GetByNim($id_akun),
+			'etiket' => $this->M_etiquette->GetByNim($nim),
+			'skpi' => $this->M_mahasiswa->getSKPI($nim),
+			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
+		);
+		
+		
+		$this->template->load('layout/components/layout', $this->view . 'detail', $data);
+	}
+	public function word($nim, $id_akun)
+	{
+		$img_user = $this->session->userdata('img_user');
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$id_akun = $this->uri->segment(5);
+		$nim = $this->uri->segment(4);
+		$data = array(
+			'judul' => "SKPI MAHASISWA",
+			'sub' => "SKPI Mahasiswa",
+			'active_menu' => 'skpi',
+			'nama' => $this->session->userdata('nama'),
+			'role' => $this->session->userdata('role'),
+			'id_user' => $nim,
+			'foto' => $foto,
+			'SpmPoin' => $this->M_spm->getPoinByUser($id_akun),
+			'mhs' => $this->M_profile->getById($id_akun),
+			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
+			'cpl' => $this->M_cpl->GetAll(),
+			'spm' => $this->M_spm->GetByNim($id_akun),
+			'etiket' => $this->M_etiquette->GetByNim($nim),
+			'skpi' => $this->M_mahasiswa->getSKPI($nim),
+			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
+		);
+		header("Content-type: application/vnd.ms-word");
+		header("Content-Disposition: attachment; filename=skpi-$nim.doc");
+		$this->template->load('layout/components/layout_export', $this->view . 'word', $data);
+	}
 
 	public function pdf($nim, $id_akun)
 	{
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$id_akun = $this->uri->segment(5);
 		$nim = $this->uri->segment(4);
+
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
@@ -65,34 +120,24 @@ class Skpi_Mahasiswa extends CI_Controller
 			'skpi' => $this->M_mahasiswa->getSKPI($nim),
 			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
 		);
-		// echo "<pre>";
-		// var_dump($data['cpl']); // Menampilkan data di Controller
-		// echo "</pre>";
-		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
-	}
-	public function read()
-	{
-		$role = $this->session->userdata('role');
-		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$allMhs = $this->M_mahasiswa->getAll();
-		$mhs = $this->M_mahasiswa->getid($allMhs['nim']);
 
-		$data = array(
-			'judul' => "SKPI MAHASISWA",
-			'sub' => "SKPI Mahasiswa",
-			'active_menu' => 'skpi',
-			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
-			'id_user' => $id,
-			'foto' => $foto,
-			'read' => $foto,
-			'skorSyaratWajib' => $this->M_skor_syarat_wajib->skorMinimum($mhs['tahun_masuk'], $mhs['id_jenjang']),
-			'skorMinSpm' => $this->M_skor_spm->skorMinimum($mhs['tahun_masuk'], $mhs['id_jenjang']),
+		// Load the view as HTML content
+		// $this->load->view($this->view . 'pdf', $data);
+		$html = $this->load->view($this->view . 'pdf', $data, TRUE);
+
+		// Load Pdfgenerator Library
+		$this->load->library('Pdfgenerator');
+		$options = array(
+			'enable_html5_parser' => true,
+			'enable_css_float' => true,
+			'enable_javascript' => true,
+			'enable_remote' => true,
+			'font_path' => FCPATH . 'assets/fonts/'
 		);
-		// echo "<pre>";
-		// var_dump($data['cpl']); // Menampilkan data di Controller
-		// echo "</pre>";
-		$this->template->load('layout/components/layout_export', $this->view . 'pdf', $data);
+
+		// Gunakan options saat generate PDF
+		// Generate PDF
+		$filename = 'SKPI_' . $nim;
+		$this->pdfgenerator->generate($html, $filename, 'Legal', 'portrait', $options);
 	}
 }

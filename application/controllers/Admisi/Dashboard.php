@@ -12,15 +12,14 @@ class Dashboard extends CI_Controller
 	}
 	public function index()
 	{
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DASHBOARD",
 			'sub' => "Dashboard",
 			'active_menu' => 'home',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
 			'spm' => $this->M_syarat_wajib->countNotPending(),

@@ -117,14 +117,12 @@
 								<td class="p-2 whitespace-normal"><?= $row['periode'] ?></td>
 								<td class="p-2 whitespace-normal"><?= tanggal($row['periode_kegiatan']) ?></td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
-									<a href="<?= site_url(ucwords($role) . '/Periode_Spm/edit/' . $row['id_periode']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+									<a href="<?= site_url(ucwords($role) . '/Periode_Spm/edit/' . $row['id_periode']); ?>" class="rounded-full p-2 bg-orange-100 text-orange-600 hover:scale-125 hover:bg-orange-200 flex items-center gap-2">
 										<i data-feather="edit" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</a>
 
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal('<?= $row['id_periode']; ?>')">
+									<button class="rounded-full p-2 bg-red-100 text-red-600 hover:scale-125 hover:bg-red-200 flex items-center gap-2" onclick="openDeleteModal('<?= $row['id_periode']; ?>')">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 									</button>
 
 								</td>

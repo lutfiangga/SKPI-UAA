@@ -15,15 +15,15 @@ class Staff extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA PEGAWAI",
 			'sub' => "Data Pegawai",
 			'active_menu' => 'usr_staff',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'read' => $this->M_staff->GetAllStaff(),
@@ -33,15 +33,15 @@ class Staff extends CI_Controller
 
 	public function create()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA PEGAWAI",
 			'sub' => "Data Pegawai",
 			'active_menu' => 'usr_staff',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 		);
@@ -78,6 +78,7 @@ class Staff extends CI_Controller
 			);
 
 			$this->M_staff->save($data);
+			$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -86,15 +87,15 @@ class Staff extends CI_Controller
 	{
 		$id = $this->uri->segment(5);
 
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA PEGAWAI",
 			'sub' => "Data Pegawai",
 			'active_menu' => 'usr_staff',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'edit' => $this->M_staff->edit($id),
@@ -115,6 +116,7 @@ class Staff extends CI_Controller
 		);
 
 		$this->M_staff->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -126,6 +128,7 @@ class Staff extends CI_Controller
 			'id_staff' => $id
 		);
 		$this->M_staff->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

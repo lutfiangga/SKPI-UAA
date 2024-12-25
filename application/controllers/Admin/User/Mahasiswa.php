@@ -7,7 +7,6 @@ class Mahasiswa extends CI_Controller
 	public function __construct()
 	{
 		parent::__construct();
-		// IsAdmin();
 		$this->load->model(array('M_mahasiswa', 'M_prodi'));
 		$this->load->helper('text');
 		checkRole('Admin');
@@ -15,15 +14,15 @@ class Mahasiswa extends CI_Controller
 
 	function index()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA MAHASISWA",
 			'sub' => "Data Mahasiswa",
 			'active_menu' => 'usr_mhs',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'mahasiswa' => $this->M_mahasiswa->GetAllMhs(),
@@ -33,15 +32,15 @@ class Mahasiswa extends CI_Controller
 
 	public function create()
 	{
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA MAHASISWA",
 			'sub' => "Data Mahasiswa",
 			'active_menu' => 'usr_mhs',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'prodi' => $this->M_prodi->getAll(),
@@ -84,6 +83,7 @@ class Mahasiswa extends CI_Controller
 			);
 
 			$this->M_mahasiswa->save($data);
+			$this->session->set_flashdata('create_success', 'Data berhasil ditambahkan!');
 			redirect($this->redirect, 'refresh');
 		}
 	}
@@ -93,15 +93,15 @@ class Mahasiswa extends CI_Controller
 	{
 		$id = $this->uri->segment(5);
 
-		$role = $this->session->userdata('role');
+		
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA MAHASISWA",
 			'sub' => "Data Mahasiswa",
 			'active_menu' => 'usr_mhs',
 			'id_user' => $this->session->userdata('id_user'),
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
 			'prodi' => $this->M_prodi->getAll(),
@@ -130,6 +130,7 @@ class Mahasiswa extends CI_Controller
 		);
 
 		$this->M_mahasiswa->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate!');
 		redirect($this->redirect, 'refresh');
 	}
 
@@ -141,6 +142,7 @@ class Mahasiswa extends CI_Controller
 			'nim' => $id
 		);
 		$this->M_mahasiswa->delete($data);
+		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
 		redirect($this->redirect, 'refresh');
 	}
 }

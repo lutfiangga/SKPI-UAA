@@ -34,8 +34,7 @@ class M_etiquette extends CI_Model
 	public function GetByNim($nim)
 	{
 		$this->db->where('nim', $nim);
-		$query = $this->db->get($this->table);
-		return $query->result_array();
+		return $this->db->get($this->table)->result_array();
 	}
 
 	public function update($id, $data)
@@ -48,17 +47,31 @@ class M_etiquette extends CI_Model
 		$this->db->where($data);
 		return $this->db->delete($this->table);
 	}
-	public function getLastId()
+	public function GetEtiquette()
 	{
-		$this->db->select_max($this->pk);
-		$query = $this->db->get($this->table);
-		$result = $query->row_array();
+		$this->db->select('akun_user.id_akun,  
+        akun_user.img_user,  
+        string_agg(DISTINCT CAST(etiquette.id_etiquette AS VARCHAR), \',\') as id_etiquette,  
+		 SUM(CAST(etiquette.poin AS INTEGER)) AS total_poin,
+        mahasiswa.nim,  
+        mahasiswa.nama,  
+        prodi.prodi,
+        MAX(SUBSTRING(etiquette.id_etiquette::text FROM 1 FOR 8)) as terakhir_ditambahkan');
 
-		return $result[$this->pk];
-	}
-	public function countSyaratWajib()
-	{
-		return $this->db->count_all($this->table);
+		$this->db->join('mahasiswa', 'etiquette.nim = mahasiswa.nim');
+		$this->db->join('akun_user', 'mahasiswa.nim = akun_user.id_user');
+		$this->db->join('prodi', 'mahasiswa.id_prodi = prodi.id_prodi');
+
+		$this->db->group_by('akun_user.id_akun,  
+        akun_user.img_user,  
+        mahasiswa.nim,  
+        mahasiswa.nama,  
+        prodi.prodi');
+
+		// Urutkan berdasarkan timestamp UUID v7
+		$this->db->order_by('terakhir_ditambahkan', 'desc');
+
+		return $this->db->get($this->table)->result_array();
 	}
 	public function getPoinByUser($id_user)
 	{

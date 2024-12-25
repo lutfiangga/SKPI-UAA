@@ -57,7 +57,10 @@
 					<?php if (!empty($read)) {
 						$no = 1;
 						foreach ($read as $row) {
-							$img_user = $row['img_user'] ? 'assets/static/img/photos/mahasiswa/' . $row['img_user'] : 'assets/static/img/user.png';
+							$img_folder = 'assets/static/img/photos/mahasiswa/';
+							$default_image = 'assets/static/img/user.png';
+
+							$img_user = !empty($row['img_user']) && file_exists($img_folder . $row['img_user']) ? $img_folder . $row['img_user'] : $default_image;
 					?>
 							<tr class="border-t">
 								<td class="p-2">
@@ -100,9 +103,8 @@
 									<?php endif; ?>
 								</td>
 								<td class="p-2 inline-flex justify-center text-center items-center gap-2">
-									<a href="<?= site_url(ucwords($role) . '/Spm_Mahasiswa/detail/' . $row['id_akun']); ?>" class="bg-blue-600 mt-3 rounded-full py-2 text-[#fafafa] hover:scale-110 px-4 flex items-center gap-2 ">
+									<a href="<?= site_url(ucwords($role) . '/Spm_Mahasiswa/detail/' . $row['id_akun']); ?>" class="rounded-full p-2 bg-blue-100 text-blue-600 hover:scale-125 hover:bg-blue-200 flex items-center gap-2">
 										<i data-feather="eye" class="w-4 h-auto"></i>
-										<p class=" text-white transition-opacity duration-300">Lihat</p>
 									</a>
 
 								</td>

@@ -39,6 +39,58 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
+	<!-- Alert success -->
+	<!-- create -->
+	<?php if ($this->session->flashdata('create_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('create_success'); ?></span>
+		</div>
+	<?php endif; ?>
+	<!-- update -->
+	<?php if ($this->session->flashdata('update_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('update_success'); ?></span>
+		</div>
+	<?php endif; ?>
+	<!-- delete -->
+	<?php if ($this->session->flashdata('delete_success')): ?>
+		<div role="alert" class="alert alert-error">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('delete_error'); ?></span>
+		</div>
+	<?php endif; ?>
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 
@@ -55,9 +107,6 @@
 					<tr>
 						<th class="p-2">No</th>
 						<th class="p-2">Mahasiswa</th>
-						<th class="p-2">Pelanggaran</th>
-						<th class="p-2">Jenis Pelanggaran</th>
-						<th class="p-2">Bukti</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Aksi</th>
 					</tr>
@@ -65,8 +114,11 @@
 				<tbody>
 					<?php if (!empty($read)) {
 						$no = 1;
-						foreach ($read->result_array() as $row) {
-							$img_user = $row['img_user'] ? 'assets/static/img/photos/' . strtolower($row['role']) . '/' . $row['img_user'] : 'assets/static/img/user.png';
+						foreach ($read as $row) {
+							$mhs_folder = 'assets/static/img/photos/mahasiswa/';
+							$default_image = 'assets/static/img/user.png';
+
+							$img_user = !empty($row['img_user']) && file_exists($mhs_folder . $row['img_user']) ? $mhs_folder . $row['img_user'] : $default_image;
 					?>
 							<tr class="border-t">
 								<td class="p-2">
@@ -81,37 +133,16 @@
 										</div>
 									</div>
 								</td>
-								<td class="p-2 whitespace-normal"><?= $row['pelanggaran'] ?></td>
-								<td class="p-2 whitespace-nowrap"><?= $row['jenis_pelanggaran'] ?></td>
-								<td class="p-2">
-									<?php if (!empty($row['bukti'])) : ?>
-										<a href="<?= base_url('assets/static/Etiquette/' . $row['bukti']); ?>" download class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-[#EEF0F6] cursor-pointer">
-											<div>
-												<div class="rounded-md text-[#fafafa] bg-blue-600 p-2">
-													<i data-feather="image" class="w-6 h-auto"></i>
-												</div>
-											</div>
-											<p class="text-sm max-w-full font-thin truncate whitespace-normal"><?= $row['bukti']; ?></p>
-										</a>
-									<?php endif; ?>
-								</td>
 								<td class="p-2 whitespace-nowrap">
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
-										<?= $row['poin'] ?> Poin
+										<?= $row['total_poin'] ?> Poin
 									</span>
 								</td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
-									<a href="<?= site_url(ucwords($role) . '/Etiquette_Mahasiswa/edit/' . $row['id_etiquette']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
-										<i data-feather="edit" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
+									<a href="<?= site_url(ucwords($role) . '/Etiquette_Mahasiswa/detail/' . $row['nim']); ?>" class="rounded-full p-2 bg-blue-100 text-blue-600 hover:scale-125 hover:bg-blue-200 flex items-center gap-2">
+										<i data-feather="eye" class="w-4 h-auto"></i>
 									</a>
-
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group" onclick="openDeleteModal('<?= $row['id_etiquette']; ?>')">
-										<i data-feather="trash-2" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
-									</button>
-
 								</td>
 							</tr>
 						<?php $no++;
@@ -126,9 +157,6 @@
 					<tr>
 						<th class="p-2">No</th>
 						<th class="p-2">Mahasiswa</th>
-						<th class="p-2">Pelanggaran</th>
-						<th class="p-2">Jenis Pelanggaran</th>
-						<th class="p-2">Bukti</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Aksi</th>
 					</tr>
@@ -137,38 +165,4 @@
 		</div>
 	</section>
 
-	<!-- Modal Hapus Etiquette -->
-	<dialog id="hapusEtiquette" class="modal overflow-hidden">
-		<div class="modal-box bg-[#fafafa]">
-			<!-- Tombol close di sudut kanan atas -->
-			<form method="dialog">
-				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
-			</form>
-			<h3 class="text-lg font-bold text-red-600 flex flex-row items-center">
-				Hapus Kategori
-				<div class="bg-red-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
-					<i data-feather="trash-2" class="w-4 h-4"></i>
-				</div>
-			</h3>
-			<div class="divider border-gray-400"></div>
-			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
-			<form method="post" action="<?= site_url('Etiquette/Etiquette_Mahasiswa/delete'); ?>">
-				<?= csrf(); ?>
-				<input type="hidden" id="hapus_id_etiquette" name="id_etiquette" />
-				<div class="modal-action relative" style="z-index: 1000;">
-					<button type="button" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
-					<button type="submit" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Hapus</button>
-				</div>
-			</form>
-		</div>
-	</dialog>
-
 </section>
-
-<script>
-	// delete etiquette
-	const openDeleteModal = (id) => {
-		document.getElementById('hapus_id_etiquette').value = id;
-		document.getElementById('hapusEtiquette').showModal();
-	}
-</script>

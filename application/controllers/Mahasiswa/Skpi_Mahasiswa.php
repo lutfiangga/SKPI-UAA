@@ -14,17 +14,17 @@ class Skpi_Mahasiswa extends CI_Controller
 	{
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
-		$id_user = $this->session->userdata('id_user');
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
+		$id = $this->session->userdata('id_akun');
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
 			'active_menu' => 'skpi',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
-			'id_user' => $id_user,
+		'role' => $this->session->userdata('role'),
+			'id_user' => $$this->session->userdata('id_user'),
 			'foto' => $foto,
-			'SpmPoin' => $this->M_spm->getPoinByUser($id_user),
+			'SpmPoin' => $this->M_spm->getPoinByUser($id),
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
@@ -33,14 +33,14 @@ class Skpi_Mahasiswa extends CI_Controller
 	{
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_user');
 		$data = array(
 			'judul' => "SKPI MAHASISWA",
 			'sub' => "SKPI Mahasiswa",
 			'active_menu' => 'skpi',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+		'role' => $this->session->userdata('role'),
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),
@@ -56,7 +56,7 @@ class Skpi_Mahasiswa extends CI_Controller
 	{
 		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/' . $role . '/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
 		$id = $this->session->userdata('id_akun');
 		$id_user = $this->session->userdata('id_user');
 		$data = array(
@@ -64,7 +64,7 @@ class Skpi_Mahasiswa extends CI_Controller
 			'sub' => "SKPI Mahasiswa",
 			'active_menu' => 'skpi',
 			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
+		'role' => $this->session->userdata('role'),
 			'id_user' => $id,
 			'foto' => $foto,
 			'SpmPoin' => $this->M_spm->getPoinByUser($id),

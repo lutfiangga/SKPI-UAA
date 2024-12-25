@@ -16,19 +16,16 @@ class Dir_Kemahasiswaan extends CI_Controller
 
 	public function index()
 	{
-		$id = $this->session->userdata('id_user');
-		$role = $this->session->userdata('role');
 		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "DATA DIREKTUR KEMAHASISWAAN",
 			'sub' => "Data Direktur Kemahasiswaan",
 			'active_menu' => 'direktur',
-			'id_user' => $id,
-			// from tabel user
+			'id_user' => $this->session->userdata('id_user'),
 			'nama' => $this->session->userdata('nama'),
 			'foto' => $foto,
-			'role' => $role,
+			'role' => $this->session->userdata('role'),
 			'staff' => $this->M_staff->GetAllStaff(),
 			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
 		);
@@ -60,6 +57,7 @@ class Dir_Kemahasiswaan extends CI_Controller
 			'id_direktur' => $this->security->xss_clean($this->input->post('id_direktur')),
 		);
 		$this->M_dirKemahasiswaan->save($data);
+		$this->session->set_flashdata('success', 'Data added successfully.');
 		redirect($this->redirect, 'refresh');
 	}
 

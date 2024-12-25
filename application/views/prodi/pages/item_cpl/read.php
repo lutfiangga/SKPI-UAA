@@ -52,6 +52,7 @@
 			<span> <?= $this->session->flashdata('create_success'); ?></span>
 		</div>
 	<?php endif; ?>
+	<!-- update -->
 	<?php if ($this->session->flashdata('update_success')): ?>
 		<div role="alert" class="alert alert-success">
 			<svg
@@ -66,6 +67,23 @@
 					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
 			</svg>
 			<span> <?= $this->session->flashdata('update_success'); ?></span>
+		</div>
+	<?php endif; ?>
+	<!-- delete -->
+	<?php if ($this->session->flashdata('delete_success')): ?>
+		<div role="alert" class="alert alert-error">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('delete_error'); ?></span>
 		</div>
 	<?php endif; ?>
 
@@ -106,16 +124,14 @@
 								<td class="p-2 whitespace-nowrap"><?= $row['prodi'] ?></td>
 								<td class="p-2 flex flex-row items-center mt-2 gap-2">
 									<!-- Button Edit -->
-									<a href="<?= site_url('Prodi/Item_Cpl/edit/' . $row['id_cpl']); ?>" class="bg-green-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group">
+									<a href="<?= site_url('Prodi/Item_Cpl/edit/' . $row['id_cpl']); ?>" class="rounded-full p-2 bg-orange-100 text-orange-600 hover:scale-125 hover:bg-orange-200 flex items-center gap-2">
 										<i data-feather="edit" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Edit</p>
 									</a>
 
 									<!-- Button Delete -->
-									<button class="bg-red-600 rounded-full p-2 text-[#fafafa] hover:px-4 flex items-center gap-2 group"
+									<button class="rounded-full p-2 bg-red-100 text-red-600 hover:scale-125 hover:bg-red-200 flex items-center gap-2"
 										onclick="openDeleteModal('<?= $row['id_cpl']; ?>')">
 										<i data-feather="trash-2" class="w-4 h-auto"></i>
-										<p class="hidden group-hover:block text-white transition-opacity duration-300">Hapus</p>
 									</button>
 
 								</td>
@@ -141,7 +157,7 @@
 		</div>
 	</section>
 
-	<!-- Modal Hapus Etiquette -->
+	<!-- Modal Hapus -->
 	<dialog id="hapusCPL" class="modal overflow-hidden">
 		<div class="modal-box bg-[#fafafa]">
 			<!-- Tombol close di sudut kanan atas -->
