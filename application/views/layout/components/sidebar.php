@@ -19,7 +19,7 @@
 				</a>
 			</li>
 			<!-- Dir Kemahasiswaan -->
-			<li class="my-2 <?= ($role != 'admisi' && $role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
+			<li class="my-2 <?= ($role != 'kemahasiswaan') ? 'hidden' : 'block'; ?>">
 				<a href="<?= site_url(($role !== 'admisi' ? ucfirst($role) . '/Dir_Kemahasiswaan' : ucfirst($role) . '/Dir_Admisi')); ?>"
 					class="p-2.5 flex items-center rounded-full px-2 lg:px-6 duration-300 hover:bg-[#fafafa]/30 hover:text-[#fafafa] font-semibold <?= ($active_menu === 'direktur') ? 'bg-[#fafafa] text-blue-600 ring-2 ring-[#dadada]' : ''; ?>">
 					<i data-feather="smile"></i>
