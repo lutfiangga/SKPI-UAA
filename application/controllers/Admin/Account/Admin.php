@@ -16,7 +16,7 @@ class Admin extends CI_Controller
 	function index()
 	{
 		$img_user = $this->session->userdata('img_user');
-			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "AKUN ADMIN",
 			'sub' => "Akun Admin",
@@ -32,7 +32,7 @@ class Admin extends CI_Controller
 	function create()
 	{
 		$img_user = $this->session->userdata('img_user');
-			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "AKUN ADMIN",
 			'sub' => "Akun Admin",
@@ -48,7 +48,7 @@ class Admin extends CI_Controller
 	function edit($id)
 	{
 		$img_user = $this->session->userdata('img_user');
-			$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
 		$data = array(
 			'judul' => "AKUN ADMIN",
 			'sub' => "Akun Admin",
@@ -150,12 +150,24 @@ class Admin extends CI_Controller
 	public function delete()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_akun');
+		$id = $this->security->xss_clean($this->input->post('id_akun'));
 		$data = array(
 			'id_akun' => $id
 		);
 		$this->M_auth->delete($data);
 		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
+		redirect($this->redirect, 'refresh');
+	}
+	public function resetPassword()
+	{
+		cek_csrf();
+		$account = $this->security->xss_clean($this->input->post('id_akun'));
+		$user = $this->security->xss_clean($this->input->post('id_user'));
+		$data = array(
+			'password' => NULL
+		);
+		$this->M_auth->updateAccount($account, $data);
+		$this->session->set_flashdata('reset_success', 'Password Berhasil di Reset! Password kamu sekarang: ' . '<b>' . $user . '</b>');
 		redirect($this->redirect, 'refresh');
 	}
 }

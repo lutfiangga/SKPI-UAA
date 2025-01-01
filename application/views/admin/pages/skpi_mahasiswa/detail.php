@@ -47,11 +47,11 @@
 			Kembali
 		</a>
 		<div class="inline-flex justify-between gap-2">
-			<button type="button" id="pdf" aria-label="Print Dokumen"
+			<!-- <button type="button" id="pdf" aria-label="Print Dokumen"
 				class="flex border gap-1 text-blue-600 items-center space-x-2 bg-blue-100 hover:bg-blue-200 p-2 rounded-lg transition duration-200">
 				<i data-feather="file-text" class="w-5 h-5"></i>
 				<p class="font-semibold hidden md:block">PDF</p>
-			</button>
+			</button> -->
 			<!-- Print Button with Tooltip -->
 			<button type="button" id="print" aria-label="Print Dokumen"
 				class="flex border gap-1 text-red-600 items-center space-x-2 bg-red-100 hover:bg-red-200 p-2 rounded-lg transition duration-200">

@@ -81,7 +81,22 @@
 			</div>
 		</form>
 	</div>
-
+	<?php if ($this->session->flashdata('update_success')): ?>
+		<div role="alert" class="alert alert-success">
+			<svg
+				xmlns="http://www.w3.org/2000/svg"
+				class="h-6 w-6 shrink-0 stroke-current"
+				fill="none"
+				viewBox="0 0 24 24">
+				<path
+					stroke-linecap="round"
+					stroke-linejoin="round"
+					stroke-width="2"
+					d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+			</svg>
+			<span> <?= $this->session->flashdata('update_success'); ?></span>
+		</div>
+	<?php endif; ?>
 	<!-- table data -->
 	<section class="relative bg-[#fafafa] rounded-2xl lg:p-8 p-4 my-4">
 
@@ -93,6 +108,7 @@
 						<th class="p-2">Nama</th>
 						<th class="p-2">Tahun Masuk <br>- Tahun Lulus</th>
 						<th class="p-2">Semester</th>
+						<th class="p-2">No Ijazah</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
@@ -120,15 +136,28 @@
 								<?= $row['tahun_masuk']; ?><?= !empty($row['tahun_lulus']) ? ' - ' . $row['tahun_lulus'] : ''; ?>
 							</td>
 							<td class="p-2 whitespace-nowrap">Semester <?= $row['semester']; ?></td>
+							<td class="p-2">
+								<?php if (!empty($row['nomor_ijazah'])) : ?>
+									<div class="inline-flex items-center gap-1 md:gap-2 whitespace-nowrap">
+										<?= $row['nomor_ijazah']; ?>
+										<button type="button" onclick="ijazahMhs('<?= $row['nim'] ?>','<?= $row['nomor_ijazah'] ?>')" aria-label="Print Dokumen"
+											class="flex border gap-1 text-orange-600 items-center space-x-2 bg-orange-100 hover:bg-orange-200 p-2 rounded-lg transition duration-200">
+											<i data-feather="edit" class="w-3 h-3"></i>
+										</button>
+									</div>
+								<?php else: ?>
+									<button type="button" onclick="ijazahMhs('<?= $row['nim'] ?>','<?= $row['nomor_ijazah'] ?>')" aria-label="Print Dokumen"
+										class="flex border gap-1 text-orange-600 items-center space-x-2 bg-orange-100 hover:bg-orange-200 p-2 rounded-lg transition duration-200 whitespace-normal">
+										<i data-feather="plus-circle" class="w-3 h-3"></i>
+										<span>Needed Action!</span>
+									</button>
+								<?php endif; ?>
+							</td>
 							<td class="p-2 flex flex-row items-center justify-center mt-2 gap-2">
 								<a href="<?= site_url('Admin/Skpi_Mahasiswa/detail/' . $row['nim'] . '/' . $row['id_akun']) ?>" class="bg-blue-100 rounded-full p-2 hover:scale-125 hover:bg-blue-200 text-blue-600 flex items-center gap-2 group">
 									<i data-feather="eye" class="w-4 h-auto"></i>
 								</a>
-								<a href="<?= site_url(ucwords($role) . '/Skpi_Mahasiswa/pdf/' . $row['nim'] . '/' . $row['id_akun']) ?>" aria-label="Print Dokumen"
-									class="flex border gap-1 text-orange-600 items-center space-x-2 bg-orange-100 hover:bg-orange-200 p-2 rounded-lg transition duration-200">
-									<i data-feather="file-text" class="w-5 h-5"></i>
-									<p class="font-semibold hidden md:block">PDF</p>
-								</a>
+
 							</td>
 						</tr>
 
@@ -143,6 +172,7 @@
 						<th class="p-2">Nama</th>
 						<th class="p-2">Tahun Masuk <br>- Tahun Lulus</th>
 						<th class="p-2">Semester</th>
+						<th class="p-2">No Ijazah</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>
@@ -150,5 +180,43 @@
 		</div>
 
 	</section>
+	<!-- Modal Ijazah Mahasiswa -->
+	<dialog id="ijazahMhs" class="modal overflow-hidden font-sans">
+		<div class="modal-box bg-[#fafafa]">
+			<form method="dialog">
+				<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
+			</form>
+			<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
+				Ijazah Mahasiswa
+				<div class="bg-yellow-100 md:p-3 p-2 text-yellow-600 rounded-lg ml-2 md:ml-4">
+					<i data-feather="award" class="w-4 h-4"></i>
+				</div>
+			</h3>
+			<div class="divider border-gray-400"></div>
+			<form method="post" action="<?= site_url(ucwords($role) . '/Skpi_Mahasiswa/ijazahMhs/'); ?>" enctype="multipart/form-data" role="form">
+				<?= csrf(); ?>
+				<input type="text" id="nim" name="nim" hidden />
+
+				<div class="mb-4">
+					<label for="nomor_ijazah" class="block text-sm font-medium text-gray-700 mb-2">Nomor Ijazah:</label>
+					<input type="text" required id="nomor_ijazah" name="nomor_ijazah"
+						class="p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+						placeholder="Nomor Ijazah">
+				</div>
+
+				<div class="modal-action relative" style="z-index: 1000;">
+					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
+				</div>
+			</form>
+		</div>
+	</dialog>
 
 </section>
+<script>
+	const ijazahMhs = (id, ijazah) => {
+		document.getElementById('nim').value = id
+		document.getElementById('nomor_ijazah').value = ijazah
+		document.getElementById('ijazahMhs').showModal()
+	}
+</script>

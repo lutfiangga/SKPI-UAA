@@ -152,12 +152,24 @@ class Admisi extends CI_Controller
 	public function delete()
 	{
 		cek_csrf();
-		$id = $this->input->post('id_akun');
+		$id = $this->security->xss_clean($this->input->post('id_akun'));
 		$data = array(
 			'id_akun' => $id
 		);
 		$this->M_auth->delete($data);
 		$this->session->set_flashdata('delete_success', 'Data berhasil dihapus!');
+		redirect($this->redirect, 'refresh');
+	}
+	public function resetPassword()
+	{
+		cek_csrf();
+		$account = $this->security->xss_clean($this->input->post('id_akun'));
+		$user = $this->security->xss_clean($this->input->post('id_user'));
+		$data = array(
+			'password' => NULL
+		);
+		$this->M_auth->updateAccount($account, $data);
+		$this->session->set_flashdata('reset_success', 'Password Berhasil di Reset! Password kamu sekarang: ' . '<b>' . $user . '</b>');
 		redirect($this->redirect, 'refresh');
 	}
 }

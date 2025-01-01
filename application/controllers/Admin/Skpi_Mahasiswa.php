@@ -67,77 +67,16 @@ class Skpi_Mahasiswa extends CI_Controller
 		
 		$this->template->load('layout/components/layout', $this->view . 'detail', $data);
 	}
-	public function word($nim, $id_akun)
+	public function ijazahMhs()
 	{
-		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
-		$id_akun = $this->uri->segment(5);
-		$nim = $this->uri->segment(4);
+		cek_csrf();
+		$id = $this->security->xss_clean($this->input->post('nim'));
 		$data = array(
-			'judul' => "SKPI MAHASISWA",
-			'sub' => "SKPI Mahasiswa",
-			'active_menu' => 'skpi',
-			'nama' => $this->session->userdata('nama'),
-			'role' => $this->session->userdata('role'),
-			'id_user' => $nim,
-			'foto' => $foto,
-			'SpmPoin' => $this->M_spm->getPoinByUser($id_akun),
-			'mhs' => $this->M_profile->getById($id_akun),
-			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
-			'cpl' => $this->M_cpl->GetAll(),
-			'spm' => $this->M_spm->GetByNim($id_akun),
-			'etiket' => $this->M_etiquette->GetByNim($nim),
-			'skpi' => $this->M_mahasiswa->getSKPI($nim),
-			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
+			'nomor_ijazah' => $this->security->xss_clean($this->input->post('nomor_ijazah')),
 		);
-		header("Content-type: application/vnd.ms-word");
-		header("Content-Disposition: attachment; filename=skpi-$nim.doc");
-		$this->template->load('layout/components/layout_export', $this->view . 'word', $data);
-	}
-
-	public function pdf($nim, $id_akun)
-	{
-		$role = $this->session->userdata('role');
-		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
-		$id_akun = $this->uri->segment(5);
-		$nim = $this->uri->segment(4);
-
-		$data = array(
-			'judul' => "SKPI MAHASISWA",
-			'sub' => "SKPI Mahasiswa",
-			'active_menu' => 'skpi',
-			'nama' => $this->session->userdata('nama'),
-			'role' => $role,
-			'id_user' => $nim,
-			'foto' => $foto,
-			'SpmPoin' => $this->M_spm->getPoinByUser($id_akun),
-			'mhs' => $this->M_profile->getById($id_akun),
-			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
-			'cpl' => $this->M_cpl->GetAll(),
-			'spm' => $this->M_spm->GetByNim($id_akun),
-			'etiket' => $this->M_etiquette->GetByNim($nim),
-			'skpi' => $this->M_mahasiswa->getSKPI($nim),
-			'kategori_cpl' => $this->M_kategori_cpl->GetAll(),
-		);
-
-		// Load the view as HTML content
-		// $this->load->view($this->view . 'pdf', $data);
-		$html = $this->load->view($this->view . 'pdf', $data, TRUE);
-
-		// Load Pdfgenerator Library
-		$this->load->library('Pdfgenerator');
-		$options = array(
-			'enable_html5_parser' => true,
-			'enable_css_float' => true,
-			'enable_javascript' => true,
-			'enable_remote' => true,
-			'font_path' => FCPATH . 'assets/fonts/'
-		);
-
-		// Gunakan options saat generate PDF
-		// Generate PDF
-		$filename = 'SKPI_' . $nim;
-		$this->pdfgenerator->generate($html, $filename, 'Legal', 'portrait', $options);
+	
+		$this->M_mahasiswa->update($id, $data);
+		$this->session->set_flashdata('update_success', 'Data berhasil diupdate');
+		redirect($this->redirect, 'refresh');
 	}
 }

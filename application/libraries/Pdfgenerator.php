@@ -6,7 +6,7 @@ use Dompdf\Options;
 
 class Pdfgenerator
 {
-	public function generate($html, $filename = '', $paper = 'A4', $orientation = 'portrait', $stream = TRUE)
+	public function generate($html, $filename = '', $paper = 'Legal', $orientation = 'portrait', $stream = TRUE)
 	{
 		$options = new Options();
 		$options->set('isRemoteEnabled', TRUE); // Enable remote resources
