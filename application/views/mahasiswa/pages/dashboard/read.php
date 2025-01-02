@@ -120,17 +120,53 @@
 					</p>
 
 					<div class="flex flex-col justify-center gap-4">
-						<?php foreach ($spmMhs as $row) : ?>
-							<div class="flex flex-row items-center gap-2">
-								<!-- Circle Icon -->
-								<div id="circle-<?= $row['kategori']; ?>" class="bg-circle mr-1 rounded-full h-4 w-4 flex items-center justify-center"></div>
+						<?php
+						// Inisialisasi array untuk mengelompokkan subkategori berdasarkan kategori
+						$kategoriData = [];
 
-								<!-- Kategori -->
-								<p class="text-base capitalize font-medium">
-									Kategori: <?= $row['kategori']; ?> <span class="font-bold"><?= $row['total_poin']; ?> Poin</span>
-								</p>
+						// Memproses data agar terkelompok berdasarkan kategori
+						foreach ($spmMhs as $row) {
+							$kategori = $row['kategori'];
+							$subkategori = $row['subkategori'];
+							$total_poin = $row['total_poin'];
+
+							// Jika kategori belum ada di array, tambahkan
+							if (!isset($kategoriData[$kategori])) {
+								$kategoriData[$kategori] = [];
+							}
+
+							// Tambahkan subkategori ke dalam kategori
+							$kategoriData[$kategori][] = [
+								'subkategori' => $subkategori,
+								'total_poin' => $total_poin,
+							];
+						}
+						?>
+
+						<!-- Menampilkan data yang sudah dikelompokkan -->
+						<?php foreach ($kategoriData as $kategori => $subkategoriList) : ?>
+							<!-- Header Kategori -->
+							<div class="mb-4">
+								<p class="text-xs md:text-sm font-bold capitalize"># Kategori: <?= $kategori; ?></p>
+
+								<!-- List Subkategori -->
+								<?php foreach ($subkategoriList as $subkategoriItem) : ?>
+									<div class="flex flex-row items-center gap-2 space-y-0.5 sm:space-y-1.5">
+										<!-- Circle Icon -->
+										<div id="circle-<?= $subkategoriItem['subkategori']; ?>"
+											class="bg-circle mr-1 mt-2 rounded-full h-3 w-3 flex items-center justify-center">
+										</div>
+
+										<!-- Subkategori dan Poin -->
+										<p class="text-xs md:text-sm capitalize font-medium">
+											<?= $subkategoriItem['subkategori']; ?>
+											<span class="font-bold">: <?= $subkategoriItem['total_poin']; ?> Poin</span>
+										</p>
+									</div>
+								<?php endforeach; ?>
 							</div>
 						<?php endforeach; ?>
+
 					</div>
 				</div>
 
@@ -188,29 +224,34 @@
 	let data = [];
 	let backgroundColors = [];
 	let hoverBackgroundColors = [];
-	let colorsMap = {}; // Untuk menyimpan warna untuk setiap kategori
+	let kategoriMap = {}; // Untuk menyimpan kategori per subkategori
+	let colorsMap = {}; // Untuk menyimpan warna per subkategori
 
 	<?php foreach ($spmMhs as $row) : ?>
-		var kategori = "<?= $row['subkategori'] ?>";
+		var subkategori = "<?= $row['subkategori'] ?>";
+		var kategori = "<?= $row['kategori'] ?>";
 		var poin = <?= $row['total_poin'] ?>;
 
-		// Generate a color for this category if not already generated
-		if (!colorsMap[kategori]) {
-			colorsMap[kategori] = getRandomColor();
+		// Simpan hubungan kategori dan subkategori
+		kategoriMap[subkategori] = kategori;
+
+		// Generate a color for this subkategori if not already generated
+		if (!colorsMap[subkategori]) {
+			colorsMap[subkategori] = getRandomColor();
 		}
 
-		var bgColor = colorsMap[kategori];
+		var bgColor = colorsMap[subkategori];
 		var hoverColor = getRandomColor();
 
-		labels.push(kategori);
+		labels.push(subkategori); // Simpan hanya subkategori di label
 		data.push(poin);
 		backgroundColors.push(bgColor);
 		hoverBackgroundColors.push(hoverColor);
 
 		// Apply the color to the span element corresponding to the category
-		var element = document.getElementById('circle-' + kategori);
+		var element = document.getElementById('circle-' + subkategori);
 		if (element) {
-			element.style.backgroundColor = bgColor; // Use the color for this category
+			element.style.backgroundColor = bgColor; // Gunakan warna untuk kategori ini
 		}
 	<?php endforeach; ?>
 
@@ -246,7 +287,22 @@
 					},
 					tooltip: {
 						intersect: false,
-						enabled: true
+						enabled: true,
+						callbacks: {
+							// Custom tooltip format
+							beforeLabel: function(tooltipItem) {
+								const index = tooltipItem.dataIndex;
+								const subkategori = labels[index];
+								const kategori = kategoriMap[subkategori];
+								return `Kategori: ${kategori}`; // Tampilkan kategori di atas
+							},
+							label: function(tooltipItem) {
+								const index = tooltipItem.dataIndex;
+								const subkategori = labels[index];
+								const value = data[index];
+								return `${subkategori}: ${value}`; // Tampilkan subkategori dan poin
+							}
+						}
 					}
 				}
 			}

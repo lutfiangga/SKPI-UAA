@@ -22,6 +22,17 @@ if (!function_exists('renderLink')) {
         </a>";
 	}
 }
+if (!function_exists('renderLinkButton')) {
+	function renderLinkButton($label, $url)
+	{
+		return "<a href=\"{$url}\" target=\"_blank\" class=\"flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-gray-200\">
+										<div class=\"rounded-md text-white bg-blue-600 p-2\">
+											<i data-feather=\"link-2\" class=\"w-6 h-auto\"></i>
+										</div>
+										<p class=\"text-sm text-blue-600 underline truncate\">{$label}</p>
+									</a>";
+	}
+}
 
 if (!function_exists('renderStatus')) {
 	function renderStatus($status)

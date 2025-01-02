@@ -219,4 +219,5 @@
 		document.getElementById('nomor_ijazah').value = ijazah
 		document.getElementById('ijazahMhs').showModal()
 	}
+	
 </script>

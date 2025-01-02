@@ -129,9 +129,5 @@
 		iframe.contentWindow.focus();
 		iframe.contentWindow.print();
 	});
-	$('#print_syarat_wajib').click(function() {
-		const iframe = document.querySelector('#syarat_wajib');
-		iframe.contentWindow.focus();
-		iframe.contentWindow.print();
-	});
+	
 </script>

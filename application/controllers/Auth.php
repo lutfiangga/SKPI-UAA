@@ -40,6 +40,7 @@ class Auth extends CI_Controller
 			'required',
 			array('required' => 'Password wajib diisi.')
 		);
+
 		// Jalankan validasi
 		if ($this->form_validation->run() == FALSE) {
 			// Jika validasi gagal (input kosong atau format salah)
@@ -49,50 +50,41 @@ class Auth extends CI_Controller
 			cek_csrf();
 			$username = $this->security->xss_clean($this->input->post('username'));
 			$pwd = $this->security->xss_clean($this->input->post('password'));
+			$hashedPwd = md5($pwd); // Hash password menggunakan MD5
 
 			// Cek login
 			$data = $this->M_auth->CekLogin('username', $username);
+
 			// Jika password di database kosong, gunakan id_user sebagai password
 			if (empty($data['password'])) {
 				if ($pwd === $data['id_user']) {
 					// Set session data berdasarkan peran pengguna
 					$this->set_session($data);
 					$this->session->set_flashdata('success', 'Anda berhasil login!');
-
-					// echo $this->db->last_query();
-					// echo 'Role: ' . $data['role'];
 					$this->role_redirect($data['role']); // Redirect berdasarkan role
 				} else {
 					$this->session->set_flashdata('auth_error', 'Password salah!');
-					// echo $this->db->last_query();
-					// echo 'Role: ' . $data['role'];
-					// echo 'password: ' . $pwd;
 					redirect('auth', 'refresh');
 				}
 			} else if ($data) {
-				if (password_verify($pwd, $data['password'])) {
+				if ($hashedPwd === $data['password']) { // Bandingkan hash MD5
 					// Set session data berdasarkan peran pengguna
 					$this->set_session($data);
 					$this->session->set_flashdata('success', 'Anda berhasil login!');
-					// echo $this->db->last_query();
-					// echo 'Role: ' . $data['role'];
 					$this->role_redirect($data['role']); // Redirect berdasarkan role
 				} else {
 					// Jika password salah
 					$this->session->set_flashdata('auth_error', 'Password salah!');
-					// echo $this->db->last_query();
-					// echo 'Role: ' . $data['role'];
 					redirect('auth', 'refresh');
 				}
 			} else {
-				// Jika email tidak ditemukan
-				$this->session->set_flashdata('auth_error', 'Email tidak ditemukan!');
-				// echo $this->db->last_query();
-				// echo 'Role: ' . $data['role'];
+				// Jika username tidak ditemukan
+				$this->session->set_flashdata('auth_error', 'Username tidak ditemukan!');
 				redirect('auth', 'refresh');
 			}
 		}
 	}
+
 
 	// Helper untuk set session data
 	private function set_session($data)

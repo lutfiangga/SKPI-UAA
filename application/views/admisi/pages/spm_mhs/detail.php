@@ -114,57 +114,19 @@
 							</td>
 							<td class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 font-semibold text-left">
 								<?php if (!empty($row['file'])) : ?>
-									<button type="button" onclick="viewFile('<?= $row['file']; ?>')" class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-gray-200">
-										<div class="rounded-md text-white bg-blue-600 p-2">
-											<i data-feather="file-text" class="w-6 h-auto"></i>
-										</div>
-										<p class="text-sm text-blue-600 underline truncate">File</p>
-									</button>
+									<?= renderViewButton('File', 'viewFile', $row['file']) ?>
 								<?php endif; ?>
 							</td>
 							<td class="px-6 border border-solid border-gray-400 text-sm border-l-0 border-r-0 font-semibold text-left">
 								<?php if (!empty($row['url'])) : ?>
-									<a href="<?= $row['url']; ?>" target="_blank" class="flex flex-row p-2 items-center gap-2 hover:rounded-lg hover:bg-gray-200">
-										<div class="rounded-md text-white bg-blue-600 p-2">
-											<i data-feather="link-2" class="w-6 h-auto"></i>
-										</div>
-										<p class="text-sm text-blue-600 underline truncate">Link</p>
-									</a>
+									<?= renderLinkButton('Link', $row['url']) ?>
 								<?php endif; ?>
 							</td>
 							<td class="px-6 border border-solid border-gray-400 text-sm border-l-0 border-r-0 font-semibold text-left">
-								<?php if ($row['status'] == 'pending') : ?>
-									<span class="flex items-center text-sm gap-2 text-orange-600 p-2 rounded-full">
-										<i data-feather="alert-circle" class="w-4 h-auto"></i>
-										On Review
-									</span>
-								<?php elseif ($row['status'] == 'diterima') : ?>
-									<span class="flex items-center text-sm gap-2 text-green-600 p-2 rounded-full">
-										<i data-feather="check-circle" class="w-4 h-auto"></i>
-										Verified
-									</span>
-								<?php elseif ($row['status'] == 'ditolak') : ?>
-									<span class="flex items-center text-sm gap-2 text-red-600 p-2 rounded-full">
-										<i data-feather="x-circle" class="w-4 h-auto"></i>
-										Unverified
-									</span>
-								<?php endif; ?>
+								<?= renderStatus($row['status']) ?>
 							</td>
 							<td class="px-6 border border-solid border-gray-400 text-sm border-l-0 border-r-0 font-semibold text-left">
-								<?php if ($row['status'] == 'pending'): ?>
-									<a href="<?= site_url('Admisi/Spm_Mahasiswa/accept/' . $row['id_syarat_wajib']); ?>" class="text-green-600 hover:scale-125 rounded-full p-2 flex items-center gap-2">
-										<i data-feather="check-circle" class="w-4 h-auto"></i>
-										Diterima
-									</a>
-									<button onclick="openDeclineModal(<?= $row['id_syarat_wajib']; ?>)" class="text-red-600 hover:scale-125 rounded-full p-2 flex items-center gap-2">
-										<i data-feather="x-circle" class="w-4 h-auto"></i>
-										Ditolak
-									</button>
-								<?php else: ?>
-									<p class="text-xs text-gray-400">
-										<?= (!empty(trim($row['keterangan']))) ? 'Keterangan: ' . $row['keterangan'] : 'No action needed'; ?>
-									</p>
-								<?php endif; ?>
+								<?= renderSpmActions($row['status'], ucwords($role) . '/Spm_Mahasiswa/accept/', $row['id_syarat_wajib'], '/' . $row['id_akun'], $row['keterangan']) ?>
 							</td>
 						</tr>
 

@@ -24,11 +24,10 @@ class M_auth extends CI_Model
 		$this->db->where('akun_user.id_user', $id);
 		$this->db->update($this->table, $data);
 	}
-	public function getId($id_user)
+	public function getId($id)
 	{
-		$this->db->where('akun_user.id_user', $id_user);
-		$query = $this->db->get($this->table);
-		return $query->row();
+		$this->db->where($this->pk, $id);
+		return $this->db->get($this->table)->row();
 	}
 	public function GetStaff()
 	{

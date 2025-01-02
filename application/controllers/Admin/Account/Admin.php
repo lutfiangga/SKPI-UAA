@@ -132,7 +132,7 @@ class Admin extends CI_Controller
 			redirect($this->redirect . '/edit');
 		} else {
 			$new_password = $this->security->xss_clean($this->input->post('password'));
-			$password = !empty($new_password) ? password_hash($new_password, PASSWORD_ARGON2ID) : $old_password;
+			$password = !empty($new_password) ? md5($new_password) : $old_password;
 
 			$data = array(
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),

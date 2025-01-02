@@ -93,42 +93,74 @@ class Myprofile extends CI_Controller
 	public function update_password()
 	{
 		$this->form_validation->set_rules('current_password', 'Current Password', 'required');
-		$this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[6]');
-		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[new_password]');
+		$this->form_validation->set_rules('new_password', 'New Password', 'required|min_length[6]|regex_match[/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$/]|callback_password_check', [
+			'required' => 'Password baru harus diisi',
+			'min_length' => 'Password minimal 6 karakter',
+			'regex_match' => 'Password harus mengandung huruf besar, huruf kecil, dan angka'
+		]);
+		$this->form_validation->set_rules('confirm_password', 'Confirm Password', 'required|matches[new_password]', [
+			'required' => 'Konfirmasi password harus diisi',
+			'matches' => 'Konfirmasi password tidak cocok'
+		]);
 
-		$id_user = $this->session->userdata('id_user');
-		$current_password = $this->input->post('current_password');
-		$new_password = $this->input->post('new_password');
+		$id_akun = trim($this->session->userdata('id_akun'));
+		$id_user = trim($this->session->userdata('id_user'));
+		$current_password = trim($this->security->xss_clean($this->input->post('current_password')));
+		$new_password = trim($this->security->xss_clean($this->input->post('new_password')));
 
-		$user = $this->M_auth->getId($id_user);
+		$user = $this->M_auth->getId($id_akun);
 
 		if ($this->form_validation->run() == FALSE) {
-			// Jika validasi form gagal
 			$this->session->set_flashdata('validation_error', validation_errors());
 			redirect($this->redirect);
 		} else {
 			cek_csrf();
+
+			$md5_current = md5($current_password);
+			$md5_id = md5($id_user);
+
 			if (empty($user->password)) {
-				if ($current_password === $user->id_user) {
-					$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
-					// Update password 					$this->M_auth->update($id_user, ['password' => $hashed_password]);
-					$this->session->set_flashdata('success', 'Password updated successfully.');
+				if ($md5_current === $md5_id) {
+					$hashed_password = md5($new_password);
+					$this->M_auth->updateAccount($id_user, ['password' => $hashed_password]);
+					$this->session->set_flashdata('success', 'Password berhasil diperbarui!');
 					redirect($this->redirect);
 				} else {
-					// Password lama tidak cocok
-					$this->session->set_flashdata('error', 'Current password is incorrect.');
+					$this->session->set_flashdata('error', 'Current password salah!');
 					redirect($this->redirect);
 				}
-			} else if (password_verify($current_password, $user->password)) {
-				$hashed_password = password_hash($new_password, PASSWORD_ARGON2ID);
-				$this->M_auth->update($id_user, ['password' => $hashed_password]);
-				$this->session->set_flashdata('success', 'Password updated successfully.');
-				redirect($this->redirect);
 			} else {
-				// Password lama tidak cocok
-				$this->session->set_flashdata('error', 'Current password is incorrect.');
-				redirect($this->redirect);
+				if ($md5_current === $user->password) {
+					$hashed_password = md5($new_password);
+					$this->M_auth->updateAccount($id_user, ['password' => $hashed_password]);
+					$this->session->set_flashdata('success', 'Password berhasil diperbarui!');
+					redirect($this->redirect);
+				} else {
+					$this->session->set_flashdata('error', 'Current password salah!');
+					redirect($this->redirect);
+				}
 			}
 		}
+	}
+
+	public function password_check($str)
+	{
+		$id_user = trim($this->session->userdata('id_user'));
+		$id_akun = trim($this->session->userdata('id_akun'));
+		$user = $this->M_auth->getId($id_akun);
+		$current_password = trim($this->security->xss_clean($this->input->post('current_password')));
+
+		if (empty($user->password)) {
+			if (md5($str) === md5($id_user)) {
+				$this->form_validation->set_message('password_check', 'Password baru tidak boleh sama dengan password lama!');
+				return FALSE;
+			}
+		} else {
+			if (md5($str) === $user->password) {
+				$this->form_validation->set_message('password_check', 'Password baru tidak boleh sama dengan password lama!');
+				return FALSE;
+			}
+		}
+		return TRUE;
 	}
 }

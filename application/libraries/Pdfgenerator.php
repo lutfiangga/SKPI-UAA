@@ -1,5 +1,5 @@
 <?php defined('BASEPATH') or exit('No direct script access allowed');
-require_once 'dompdf-master/autoload.inc.php';
+require_once 'dompdf/autoload.inc.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
