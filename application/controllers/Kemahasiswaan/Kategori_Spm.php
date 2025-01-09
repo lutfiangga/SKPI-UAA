@@ -87,6 +87,7 @@ class Kategori_Spm extends CI_Controller
 	public function delete()
 	{
 		cek_csrf();
+		$id = $this->security->xss_clean($this->input->post('id_kategori_spm'));
 		$data = array(
 			'id_kategori_spm' => $id
 		);

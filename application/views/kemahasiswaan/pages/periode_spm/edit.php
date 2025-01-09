@@ -67,7 +67,7 @@
 				</div>
 
 				<div class="mb-4">
-					<label for="periode_kegiatan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Kegiatan Minimum Kegiatan Dimulai:</label>
+					<label for="periode_kegiatan" class="block text-sm font-medium text-gray-700 mb-2">Tanggal Minimum Kegiatan Dimulai:</label>
 					<input type="date" id="periode_kegiatan" name="periode_kegiatan" value="<?= $edit['periode_kegiatan'] ?>"
 						class="mt-1 pickdate block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan periode kegiatan" />

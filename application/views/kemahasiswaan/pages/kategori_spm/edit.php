@@ -65,12 +65,6 @@
 						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
 						placeholder="Masukkan namakategori" />
 				</div>
-				<div class="mb-4">
-					<label for="poin" class="block text-sm font-medium text-gray-700 mb-2">Poin:</label>
-					<input type="number" inputmode="numeric" id="poin" name="poin" value="<?= $edit['poin']; ?>"
-						class="mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
-						placeholder="Masukkan poin" />
-				</div>
 
 				<div class="divider border-gray-400"></div>
 				<div class="inline-flex gap-2 md:gap-4">
