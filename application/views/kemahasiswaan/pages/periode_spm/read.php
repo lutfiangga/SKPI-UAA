@@ -105,7 +105,7 @@
 					<tr>
 						<th class="p-2">No</th>
 						<th class="p-2">Periode</th>
-						<th class="p-2">Tanggal Kegiatan Maksimal</th>
+						<th class="p-2">Tanggal Kegiatan Minimum Kegiatan Dimulai</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</thead>
@@ -140,7 +140,7 @@
 					<tr>
 						<th class="p-2">No</th>
 						<th class="p-2">Periode</th>
-						<th class="p-2">Tanggal Kegiatan Maksimal</th>
+						<th class="p-2">Tanggal Kegiatan Minimum Kegiatan Dimulai</th>
 						<th class="p-2">Aksi</th>
 					</tr>
 				</tfoot>

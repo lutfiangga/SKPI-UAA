@@ -83,12 +83,12 @@ class Admisi extends CI_Controller
 			$this->session->set_flashdata('create_error', validation_errors());
 			redirect($this->redirect);
 		} else {
-			$$password = $this->security->xss_clean($this->input->post('password'));
+			$password = trim($this->security->xss_clean($this->input->post('password')));
 			$data = array(
 				'id_akun' => generate_uuid_v7(),
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),
-				'username' => $this->security->xss_clean($this->input->post('username')),
-				'password' => !empty($password) ? password_hash($password, PASSWORD_ARGON2ID) : NULL,
+				'username' => trim($this->security->xss_clean($this->input->post('username'))),
+				'password' => !empty($password) ? md5($password) : NULL,
 				'role' => 'admisi'
 			);
 
@@ -134,12 +134,11 @@ class Admisi extends CI_Controller
 			$this->session->set_flashdata('update_error', validation_errors());
 			redirect($this->redirect . '/edit');
 		} else {
-			$new_password = $this->security->xss_clean($this->input->post('password'));
+			$new_password = trim($this->security->xss_clean($this->input->post('password')));
 			$password = !empty($new_password) ? md5($new_password) : $old_password;
-
 			$data = array(
 				'id_user' => $this->security->xss_clean($this->input->post('id_user')),
-				'username' => $updated_username ? $old_username : $this->security->xss_clean($new_username),
+				'username' => $updated_username ? $old_username : trim($this->security->xss_clean($new_username)),
 				'password' => $password,
 				'role' => $this->security->xss_clean($this->input->post('role')),
 			);

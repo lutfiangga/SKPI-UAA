@@ -48,8 +48,8 @@ class Auth extends CI_Controller
 			redirect('auth', 'refresh');
 		} else {
 			cek_csrf();
-			$username = $this->security->xss_clean($this->input->post('username'));
-			$pwd = $this->security->xss_clean($this->input->post('password'));
+			$username = trim($this->security->xss_clean($this->input->post('username')));
+			$pwd = trim($this->security->xss_clean($this->input->post('password')));
 			$hashedPwd = md5($pwd); // Hash password menggunakan MD5
 
 			// Cek login

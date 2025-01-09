@@ -8,7 +8,7 @@ class M_periode_spm extends CI_Model
 	private $pk = 'id_periode';
 	public function GetAll()
 	{
-		$this->db->order_by($this->pk, 'asc');
+		$this->db->order_by('periode', 'desc');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function periode($tahun, $tanggal)
