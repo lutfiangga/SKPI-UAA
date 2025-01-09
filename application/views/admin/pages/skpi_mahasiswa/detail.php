@@ -487,7 +487,7 @@
 </section>
 <script>
 	//export pdf
-	document.getElementById('pdf').addEventListener('click', () => {
+	$('#pdf').on('click', function() {
 		const content = document.getElementById('content-print');
 
 		html2pdf()
@@ -509,35 +509,33 @@
 
 	});
 
-	//print
-	document.getElementById('print').addEventListener('click', () => {
-		const elementToPrint = document.getElementById('content-print').outerHTML;
-
+	// Print
+	$(document).on('click', '#print', function() {
+		const elementToPrint = $('#content-print').prop('outerHTML');
 		// Buat popup baru untuk mencetak
 		const popupWindow = window.open('', '_blank', 'width=800,height=600');
-
 		popupWindow.document.open();
 		popupWindow.document.write(`
         <!DOCTYPE html>
         <html>
         <head>
             <title>SKPI-<?= $skpi['nim'] ?></title>
-			<script src="https://cdn.tailwindcss.com"><\/script>
+            <script src="https://cdn.tailwindcss.com"><\/script>
             <link rel="stylesheet" href="${window.location.origin}/assets/vendor/css/app.css">
         </head>
         <body>
             ${elementToPrint}
         </body>
         </html>
-    `);
+    	`);
 		popupWindow.document.close();
-
-		popupWindow.onload = () => {
+		popupWindow.onload = function() {
 			// Panggil fungsi cetak
 			popupWindow.print();
-
 			// Tutup popup setelah cetak selesai
-			popupWindow.onafterprint = () => popupWindow.close();
+			popupWindow.onafterprint = function() {
+				popupWindow.close();
+			};
 		};
 	});
 </script>
