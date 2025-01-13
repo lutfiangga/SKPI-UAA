@@ -67,7 +67,7 @@
 			active: "font-semibold bg-indigo-500 text-white",
 			notActive: "bg-[#fafafa]]",
 			button:
-				"relative inline-flex justify-center items-center space-x-2 border px-4 py-2 -mr-px leading-6 hover:z-10 focus:z-10 active:z-10 border-gray-200 active:border-gray-200 active:shadow-none",
+				"relative inline-flex justify-center items-center space-x-2 border px-2 py-1 sm:px-4 sm:py-2 -mr-px text-xs sm:text-sm leading-6 hover:z-10 focus:z-10 active:z-10 border-gray-200 active:border-gray-200 active:shadow-none text-xs sm:text-sm",
 			first: "rounded-l-lg",
 			last: "rounded-r-lg",
 			enabled:

@@ -40,9 +40,9 @@ $(document).ready(function () {
 					[5, 10, 25, 50, 100, 200, "All"],
 				],
 				dom:
-					"<'flex justify-between items-center mb-4 w-full text-gray-700'<'flex items-center w-2/3 sm:w-3/4 text-xs sm:text-sm'l><'flex items-center space-x-2'fB>>" +
+					"<'flex justify-between items-center mb-4 w-full text-gray-700'<'flex items-center w-2/3 sm:w-3/4 text-xs sm:text-sm'l><'flex items-center space-x-2 text-xs sm:text-sm'fB>>" +
 					"<'w-full text-gray-700'tr>" +
-					"<'flex justify-between items-center my-4 w-full text-gray-700'<'flex items-center space-x-2 text-xs sm:text-sm'l><'flex items-center text-xs sm:text-sm'i><'flex items-center'p>>",
+					"<'flex justify-between items-center my-4 w-full text-gray-700'<'flex items-center space-x-2 text-xs sm:text-sm'l><'flex items-center text-xs sm:text-sm'i><'flex items-center text-xs sm:text-sm'p>>",
 				buttons: [
 					{
 						extend: "collection",
@@ -93,9 +93,9 @@ $(document).ready(function () {
 					[5, 10, 25, 50, 100, 200, "All"],
 				],
 				dom:
-					"<'flex justify-between items-center mb-4 w-full text-gray-700'<'flex items-center w-2/3 sm:w-3/4 text-xs sm:text-sm'l><'flex items-center space-x-2'f>>" +
+					"<'flex justify-between items-center mb-4 w-full text-gray-700'<'flex items-center w-2/3 sm:w-3/4 text-xs sm:text-sm'l><'flex items-center space-x-2 text-xs sm:text-sm'f>>" +
 					"<'w-full text-gray-700'tr>" +
-					"<'flex justify-between items-center my-4 w-full text-gray-700'<'flex items-center space-x-2 text-xs sm:text-sm'l><'flex items-center text-xs sm:text-sm'i><'flex items-center'p>>",
+					"<'flex justify-between items-center my-4 w-full text-gray-700'<'flex items-center space-x-2 text-xs sm:text-sm'l><'flex items-center text-xs sm:text-sm'i><'flex items-center text-xs sm:text-sm'p>>",
 			})
 			.on("init.dt draw.dt", function () {
 				setTimeout(updateFeatherIcons, 50);
