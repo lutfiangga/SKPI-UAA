@@ -149,7 +149,7 @@
 													<i data-feather="link-2" class="w-6 h-auto"></i>
 												</div>
 											</div>
-											<p class="text-sm max-w-full font-thin whitespace-normal"><?= $row['url']; ?></p>
+											<p class="text-sm max-w-full font-thin underline">Link</p>
 										</a>
 									<?php endif; ?>
 								</td>

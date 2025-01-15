@@ -87,16 +87,16 @@
 			<div class=" mt-4 sm:mt-6 md:mt-8 overflow-x-auto">
 				<table class="table-auto bg-transparent w-full border-collapse">
 					<?php
-					$noKategori = 1;          // Category numbering
-					$currentKategori = null;  // Track current category
-					$noItem = 1;              // Item numbering
+					$noKategori = 1;          
+					$currentKategori = null;  
+					$noItem = 'a';              
 
 					foreach ($spm as $row):
-						// Check for category change
+						
 						if ($currentKategori !== $row['kategori']):
-							// If there's a change in category, reset the item counter and set the new category
+							
 							if ($currentKategori !== null) {
-								$noItem = 1; // Reset item number for each new category
+								$noItem = "a"; 
 							}
 							$currentKategori = $row['kategori'];
 					?>

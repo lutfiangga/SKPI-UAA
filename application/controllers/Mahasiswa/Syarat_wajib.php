@@ -9,7 +9,7 @@ class Syarat_wajib extends CI_Controller
 		parent::__construct();
 		//protected routes
 		checkRole('Mahasiswa');
-		$this->load->model(array('M_syarat_wajib', 'M_kategori_syarat_wajib', 'M_profile', 'M_dirAdmisi'));
+		$this->load->model(array('M_syarat_wajib', 'M_kategori_syarat_wajib', 'M_profile'));
 	}
 
 	function index()

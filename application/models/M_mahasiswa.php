@@ -73,7 +73,7 @@ class M_mahasiswa extends CI_Model
 		}
 
 		// Return total semesters starting from 1 instead of 0
-		return $total_semesters > 0 ? $total_semesters + 1 : 1;
+		return $total_semesters > 0 ? $total_semesters + 1 - 2 : 1;
 	}
 
 
