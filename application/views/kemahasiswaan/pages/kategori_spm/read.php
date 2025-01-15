@@ -36,6 +36,7 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
+
 	<!-- Alert success -->
 	<!-- create -->
 	<?php if ($this->session->flashdata('create_success')): ?>
@@ -71,7 +72,6 @@
 			<span> <?= $this->session->flashdata('update_success'); ?></span>
 		</div>
 	<?php endif; ?>
-	<!-- delete -->
 	<!-- delete -->
 	<?php if ($this->session->flashdata('delete_success')): ?>
 		<div role="alert" class="alert alert-error">

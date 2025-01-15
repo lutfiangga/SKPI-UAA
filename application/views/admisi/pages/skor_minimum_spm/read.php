@@ -172,7 +172,7 @@
 			</h3>
 			<div class="divider border-gray-400"></div>
 			<p class="text-gray-700 mb-4">Apakah Anda yakin ingin menghapus kategori ini?</p>
-			<form method="post" action="<?= site_url('Kemahasiswaan/Skor_Minimum_Spm/delete'); ?>">
+			<form method="post" action="<?= site_url(ucwords($role).'/Skor_Minimum_Spm/delete'); ?>">
 				<?= csrf(); ?>
 				<input type="hidden" id="hapus_id_skor" name="id_skor" />
 				<div class="modal-action relative" style="z-index: 1000;">

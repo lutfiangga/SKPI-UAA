@@ -8,8 +8,17 @@ class M_subkategori_spm extends CI_Model
 	private $pk = 'id_subkategori_spm';
 	public function GetAll()
 	{
-		$this->db->order_by($this->pk, 'asc');
+		$this->db->order_by($this->pk, 'desc');
 		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		return $this->db->get($this->table)->result_array();
+	}
+	public function GetKategori($data)
+	{
+		$this->db->order_by($this->pk, 'desc');
+		$this->db->join('kategori_spm', 'subkategori_spm.id_kategori_spm = kategori_spm.id_kategori_spm');
+		if ($data) {
+			$this->db->where('subkategori_spm.id_kategori_spm', $data);
+		}
 		return $this->db->get($this->table)->result_array();
 	}
 	public function save($data)

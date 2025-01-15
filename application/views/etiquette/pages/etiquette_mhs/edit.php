@@ -75,6 +75,7 @@
 					<label for="jenis_pelanggaran" class="block text-sm font-medium text-gray-700 mb-2">Jenis Pelanggaran:</label>
 					<select id="jenis_pelanggaran" required name="jenis_pelanggaran" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Jenis pelanggaran--</option>
+						<option value="khusus" <?= ($edit['jenis_pelanggaran'] == 'khusus') ? 'selected' : '' ?>>Khusus</option>
 						<option value="ringan" <?= ($edit['jenis_pelanggaran'] == 'ringan') ? 'selected' : '' ?>>Ringan</option>
 						<option value="sedang" <?= ($edit['jenis_pelanggaran'] == 'sedang') ? 'selected' : '' ?>>Sedang</option>
 						<option value="berat" <?= ($edit['jenis_pelanggaran'] == 'berat') ? 'selected' : '' ?>>Berat</option>

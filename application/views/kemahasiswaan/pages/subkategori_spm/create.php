@@ -84,7 +84,7 @@
 
 				<div class="divider border-gray-400"></div>
 				<div class="inline-flex gap-2 md:gap-4">
-					<a href="<?= site_url(ucwords($role) . '/Kategori_Spm'); ?>" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Close</a>
+					<a href="<?= site_url(ucwords($role) . '/Subkategori_Spm'); ?>" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Close</a>
 					<button type="submit" class="btn disabled:text-gray-400 disabled:cursor-not-allowed bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
 				</div>
 		</form>

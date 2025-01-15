@@ -90,7 +90,7 @@
 				</div>
 				<!-- jenis kelamin -->
 				<div class="flex flex-col">
-					<label for="jenis_kelamin" class="mb-2 text-sm font-medium text-gray-700">jenis Kelamin</label>
+					<label for="jenis_kelamin" class="mb-2 text-sm font-medium text-gray-700">Jenis Kelamin</label>
 					<select id="jenis_kelamin" required name="jenis_kelamin"
 						class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Jenis Kelamin--</option>

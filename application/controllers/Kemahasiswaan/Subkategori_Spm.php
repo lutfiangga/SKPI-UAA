@@ -15,6 +15,14 @@ class Subkategori_Spm extends CI_Controller
 	{
 		$img_user = $this->session->userdata('img_user');
 		$foto = $img_user && file_exists('assets/static/img/photos/staff/' . $img_user) ? 'assets/static/img/photos/staff/' . $img_user : 'assets/static/img/user.png';
+
+		$kategori = $this->security->xss_clean($this->input->get('kategori'));
+		if ($kategori) {
+			$read = $this->M_subkategori_spm->GetKategori($kategori);
+		} else {
+			$read = $this->M_subkategori_spm->GetAll();
+		}
+
 		$data = array(
 			'judul' => "SUBKATEGORI SPM",
 			'sub' => "Subkategori SPM",
@@ -23,7 +31,9 @@ class Subkategori_Spm extends CI_Controller
 			'role' => $this->session->userdata('role'),
 			'id_user' => $this->session->userdata('id_user'),
 			'foto' => $foto,
-			'read' => $this->M_subkategori_spm->GetAll(),
+			'read' => $read,
+			'listKategori' => $this->M_kategori_spm->getAll(),
+			'kategori' => $kategori,
 		);
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}

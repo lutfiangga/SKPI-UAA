@@ -75,6 +75,7 @@
 					<label for="jenis_pelanggaran" class="block text-sm font-medium text-gray-700 mb-2">Jenis Pelanggaran:</label>
 					<select id="jenis_pelanggaran" required name="jenis_pelanggaran" class="block bg-off-white w-full mt-1 p-2 border border-gray-300 rounded-md" data-search="true">
 						<option value="" selected disabled>--Pilih Jenis pelanggaran--</option>
+						<option value="khusus">Khusus</option>
 						<option value="ringan">Ringan</option>
 						<option value="sedang">Sedang</option>
 						<option value="berat">Berat</option>

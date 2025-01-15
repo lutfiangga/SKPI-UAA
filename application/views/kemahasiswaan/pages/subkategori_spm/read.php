@@ -36,6 +36,30 @@
 		</div>
 	</div>
 	<div class="divider border-gray-600"></div>
+	<div class="w-full bg-[#fafafa] rounded-2xl p-4">
+		<form action="<?= site_url(ucwords($role) . '/Subkategori_Spm'); ?>" method="get" class="w-full flex flex-col md:flex-row justify-between gap-4">
+			<div class="flex items-center w-full gap-2 sm:gap-3 md:gap-4">
+				<label for="kategori" class="text-gray-800 font-semibold mb-1">Kategori:</label>
+				<select
+					id="kategori"
+					name="kategori"
+					class="w-full p-2 rounded-md bg-[#fafafa] border border-gray-300 focus:ring-2 focus:ring-blue-400 focus:outline-none select-bordered"
+					data-search="true">
+					<option value="" selected disabled>--Kategori--</option>
+					<?php foreach ($listKategori as $r) { ?>
+						<option value="<?= $r['id_kategori_spm'] ?>" <?= ($r['id_kategori_spm'] == $kategori) ? 'selected' : '' ?>><?= $r['kategori']; ?></option>
+					<?php } ?>
+				</select>
+				<!-- Filter Button -->
+				<button
+					type="submit"
+					class="w-full text-center inline-flex justify-center items-center md:w-auto px-6 py-3 gap-2 rounded-md bg-blue-100 text-blue-600 font-semibold hover:bg-blue-200 focus:ring-2 focus:ring-blue-400 focus:outline-none">
+					<i data-feather="filter" fill="currentColor"></i><span>Filter</span>
+				</button>
+			</div>
+
+		</form>
+	</div>
 	<!-- Alert success -->
 	<!-- create -->
 	<?php if ($this->session->flashdata('create_success')): ?>
@@ -104,8 +128,8 @@
 				<thead class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Kategori</th>
 						<th class="p-2">Subkategori</th>
+						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Aksi</th>
 					</tr>
@@ -116,8 +140,8 @@
 						foreach ($read as $row) { ?>
 							<tr class="border-t">
 								<td class="p-2"><?= $no; ?></td>
-								<td class="p-2 whitespace-normal"><?= $row['kategori'] ?></td>
-								<td class="p-2 whitespace-normal"><?= $row['subkategori'] ?></td>
+								<td class="p-2"><?= $row['subkategori'] ?></td>
+								<td class="p-2"><?= $row['kategori'] ?></td>
 								<td>
 									<span class="flex items-center cursor-default text-sm gap-2 text-green-600 hover:bg-lavender-gray py-2 rounded-full">
 										<i data-feather="check-circle" class="w-4 h-auto"></i>
@@ -146,8 +170,8 @@
 				<tfoot class="bg-gray-100">
 					<tr>
 						<th class="p-2">No</th>
-						<th class="p-2">Kategori</th>
 						<th class="p-2">Subkategori</th>
+						<th class="p-2">Kategori</th>
 						<th class="p-2">Poin</th>
 						<th class="p-2">Aksi</th>
 					</tr>

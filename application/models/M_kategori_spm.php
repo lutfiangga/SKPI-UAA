@@ -8,7 +8,7 @@ class M_kategori_spm extends CI_Model
 	private $pk = 'id_kategori_spm';
 	public function GetAll()
 	{
-		$this->db->order_by($this->pk, 'asc');
+		$this->db->order_by('kategori', 'asc');
 		return $this->db->get($this->table)->result_array();
 	}
 	public function save($data)
