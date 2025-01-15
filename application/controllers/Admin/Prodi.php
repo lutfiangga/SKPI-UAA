@@ -94,9 +94,9 @@ class Prodi extends CI_Controller
 				'sk_akreditasi' => $this->security->xss_clean($this->input->post('sk_akreditasi')) ?? NULL,
 				'sistem_pembelajaran' => $this->security->xss_clean($this->input->post('sistem_pembelajaran')) ?? NULL,
 			);
-
+			
 			$this->M_prodi->save($data);
-			$this->session->set_flashdata('create_success', 'Data berhasil diupdate');
+			$this->session->set_flashdata('create_success', 'Data berhasil ditambah');
 			redirect($this->redirect, 'refresh');
 		}
 	}

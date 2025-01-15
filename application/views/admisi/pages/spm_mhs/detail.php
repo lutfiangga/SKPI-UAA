@@ -85,18 +85,18 @@
 
 			<!-- List SPM -->
 			<div class=" mt-4 sm:mt-6 md:mt-8 overflow-x-auto">
-				<table class="table-auto bg-transparent w-full border-collapse">
+				<table class="table-auto bg-transparent w-full border-collapse overflow-hidden">
 					<?php
-					$noKategori = 1;          
-					$currentKategori = null;  
-					$noItem = 'a';              
+					$noKategori = 1;
+					$currentKategori = null;
+					$noItem = 'a';
 
 					foreach ($spm as $row):
-						
+
 						if ($currentKategori !== $row['kategori']):
-							
+
 							if ($currentKategori !== null) {
-								$noItem = "a"; 
+								$noItem = "a";
 							}
 							$currentKategori = $row['kategori'];
 					?>
@@ -131,12 +131,12 @@
 								<?= renderSpmActions($row['status'], ucwords($role) . '/Spm_Mahasiswa/accept/', $row['id_syarat_wajib'], '/' . $row['id_akun'], $row['keterangan']) ?>
 							</td>
 						</tr>
+
 					<?php endforeach; ?>
 				</table>
-
 			</div>
-			<!-- End List SPM -->
 
+			<!-- End List SPM -->
 			<div class="text-sm my-8">
 				<p>Tembusan:</p>
 				<ol class="list-decimal pl-5">
@@ -147,8 +147,70 @@
 					<li>Mahasiswa ybs.</li>
 				</ol>
 			</div>
-
 		</main>
+
+		<!-- Modal Decline SPM -->
+		<dialog id="declineSPM" class="modal overflow-hidden font-sans">
+			<div class="modal-box bg-[#fafafa]">
+				<form method="dialog">
+					<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
+				</form>
+				<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
+					Tolak SPM
+					<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
+						<i data-feather="award" class="w-4 h-4"></i>
+					</div>
+				</h3>
+				<div class="divider border-gray-400"></div>
+				<form method="post" action="<?= site_url('Admisi/Spm_Mahasiswa/decline/' . $row['id_syarat_wajib']); ?>" enctype="multipart/form-data" role="form">
+					<?= csrf(); ?>
+					<input type="text" id="edit_id_syarat_wajib" name="id_syarat_wajib" hidden />
+
+					<div class="mb-4">
+						<label for="keterangan" class="block text-sm font-medium text-gray-700 mb-2">Keterangan:</label>
+						<textarea type="text" rows="4" id="keterangan" name="keterangan" required
+							class="mt-1 block bg-[#fafafa] w-full border text-gray-800 border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500 focus:border-blue-500 p-2"
+							placeholder="Tulis Keterangan"></textarea>
+					</div>
+
+					<div class="modal-action relative" style="z-index: 1000;">
+						<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+						<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
+					</div>
+				</form>
+			</div>
+		</dialog>
+
+		<!-- Modal view file SPM -->
+		<dialog id="fileSpm" class="modal overflow-hidden font-sans">
+			<div class="modal-box bg-[#fafafa]">
+				<form method="dialog">
+					<button class="btn btn-sm btn-circle btn-ghost text-red-600 absolute right-2 top-2">✕</button>
+				</form>
+				<h3 class="text-lg font-bold text-blue-600 flex flex-row items-center">
+					File SPM
+					<div class="bg-blue-600 md:p-3 p-2 text-[#fafafa] rounded-lg ml-2 md:ml-4">
+						<i data-feather="award" class="w-4 h-4"></i>
+					</div>
+				</h3>
+				<div class="divider border-gray-400"></div>
+
+				<a id="fileDownload" href="#" download class="flex -mt-2 md:-mt-4 justify-end items-center gap-2 p-2 text-blue-600 hover:text-gray-400 text-xs sm:text-sm md:text-base">
+					<i data-feather="download-cloud" class="w-6 h-6"></i>
+					<span class="font-medium">Download File</span>
+				</a>
+
+				<div class="mb-4 flex justify-center">
+					<img id="file" src="#" alt="File SPM">
+				</div>
+
+				<div class="modal-action relative" style="z-index: 1000;">
+					<button type="button" class="btn bg-red-600 border-none text-[#fafafa] hover:bg-orange-400 hover:text-[#fafafa] hover:border-2 hover:border-blue-600 hover:shadow-md mb-4" onclick="this.closest('dialog').close();">Close</button>
+					<button type="submit" class="btn bg-blue-600 border-none text-[#fafafa] hover:bg-[#fafafa]/30 hover:text-blue-600 hover:border-2 hover:border-blue-600 hover:shadow-md mb-4">Submit</button>
+				</div>
+
+			</div>
+		</dialog>
 
 		<footer class="print-footer bg-yellow-400 p-2 font-footer-pdf">
 			<p class="text-center text-white tracking-widest">
