@@ -134,7 +134,7 @@
 										</th>
 										<th
 											class="px-6 border border-solid border-gray-400 py-3 text-sm border-l-0 border-r-0 whitespace-nowrap font-bold text-center uppercase">
-											<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor']) : ?>
+											<?php if ($syaratSkor['syarat_skor'] >= ($skorSyaratWajib['skor'] ?? 9)) : 'N/A' ?>
 												Memenuhi
 											<?php else : ?>
 												Tidak Memenuhi
@@ -342,7 +342,7 @@
 								<br><br><br><br>
 								<hr class="border-b-1 border-black mt-2">
 								<p class="capitalize text-center"><?= $direktur['nama']; ?></p>
-								<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor'] && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
+								<?php if ($syaratSkor['syarat_skor'] >= ($skorSyaratWajib['skor'] ?? 9) && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
 									<div class="absolute right-0 bottom-6">
 										<div class="relative w-[180px] h-auto">
 											<img src="<?= base_url('assets/static/img/photos/kemahasiswaan/signature/' . $direktur['signature']) ?>"

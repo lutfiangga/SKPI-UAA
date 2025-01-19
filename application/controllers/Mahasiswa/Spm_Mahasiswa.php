@@ -30,28 +30,6 @@ class Spm_Mahasiswa extends CI_Controller
 		$this->template->load('layout/components/layout', $this->view . 'read', $data);
 	}
 
-	public function print()
-	{
-		$img_user = $this->session->userdata('img_user');
-		$foto = $img_user && file_exists('assets/static/img/photos/mahasiswa/' . $img_user) ? 'assets/static/img/photos/mahasiswa/' . $img_user : 'assets/static/img/user.png';
-		$id = $this->session->userdata('id_akun');
-		$data = array(
-			'judul' => "SPM MAHASISWA",
-			'sub' => "SPM Mahasiswa",
-			'active_menu' => 'spm_mhs',
-			'nama' => $this->session->userdata('nama'),
-			'role' => $this->session->userdata('role'),
-			'id_user' => $this->session->userdata('id_user'),
-			'foto' => $foto,
-			'SpmPoin' => $this->M_spm->getPoinByUser($id),
-			'etiquettePoin' => $this->M_etiquette->getPoinByUser($id),
-			'mhs' => $this->M_profile->getById($id),
-			'direktur' => $this->M_dirKemahasiswaan->GetDirektur(),
-			'spm' => $this->M_spm->GetByNim($id),
-			'etiquette' => $this->M_etiquette->GetByNim($id),
-		);
-		$this->template->load('layout/components/layout_export', $this->view . 'print', $data);
-	}
 	public function export_pdf()
 	{
 		$img_user = $this->session->userdata('img_user');

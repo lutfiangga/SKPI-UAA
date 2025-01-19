@@ -14,11 +14,10 @@ class M_skor_syarat_wajib extends CI_Model
 	}
 	public function skorMinimum($angkatan, $jenjang)
 	{
-		// Get the rule based on jenjang first
+		
 		$this->db->where('id_jenjang', $jenjang);
 		$rules = $this->db->get($this->table)->result_array();
-
-		// Loop through rules to find matching condition
+		
 		foreach ($rules as $rule) {
 			$parameter = $rule['parameter'];
 			$ruleAngkatan = intval($rule['angkatan']);

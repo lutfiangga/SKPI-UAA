@@ -60,7 +60,7 @@
 						<!-- Document Title -->
 						<div class="flex flex-col gap-0.5">
 							<h2 class="text-blue-700 text-lg font-semibold">Dokumen SPM</h2>
-							<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor'] && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
+							<?php if ($syaratSkor['syarat_skor'] >= ($skorSyaratWajib['skor'] ?? 9) && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
 								<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
 							<?php else: ?>
 								<p class="text-xs text-gray-500">Skor anda masih kurang!</p>
@@ -73,7 +73,7 @@
 								<i data-feather="eye" class="w-5 h-5"></i>
 							</a>
 							<!-- Print Button with Tooltip -->
-							<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor'] && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
+							<?php if ($syaratSkor['syarat_skor'] >= ($skorSyaratWajib['skor'] ?? 9) && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
 								<button id="print_spm" aria-label="Print Dokumen"
 									class="flex border gap-1 text-orange-600 items-center space-x-2 bg-orange-100 hover:bg-orange-200 p-2 rounded-lg transition duration-200">
 									<p class="hidden md:block">Print</p>
@@ -97,7 +97,7 @@
 						<!-- Document Title -->
 						<div class="flex flex-col gap-0.5">
 							<h2 class="text-blue-700 text-lg font-semibold">Dokumen SKPI</h2>
-							<?php if ($syaratSkor['syarat_skor'] >= $skorSyaratWajib['skor'] && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
+							<?php if ($syaratSkor['syarat_skor'] >= ($skorSyaratWajib['skor'] ?? 9) && $SpmPoin['spm_poin'] >= $skorMinSpm['skor']): ?>
 								<p class="text-xs text-gray-500"> Dokumen Anda sudah siap diunduh</p>
 							<?php else: ?>
 								<p class="text-xs text-gray-500">Skor anda masih kurang!</p>
